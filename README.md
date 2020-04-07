@@ -9,4 +9,4 @@ PREMISE: Team TMo's demo of a full-stack pizza ordering app that allows users to
 [Jade Moksness](jade.moksness@gmail.com) \
 [John Cervantes](JohnCervantes@protonmail.com) \
 [Natasha Ng](natasha-ng@outlook.com)
-[Phi-Hai Nguyen](phihai93@gmail.com) \
+[Phi-Hai Nguyen](phihai93@gmail.com)
