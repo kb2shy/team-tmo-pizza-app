@@ -2,12 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './configureStore';
-
+import ApolloClient from 'apollo-client';
+import {ApolloProvider} from 'react-apollo';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createHttpLink } from 'apollo-link-http';
 import App from './components/App/App';
 
+const client = new ApolloClient({
+  link: createHttpLink({ uri: 'http://localhost:4000/graphql' }),
+  cache: new InMemoryCache()
+});
+
 ReactDOM.render(
+  <ApolloProvider client={client}>
   <Provider store={store}>
     <App />
-  </Provider>,
+  </Provider>
+  </ApolloProvider>,
   document.getElementById('root')
 );
