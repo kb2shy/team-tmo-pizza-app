@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-const Login = (props) => {
-  return <div></div>;
-};
+class Login extends Component {
+  render() {
+    return <div>Login</div>;
+  }
+}
 
 Login.propTypes = {};
 

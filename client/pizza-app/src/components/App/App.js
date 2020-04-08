@@ -4,9 +4,6 @@ import { connect } from "react-redux";
 import { Container } from "react-bootstrap";
 
 import Home from "../Home/Home";
-import Register from "../Register/Register";
-import Login from "../Login/Login";
-import Main from "../Main/Main";
 
 class App extends Component {
   constructor(props) {
@@ -25,11 +22,7 @@ class App extends Component {
       case 0:
         return <Home />;
       case 1:
-        return <Register />;
-      case 2:
-        return <Login />;
-      case 3:
-        return <Main />;
+        /*return <SomeComponent />*/
       default:
         return null;
     }

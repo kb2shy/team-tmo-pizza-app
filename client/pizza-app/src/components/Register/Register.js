@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-const Register = (props) => {
-  return <div></div>;
-};
+class Register extends Component {
+  render() {
+    return <div>Register</div>;
+  }
+}
 
 Register.propTypes = {};
 
