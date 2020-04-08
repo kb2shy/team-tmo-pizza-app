@@ -30,9 +30,7 @@ Customer.init({
     phone: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
         validate: {
-            notNull: true, 
             notEmpty: true
         }
     },
@@ -48,18 +46,17 @@ Customer.init({
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-            notNull: true, 
             notEmpty: true
         }
     },
-    isRegisted: {
+    isRegistered: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
         validate: {
-           default: false 
-        }
+            default: false 
+         }
     }
 }, { sequelize, modelName: 'customer'})
 
