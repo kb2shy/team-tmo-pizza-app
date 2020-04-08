@@ -27,5 +27,15 @@ describe('renders <App /> component', () => {
     expect(appComponent.length).toBe(1);
   })
 
-  
+  describe('has a header or banner', () => {
+    test('header or banner exists', () => {
+      const header = findByTestAttr(wrapper, 'header-banner');
+      expect(header.length).toBe(1);
+    })
+
+    test('header/banner contains `Pizza` in title', () => {
+      const header = findByTestAttr(wrapper, 'header-banner');
+      expect(header.text()).contain()
+    })
+  })
 })
