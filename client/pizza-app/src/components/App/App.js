@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Container } from "react-bootstrap";
 
 import Home from "../Home/Home";
+import CreatePizza from "../CreatePizza/CreatePizza";
 
 class App extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class App extends Component {
         <div>App Component</div>
         {/* Render Home, Main, or a preferred component based on the step of the menu */}
         {this.getViewState()}
+        <CreatePizza/>
       </Container>
     );
   }
