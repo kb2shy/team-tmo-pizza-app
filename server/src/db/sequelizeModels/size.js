@@ -9,9 +9,14 @@ Size.init({
         primaryKey: true,
         autoIncrement: true
     },
-    size_type: {
+    size: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true, 
+        validate: {
+            notNull: true, 
+            notEmpty: true,
+        }
     }
 }, {sequelize, modelName: 'size', timestamps: false})
 

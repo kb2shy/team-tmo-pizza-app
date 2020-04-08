@@ -11,19 +11,37 @@ Address.init({
     },
     street: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+            isAlphanumeric: true,
+            notNull: true, 
+            notEmpty: true,
+        }
     },
     city: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+            isAlpha: true, 
+            notNull: true, 
+            notEmpty: true,
+        }
     },
     state: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            isAlpha: true, 
+            notNull: true, 
+            notEmpty: true,
+        }
     },
-    Zip: {
+    zip: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            isNumeric: true
+        }
     }
 }, {sequelize, modelName: 'address', timestamps: false})
 

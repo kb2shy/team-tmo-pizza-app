@@ -11,7 +11,13 @@ Meat.init({
     },
     meat_type: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true,
+        validate: {
+            isAlpha: true,
+            notNull: true, 
+            notEmpty: true,
+        }
     }
 }, {sequelize, modelName: 'meat', timestamps: false})
 

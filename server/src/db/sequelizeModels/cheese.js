@@ -12,7 +12,12 @@ Cheese.init({
     cheese_type: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            isAlpha: true,
+            notNull: true, 
+            notEmpty: true,
+        }
     }
 }, {sequelize, modelName: 'cheese', timestamps: false})
 
