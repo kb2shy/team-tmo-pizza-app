@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from "react-redux";
 import BarChart from '../BarChart/BarChart';
 import { Card } from "react-bootstrap";
+import { ADD_TOPPING, REMOVE_TOPPING } from '../../actions/types';
 
 class ToppingCard extends React.Component {
     constructor(props) {
@@ -19,9 +21,10 @@ class ToppingCard extends React.Component {
         return percent;
     }
 
-    //Set clicked look
+    //Set clicked look and change toppings array in state
     changeBackground = () => {
         const newStyle = this.state.status ? { ...this.state.style, background: 'white'} : { ...this.state.style, background: '#ffcc99'};
+        this.state.status ? this.props.removeTopping(this.props.label) : this.props.addTopping(this.props.label);
         const newStatus = !this.state.status;
         this.setState({style: newStyle, status: newStatus});
     }
@@ -43,4 +46,13 @@ class ToppingCard extends React.Component {
     }
 }
 
-export default ToppingCard;
+const mapStateToProps = (state) => ({
+    toppings: state.toppings.toppings,
+  });
+
+const mapStateToDispatch = (dispatch) => ({
+    addTopping: ADD_TOPPING,
+    removeTopping: REMOVE_TOPPING
+  });
+  
+export default connect(mapStateToProps)(ToppingCard);
