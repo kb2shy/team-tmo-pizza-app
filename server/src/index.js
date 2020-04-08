@@ -68,7 +68,7 @@ Order.belongsTo(Customer, {foreignKey: 'customer_id'})
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: { Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size }
+  context: { Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size}
 });
 
 //connects to sql server and starts apollo server
