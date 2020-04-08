@@ -11,25 +11,55 @@ Customer.init({
     },
     first_name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: true, 
+            notEmpty: true,
+            isAlpha: true
+        }
     },
     last_name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: true, 
+            notEmpty: true,
+            isAlpha: true
+        }
     },
     phone: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+            notNull: true, 
+            notEmpty: true
+        }
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true,
+        validate:{
+            isEmail: true, //checks for email format (example@email.com)
+            notNull: true, 
+            notEmpty: true
+        }
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: true, 
+            notEmpty: true
+        }
     },
-    preferred_location: {
-        type: DataTypes.INTEGER
+    isRegisted: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        validate: {
+           default: false 
+        }
     }
 }, { sequelize, modelName: 'customer'})
 

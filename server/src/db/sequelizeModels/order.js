@@ -9,22 +9,11 @@ Order.init({
         primaryKey: true,
         autoIncrement: true
     },
-    customer_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    order_items_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    address_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }, 
-    status: {
+    isCompleted:{
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        defaultValue: false
     }
+    //timestamp created automatically
 }, {sequelize, modelName: 'order'})
 
 module.exports = Order

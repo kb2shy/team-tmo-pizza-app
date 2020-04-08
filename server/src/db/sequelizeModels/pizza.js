@@ -11,29 +11,19 @@ Pizza.init({
     },
     size_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        default: 2
     },
     crust_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        default: 1
     },
     sauce_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    cheese_selection_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    meat_selection_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true
-    },
-    veggie_selection_id:{
-        type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false,
+        default: 1
     }
-
 }, {sequelize, modelName: 'pizza', timestamps: false})
 
 module.exports = Pizza

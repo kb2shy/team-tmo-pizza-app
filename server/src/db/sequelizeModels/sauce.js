@@ -12,7 +12,12 @@ Sauce.init({
     sauce_type: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            isAlpha: true, 
+            notNull: true, 
+            notEmpty: true
+        }
     }
 }, {sequelize, modelName: 'sauce', timestamps: false})
 
