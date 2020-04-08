@@ -5,22 +5,20 @@ class Toppings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            toppings 
+            meats: ["Pepperoni", "Sausage", "Bacon"]
         }
-    }
-
-    getPercent = () => {
-        let percent = 0.6;
-        ///get percentage of topping ordered
-        return percent;
     }
 
     render() {
         return (
-            <Card>
-                <H3>{this.props.label}</H3>
-                <BarChart data={this.getPercent}/>
-            </Card>
+            <div>
+                <h3>{this.props.type}</h3>
+                {this.state.meats.map((item, i) => {
+                    return <ToppingCard key={item} label={item} index={i}/>
+                })}
+            </div>
         )
     }
 }
+
+export default Toppings;
