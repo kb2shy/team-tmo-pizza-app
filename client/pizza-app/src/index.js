@@ -10,6 +10,10 @@ import App from './components/App/App';
 
 const client = new ApolloClient({
   link: createHttpLink({ uri: 'http://localhost:4000/graphql' }),
+  onError: ({networkError, graphQLErrors}) => {
+    console.log('graphQLErrors', graphQLErrors)
+    console.log('networkError', networkError)
+  },
   cache: new InMemoryCache()
 });
 

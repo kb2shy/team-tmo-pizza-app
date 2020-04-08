@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+//this example is for how to use graphql to persist data to backend
+import Example from './example'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         App Component
+        <Example></Example>
       </div>
     );
   }

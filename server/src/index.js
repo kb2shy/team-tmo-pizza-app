@@ -74,7 +74,7 @@ const server = new ApolloServer({
 //connects to sql server and starts apollo server
 sequelize.sync()
   .then(() => {
-    server.listen().then(() => {
+    server.listen(port ).then(() => {
       console.log(`Apollo server ready at ${url}`);
     });
   }).catch(error => {

@@ -18,6 +18,10 @@ Meat.init({
             notNull: true, 
             notEmpty: true,
         }
+    },
+    meat_price: {
+        type: DataTypes.FLOAT,
+        allowNull: false
     }
 }, {sequelize, modelName: 'meat', timestamps: false})
 
