@@ -14,10 +14,10 @@ class ToppingCard extends React.Component {
 
     render() {
         return (
-            <Card>
+            <div>
                 <H3>{this.props.label}</H3>
                 <BarChart data={this.getPercent}/>
-            </Card>
+            </div>
         )
     }
 }
