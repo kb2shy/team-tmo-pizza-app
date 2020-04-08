@@ -22,6 +22,7 @@ class Toppings extends React.Component {
                     <Card.Title>{this.props.type}</Card.Title>
                 </Card.Header>
                 <Card.Body>
+                    {/* Would be changes to this.state.data.map */}
                     {this.state[this.props.type].map((item, i) => {
                         return <ToppingCard key={item} label={item}/>
                     })}

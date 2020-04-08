@@ -11,7 +11,8 @@ class ToppingCard extends React.Component {
         }
     }
 
-    //Get percentage of topping from db
+    //TO-DO get number of pizzas with this topping / total number of pizzas
+    //Get percentage of topping from db, currently getting random percentage
     getPercent = () => {
         let percent = Math.random();
         ///get percentage of topping ordered from database
