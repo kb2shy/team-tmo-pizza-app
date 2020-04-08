@@ -2,12 +2,12 @@ import React from 'react';
 import * as d3 from 'd3';
 
 export default class BarChart extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             height: 10,
             width: 300,
-            data: {label: 'pepperoni', value: 0.4}
+            data: 0.4
         }
     }
 
@@ -34,7 +34,7 @@ export default class BarChart extends React.Component {
         //fill
         svg.append("rect")
             .attr('height', height)
-            .attr('width', width * this.state.data.value)
+            .attr('width', width * this.state.data)
             .style('fill', 'brown');
 
     }
