@@ -1,4 +1,4 @@
-import { NEXT_MENU, PREVIOUS_MENU, SET_MENU, RESET_MENU } from "./types";
+import { NEXT_MENU, PREVIOUS_MENU, SET_MENU, RESET_MENU } from "../constants";
 
 export const nextMenu = () => (dispatch) => {
   dispatch({
