@@ -49,6 +49,7 @@ class App extends Component {
         <Register></Register>
         <Login></Login>
         <Logout></Logout>
+        <CreatePizza/>
       </Container>
     );
   }

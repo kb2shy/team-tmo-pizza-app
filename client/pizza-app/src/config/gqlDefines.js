@@ -43,3 +43,24 @@ export const CREATE_CUSTOMER = gql`
     }
   }
 `;
+
+//Used for getting toppings array
+export const GET_MEAT_OPTIONS = gql`
+  query{
+    getMeatOptions{
+      meat_id
+      meat_type
+      meat_price
+    }
+  }
+  `;
+
+export const GET_VEGGIE_OPTIONS = gql`
+  query{
+    getVeggieOptions{
+      veggie_id
+      veggie_type
+      veggie_price
+    }
+  }
+  `;
