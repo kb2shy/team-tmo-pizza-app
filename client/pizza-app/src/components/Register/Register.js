@@ -24,13 +24,7 @@ class Register extends Component {
 
   render() {
     return (
-      <Mutation mutation={CREATE_CUSTOMER} onCompleted={data => {
-        this.setState(prevState => ({
-          todos: [...prevState.todos, data.addTodoList]
-        }))
-        this.inputElement.current.value = "";
-        this.inputElement.current.focus();
-      }}>
+      <Mutation mutation={CREATE_CUSTOMER}>
         {(createCustomer, { data }) => (
           <form>
             <label>
