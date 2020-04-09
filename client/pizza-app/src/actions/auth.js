@@ -18,7 +18,7 @@ import {
 import apolloClient from '../configureApolloClient';
 
 // Get token by customer email and password (and store to localStorage)
-export const loginCustomer = (email, password) => async (dispatch) => {
+export const loginCustomer = ({email, password}) => async (dispatch) => {
   // Indicate that the customer is in the process of logging in - useful for spinners
   dispatch({
     type: AUTH_PROGRESS,
@@ -30,6 +30,8 @@ export const loginCustomer = (email, password) => async (dispatch) => {
       query: GET_TOKEN_BY_CUSTOMER,
       variables: { email, password },
     });
+
+    console.log(result)
 
     const token = result.data.getTokenByCustomer;
 

@@ -19,6 +19,7 @@ const Register = ({ registerCustomer, loading }) => {
   const isValid =
     user.first_name.trim().length !== 0 &&
     user.last_name.trim().length !== 0 &&
+    user.phone.trim().length !== 0 &&
     user.email.trim().length !== 0 &&
     user.password.trim().length !== 0;
 

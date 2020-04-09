@@ -7,7 +7,8 @@ Pizza.init({
     pizza_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true
     },
     size_id: {
         type: DataTypes.INTEGER,

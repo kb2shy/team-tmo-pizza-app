@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./configureStore";
-import apolloClient from "./configureApolloClient.js";
-
 import { ApolloProvider } from "react-apollo";
+
+import apolloClient from "./configureApolloClient.js";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 

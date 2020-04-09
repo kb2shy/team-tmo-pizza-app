@@ -19,7 +19,7 @@ const CheeseSelect = require('./db/sequelizeModels/cheeseSelection')
 const VeggieSelect = require('./db/sequelizeModels/veggieSelection')
 
 const Customer = require('./db/sequelizeModels/customer')
-const Address = require('./db/sequelizeModels/address')
+//const Address = require('./db/sequelizeModels/address')
 const Order = require('./db/sequelizeModels/order')
 const Pizza = require('./db/sequelizeModels/pizza')
 const OrderItem = require('./db/sequelizeModels/orderItem')
@@ -53,7 +53,7 @@ CheeseSelect.belongsTo(Cheese, {foreignKey: {name: 'cheese_id', allowNull: false
 Pizza.hasMany(VeggieSelect, {foreignKey: {name: 'pizza_id', allowNull: false}, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
 VeggieSelect.belongsTo(Pizza, {foreignKey: 'pizza_id'})
 Veggie.hasMany(VeggieSelect, {foreignKey: {name: 'veggie_id', allowNull: false}, onDelete:'CASCADE', onUpdate: 'CASCADE'})
-VeggieSelect.belongsTo(Cheese, {foreignKey: {name: 'veggie_id', allowNull: false}, onDelete: 'CASCADE', onUpdate:'CASCADE'})
+VeggieSelect.belongsTo(Veggie, {foreignKey: {name: 'veggie_id', allowNull: false}, onDelete: 'CASCADE', onUpdate:'CASCADE'})
 
 //creates composite fk on order items table - many to many between pizzas and orders tables
 Pizza.hasMany(OrderItem, {foreignKey: {name: 'pizza_id', allowNull: false}, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
@@ -70,7 +70,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: (integrationContext) => ({
-    Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size,
+    Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size, MeatSelect, VeggieSelect, CheeseSelect, OrderItem,
     ...authContext(integrationContext)
   }),
 });

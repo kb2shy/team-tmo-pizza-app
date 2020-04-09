@@ -30,8 +30,8 @@ class App extends Component {
     switch (this.props.step) {
       case 0:
         return <Home />;
-      case 1:
-      /*return <SomeComponent />*/
+      // case 1:
+      //   return <SomeComponent />
       default:
         return null;
     }
