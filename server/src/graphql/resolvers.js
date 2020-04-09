@@ -27,13 +27,17 @@ const resolvers = {
       }
       return null;
     },
-    async getAllPizzas(root, args, { Pizza, Size, Crust, Sauce }) {
+    //gets all 
+    async getAllPizzas(root, args, { Pizza, Size, Crust, Sauce, MeatSelect, CheeseSelect, VeggieSelect}) {
       return await Pizza.findAll({
-        include: [Size, Crust, Sauce]
+        include: [Size, Crust, Sauce, MeatSelect, CheeseSelect, VeggieSelect]
       }).catch(err => console.log(err))
+
     },
     //performs three table joins to get all pizza ids for a specific customer
-    async getPizzasByCustomer(root, { customer_id }, { OrderItem, Customer, Order, Pizza }) {
+    //returns Pizza array that shows crust, size, and sauce
+    //additional joins needed to find specific toppings
+    async getPizzasByCustomer(root, { customer_id }, { OrderItem, Customer, Order, Pizza, MeatSelect, VeggieSelect, CheeseSelect, Meat, Veggie, Cheese }) {
       const res1 = await Order.findAll({
         attributes: ['order_id'],
         where: {
@@ -58,14 +62,20 @@ const resolvers = {
       const items = Object.values(res2).map(i => {
         return parseInt(i.pizza_id)
       })
-      return await Pizza.findAll({
+      const res3 = await Pizza.findAll({
         where: {
           pizza_id: {
             [Op.in]: items
           }
-        }
+        }, include: [MeatSelect, VeggieSelect, CheeseSelect]
       })
+      //work in progress
+      // const pizzas = Object.values(res3).map(e => {
+      //   return parseIn(e)
+      // })
+      // return await 
     },
+    //returns all order ids for a customer
     async getOrdersByCustomer(root, { customer_id }, { OrderItem, Order }) {
       return await Order.findAll({
         where: {
@@ -74,24 +84,31 @@ const resolvers = {
         include: [OrderItem, Customer]
       }).catch(err => console.log(err))
     },
+    //gets all possible meat options
     async getMeatOptions(root, args, { Meat }) {
       return await Meat.findAll({})
     },
+    //gets all possible veggie options
     async getVeggieOptions(root, args, { Veggie }) {
       return await Veggie.findAll({})
     },
+    //gets all possible cheese options
     async getCheeseOptions(root, args, { Cheese }) {
       return await Cheese.findAll({})
     },
+    //gets all possible crust options
     async getCrustOptions(root, args, { Crust }) {
       return await Crust.findAll({})
     },
+    //gets all possible sauce options
     async getSauceOptions(root, args, { Sauce }) {
       return await Sauce.findAll({})
     },
+    //gets all possible size options
     async getSizeOptions(root, args, { Size }) {
       return await Size.findAll({})
     },
+    //gets all selected meat options for specific pizza
     async getSelectedMeats(root, { pizza_id }, { MeatSelect, Meat }) {
       return await MeatSelect.findAll({
         where: {
@@ -100,6 +117,7 @@ const resolvers = {
         include: [Meat]
       }).catch(err => console.log(err))
     },
+    //gets all selected veggie options for specific pizza
     async getSelectedVeggies(root, { pizza_id }, { VeggieSelect, Veggie }) {
       return await VeggieSelect.findAll({
         where: {
@@ -108,6 +126,7 @@ const resolvers = {
         include: [Veggie]
       }).catch(err => console.log(err))
     },
+    //gets all selected cheese options for specific pizza
     async getSelectedCheeses(root, { pizza_id }, { CheeseSelect, Cheese }) {
       return await CheeseSelect.findAll({
         where: {
@@ -116,6 +135,7 @@ const resolvers = {
         include: [Cheese]
       }).catch(err => console.log(err))
     },
+    //gets all registered customers
     async getRegisteredUsers(root, args, { Customer }) {
       return await Customer.findAll({
         where: {
@@ -123,11 +143,33 @@ const resolvers = {
         }
       })
     },
+    //gets all customers who haven't registered
     async getGuests(root, args, { Customer }) {
       return await Customer.findAll({
         where: {
           isRegistered: null
         }
+      })
+    }, 
+    async getTotalSelectedVeggie(root, {veggie_id}, { VeggieSelect, Veggie}){
+      return await VeggieSelect.findAll({
+        where:{
+          veggie_id: veggie_id
+        }, include: [Veggie]
+      })
+    },
+    async getTotalSelectedMeat(root, {meat_id}, { MeatSelect, Meat}){
+      return await MeatSelect.findAll({
+        where:{
+          meat_id: meat_id
+        }, include: [Meat]
+      })
+    },
+    async getTotalSelectedCheese(root, {cheese_id}, { CheeseSelect, Cheese}){
+      return await CheeseSelect.findAll({
+        where:{
+          cheese_id: cheese_id
+        }, include: [Cheese]
       })
     }
   },

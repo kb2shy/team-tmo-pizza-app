@@ -53,6 +53,9 @@ const { gql } = require('apollo-server')
       size: Size
       crust: Crust
       sauce: Sauce
+      meat: [Meat]
+      cheese: [Cheese]
+      veggie: [Veggie]
     }
     type MeatSelection{
       meat_id: Int
@@ -72,7 +75,7 @@ const { gql } = require('apollo-server')
     type OrderItem{
       pizza_id: Int
       order_id: Int
-      pizza: Pizza
+      pizza: [Pizza]
       order: Order
     }
 
@@ -99,6 +102,9 @@ const { gql } = require('apollo-server')
       getRegisteredUsers: [Customer]
       getGuests: [Customer]
       getOrdersByCustomer(customer_id: Int): [Pizza]
+      getTotalSelectedVeggie(veggie_id: Int): [VeggieSelection]
+      getTotalSelectedMeat(meat_id: Int): [MeatSelection]
+      getTotalSelectedCheese(cheese_id: Int): [CheeseSelection]
     }
 
     type Mutation{
