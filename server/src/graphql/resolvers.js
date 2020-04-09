@@ -32,7 +32,7 @@ const resolvers = {
         include: [Size, Crust, Sauce]
       }).catch(err => console.log(err))
     }, 
-    async getPizzasByCustomer(root, {customer_id}, {Pizza, Size, Crust, Sauce, Order, Customer}) {
+    async getPizzasByCustomer(root, {customer_id}, {Pizza, Size, Crust, Sauce}) {
       return await Pizza.findAll({
         where:{
           customer_id: customer_id
@@ -131,7 +131,7 @@ const resolvers = {
     async setVeggieSelection(root, {veggie_id, pizza_id}, {VeggieSelect}){
       return await VeggieSelect.create({veggie_id, pizza_id})
     },
-    async setCheeseSelection(root, {cheese_id, pizza_id}, {CheeseSeleyct}){
+    async setCheeseSelection(root, {cheese_id, pizza_id}, {CheeseSelect}){
       return await CheeseSelect.create({cheese_id, pizza_id})
     },
     async setMeatSelection(root, {meat_id, pizza_id}, {MeatSelect}){

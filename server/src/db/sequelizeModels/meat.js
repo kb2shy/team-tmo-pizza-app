@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../dbConfig')
 
-class Meat extends Model {}
+class Meat extends Model { }
 
 Meat.init({
     meat_id: {
@@ -14,15 +14,17 @@ Meat.init({
         allowNull: false,
         unique: true,
         validate: {
-            isAlpha: true,
-            notNull: true, 
+            notNull: true,
             notEmpty: true,
         }
-    }, 
+    },
     meat_price: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: false, 
+        validate: {
+            notEmpty: true
+        }
     }
-}, {sequelize, modelName: 'meat', timestamps: false})
+}, { sequelize, modelName: 'meat', timestamps: false })
 
 module.exports = Meat
