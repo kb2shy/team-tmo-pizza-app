@@ -15,8 +15,9 @@ const authContext = ({ req, res }) => {
   // attempt to decrypt token if exists
   if (token) {
     try {
-      const decoded = jwt.verify(token, MY_JWT_SECRET);
-      user = decoded.user;
+      const decrypted = jwt.verify(token, MY_JWT_SECRET);
+      console.log('DECRYPT', decrypted)
+      user = decrypted.customer;
     } catch (err) {
       user = null;
     }
@@ -28,21 +29,25 @@ const authContext = ({ req, res }) => {
 
 const authGetTokenByCustomer = async (email, password, Customer) => {
   // @todo hash password and compare
-  const result = await Customer.findOne({
+  const customer = await Customer.findOne({
     where: {
       email,
       password,
     },
   });
 
-  console.log('authGetTokenByCustomer', result);
+  if (!customer) {
+    return null;
+  }
 
   const payload = {
-    data: result,
+    customer: {
+      customer_id: customer.customer_id,
+    }
   };
 
   const token = jwt.sign(payload, MY_JWT_SECRET, {
-    expiresIn: 3600,
+    expiresIn: 3600, // have user be required to resign in after one hour
   });
 
   return token;

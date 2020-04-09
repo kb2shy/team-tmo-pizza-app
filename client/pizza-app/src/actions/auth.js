@@ -26,17 +26,20 @@ export const loginCustomer = ({ email, password }) => async (dispatch) => {
 
   try {
     // Get customer token from email and password
-    const data = await apolloClient.query({
+    const result = await apolloClient.query({
       query: GET_TOKEN_BY_CUSTOMER,
       variables: { email, password },
     });
 
-    // Dispatch an event to store the
-    // dispatch({
+    console.log(result);
 
-    // })
-
-    console.log(data);
+    // Dispatch an event to store the token
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: {
+        token: result.data.getTokenByCustomer,
+      },
+    });
   } catch (err) {
     console.log(err);
 
@@ -72,15 +75,13 @@ export const loadCustomer = () => async (dispatch, getState) => {
   try {
     const data = await apolloClient.query({
       query: GET_CUSTOMER_BY_TOKEN,
-      variables: {},
+      variables: { token },
       context: {
         headers: {
           'x-auth-token': token,
         },
       },
     });
-
-    console.log(data);
 
     dispatch({
       type: AUTH_ERROR,
