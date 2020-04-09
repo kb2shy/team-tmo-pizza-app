@@ -41,7 +41,6 @@ class App extends Component {
         <div>App Component</div>
         {/* Render Home, Main, or a preferred component based on the step of the menu */}
         {this.getViewState()}
-        <CreatePizza/>
       </Container>
     );
   }
