@@ -14,6 +14,10 @@ import App from "./components/App/App";
 
 const client = new ApolloClient({
   link: createHttpLink({ uri: 'http://localhost:4000/graphql' }),
+  onError: ({networkError, graphqlErrors}) => {
+    console.log(networkError)
+    console.log(graphqlErrors)
+  },
   cache: new InMemoryCache()
 });
 

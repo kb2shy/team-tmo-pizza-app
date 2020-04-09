@@ -44,8 +44,6 @@ const { gql } = require('apollo-server')
     }
 
 
-
-
     type Mutation{
       createCheeseOp(cheese_type: String!): Cheese! 
       createCrustOp(crust_type: String!): Crust!
