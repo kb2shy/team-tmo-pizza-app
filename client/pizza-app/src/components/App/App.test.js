@@ -40,7 +40,7 @@ describe('renders <App /> component', () => {
     })
 
     test('logout button appears on right if user logs in', () => {
-      const navbarLoginButton = findByTestAttr(wrapper, 'navbar-login-button');
+      const navbarLoginButton = findByTestAttr(wrapper, 'navbar-logout-button');
       expect(navbarLoginButton.length).toBe(1);
     })
 
