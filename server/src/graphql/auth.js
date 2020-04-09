@@ -8,7 +8,6 @@ const MY_JWT_SECRET = 'MY_PREFERRED_AUTH_SECRET';
 const authContext = ({ req, res }) => {
   // Get token from header
   const token = req.header('x-auth-token');
-  console.log('Token', token);
 
   let user = null;
 
@@ -16,7 +15,7 @@ const authContext = ({ req, res }) => {
   if (token) {
     try {
       const decrypted = jwt.verify(token, MY_JWT_SECRET);
-      console.log('DECRYPT', decrypted)
+      console.log('DECRYPT', decrypted);
       user = decrypted.customer;
     } catch (err) {
       user = null;
@@ -29,12 +28,18 @@ const authContext = ({ req, res }) => {
 
 const authGetTokenByCustomer = async (email, password, Customer) => {
   // @todo hash password and compare
-  const customer = await Customer.findOne({
-    where: {
-      email,
-      password,
-    },
-  });
+  let customer;
+  try {
+    customer = await Customer.findOne({
+      where: {
+        email,
+        password,
+      },
+    });
+  } catch (err) {
+    //console.log(err);
+    return null;
+  }
 
   if (!customer) {
     return null;
@@ -43,7 +48,7 @@ const authGetTokenByCustomer = async (email, password, Customer) => {
   const payload = {
     customer: {
       customer_id: customer.customer_id,
-    }
+    },
   };
 
   const token = jwt.sign(payload, MY_JWT_SECRET, {

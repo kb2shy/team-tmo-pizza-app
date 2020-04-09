@@ -31,20 +31,27 @@ export const loginCustomer = ({ email, password }) => async (dispatch) => {
       variables: { email, password },
     });
 
-    console.log(result);
+    const token = result.data.getTokenByCustomer;
 
-    // Dispatch an event to store the token
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: {
-        token: result.data.getTokenByCustomer,
-      },
-    });
+    if (token !== null) {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: {
+          token,
+        },
+      });
+
+      dispatch(loadCustomer());
+    } else {
+      dispatch({
+        type: LOGIN_FAILURE,
+      });
+    }
   } catch (err) {
     console.log(err);
 
     dispatch({
-      type: AUTH_ERROR,
+      type: LOGIN_FAILURE,
     });
   }
 };
@@ -56,7 +63,7 @@ export const logoutCustomer = () => async (dispatch) => {
   });
 };
 
-// Load customer email and name from the token in localStorage
+// Load customer email, name, and other info from the token in localStorage
 // Updates the customer state
 export const loadCustomer = () => async (dispatch, getState) => {
   const token = getState().auth.token;
@@ -73,9 +80,9 @@ export const loadCustomer = () => async (dispatch, getState) => {
   });
 
   try {
-    const data = await apolloClient.query({
+    const result = await apolloClient.query({
       query: GET_CUSTOMER_BY_TOKEN,
-      variables: { token },
+      variables: { token }, // passing anything here is not needed; will update query to have zero args
       context: {
         headers: {
           'x-auth-token': token,
@@ -83,29 +90,17 @@ export const loadCustomer = () => async (dispatch, getState) => {
       },
     });
 
+    const customer = result.data.getCustomerByToken;
+
     dispatch({
-      type: AUTH_ERROR,
+      type: USER_LOADED,
+      payload: customer,
     });
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
     });
   }
-
-  //setAuthToken(localStorage.getItem(AUTH_LOC_STORAGE));
-
-  // try {
-  //   //const res = await axios.get("/api/auth");
-
-  //   dispatch({
-  //     type: USER_LOADED,
-  //     payload: res.data,
-  //   });
-  // } catch (err) {
-  //   dispatch({
-  //     type: AUTH_ERROR,
-  //   });
-  // }
 };
 
 // Register user
@@ -117,13 +112,34 @@ export const registerCustomer = ({
   password,
 }) => async (dispatch) => {
   try {
-    const data = await apolloClient.mutate({
+    const result = await apolloClient.mutate({
       mutation: CREATE_CUSTOMER,
       variables: { first_name, last_name, email, phone, password },
     });
-    console.log(data);
+
+    const customer = result.data.createCustomer;
+    if (customer) {
+      // dispatch success
+      dispatch({
+        type: REGISTER_SUCCESS,
+      });
+
+      // get token
+      dispatch(
+        loginCustomer({
+          email: customer.email,
+          password,
+        })
+      );
+    } else {
+      dispatch({
+        type: REGISTER_FAILURE,
+      });
+    }
   } catch (err) {
-    console.error('Sever error');
     console.error(err);
+    dispatch({
+      type: REGISTER_FAILURE,
+    });
   }
 };

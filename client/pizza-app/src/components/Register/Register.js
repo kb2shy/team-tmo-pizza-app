@@ -1,51 +1,117 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import {
-  registerCustomer,
-  loginCustomer,
-  loadCustomer,
-} from '../../actions/auth';
+import { registerCustomer } from '../../actions/auth';
 
-import { Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
+import AppSpinner from '../AppSpinner/AppSpinner';
 
-const Register = ({ registerCustomer, loginCustomer, loadCustomer }) => {
-  useEffect(() => {
-    const id = Math.floor(Math.random() * 10000);
+const Register = ({ registerCustomer, loading }) => {
+  const [user, setUser] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    phone: '',
+  });
 
-      // registerCustomer({
-      //   first_name: `Anton`,
-      //   last_name: 'Synytsia',
-      //   email: `anton.synytsia@gmail.com`,
-      //   password: '123',
-      //   phone: '555 443 4444',
-      // });
-    loginCustomer({
-      email: 'anton.synytsia@gmail.com',
-      password: '123',
-    });
-  }, [loginCustomer]);
+  const isValid =
+    user.first_name.trim().length !== 0 &&
+    user.last_name.trim().length !== 0 &&
+    user.email.trim().length !== 0 &&
+    user.password.trim().length !== 0;
 
-  const handleClick = (evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    loadCustomer();
+    const first_name = user.first_name.trim();
+    const last_name = user.last_name.trim();
+    const phone = user.phone.trim();
+    const email = user.email.trim();
+    const password = user.password;
+    registerCustomer({ first_name, last_name, phone, email, password });
+  };
+
+  const handleChange = (evt) => {
+    const name = evt.target.name;
+    const value = evt.target.value;
+    setUser((u) => ({ ...u, [name]: value }));
   };
 
   return (
     <div>
-      Register
-      <Button onClick={handleClick}>Get customer from token</Button>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formFirstName">
+          <Form.Label>First Name</Form.Label>
+          <Form.Control
+            name="first_name"
+            type="text"
+            placeholder="First Name"
+            value={user.first_name}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="formLastName">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control
+            name="last_name"
+            type="text"
+            placeholder="Last Name"
+            value={user.last_name}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="formPhone">
+          <Form.Label>Phone</Form.Label>
+          <Form.Control
+            name="phone"
+            type="text"
+            placeholder="Phone"
+            value={user.phone}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            name="email"
+            type="email"
+            placeholder="Enter email"
+            value={user.email}
+            onChange={handleChange}
+          />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={user.password}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit" disabled={!isValid}>
+          Sign Up
+        </Button>{' '}
+        {loading && <AppSpinner />}
+      </Form>
     </div>
   );
 };
 
-Register.propTypes = {};
+Register.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  registerCustomer: PropTypes.func.isRequired,
+};
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
+});
 
 export default connect(mapStateToProps, {
   registerCustomer,
-  loginCustomer,
-  loadCustomer,
 })(Register);

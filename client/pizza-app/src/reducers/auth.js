@@ -7,9 +7,9 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   USER_LOADED,
-} from "../config/actionTypes";
+} from '../config/actionTypes';
 
-const AUTH_LOC_STORAGE_KEY = 'AuthToken';;
+const AUTH_LOC_STORAGE_KEY = 'AuthToken';
 
 const initialState = {
   token: localStorage.getItem(AUTH_LOC_STORAGE_KEY),
@@ -34,7 +34,6 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case LOGIN_SUCCESS:
-    case REGISTER_SUCCESS:
       localStorage.setItem(AUTH_LOC_STORAGE_KEY, payload.token);
       return {
         ...state,
@@ -54,6 +53,7 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         loading: false,
       };
+    case REGISTER_SUCCESS:
     default:
       return state;
   }
