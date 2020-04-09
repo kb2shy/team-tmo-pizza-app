@@ -96,6 +96,9 @@ const { gql } = require('apollo-server')
       getSelectedVeggies(pizza_id: Int): [VeggieSelection]
       getSelectedCheeses(pizza_id: Int): [CheeseSelection]
       getPizzasByCustomer(customer_id: Int!): [Pizza]
+      getRegisteredUsers: [Customer]
+      getGuests: [Customer]
+      getOrdersByCustomer(customer_id: Int): [Pizza]
     }
 
     type Mutation{
