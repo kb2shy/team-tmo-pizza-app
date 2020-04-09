@@ -1,4 +1,9 @@
-import { NEXT_MENU, PREVIOUS_MENU, SET_MENU, RESET_MENU } from "./types";
+import {
+  NEXT_MENU,
+  PREVIOUS_MENU,
+  SET_MENU,
+  RESET_MENU,
+} from '../config/types';
 
 export const nextMenu = () => (dispatch) => {
   dispatch({

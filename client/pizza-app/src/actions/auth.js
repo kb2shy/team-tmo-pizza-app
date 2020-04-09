@@ -7,10 +7,14 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   USER_LOADED,
-} from "../config/types";
+} from '../config/types';
 
-import { AUTH_LOC_STORAGE } from "../config/config";
-import setAuthToken from "../utils/setAuthToken";
+import { AUTH_LOC_STORAGE } from '../config/config';
+import { CREATE_CUSTOMER } from '../config/gql';
+
+import authClient from '../configureApolloClient';
+
+//import setAuthToken from "../utils/setAuthToken";
 
 // Load user from token in local storage
 export const loadUser = () => async (dispatch) => {
@@ -18,123 +22,41 @@ export const loadUser = () => async (dispatch) => {
     type: AUTH_PROGRESS,
   });
 
-  setAuthToken(localStorage.getItem(AUTH_LOC_STORAGE));
+  //setAuthToken(localStorage.getItem(AUTH_LOC_STORAGE));
 
-  try {
-    const res = await axios.get("/api/auth");
+  // try {
+  //   //const res = await axios.get("/api/auth");
 
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
-  }
+  //   dispatch({
+  //     type: USER_LOADED,
+  //     payload: res.data,
+  //   });
+  // } catch (err) {
+  //   dispatch({
+  //     type: AUTH_ERROR,
+  //   });
+  // }
 };
 
 // Register user
-export const registerUser = (
-  { name, email, password, recaptchaValue },
-  clearAlerts
-) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  const body = JSON.stringify({ name, email, password, recaptchaValue });
-
-  dispatch({
-    type: AUTH_PROGRESS,
-  });
-
+export const registerUser = ({
+  first_name,
+  last_name,
+  email,
+  phone,
+  password,
+}) => async (dispatch) => {
   try {
-    const res = await axios.post("/api/users", body, config);
-
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: res.data, // token
-    });
-
-    dispatch(loadUser());
-
-    dispatch(sendEmailToVerifyAccount(false)); // send verification
-
-    if (clearAlerts) {
-      dispatch(removeAllAlerts());
-    }
-
-    dispatch(
-      setAlert(`Welcome to AstroClimb, ${res.data.user.name}`, "success")
-    );
+    const data = await authClient.mutate({
+      mutation: CREATE_CUSTOMER,
+      variables: {first_name,
+      last_name,
+      email,
+      phone,
+      password,
+    }});
+    console.log(data);
   } catch (err) {
-    if (err.response) {
-      const errors = err.response.data.errors;
-      if (errors) {
-        if (clearAlerts) {
-          dispatch(removeAllAlerts());
-        }
-        errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-      }
-    }
-
-    dispatch({
-      type: REGISTER_FAILURE,
-    });
+    console.error(err);
   }
-};
-
-// Login user
-export const loginUser = ({ email, password }, clearAlerts) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  const body = JSON.stringify({ email, password });
-
-  dispatch({
-    type: AUTH_PROGRESS,
-  });
-
-  try {
-    const res = await axios.post("/api/auth", body, config);
-
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: res.data, // token
-    });
-
-    dispatch(loadUser());
-
-    if (clearAlerts) {
-      dispatch(removeAllAlerts());
-    }
-
-    dispatch(setAlert(`Welcome, ${res.data.user.name}!`, "success"));
-  } catch (err) {
-    if (err.response) {
-      const errors = err.response.data.errors;
-      if (errors) {
-        if (clearAlerts) {
-          dispatch(removeAllAlerts());
-        }
-        errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-      }
-    }
-
-    dispatch({
-      type: LOGIN_FAILURE,
-    });
-  }
-};
-
-// Logout / Clear Profile
-export const logout = () => async (dispatch) => {
-  dispatch({ type: LOGOUT });
-  dispatch(setAlert("You have been logged out!", "success"));
 };

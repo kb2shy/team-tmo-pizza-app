@@ -1,6 +1,6 @@
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost';
 
-const CREATE_CUSTOMER = gql`
+export const CREATE_CUSTOMER = gql`
   mutation createCustomer(
     $first_name: String!
     $last_name: String!

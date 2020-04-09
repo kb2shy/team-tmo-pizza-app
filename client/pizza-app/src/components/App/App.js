@@ -5,9 +5,12 @@ import { connect } from "react-redux";
 import { Container } from "react-bootstrap";
 
 import Home from "../Home/Home";
+import Register from "../Register/Register";
+
+import { loadUser } from "../../actions/auth";
 
 //this example is for how to use graphql to persist data to backend
-import Example from "./example";
+// import Example from "./example";
 
 class App extends Component {
   constructor(props) {
@@ -36,10 +39,11 @@ class App extends Component {
     return (
       <Container>
         {/* code to see example connection to send data to db */}
-        <Example></Example>
+        {/* <Example></Example> */}
         <div>App Component</div>
         {/* Render Home, Main, or a preferred component based on the step of the menu */}
         {this.getViewState()}
+        <Register></Register>
       </Container>
     );
   }
@@ -49,7 +53,7 @@ const mapStateToProps = (state) => ({
   step: state.menu.step,
 });
 
-const mapStateToProps = {
+App.propTypes = {
   step: PropTypes.number.isRequired,
   loadUser: PropTypes.func.isRequired,
 };

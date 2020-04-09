@@ -3,7 +3,7 @@ import {
   PREVIOUS_MENU,
   SET_MENU,
   RESET_MENU,
-} from "../actions/types";
+} from "../config/types";
 
 const initialState = {
   step: 0,

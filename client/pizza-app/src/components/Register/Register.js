@@ -1,16 +1,28 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const Register = props => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+import { connect } from 'react-redux';
 
-Register.propTypes = {
+import { registerUser } from '../../actions/auth';
 
-}
+const Register = ({ registerUser }) => {
+  useEffect(() => {
+    const id = Math.floor(Math.random() * 10000);
 
-export default Register
+    registerUser({
+      first_name: `Anton${id}`,
+      last_name: 'Synytsia',
+      email: `anton.synytsia${id}@gmail.com`,
+      password: '',
+      phone: '503 371 7241'
+    });
+  }, [registerUser]);
+
+  return <div>Register</div>;
+};
+
+Register.propTypes = {};
+
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, { registerUser })(Register);
