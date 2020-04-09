@@ -4,24 +4,28 @@ import {
   } from "../actions/types";
   
   const initialState = {
-    toppings: [],
+    meats: [],
+    veggies: []
   };
   
   const toppingsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TOPPING:
-            const addTopping = [ ...state.toppings ];
-            addTopping[addTopping.length] = action.payload;
+            const addTopping = { ...state };
+            addTopping[action.payload.type][addTopping[action.payload.type].length] = action.payload.item;
         return {
-            toppings: addTopping
+            ...addTopping
         };
   
         case REMOVE_TOPPING:
-            const removeTopping = state.toppings.filter(topping => {
-                return topping!==action.payload;
+            const removeTopping = state[action.payload.type].filter(topping => {
+                return topping!==action.payload.item;
             })
+
+            const newState = {...state};
+            newState[action.payload.type] = removeTopping;
         return {
-            toppings: removeTopping
+            ...newState
         };
 
         default:

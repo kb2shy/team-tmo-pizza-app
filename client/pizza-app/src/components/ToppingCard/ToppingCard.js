@@ -23,24 +23,23 @@ class ToppingCard extends React.Component {
 
     //Set clicked look and change toppings array in state
     changeBackground = () => {
+        //change card background
         const newStyle = this.state.status ? { ...this.state.style, background: 'white'} : { ...this.state.style, background: '#ffcc99'};
-        //this.state.status ? this.props.removeTopping(this.props.label) : this.props.addTopping(this.props.label);
 
+        //Update store
         if(this.state.status) {
-            console.log('remove');
-            this.props.removeTopping(this.props.label);
+            this.props.removeTopping(this.props.type, this.props.label);
         } else {
-            console.log('add');
-            this.props.addTopping(this.props.label);
+            this.props.addTopping(this.props.type, this.props.label);
         }
 
+        //change status
         const newStatus = !this.state.status;
         this.setState({style: newStyle, status: newStatus});
     }
 
     //Renders card with topping name and percentage bar chart
     render() {
-        console.log(this.props.toppings)
         return (
             <Card 
             id={this.props.label}
@@ -58,7 +57,8 @@ class ToppingCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    toppings: state.toppings.toppings,
+    meats: state.toppings.meats,
+    veggies: state.toppings.veggies,
     // isAuthenticated: state.auth.isAuthenticated
   });
   

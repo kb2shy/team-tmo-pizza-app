@@ -1,15 +1,15 @@
 import { ADD_TOPPING, REMOVE_TOPPING } from "./types";
 
-export const addTopping = (item) => (dispatch) => {
+export const addTopping = (type, item) => (dispatch) => {
   dispatch({
     type: ADD_TOPPING,
-    payload: item
+    payload: {type, item}
   });
 };
 
-export const removeTopping = (item) => (dispatch) => {
+export const removeTopping = (type, item) => (dispatch) => {
   dispatch({
     type: REMOVE_TOPPING,
-    payload: item
+    payload: {type, item}
   });
 };
