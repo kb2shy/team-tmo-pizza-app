@@ -9,7 +9,7 @@ Size.init({
         primaryKey: true,
         autoIncrement: true
     },
-    size: {
+    size_type: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true, 
@@ -17,6 +17,10 @@ Size.init({
             notNull: true, 
             notEmpty: true,
         }
+    },
+    size_price: {
+        type: DataTypes.FLOAT,
+        allowNull: false
     }
 }, {sequelize, modelName: 'size', timestamps: false})
 
