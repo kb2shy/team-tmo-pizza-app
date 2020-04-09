@@ -20,7 +20,10 @@ Size.init({
     },
     size_price: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     }
 }, {sequelize, modelName: 'size', timestamps: false})
 
