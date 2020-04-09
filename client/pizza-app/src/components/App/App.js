@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Container } from "react-bootstrap";
 
 import Home from "../Home/Home";
+import CreatePizza from "../CreatePizza/CreatePizza";
 
 //this example is for how to use graphql to persist data to backend
 //import Example from './example'

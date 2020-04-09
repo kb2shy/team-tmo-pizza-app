@@ -6,8 +6,7 @@ export default class BarChart extends React.Component {
         super(props);
         this.state = {
             height: 10,
-            width: 100,
-            data: 0.4
+            width: 100
         }
     }
 
@@ -19,7 +18,7 @@ export default class BarChart extends React.Component {
         const {width, height} = this.state;
 
         //canvas
-        const svg = d3.select(`#bar${this.props.index}`)
+        const svg = d3.select(`#bar${this.props.item}`)
             .append('svg')
             .attr('width', width)
             .attr('height', height)
@@ -34,12 +33,12 @@ export default class BarChart extends React.Component {
         //fill
         svg.append("rect")
             .attr('height', height)
-            .attr('width', width * this.state.data)
+            .attr('width', width * this.props.data)
             .style('fill', 'brown');
 
     }
 
     render() {
-        return <div id={`bar${this.props.index}`}/>
+        return <div id={`bar${this.props.item}`}/>
     }
 }
