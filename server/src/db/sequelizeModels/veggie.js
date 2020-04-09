@@ -15,7 +15,10 @@ Veggie.init({
     },
     veggie_price: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     }
 }, {sequelize, modelName: 'veggie', timestamps: false})
 

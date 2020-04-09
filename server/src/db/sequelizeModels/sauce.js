@@ -14,7 +14,6 @@ Sauce.init({
         unique: true,
         allowNull: false,
         validate: {
-            isAlpha: true, 
             notNull: true, 
             notEmpty: true
         }

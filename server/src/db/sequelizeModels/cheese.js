@@ -14,14 +14,16 @@ Cheese.init({
         unique: true,
         allowNull: false,
         validate: {
-            isAlpha: true,
             notNull: true, 
             notEmpty: true,
         }
     },
     cheese_price: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     }
 }, {sequelize, modelName: 'cheese', timestamps: false})
 
