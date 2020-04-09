@@ -10,19 +10,18 @@ import {
   const toppingsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TOPPING:
-            const addTopping = { ...state.toppings };
-            addTopping[addTopping.length] = action.payload.item;
+            const addTopping = [ ...state.toppings ];
+            addTopping[addTopping.length] = action.payload;
         return {
-            toppings: [...addTopping]
+            toppings: addTopping
         };
   
         case REMOVE_TOPPING:
-            const removeTopping = { ...state.toppings };
-            removeTopping.filter(topping => {
-                return topping!==action.payload.item;
+            const removeTopping = state.toppings.filter(topping => {
+                return topping!==action.payload;
             })
         return {
-            toppings: [...removeTopping]
+            toppings: removeTopping
         };
 
         default:
