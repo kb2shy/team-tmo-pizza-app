@@ -7,7 +7,7 @@ import { Container } from "react-bootstrap";
 import Home from "../Home/Home";
 import Register from "../Register/Register";
 
-import { loadUser } from "../../actions/auth";
+import { loadCustomer } from "../../actions/auth";
 
 //this example is for how to use graphql to persist data to backend
 // import Example from "./example";
@@ -20,7 +20,7 @@ class App extends Component {
 
   componentDidMount() {
     // Check user token in local storage
-    this.props.loadUser();
+    this.props.loadCustomer();
   }
 
   /* Render Home, Main, or a preferred component based on the step of the menu */
@@ -55,7 +55,7 @@ const mapStateToProps = (state) => ({
 
 App.propTypes = {
   step: PropTypes.number.isRequired,
-  loadUser: PropTypes.func.isRequired,
+  loadCustomer: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { loadUser })(App);
+export default connect(mapStateToProps, { loadCustomer })(App);

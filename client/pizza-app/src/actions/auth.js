@@ -7,20 +7,89 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   USER_LOADED,
-} from '../config/types';
+} from '../config/actionTypes';
 
-import { AUTH_LOC_STORAGE } from '../config/config';
-import { CREATE_CUSTOMER } from '../config/gql';
+import {
+  CREATE_CUSTOMER,
+  GET_TOKEN_BY_CUSTOMER,
+  GET_CUSTOMER_BY_TOKEN,
+} from '../config/gqlDefines';
 
-import authClient from '../configureApolloClient';
+import apolloClient from '../configureApolloClient';
 
-//import setAuthToken from "../utils/setAuthToken";
-
-// Load user from token in local storage
-export const loadUser = () => async (dispatch) => {
+// Get token by customer email and password (and store to localStorage)
+export const loginCustomer = ({ email, password }) => async (dispatch) => {
+  // Indicate that the customer is in the process of logging in - useful for spinners
   dispatch({
     type: AUTH_PROGRESS,
   });
+
+  try {
+    // Get customer token from email and password
+    const data = await apolloClient.query({
+      query: GET_TOKEN_BY_CUSTOMER,
+      variables: { email, password },
+    });
+
+    // Dispatch an event to store the
+    // dispatch({
+
+    // })
+
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+// Remove customer token from localStorage
+export const logoutCustomer = () => async (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+  });
+};
+
+// Load customer email and name from the token in localStorage
+// Updates the customer state
+export const loadCustomer = () => async (dispatch, getState) => {
+  const token = getState().auth.token;
+
+  if (token === null) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+    return;
+  }
+
+  dispatch({
+    type: AUTH_PROGRESS,
+  });
+
+  try {
+    const data = await apolloClient.query({
+      query: GET_CUSTOMER_BY_TOKEN,
+      variables: {},
+      context: {
+        headers: {
+          'x-auth-token': token,
+        },
+      },
+    });
+
+    console.log(data);
+
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
 
   //setAuthToken(localStorage.getItem(AUTH_LOC_STORAGE));
 
@@ -39,7 +108,7 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Register user
-export const registerUser = ({
+export const registerCustomer = ({
   first_name,
   last_name,
   email,
@@ -47,16 +116,13 @@ export const registerUser = ({
   password,
 }) => async (dispatch) => {
   try {
-    const data = await authClient.mutate({
+    const data = await apolloClient.mutate({
       mutation: CREATE_CUSTOMER,
-      variables: {first_name,
-      last_name,
-      email,
-      phone,
-      password,
-    }});
+      variables: { first_name, last_name, email, phone, password },
+    });
     console.log(data);
   } catch (err) {
+    console.error('Sever error');
     console.error(err);
   }
 };
