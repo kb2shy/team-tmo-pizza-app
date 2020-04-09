@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op; //allows you to query using joins on sequelize
 const { authGetTokenByCustomer } = require('./auth');
 
+
 // resolver functions for schema fields
 const resolvers = {
   Query: {
@@ -158,12 +159,18 @@ const resolvers = {
       { Customer }
     ) {
       try {
+        // generate hash from password
+        let passHash = null;
+        if (password) {
+          passHash = await bcrypt.hash(password, 10);
+        }
+
         return await Customer.create({
           first_name,
           last_name,
           phone,
           email,
-          password,
+          password: passHash,
           isRegistered,
         });
       } catch (err) {
