@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import gql from 'graphql-tag';
+import { Query, Mutation } from 'react-apollo';
 
 class Register extends Component {
   constructor(props) {
