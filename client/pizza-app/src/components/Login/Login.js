@@ -1,12 +1,17 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { useMutation } from '@apollo/react-hooks'
 
-class Login extends Component {
-  render() {
-    return <div>Login</div>;
-  }
+const Login = props => {
+  return (
+    <div>
+      
+    </div>
+  )
 }
 
-Login.propTypes = {};
+Login.propTypes = {
 
-export default Login;
+}
+
+export default Login
