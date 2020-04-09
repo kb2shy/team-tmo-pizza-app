@@ -1,7 +1,7 @@
 import {
     ADD_TOPPING,
     REMOVE_TOPPING
-  } from "../actions/types";
+  } from "../config/actionTypes";
   
   const initialState = {
     meats: [],

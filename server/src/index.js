@@ -2,6 +2,7 @@ const { ApolloServer } = require('apollo-server');
 const sequelize = require('./db/dbConfig')
 const resolvers = require('./graphql/resolvers')
 const typeDefs = require('./graphql/typeDefs')
+const { authContext } = require('./graphql/auth') // used for JWT authentication
 const port = 4000
 const url = `http://localhost:${port}/graphql`
 
@@ -68,7 +69,10 @@ Order.belongsTo(Customer, {foreignKey: 'customer_id'})
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: { Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size, MeatSelect, VeggieSelect, CheeseSelect, OrderItem}
+  context: (integrationContext) => ({
+    Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size, MeatSelect, VeggieSelect, CheeseSelect, OrderItem,
+    ...authContext(integrationContext)
+  }),
 });
 
 //connects to sql server and starts apollo server
@@ -77,6 +81,11 @@ sequelize.sync()
     server.listen().then(() => {
       console.log(`Apollo server ready at ${url}`);
     });
+
+    // Suggestion by Anton: explicitly set port to your defined port and rely on url returned
+    // server.listen({port: port}).then( ({url}) => {
+    //   console.log(`Apollo Server running at ${url}graphql`);
+    // });
   }).catch(error => {
     console.log(error)
   })

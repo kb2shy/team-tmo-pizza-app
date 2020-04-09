@@ -1,7 +1,6 @@
 const {Sequelize} = require('sequelize')
 
 //Change DB config for your info ('db_name', 'db_username', 'db_password')
-//
 const sequelize = new Sequelize({
     username: 'root',
     password: 'yWThhHvqPsRqGfjcz7G9',

@@ -1,14 +1,19 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import { Container } from 'react-bootstrap';
 
-import { Container } from "react-bootstrap";
-
-import Home from "../Home/Home";
+import Home from '../Home/Home';
+import Register from '../Register/Register';
+import Login from '../Login/Login';
+import Logout from '../Logout/Logout';
 import CreatePizza from "../CreatePizza/CreatePizza";
 
+import { loadCustomer } from '../../actions/auth';
+
 //this example is for how to use graphql to persist data to backend
-//import Example from './example'
+// import Example from "./example";
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +23,7 @@ class App extends Component {
 
   componentDidMount() {
     // Check user token in local storage
-    // If logged in, update step to 3; if not logged in, step will be 0
+    this.props.loadCustomer();
   }
 
   /* Render Home, Main, or a preferred component based on the step of the menu */
@@ -26,8 +31,8 @@ class App extends Component {
     switch (this.props.step) {
       case 0:
         return <Home />;
-      case 1:
-        /*return <SomeComponent />*/
+      // case 1:
+      //   return <SomeComponent />
       default:
         return null;
     }
@@ -36,11 +41,14 @@ class App extends Component {
   render() {
     return (
       <Container>
-      {/* code to see example connection to send data to db
-        <Example></Example> */}
+        {/* code to see example connection to send data to db */}
+        {/* <Example></Example> */}
         <div>App Component</div>
         {/* Render Home, Main, or a preferred component based on the step of the menu */}
         {this.getViewState()}
+        <Register></Register>
+        <Login></Login>
+        <Logout></Logout>
       </Container>
     );
   }
@@ -50,4 +58,9 @@ const mapStateToProps = (state) => ({
   step: state.menu.step,
 });
 
-export default connect(mapStateToProps)(App);
+App.propTypes = {
+  step: PropTypes.number.isRequired,
+  loadCustomer: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, { loadCustomer })(App);

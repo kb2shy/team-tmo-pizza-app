@@ -1,9 +1,32 @@
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op //allows you to query using joins on sequelize 
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op; //allows you to query using joins on sequelize
+const { authGetTokenByCustomer } = require('./auth');
 
 // resolver functions for schema fields
 const resolvers = {
   Query: {
+    // used for login
+    async getTokenByCustomer(root, { email, password }, { Customer }) {
+      console.log('getTokenByCustomer')
+      return await authGetTokenByCustomer(email, password, Customer);
+    },
+    // used for validating current token
+    // user, which is either null or {customer_id: Int} is extracted from token
+    async getCustomerByToken(root, {token}, { user, Customer }) {
+      if (user !== null && user.customer_id) {
+        try {
+          return await Customer.findOne({
+            where: {
+              customer_id: user.customer_id
+            }
+          });
+        } catch (err) {
+          console.log(err);
+          return null;
+        }
+      }
+      return null;
+    },
     async getAllPizzas(root, args, {Pizza, Size, Crust, Sauce}) {
       return await Pizza.findAll({
         include: [Size, Crust, Sauce]
@@ -81,11 +104,25 @@ const resolvers = {
     async createMeatOp(root, {meat_type, meat_price}, {Meat}){
       return await Meat.create({meat_type, meat_price})
     },
-    async createCustomer(root, {first_name, last_name, phone, email, password, isRegistered}, {Customer}){
-      return await Customer.create({
-        first_name, last_name, phone, email, password, isRegistered
-      }).catch(error => console.log(error))
-    }, 
+    async createCustomer(
+      root,
+      { first_name, last_name, phone, email, password, isRegistered },
+      { Customer }
+    ) {
+      try {
+        return await Customer.create({
+          first_name,
+          last_name,
+          phone,
+          email,
+          password,
+          isRegistered,
+        });
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+    },
     async createPizza(root, {size_id, crust_id, sauce_id}, {Pizza}){
       return await Pizza.create({
         size_id, crust_id, sauce_id
@@ -110,4 +147,4 @@ const resolvers = {
   }
 };
 
-module.exports = resolvers
+module.exports = resolvers;
