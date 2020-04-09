@@ -8,8 +8,8 @@ class CreatePizza extends React.Component {
     render() {
         return (
             <div>
-                <Toppings type={'Meats'}/>
                 <Toppings type={'Veggies'}/>
+                <Toppings type={'Meats'}/>
             </div>
         )
     }
