@@ -40,7 +40,7 @@ class App extends Component {
 
   render() {
     return (
-      <Container>
+      <Container data-test="component-App">
         {/* code to see example connection to send data to db */}
         {/* <Example></Example> */}
         <div>App Component</div>
