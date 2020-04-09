@@ -77,6 +77,11 @@ const { gql } = require('apollo-server')
     }
 
     type Query{
+      getTokenByCustomer(
+        email: String!
+        password: String!
+      ) : String
+      getCustomerByToken(token: String) : Customer
       getCustomerByEmail(email: String): Customer 
       getOrderItems(order_id: Int): [OrderItem]
       getCartInfo(cart_items: [Int]): [Pizza]
@@ -92,7 +97,6 @@ const { gql } = require('apollo-server')
       getSelectedCheeses(pizza_id: Int): [CheeseSelection]
       getPizzasByCustomer(customer_id: Int!): [Pizza]
     }
-
 
     type Mutation{
       createCheeseOp(

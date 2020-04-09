@@ -36,7 +36,7 @@ const Example = () => {
             variables: {
                 first_name: "abigail",
                 last_name: "Rivera",
-                email: "dknkfnf@email.com",
+                email: "anton@email.com",
                 phone: "4656666649",
                 password: "password"
             }

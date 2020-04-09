@@ -1,82 +1,118 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import gql from 'graphql-tag';
-import { Query, Mutation } from 'react-apollo';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { first_name: '', last_name: '', phone: '', email: '', password: '' };
-    this.firstNameHandleChange = this.firstNameHandleChange.bind(this);
-    this.lastNameHandleChange = this.lastNameHandleChange.bind(this);
-    this.phoneHandleChange = this.phoneHandleChange.bind(this);
-    this.emailHandleChange = this.emailHandleChange.bind(this);
-    this.passwordHandleChange = this.passwordHandleChange.bind(this);
-  }
+import { registerCustomer } from '../../actions/auth';
 
-  firstNameHandleChange(event) { this.setState({ first_name: event.target.value }); }
-  lastNameHandleChange(event) { this.setState({ last_name: event.target.value }); }
-  phoneHandleChange(event) { this.setState({ phone: event.target.value }); }
-  emailHandleChange(event) { this.setState({ email: event.target.value }); }
-  passwordHandleChange(event) { this.setState({ password: event.target.value }); }
+import { Form, Button } from 'react-bootstrap';
+import AppSpinner from '../AppSpinner/AppSpinner';
 
+const Register = ({ registerCustomer, loading }) => {
+  const [user, setUser] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    phone: '',
+  });
 
+  const isValid =
+    user.first_name.trim().length !== 0 &&
+    user.last_name.trim().length !== 0 &&
+    user.phone.trim().length !== 0 &&
+    user.email.trim().length !== 0 &&
+    user.password.trim().length !== 0;
 
-  render() {
-    return (
-      <Mutation mutation={CREATE_CUSTOMER}>
-        {(createCustomer, { data }) => (
-          <form>
-            <label>
-              First Name:
-<textarea value={this.state.first_name} onChange={this.firstNameHandleChange} />
-            </label>
-            <br></br>
-            <label>
-              Last Name:
-<textarea value={this.state.last_name} onChange={this.lastNameHandleChange} />
-            </label>
-            <br></br>
-            <label>
-              Phone
-<textarea value={this.state.phone} onChange={this.phoneHandleChange} />
-            </label>
-            <br></br>
-            <label>
-              Email:
-<textarea value={this.state.email} onChange={this.emailHandleChange} />
-            </label>
-            <br></br>
-            <label>
-              password:
-<textarea value={this.state.password} onChange={this.passwordHandleChange} />
-            </label>
-            <br></br>
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const first_name = user.first_name.trim();
+    const last_name = user.last_name.trim();
+    const phone = user.phone.trim();
+    const email = user.email.trim();
+    const password = user.password;
+    registerCustomer({ first_name, last_name, phone, email, password });
+  };
 
-            <input type="submit" value="Submit" onClick={(e) => {
-              e.preventDefault();
-              createCustomer({
-                variables: { first_name: this.state.first_name, last_name: this.state.last_name, phone: this.state.phone, email: this.state.email, password: this.state.password }
-              })
-            }} />
-          </form>
+  const handleChange = (evt) => {
+    const name = evt.target.name;
+    const value = evt.target.value;
+    setUser((u) => ({ ...u, [name]: value }));
+  };
 
-        )}
-      </Mutation>
+  return (
+    <div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formFirstName">
+          <Form.Label>First Name</Form.Label>
+          <Form.Control
+            name="first_name"
+            type="text"
+            placeholder="First Name"
+            value={user.first_name}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="formLastName">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control
+            name="last_name"
+            type="text"
+            placeholder="Last Name"
+            value={user.last_name}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="formPhone">
+          <Form.Label>Phone</Form.Label>
+          <Form.Control
+            name="phone"
+            type="text"
+            placeholder="Phone"
+            value={user.phone}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            name="email"
+            type="email"
+            placeholder="Enter email"
+            value={user.email}
+            onChange={handleChange}
+          />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={user.password}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit" disabled={!isValid}>
+          Sign Up
+        </Button>{' '}
+        {loading && <AppSpinner />}
+      </Form>
+    </div>
+  );
+};
 
-    )
-  }
-}
+Register.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  registerCustomer: PropTypes.func.isRequired,
+};
 
-Register.propTypes = {};
+const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
+});
 
-const CREATE_CUSTOMER = gql`
-mutation  createCustomer($first_name: String!, $last_name: String!, $phone: String!, $email: String!,$password: String)
-{
-  createCustomer(first_name: $first_name, last_name: $last_name, phone: $phone, email: $email password: $password){
-    customer_id
-}
-}
-`;
-
-export default Register;
+export default connect(mapStateToProps, {
+  registerCustomer,
+})(Register);
