@@ -25,4 +25,8 @@ export const SEND_EMAIL_FAILURE = 'SEND_EMAIL_FAILURE';
 // Customer
 export const SET_CUSTOMER_EMAIL = 'SET_CUSTOMER_EMAIL';
 
+// Toppings action
+export const ADD_TOPPING = "ADD_TOPPING";
+export const REMOVE_TOPPING = " REMOVE_TOPPING";
+
 // Other action defines here...

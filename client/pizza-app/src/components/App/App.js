@@ -8,6 +8,7 @@ import Home from '../Home/Home';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Logout from '../Logout/Logout';
+import CreatePizza from "../CreatePizza/CreatePizza";
 
 import { loadCustomer } from '../../actions/auth';
 
