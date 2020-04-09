@@ -13,6 +13,7 @@
     "apollo-server": "^2.12.0",
     "body-parser": "^1.19.0",
     "graphql": "^15.0.0",
+    "mysql2": "^2.1.0",
     "nodemon": "^2.0.2",
     "sequelize": "^5.21.6",
     "tedious": "^8.2.0"
