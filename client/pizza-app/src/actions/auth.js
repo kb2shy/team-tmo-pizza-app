@@ -113,6 +113,11 @@ export const registerCustomer = ({
   phone,
   password,
 }) => async (dispatch) => {
+  // Indicate that the customer is in the process of registering
+  dispatch({
+    type: AUTH_PROGRESS,
+  });
+
   try {
     const result = await apolloClient.mutate({
       mutation: CREATE_CUSTOMER,

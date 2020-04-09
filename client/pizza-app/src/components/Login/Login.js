@@ -19,7 +19,7 @@ const Login = ({ loginCustomer, loading }) => {
     evt.preventDefault();
     const email = user.email.trim();
     const password = user.password;
-    loginCustomer({email, password});
+    loginCustomer({ email, password });
   };
 
   const handleChange = (evt) => {
@@ -54,10 +54,16 @@ const Login = ({ loginCustomer, loading }) => {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" disabled={loading || !isValid}>
-          Sign In
-        </Button>{' '}
-        {loading && <AppSpinner />}
+        <div className="d-flex align-items-center">
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={loading || !isValid}
+          >
+            Sign In
+          </Button>
+          {loading && <AppSpinner />}
+        </div>
       </Form>
       <Spinner />
     </div>

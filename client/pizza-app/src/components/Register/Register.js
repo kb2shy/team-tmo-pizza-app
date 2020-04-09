@@ -95,10 +95,12 @@ const Register = ({ registerCustomer, loading }) => {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" disabled={!isValid}>
-          Sign Up
-        </Button>{' '}
-        {loading && <AppSpinner />}
+        <div className="d-flex align-items-center">
+          <Button variant="primary" type="submit" disabled={!isValid}>
+            Sign Up
+          </Button>
+          {loading && <AppSpinner />}
+        </div>
       </Form>
     </div>
   );
