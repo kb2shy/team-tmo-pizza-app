@@ -62,7 +62,7 @@ const resolvers = {
       const items = Object.values(res2).map(i => {
         return parseInt(i.pizza_id)
       })
-      const res3 = await Pizza.findAll({
+      return await Pizza.findAll({
         where: {
           pizza_id: {
             [Op.in]: items
