@@ -7,8 +7,7 @@ const resolvers = {
     async getAllPizzas(root, args, {Pizza, Size, Crust, Sauce}) {
       return await Pizza.findAll({
         include: [Size, Crust, Sauce]
-      }).then(res => {return res})
-      .catch(err => console.log(err))
+      }).catch(err => console.log(err))
     }, 
     async getPizzasByCustomer(root, {customer_id}, {Pizza, Size, Crust, Sauce, Order, Customer}) {
       return await Pizza.findAll({
@@ -16,8 +15,7 @@ const resolvers = {
           customer_id: customer_id
         },
         include: [Size, Crust, Sauce]
-      }).then(res => {return res})
-      .catch(err => console.log(err))
+      }).catch(err => console.log(err))
     },
     async getMeatOptions(root, args,  {Meat}){
       return await Meat.findAll({})
@@ -43,8 +41,7 @@ const resolvers = {
           pizza_id: pizza_id
         },
         include: [Meat]
-      }).then(res => {return res})
-      .catch(err => console.log(err))
+      }).catch(err => console.log(err))
     },
     async getSelectedVeggies(root, {pizza_id}, {VeggieSelect, Veggie}){
       return await VeggieSelect.findAll({
@@ -52,8 +49,7 @@ const resolvers = {
           pizza_id: pizza_id
         },
         include: [Veggie]
-      }).then(res => {return res})
-      .catch(err => console.log(err))
+      }).catch(err => console.log(err))
     }, 
     async getSelectedCheeses(root, {pizza_id}, {CheeseSelect, Cheese}){
       return await CheeseSelect.findAll({
@@ -61,8 +57,7 @@ const resolvers = {
           pizza_id: pizza_id
         },
         include: [Cheese]
-      }).then(res => {return res})
-      .catch(err => console.log(err))
+      }).catch(err => console.log(err))
     }
   },
 
@@ -89,19 +84,17 @@ const resolvers = {
     async createCustomer(root, {first_name, last_name, phone, email, password, isRegistered}, {Customer}){
       return await Customer.create({
         first_name, last_name, phone, email, password, isRegistered
-      }).then(res => {return res})
-      .catch(error => console.log(error))
+      }).catch(error => console.log(error))
     }, 
     async createPizza(root, {size_id, crust_id, sauce_id}, {Pizza}){
       return await Pizza.create({
         size_id, crust_id, sauce_id
-      }).then(res => {return res})
-      .catch(error => console.log(error))
+      }).catch(error => console.log(error))
     }, 
     async setVeggieSelection(root, {veggie_id, pizza_id}, {VeggieSelect}){
       return await VeggieSelect.create({veggie_id, pizza_id})
     },
-    async setCheeseSelection(root, {cheese_id, pizza_id}, {CheeseSelect}){
+    async setCheeseSelection(root, {cheese_id, pizza_id}, {CheeseSeleyct}){
       return await CheeseSelect.create({cheese_id, pizza_id})
     },
     async setMeatSelection(root, {meat_id, pizza_id}, {MeatSelect}){
