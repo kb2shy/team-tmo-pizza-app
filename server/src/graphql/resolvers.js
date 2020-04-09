@@ -10,14 +10,6 @@ const resolvers = {
       }).then(res => {return res})
       .catch(err => console.log(err))
     }, 
-    // async getOrdersByCustomer(root, {customer_id}, {Order, Customer, OrderItem}){
-    //   await Order.findAll({
-    //     where:{
-    //       customer_id: customer_id
-    //     }, 
-    //     include: [Customer]
-    //   })
-    // },
     async getPizzasByCustomer(root, {customer_id}, {Pizza, Size, Crust, Sauce, Order, Customer}) {
       return await Pizza.findAll({
         where:{
