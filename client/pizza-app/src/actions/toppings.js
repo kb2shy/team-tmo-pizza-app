@@ -1,39 +1,68 @@
 import { 
-  ADD_TOPPING, 
-  REMOVE_TOPPING,
   LOAD_TOPPINGS,
-  SET_TOTAL_PIZZAS
+  SET_PAST_PIZZAS,
+  SET_PAST_ORDERS
 } from "../config/actionTypes";
 
 import {
   GET_MEAT_OPTIONS,
   GET_VEGGIE_OPTIONS,
-  GET_TOTAL_PIZZAS
+  GET_CUST_ORDERS,
+  GET_PIZZAS_BY_ORDER
 } from '../config/gqlDefines';
 
 import apolloClient from '../configureApolloClient';
 
-export const getTotalNumberPizzas = (id) => async (dispatch) => {
+export const getTotalNumberOrders = (customer_id) => async (dispatch) => {
   try{
     const result = await apolloClient.query({
-      query: GET_TOTAL_PIZZAS,
-      variables: { customer_id: id },
+      query: GET_CUST_ORDERS,
+      variables: {customer_id},
     });
 
-    console.log(result.data)
-    const count = result.data.length;
+    const orders = result.data.getAllOrdersByCustomer;
 
     dispatch({
-      type: SET_TOTAL_PIZZAS,
-      payload: count
+      type: SET_PAST_ORDERS,
+      payload: orders
     });
+
+
 
   } catch (err) {
     console.log(err);
+  }
+};
 
-    // dispatch({
-    //   type: DB_CONNECTION_ERROR,
-    // });
+export const getTotalNumberPizzas = (pizza_id) => (dispatch) => {
+  dispatch({
+    type: SET_PAST_PIZZAS,
+    payload: pizza_id
+  });
+}
+
+export const getNumberPizzasByOrder = (order_id) => async (dispatch) => {
+  try{
+    const result = await apolloClient.query({
+      query: GET_PIZZAS_BY_ORDER,
+      variables: {order_id},
+    });
+
+    const pizzas = result.data.getPizzaIdsByOrder;
+
+    pizzas.map(id => {
+      getTotalNumberPizzas(id)
+    })
+
+    dispatch({
+      type: SET_PAST_ORDERS,
+      payload: pizzas
+    });
+
+
+
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -64,24 +93,6 @@ export const getToppings = (type) => async (dispatch) => {
 
   } catch (err) {
     console.log(err);
-
-    // dispatch({
-    //   type: DB_CONNECTION_ERROR,
-    // });
+    console.log('Database query failed');
   }
-};
-
-//customer orders
-export const addTopping = (type, item) => (dispatch) => {
-  dispatch({
-    type: ADD_TOPPING,
-    payload: {type, item}
-  });
-};
-
-export const removeTopping = (type, item) => (dispatch) => {
-  dispatch({
-    type: REMOVE_TOPPING,
-    payload: {type, item}
-  });
 };

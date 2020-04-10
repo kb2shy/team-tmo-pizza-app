@@ -35,7 +35,7 @@ export default class BarChart extends React.Component {
         //fill
         svg.append("rect")
             .attr('height', height)
-            .attr('width', width * this.props.data)
+            .attr('width', width * this.props.data.percent)
             .style('fill', 'brown');
 
     }
@@ -43,6 +43,11 @@ export default class BarChart extends React.Component {
     render() {
         //remove white spaces from id
         const id = this.props.item.replace(/\s+/g, '');
-        return <div id={`bar${id}`}/>
+        return (
+            <div>
+                <div id={`bar${id}`}/>
+                {this.props.data.total}
+            </div>
+        )
     }
 }
