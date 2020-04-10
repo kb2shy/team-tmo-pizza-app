@@ -15,6 +15,11 @@ const Confirmation = props => {
         return props.setMenu(1);
     }
 
+    const handleClickCreateAccount = (e) => {
+        e.preventDefault();
+        return props.setMenu(7);
+    }
+
     const saveOrder = () => {
         if (!props.auth.isAuthenticated) {
             return (
@@ -22,7 +27,7 @@ const Confirmation = props => {
                     <Col>
                         <p>Want to save your order?</p>
                         <p>Create an account today!</p>
-                        <button onClick={(e) => props.setMenu(7)}>Create Account</button>
+                        <button onClick={handleClickCreateAccount}>Create Account</button>
                     </Col>
                 </Row>
             )
