@@ -8,7 +8,7 @@ import {
     veggies: []
   };
   
-  const orderReducer = (state = initialState, action) => {
+  const pizzaReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TOPPING:
             const addTopping = { ...state };
@@ -35,5 +35,5 @@ import {
         }
     };
   
-  export default orderReducer;
+  export default pizzaReducer;
   

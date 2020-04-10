@@ -8,14 +8,13 @@ class CreatePizza extends React.Component {
     componentDidMount = () => {
         this.props.getToppings('veggies');
         this.props.getToppings('meats');
+        if(this.props.user !== null) {
+            this.props.getTotalNumberOrders(this.props.user.customer_id);
+        }
     }
 
     //Renders topping sections
     render() {
-        if(this.props.isAuthenticated) {
-            this.props.getTotalNumberOrders(this.props.user.customer_id);
-        }
-
         return (
             <div>
                 <Toppings type={'Veggies'}/>

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import BarChart from '../BarChart/BarChart';
 import { Card } from "react-bootstrap";
-import { addTopping, removeTopping } from '../../actions/order';
+import { addTopping, removeTopping } from '../../actions/pizza';
 
 class ToppingCard extends React.Component {
     constructor(props) {
@@ -56,8 +56,8 @@ class ToppingCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    meats: state.order.meats,
-    veggies: state.order.veggies,
+    meats: state.pizza.meats,
+    veggies: state.pizza.veggies,
     isAuthenticated: state.auth.isAuthenticated,
     pastPizzaIds: state.toppings.pastPizzaIds
   });

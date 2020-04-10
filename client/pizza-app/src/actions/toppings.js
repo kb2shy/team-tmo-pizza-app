@@ -13,6 +13,7 @@ import {
 
 import apolloClient from '../configureApolloClient';
 
+//Gets array or past order ids and sets the array in the store
 export const getTotalNumberOrders = (customer_id) => async (dispatch) => {
   try{
     const result = await apolloClient.query({
@@ -34,6 +35,7 @@ export const getTotalNumberOrders = (customer_id) => async (dispatch) => {
   }
 };
 
+//Gets a pizza id and adds it to array in the store
 export const getTotalNumberPizzas = (pizza_id) => (dispatch) => {
   dispatch({
     type: SET_PAST_PIZZAS,
@@ -41,6 +43,7 @@ export const getTotalNumberPizzas = (pizza_id) => (dispatch) => {
   });
 }
 
+//Gets all pizza ids in an order
 export const getNumberPizzasByOrder = (order_id) => async (dispatch) => {
   try{
     const result = await apolloClient.query({
@@ -50,25 +53,24 @@ export const getNumberPizzasByOrder = (order_id) => async (dispatch) => {
 
     const pizzas = result.data.getPizzaIdsByOrder;
 
-    pizzas.map(id => {
-      getTotalNumberPizzas(id)
-    })
-
     dispatch({
       type: SET_PAST_ORDERS,
       payload: pizzas
     });
 
-
+    pizzas.map(id => {
+      getTotalNumberPizzas(id);
+      return null;
+    })
 
   } catch (err) {
     console.log(err);
   }
 };
 
+// Get array of toppings of a certain type
 export const getToppings = (type) => async (dispatch) => {
   try {
-    // Get array of toppings of a certain type
     let result = '';
     if(type === 'meats') {
       result = await apolloClient.query({
