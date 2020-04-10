@@ -12,6 +12,7 @@ import CreatePizza from "../CreatePizza/CreatePizza";
 
 import { loadCustomer } from '../../actions/auth';
 
+
 //this example is for how to use graphql to persist data to backend
 // import Example from "./example";
 

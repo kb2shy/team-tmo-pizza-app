@@ -5,14 +5,10 @@ import ToppingCard from '../ToppingCard/ToppingCard';
 
 class Toppings extends React.Component {
 
-    calcPizzasOrdered = () => {
-
-    }
-
     //Needs type (i.e. 'Meats') from parent components
     //Renders specific Topping section with cards for each topping
     render() {
-        
+        //console.log(this.props.meats)
         return (
             <Card className="text-center">
                 <Card.Header>
@@ -20,11 +16,10 @@ class Toppings extends React.Component {
                 </Card.Header>
                 <Card.Body>
                     {/* Map correct array (veggies or meats) */}
-                    {this.props[this.props.type.toLowerCase()].map((item) => {
-                        const itemLabel = this.props.type === 'Meats' ? item.meat_type : item.veggie_type;
-                        const itemId = this.props.type === 'Meats' ? item.meat_id : item.veggie_id;
+                    {this.props[this.props.type.toLowerCase()].map((item, i) => {
+                        const itemLabel = this.props.type === 'Meats' ? item.meats.meat_type : item.veggies.veggie_type;
 
-                        return <ToppingCard key={itemId} label={itemLabel} type={this.props.type.toLowerCase()}/>
+                        return <ToppingCard key={`${this.props.type}${i}`} label={itemLabel} type={this.props.type.toLowerCase()} count={item.count}/>
                     })}
                 </Card.Body>
             </Card>

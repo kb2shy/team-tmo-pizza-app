@@ -13,15 +13,6 @@ class ToppingCard extends React.Component {
         }
     }
 
-    //TO-DO get number of pizzas with this topping / total number of pizzas
-    //Get percentage of topping from db, currently getting random percentage
-    getPercent = () => {
-        const total = this.props.pastPizzaIds.length;
-        let percent = Math.random();
-        ///get percentage of topping ordered from database
-        return { percent, total };
-    }
-
     handleClick = () => {
         //change card background
         const newStyle = this.state.status ? { ...this.state.style, background: 'white'} : { ...this.state.style, background: '#ffcc99'};
@@ -40,6 +31,7 @@ class ToppingCard extends React.Component {
 
     //Renders card with topping name and percentage bar chart
     render() {
+        const total = this.props.pastPizzaIds.length;
         return (
             <Card 
             id={this.props.label}
@@ -48,7 +40,7 @@ class ToppingCard extends React.Component {
             onClick={(e) => this.handleClick()}>
                 <Card.Body>
                     <Card.Title>{this.props.label}</Card.Title>
-                    {this.props.isAuthenticated ? <BarChart data={this.getPercent()} item={this.props.label}/> : null}
+                    {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label}/> : null}
                 </Card.Body>
             </Card>
         )
