@@ -1,0 +1,7 @@
+.bodyImage {
+	margin: 0;
+	border: 2px solid black;
+	width: 100vw;
+	height: 100vh;
+	background: #fbffda url(./style/home_background.jpg);
+}
