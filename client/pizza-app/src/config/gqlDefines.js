@@ -15,6 +15,7 @@ export const GET_CUSTOMER_BY_TOKEN = gql`
       email
       first_name
       last_name
+      phone
     }
   }
 `;
