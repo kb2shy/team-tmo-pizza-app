@@ -1,19 +1,76 @@
 import { 
-  ADD_TOPPING, 
-  REMOVE_TOPPING,
-  LOAD_TOPPINGS 
+  LOAD_TOPPINGS,
+  SET_PAST_PIZZAS,
+  SET_PAST_ORDERS
 } from "../config/actionTypes";
 
 import {
   GET_MEAT_OPTIONS,
-  GET_VEGGIE_OPTIONS
+  GET_VEGGIE_OPTIONS,
+  GET_CUST_ORDERS,
+  GET_PIZZAS_BY_ORDER
 } from '../config/gqlDefines';
 
 import apolloClient from '../configureApolloClient';
 
+//Gets array or past order ids and sets the array in the store
+export const getTotalNumberOrders = (customer_id) => async (dispatch) => {
+  try{
+    const result = await apolloClient.query({
+      query: GET_CUST_ORDERS,
+      variables: {customer_id},
+    });
+
+    const orders = result.data.getAllOrdersByCustomer;
+
+    dispatch({
+      type: SET_PAST_ORDERS,
+      payload: orders
+    });
+
+
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//Gets a pizza id and adds it to array in the store
+export const getTotalNumberPizzas = (pizza_id) => (dispatch) => {
+  dispatch({
+    type: SET_PAST_PIZZAS,
+    payload: pizza_id
+  });
+}
+
+//Gets all pizza ids in an order
+export const getNumberPizzasByOrder = (order_id) => async (dispatch) => {
+  try{
+    const result = await apolloClient.query({
+      query: GET_PIZZAS_BY_ORDER,
+      variables: {order_id},
+    });
+
+    const pizzas = result.data.getPizzaIdsByOrder;
+
+    dispatch({
+      type: SET_PAST_ORDERS,
+      payload: pizzas
+    });
+
+    pizzas.map(id => {
+      getTotalNumberPizzas(id);
+      return null;
+    })
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Get array of toppings of a certain type
 export const getToppings = (type) => async (dispatch) => {
   try {
-    // Get array of toppings of a certain type
     let result = '';
     if(type === 'meats') {
       result = await apolloClient.query({
@@ -21,7 +78,7 @@ export const getToppings = (type) => async (dispatch) => {
         variables: type,
       });
       result = result.data.getMeatOptions;
-      
+
     } else {
       result = await apolloClient.query({
         query: GET_VEGGIE_OPTIONS,
@@ -38,24 +95,6 @@ export const getToppings = (type) => async (dispatch) => {
 
   } catch (err) {
     console.log(err);
-
-    // dispatch({
-    //   type: DB_CONNECTION_ERROR,
-    // });
+    console.log('Database query failed');
   }
-};
-
-//customer orders
-export const addTopping = (type, item) => (dispatch) => {
-  dispatch({
-    type: ADD_TOPPING,
-    payload: {type, item}
-  });
-};
-
-export const removeTopping = (type, item) => (dispatch) => {
-  dispatch({
-    type: REMOVE_TOPPING,
-    payload: {type, item}
-  });
 };

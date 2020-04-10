@@ -64,3 +64,18 @@ export const GET_VEGGIE_OPTIONS = gql`
     }
   }
   `;
+
+export const GET_CUST_ORDERS = gql`
+  query GetAllOrdersByCustomer($customer_id: Int!){
+    getAllOrdersByCustomer(customer_id: $customer_id){
+      order_id
+    }
+}
+`;
+export const GET_PIZZAS_BY_ORDER = gql`
+  query GetPizzaIdsByOrder($order_id: Int!){
+    getPizzaIdsByOrder(order_id: $order_id){
+      pizza_id
+    }
+  }
+`;

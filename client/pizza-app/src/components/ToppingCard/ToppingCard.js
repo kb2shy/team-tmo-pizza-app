@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import BarChart from '../BarChart/BarChart';
 import { Card } from "react-bootstrap";
-import { addTopping, removeTopping } from '../../actions/toppings';
+import { addTopping, removeTopping } from '../../actions/pizza';
 
 class ToppingCard extends React.Component {
     constructor(props) {
@@ -16,9 +16,10 @@ class ToppingCard extends React.Component {
     //TO-DO get number of pizzas with this topping / total number of pizzas
     //Get percentage of topping from db, currently getting random percentage
     getPercent = () => {
+        const total = this.props.pastPizzaIds.length;
         let percent = Math.random();
         ///get percentage of topping ordered from database
-        return percent;
+        return { percent, total };
     }
 
     handleClick = () => {
@@ -55,9 +56,10 @@ class ToppingCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    meats: state.toppings.meats,
-    veggies: state.toppings.veggies,
-    isAuthenticated: state.auth.isAuthenticated
+    meats: state.pizza.toppings.meats,
+    veggies: state.pizza.toppings.veggies,
+    isAuthenticated: state.auth.isAuthenticated,
+    pastPizzaIds: state.toppings.pastPizzaIds
   });
   
 export default connect(mapStateToProps, { addTopping, removeTopping })(ToppingCard);

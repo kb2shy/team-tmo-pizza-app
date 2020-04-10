@@ -1,48 +1,40 @@
 import {
-    ADD_TOPPING,
-    REMOVE_TOPPING,
-    LOAD_TOPPINGS
+    LOAD_TOPPINGS,
+    SET_PAST_PIZZAS,
+    SET_PAST_ORDERS
   } from "../config/actionTypes";
   
   const initialState = {
-    meats: [], //on customer order
-    veggies: [], 
-    allMeats: [], //list from db
-    allVeggies: [],
+    meats: [], //list from db
+    veggies: [],
+    pastOrderIds: [],
+    pastPizzaIds: []
   };
   
   const toppingsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_TOPPING:
-            const addTopping = { ...state };
-            addTopping[action.payload.type][addTopping[action.payload.type].length] = action.payload.item;
-        return {
-            ...addTopping
-        };
-  
-        case REMOVE_TOPPING:
-            const removeTopping = state[action.payload.type].filter(topping => {
-                return topping!==action.payload.item;
-            })
-
-            const newState = {...state};
-            newState[action.payload.type] = removeTopping;
-        return {
-            ...newState
-        };
-
         case LOAD_TOPPINGS:
             const newToppingsListState = { ...state }
-            const arrayName = action.payload.type === 'meats' ? 'allMeats' : 'allVeggies';
+            newToppingsListState[action.payload.type] = action.payload.result;
 
-            const itemTypes = action.payload.result.map(item => {
-                return action.payload.type === 'meats' ? item.meat_type : item.veggie_type
-            });
+            return {
+                ...newToppingsListState
+            }
 
-            newToppingsListState[arrayName] = itemTypes;
-        return {
-            ...newToppingsListState
-        }
+        case SET_PAST_ORDERS:
+            return {
+                ...state,
+                pastOrderIds: action.payload
+            }
+        
+        case SET_PAST_PIZZAS:
+            const newPizzaIds = [...state.pastPizzaIds];
+            newPizzaIds[newPizzaIds.length] = action.payload;
+            
+            return {
+                ...state,
+                pizzaCount: newPizzaIds
+            }
 
         default:
             return state;
