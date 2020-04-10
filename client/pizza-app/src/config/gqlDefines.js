@@ -64,3 +64,23 @@ export const GET_VEGGIE_OPTIONS = gql`
     }
   }
   `;
+
+export const GET_TOTAL_PIZZAS = gql`
+query GetPizzasByCustomer($customer_id: Number){
+  getPizzasByCustomer(customer_id: $customer_id){
+    pizza_id
+    size_id
+    crust_id
+    sauce_id
+    size{
+      size_type
+    }
+    crust{
+      crust_type
+    }
+    sauce{
+      sauce_type
+    }
+  }
+}
+  `;

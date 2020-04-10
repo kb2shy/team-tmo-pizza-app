@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { getToppings } from '../../actions/toppings';
+import { getToppings, getTotalNumberPizzas } from '../../actions/toppings';
 import Toppings from '../Toppings/Toppings';
 
 class CreatePizza extends React.Component {
@@ -12,6 +12,10 @@ class CreatePizza extends React.Component {
 
     //Renders topping sections
     render() {
+        if(this.props.isAuthenticated) {
+            this.props.getTotalNumberPizzas(this.props.user.customer_id);
+        }
+
         return (
             <div>
                 <Toppings type={'Veggies'}/>
@@ -22,6 +26,8 @@ class CreatePizza extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+    user: state.auth.user,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { getToppings })(CreatePizza);
+export default connect(mapStateToProps, { getToppings, getTotalNumberPizzas })(CreatePizza);

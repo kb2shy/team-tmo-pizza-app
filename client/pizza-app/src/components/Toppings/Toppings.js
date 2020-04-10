@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
+import { getTotalNumberPizzas } from '../../actions/toppings';
 import { Card } from "react-bootstrap";
 import ToppingCard from '../ToppingCard/ToppingCard';
 
@@ -17,6 +18,10 @@ class Toppings extends React.Component {
         this.setState({arrayName});
     }
 
+    calcPizzasOrdered = () => {
+
+    }
+
     //Needs type (i.e. 'Meats') from parent components
     //Renders specific Topping section with cards for each topping
     render() {
@@ -27,8 +32,11 @@ class Toppings extends React.Component {
                 </Card.Header>
                 <Card.Body>
                     {/* Map correct array (veggies or meats) */}
-                    {this.props[this.state.arrayName].map((item, i) => {
-                        return <ToppingCard key={item} label={item} type={this.props.type.toLowerCase()}/>
+                    {this.props[this.state.arrayName].map((item) => {
+                        const itemLabel = this.props.type === 'Meats' ? item.meat_type : item.veggie_type;
+                        const itemId = this.props.type === 'Meats' ? item.meat_id : item.veggie_id;
+
+                        return <ToppingCard key={itemId} label={itemLabel} type={this.props.type.toLowerCase()}/>
                     })}
                 </Card.Body>
             </Card>
@@ -41,4 +49,4 @@ const mapStateToProps = (state) => ({
     allVeggies: state.toppings.allVeggies
   });
   
-export default connect(mapStateToProps)(Toppings);
+export default connect(mapStateToProps, { getTotalNumberPizzas })(Toppings);

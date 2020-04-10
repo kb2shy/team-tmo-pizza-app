@@ -29,5 +29,6 @@ export const SET_CUSTOMER_EMAIL = 'SET_CUSTOMER_EMAIL';
 export const ADD_TOPPING = "ADD_TOPPING";
 export const REMOVE_TOPPING = "REMOVE_TOPPING";
 export const LOAD_TOPPINGS = "LOAD_TOPPINGS";
+export const SET_TOTAL_PIZZAS = "SET_TOTAL_PIZZAS";
 
 // Other action defines here...

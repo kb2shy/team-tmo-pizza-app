@@ -1,15 +1,41 @@
 import { 
   ADD_TOPPING, 
   REMOVE_TOPPING,
-  LOAD_TOPPINGS 
+  LOAD_TOPPINGS,
+  SET_TOTAL_PIZZAS
 } from "../config/actionTypes";
 
 import {
   GET_MEAT_OPTIONS,
-  GET_VEGGIE_OPTIONS
+  GET_VEGGIE_OPTIONS,
+  GET_TOTAL_PIZZAS
 } from '../config/gqlDefines';
 
 import apolloClient from '../configureApolloClient';
+
+export const getTotalNumberPizzas = (id) => async (dispatch) => {
+  try{
+    const result = await apolloClient.query({
+      query: GET_TOTAL_PIZZAS,
+      variables: { customer_id: id },
+    });
+
+    console.log(result.data)
+    const count = result.data.length;
+
+    dispatch({
+      type: SET_TOTAL_PIZZAS,
+      payload: count
+    });
+
+  } catch (err) {
+    console.log(err);
+
+    // dispatch({
+    //   type: DB_CONNECTION_ERROR,
+    // });
+  }
+};
 
 export const getToppings = (type) => async (dispatch) => {
   try {
@@ -21,7 +47,7 @@ export const getToppings = (type) => async (dispatch) => {
         variables: type,
       });
       result = result.data.getMeatOptions;
-      
+
     } else {
       result = await apolloClient.query({
         query: GET_VEGGIE_OPTIONS,
