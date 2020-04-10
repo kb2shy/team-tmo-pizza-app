@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 const Confirmation = props => {
     const handleClickHome = (e) => {
         e.preventDefault();
-        return setMenu(1);
+        return props.setMenu(1);
     }
 
     const saveOrder = () => {
@@ -22,7 +22,7 @@ const Confirmation = props => {
                     <Col>
                         <p>Want to save your order?</p>
                         <p>Create an account today!</p>
-                        <button onClick={() => props.setMenu(1)}>Create Account</button>
+                        <button onClick={(e) => props.setMenu(7)}>Create Account</button>
                     </Col>
                 </Row>
             )
@@ -41,7 +41,7 @@ const Confirmation = props => {
                     <Alert variant="success">Success!</Alert>
                     <p>An email has been sent to:</p>
                     <p>{props.auth.user.email}</p>
-                    <button onClick={(e) => this.handleClickHome(e)}>
+                    <button onClick={handleClickHome}>
                         Return to Home
                     </button>
                 </Col>
