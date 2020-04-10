@@ -1,11 +1,10 @@
 const { ApolloServer } = require('apollo-server');
 const sequelize = require('./db/dbConfig')
-const resolvers = require('./graphql/resolvers')
-const typeDefs = require('./graphql/typeDefs')
+const resolvers = require('./graphql/resolvers/resolvers')
+const typeDefs = require('./graphql/typeDefs/typeDefs')
 const { authContext } = require('./graphql/auth') // used for JWT authentication
-const port = 4000
-const url = `http://localhost:${port}/graphql`
-
+const query = require('./graphql/resolvers/queries')
+const mutation = require('./graphql/resolvers/mutations')
 //sequelize models
 const Crust = require('./db/sequelizeModels/crust')
 const Sauce = require('./db/sequelizeModels/sauce')
@@ -15,7 +14,7 @@ const Cheese = require('./db/sequelizeModels/cheese')
 const Veggie = require('./db/sequelizeModels/veggie')
 
 const MeatSelect = require('./db/sequelizeModels/meatSelection')
-const CheeseSelect = require('./db/sequelizeModels/cheeseSelection')
+//const CheeseSelect = require('./db/sequelizeModels/cheeseSelection')
 const VeggieSelect = require('./db/sequelizeModels/veggieSelection')
 
 const Customer = require('./db/sequelizeModels/customer')
@@ -37,40 +36,45 @@ Pizza.belongsTo(Sauce, { foreignKey: 'sauce_id' })
 Size.hasMany(Pizza, { foreignKey: { name: 'size_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
 Pizza.belongsTo(Size, { foreignKey: 'size_id' })
 
+//creates fk on pizza table with cheese_id - refrences cheese types
+Cheese.hasMany(Pizza, { foreignKey: { name: 'cheese_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+Pizza.belongsTo(Cheese, { foreignKey: 'cheese_id' })
+
 //creates composite fk on meat selections table - many to many between pizza and meat types table
 Pizza.hasMany(MeatSelect, { foreignKey: { name: 'pizza_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-MeatSelect.belongsTo(Pizza, { foreignKey:'pizza_id' })
-Meat.hasMany(MeatSelect, { foreignKey: { name: 'meat_id', allowNull: false }, onDelete: 'CASCADE', onUdate: 'CASCADE'})
-MeatSelect.belongsTo(Meat, {foreignKey: 'meat_id'})
+MeatSelect.belongsTo(Pizza, { foreignKey: 'pizza_id' })
+Meat.hasMany(MeatSelect, { foreignKey: { name: 'meat_id', allowNull: false }, onDelete: 'CASCADE', onUdate: 'CASCADE' })
+MeatSelect.belongsTo(Meat, { foreignKey: 'meat_id' })
 
+//removed functionality for multiple cheese selections
 //creates composite fk on cheese selections table - many to many between pizza and cheese types table
-Pizza.hasMany(CheeseSelect, {foreignKey: {name: 'pizza_id', allowNull: false}, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-CheeseSelect.belongsTo(Pizza, {foreignKey: 'pizza_id'})
-Cheese.hasMany(CheeseSelect, {foreignKey: {name: 'cheese_id', allowNull: false}, onDelete:'CASCADE', onUpdate: 'CASCADE'})
-CheeseSelect.belongsTo(Cheese, {foreignKey: {name: 'cheese_id', allowNull: false}, onDelete: 'CASCADE', onUpdate:'CASCADE'})
+//Pizza.hasMany(CheeseSelect, {foreignKey: {name: 'pizza_id', allowNull: false}, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+//CheeseSelect.belongsTo(Pizza, {foreignKey: 'pizza_id'})
+//Cheese.hasMany(CheeseSelect, {foreignKey: {name: 'cheese_id', allowNull: false}, onDelete:'CASCADE', onUpdate: 'CASCADE'})
+//CheeseSelect.belongsTo(Cheese, {foreignKey: {name: 'cheese_id', allowNull: false}, onDelete: 'CASCADE', onUpdate:'CASCADE'})
 
 //creates composite fk on veggie selections table - many to many between pizza and veggie types table
-Pizza.hasMany(VeggieSelect, {foreignKey: {name: 'pizza_id', allowNull: false}, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-VeggieSelect.belongsTo(Pizza, {foreignKey: 'pizza_id'})
-Veggie.hasMany(VeggieSelect, {foreignKey: {name: 'veggie_id', allowNull: false}, onDelete:'CASCADE', onUpdate: 'CASCADE'})
-VeggieSelect.belongsTo(Veggie, {foreignKey: {name: 'veggie_id', allowNull: false}, onDelete: 'CASCADE', onUpdate:'CASCADE'})
+Pizza.hasMany(VeggieSelect, { foreignKey: { name: 'pizza_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+VeggieSelect.belongsTo(Pizza, { foreignKey: 'pizza_id' })
+Veggie.hasMany(VeggieSelect, { foreignKey: { name: 'veggie_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+VeggieSelect.belongsTo(Veggie, { foreignKey: { name: 'veggie_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
 
 //creates composite fk on order items table - many to many between pizzas and orders tables
-Pizza.hasMany(OrderItem, {foreignKey: {name: 'pizza_id', allowNull: false}, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-OrderItem.belongsTo(Pizza, { foreignKey: 'pizza_id'})
-Order.hasMany(OrderItem, {foreignKey: { name: 'order_id', allowNull: false}, onDelete: 'CASCADE', onDelete: 'CASCADE'})
-OrderItem.belongsTo(Order, {foreignKey: 'order_id'})
+Pizza.hasMany(OrderItem, { foreignKey: { name: 'pizza_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+OrderItem.belongsTo(Pizza, { foreignKey: 'pizza_id' })
+Order.hasMany(OrderItem, { foreignKey: { name: 'order_id', allowNull: false }, onDelete: 'CASCADE', onDelete: 'CASCADE' })
+OrderItem.belongsTo(Order, { foreignKey: 'order_id' })
 
 //creates fk on order table with customer_id
-Customer.hasMany(Order, {foreignKey: {name: 'customer_id', allowNull: false}, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-Order.belongsTo(Customer, {foreignKey: 'customer_id'})
+Customer.hasMany(Order, { foreignKey: { name: 'customer_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+Order.belongsTo(Customer, { foreignKey: 'customer_id' })
 
 //creates apollo server, passing db models as context 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: (integrationContext) => ({
-    Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size, MeatSelect, VeggieSelect, CheeseSelect, OrderItem,
+    Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size, MeatSelect, VeggieSelect, OrderItem,
     ...authContext(integrationContext)
   }),
 });
@@ -78,14 +82,10 @@ const server = new ApolloServer({
 //connects to sql server and starts apollo server
 sequelize.sync()
   .then(() => {
-    server.listen().then(() => {
+    server.listen({ port: 4000 }).then(({ url }) => {
       console.log(`Apollo server ready at ${url}`);
     });
 
-    // Suggestion by Anton: explicitly set port to your defined port and rely on url returned
-    // server.listen({port: port}).then( ({url}) => {
-    //   console.log(`Apollo Server running at ${url}graphql`);
-    // });
   }).catch(error => {
     console.log(error)
   })
