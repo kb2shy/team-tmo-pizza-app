@@ -3,7 +3,7 @@ import {
   PREVIOUS_MENU,
   SET_MENU,
   RESET_MENU,
-} from '../config/types';
+} from '../config/actionTypes';
 
 export const nextMenu = () => (dispatch) => {
   dispatch({
