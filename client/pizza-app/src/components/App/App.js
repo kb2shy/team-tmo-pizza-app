@@ -8,7 +8,8 @@ import Home from '../Home/Home';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Logout from '../Logout/Logout';
-import CreatePizza from "../CreatePizza/CreatePizza";
+import CreatePizza from '../CreatePizza/CreatePizza';
+import Cart from '../Cart/Cart';
 
 import { loadCustomer } from '../../actions/auth';
 
@@ -46,10 +47,11 @@ class App extends Component {
         <div>App Component</div>
         {/* Render Home, Main, or a preferred component based on the step of the menu */}
         {this.getViewState()}
-        <Register></Register>
+        {/* <Register></Register> */}
         <Login></Login>
         <Logout></Logout>
-        <CreatePizza/>
+        {/* <CreatePizza /> */}
+        <Cart />
       </Container>
     );
   }
