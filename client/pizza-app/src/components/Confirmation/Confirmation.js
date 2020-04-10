@@ -21,7 +21,10 @@ const Confirmation = props => {
     }
 
     const saveOrder = () => {
-        if (!props.auth.isAuthenticated) {
+        let userEmail = (props.auth.isAuthenticated ? props.auth.user.email : props.guest.email);
+        console.log(userEmail);
+        
+        if (!props.auth.isAuthenticated && userEmail) {
             return (
                 <Row>
                     <Col>
@@ -34,6 +37,8 @@ const Confirmation = props => {
         }
     }
 
+    const userEmail = (props.auth.isAuthenticated ? props.auth.user.email : props.guest.email);
+
     return (
         <Container data-test="component-Confirmation" style={{ textAlign: "center"}}>
             <Row className="col-header">
@@ -45,7 +50,7 @@ const Confirmation = props => {
                 <Col className="col-email-message" >
                     <Alert variant="success">Success!</Alert>
                     <p>An email has been sent to:</p>
-                    <p>{props.auth.user.email}</p>
+                    <p>{userEmail}</p>
                     <button onClick={handleClickHome}>
                         Return to Home
                     </button>
@@ -68,8 +73,11 @@ const mapStateToProps = (state) => ({
         user: { 
             email: `blahblahblah@email.com`,
         },
-        isAuthenticated: false,
+        isAuthenticated: true,
     },
+    // uncomment the next line below code and remove duplicate dummy code
+    // guest: state.guest
+    guest: { email: "guest@email.com"},
 })
 
 
