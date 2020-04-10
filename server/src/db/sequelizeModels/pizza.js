@@ -24,6 +24,11 @@ Pizza.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         default: 1
+    },
+    cheese_id:{
+       type: DataTypes.INTEGER,
+       allowNull: false, 
+       default: 1 
     }
 }, {sequelize, modelName: 'pizza', timestamps: false})
 
