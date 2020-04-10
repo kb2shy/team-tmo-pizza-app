@@ -7,7 +7,7 @@ const initialState = [];
  * @param {Array} state
  * @param {*} action
  */
-const pizzaReducer = (state = initialState, action) => {
+const pizzasReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PIZZA:
       return [action.payload, ...state];
@@ -20,4 +20,4 @@ const pizzaReducer = (state = initialState, action) => {
   }
 };
 
-export default pizzaReducer;
+export default pizzasReducer;
