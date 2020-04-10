@@ -10,7 +10,7 @@ const Logo = () => {
 					transform="translate(19.713)"
 					fill="#ceb86f"
 					stroke="#fbffda"
-					stroke-width="4"
+					strokeWidth="4"
 				>
 					<ellipse cx="61" cy="60.5" rx="61" ry="60.5" stroke="none" />
 					<ellipse cx="61" cy="60.5" rx="59" ry="58.5" fill="none" />
@@ -32,7 +32,7 @@ const Logo = () => {
 					transform="translate(57.713 46)"
 					fill="#efebde"
 					stroke="#d8b184"
-					stroke-width="1"
+					strokeWidth="1"
 				>
 					<ellipse cx="23.5" cy="7" rx="23.5" ry="7" stroke="none" />
 					<ellipse cx="23.5" cy="7" rx="23" ry="6.5" fill="none" />
@@ -43,7 +43,7 @@ const Logo = () => {
 					transform="translate(58.713 47)"
 					fill="#a90e0e"
 					stroke="#c69c6c"
-					stroke-width="0.8"
+					strokeWidth="0.8"
 					opacity="0.47"
 				>
 					<ellipse cx="21" cy="5" rx="21" ry="5" stroke="none" />
@@ -55,7 +55,7 @@ const Logo = () => {
 					transform="translate(64.713 51)"
 					fill="#f2e3ca"
 					stroke="#efebde"
-					stroke-width="1"
+					strokeWidth="1"
 				>
 					<ellipse cx="3.5" cy="1.5" rx="3.5" ry="1.5" stroke="none" />
 					<ellipse cx="3.5" cy="1.5" rx="3" ry="1" fill="none" />
@@ -66,7 +66,7 @@ const Logo = () => {
 					transform="translate(87.713 49)"
 					fill="#f2e3ca"
 					stroke="#f2e3ca"
-					stroke-width="1"
+					strokeWidth="1"
 				>
 					<ellipse cx="3.5" cy="1.5" rx="3.5" ry="1.5" stroke="none" />
 					<ellipse cx="3.5" cy="1.5" rx="3" ry="1" fill="none" />
@@ -77,7 +77,7 @@ const Logo = () => {
 					transform="translate(77.713 53)"
 					fill="#efebde"
 					stroke="#efebde"
-					stroke-width="1"
+					strokeWidth="1"
 				>
 					<ellipse cx="3" cy="1" rx="3" ry="1" stroke="none" />
 					<ellipse cx="3" cy="1" rx="2.5" ry="0.5" fill="none" />
@@ -89,7 +89,7 @@ const Logo = () => {
 					transform="translate(6005.597 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1008"
@@ -98,7 +98,7 @@ const Logo = () => {
 					transform="translate(6005.641 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1009"
@@ -107,7 +107,7 @@ const Logo = () => {
 					transform="translate(6005.771 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1010"
@@ -116,7 +116,7 @@ const Logo = () => {
 					transform="translate(6006.133 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1011"
@@ -125,7 +125,7 @@ const Logo = () => {
 					transform="translate(6006.55 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1012"
@@ -134,7 +134,7 @@ const Logo = () => {
 					transform="translate(6007.326 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1013"
@@ -143,7 +143,7 @@ const Logo = () => {
 					transform="translate(6008.063 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1014"
@@ -152,7 +152,7 @@ const Logo = () => {
 					transform="translate(6008.533 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1015"
@@ -161,7 +161,7 @@ const Logo = () => {
 					transform="translate(6009.713 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1016"
@@ -170,7 +170,7 @@ const Logo = () => {
 					transform="translate(6009.713 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1017"
@@ -179,7 +179,7 @@ const Logo = () => {
 					transform="translate(6009.713 -6785)"
 					fill="#806b53"
 					stroke="#806b53"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1018"
@@ -188,7 +188,7 @@ const Logo = () => {
 					transform="translate(6005.972 -6785)"
 					fill="#f6bd06"
 					stroke="#f6bd06"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1019"
@@ -197,7 +197,7 @@ const Logo = () => {
 					transform="translate(6006.006 -6785)"
 					fill="#f6bd06"
 					stroke="#f6bd06"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1020"
@@ -206,7 +206,7 @@ const Logo = () => {
 					transform="translate(6006.146 -6785)"
 					fill="#f6bd06"
 					stroke="#f6bd06"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1021"
@@ -215,7 +215,7 @@ const Logo = () => {
 					transform="translate(6006.4 -6785)"
 					fill="#f6bd06"
 					stroke="#f6bd06"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1022"
@@ -224,7 +224,7 @@ const Logo = () => {
 					transform="translate(6006.711 -6785)"
 					fill="#f6bd06"
 					stroke="#f6bd06"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1023"
@@ -233,7 +233,7 @@ const Logo = () => {
 					transform="translate(6007.84 -6785)"
 					fill="#f6bd06"
 					stroke="#f6bd06"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1024"
@@ -242,7 +242,7 @@ const Logo = () => {
 					transform="translate(6008.188 -6785)"
 					fill="#f6bd06"
 					stroke="#f6bd06"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1025"
@@ -251,7 +251,7 @@ const Logo = () => {
 					transform="translate(6008.388 -6785)"
 					fill="#f6bd06"
 					stroke="#f6bd06"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1026"
@@ -260,7 +260,7 @@ const Logo = () => {
 					transform="translate(6008.533 -6785)"
 					fill="#f6bd06"
 					stroke="#f6bd06"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1027"
@@ -269,7 +269,7 @@ const Logo = () => {
 					transform="translate(6008.572 -6785)"
 					fill="#f6bd06"
 					stroke="#f6bd06"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<path
 					id="Path_1028"
@@ -278,7 +278,7 @@ const Logo = () => {
 					transform="translate(6006.713 -6785)"
 					fill="#eb6d76"
 					stroke="#eb6d76"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 				<g
 					id="Ellipse_28"
@@ -286,7 +286,7 @@ const Logo = () => {
 					transform="translate(32.713 70)"
 					fill="#efebde"
 					stroke="#efebde"
-					stroke-width="1"
+					strokeWidth="1"
 				>
 					<circle cx="3" cy="3" r="3" stroke="none" />
 					<circle cx="3" cy="3" r="2.5" fill="none" />
@@ -297,7 +297,7 @@ const Logo = () => {
 					transform="translate(121.713 70)"
 					fill="#efebde"
 					stroke="#efebde"
-					stroke-width="1"
+					strokeWidth="1"
 				>
 					<circle cx="3" cy="3" r="3" stroke="none" />
 					<circle cx="3" cy="3" r="2.5" fill="none" />
@@ -307,9 +307,9 @@ const Logo = () => {
 					data-name="Pizza Shop"
 					transform="translate(44.713 75)"
 					fill="#efebde"
-					font-size="12"
-					font-family="PerpetuaTitlingMT-Bold, Perpetua Titling MT"
-					font-weight="700"
+					fontSize="12"
+					fontFamily="PerpetuaTitlingMT-Bold, Perpetua Titling MT"
+					fontWeight="700"
 				>
 					<tspan x="0" y="0">
 						Pizza Shop
@@ -322,7 +322,7 @@ const Logo = () => {
 					transform="translate(6007.347 -6785)"
 					fill="#efebde"
 					stroke="#d3c598"
-					stroke-width="0.8"
+					strokeWidth="0.8"
 				/>
 				<path
 					id="Path_1029"
@@ -331,7 +331,7 @@ const Logo = () => {
 					transform="translate(6003.713 -6785)"
 					fill="#a44939"
 					stroke="#efebde"
-					stroke-width="1"
+					strokeWidth="1"
 				/>
 			</g>
 		</svg>

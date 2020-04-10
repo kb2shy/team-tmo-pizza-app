@@ -17,14 +17,14 @@ const Cart = (props) => {
     return (
       <div>
         <p>
-          Name: `${props.auth.user.first_name} ${props.auth.user.last_name}`
+          Name: {props.auth.user.first_name} {props.auth.user.last_name}
         </p>
         <br />
 
-        <p>Email: `${props.auth.user.email}`</p>
+        <p>Email: {props.auth.user.email}</p>
         <br />
 
-        <p>Phone: `${props.auth.user.phone}`</p>
+        <p>Phone: {props.auth.user.phone}</p>
         <br />
       </div>
     );
@@ -32,7 +32,7 @@ const Cart = (props) => {
 
   const customerSummary = () => {
     // Guest view: ask for input
-    if (!props.auth.isAuthenticated) {
+    if (!props.auth.isAuthenticated || props.auth.user === null) {
       return (
         <div>
           <label>Name</label>
@@ -51,7 +51,7 @@ const Cart = (props) => {
 
     // user view: print user's information
     else {
-      displayUser();
+      return displayUser();
     }
   };
 
