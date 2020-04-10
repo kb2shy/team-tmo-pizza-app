@@ -8,7 +8,6 @@ const sequelize = new Sequelize({
     database: 'pizzastore',
     host: 'pizzastore.c9bfrf2xseps.us-west-2.rds.amazonaws.com',
     dialect: 'mssql',
-    operatorsAliases: false,
     dialectOptions:{
         options: {
             useUTC: false,

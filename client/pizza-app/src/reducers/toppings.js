@@ -1,11 +1,14 @@
 import {
     ADD_TOPPING,
-    REMOVE_TOPPING
+    REMOVE_TOPPING,
+    LOAD_TOPPINGS
   } from "../config/actionTypes";
   
   const initialState = {
-    meats: [],
-    veggies: []
+    meats: [], //on customer order
+    veggies: [], 
+    allMeats: [], //list from db
+    allVeggies: [],
   };
   
   const toppingsReducer = (state = initialState, action) => {
@@ -27,6 +30,19 @@ import {
         return {
             ...newState
         };
+
+        case LOAD_TOPPINGS:
+            const newToppingsListState = { ...state }
+            const arrayName = action.payload.type === 'meats' ? 'allMeats' : 'allVeggies';
+
+            const itemTypes = action.payload.result.map(item => {
+                return action.payload.type === 'meats' ? item.meat_type : item.veggie_type
+            });
+
+            newToppingsListState[arrayName] = itemTypes;
+        return {
+            ...newToppingsListState
+        }
 
         default:
             return state;

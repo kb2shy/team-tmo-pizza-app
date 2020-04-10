@@ -9,7 +9,7 @@ class ToppingCard extends React.Component {
         super(props);
         this.state = {
             status: false,
-            style: { width: '150px', display: 'inline-block', margin: '10px' }
+            style: { width: '200px', display: 'inline-block', margin: '10px' }
         }
     }
 
@@ -21,8 +21,7 @@ class ToppingCard extends React.Component {
         return percent;
     }
 
-    //Set clicked look and change toppings array in state
-    changeBackground = () => {
+    handleClick = () => {
         //change card background
         const newStyle = this.state.status ? { ...this.state.style, background: 'white'} : { ...this.state.style, background: '#ffcc99'};
 
@@ -45,11 +44,10 @@ class ToppingCard extends React.Component {
             id={this.props.label}
             style={this.state.style} 
             className="text-center"
-            onClick={(e) => this.changeBackground()}>
+            onClick={(e) => this.handleClick()}>
                 <Card.Body>
                     <Card.Title>{this.props.label}</Card.Title>
-                    <BarChart data={this.getPercent()} item={this.props.label}/>
-                    {/* {this.props.isAuthenticated ? <BarChart data={this.getPercent()} item={this.props.label}/> : null} */}
+                    {this.props.isAuthenticated ? <BarChart data={this.getPercent()} item={this.props.label}/> : null}
                 </Card.Body>
             </Card>
         )
@@ -59,7 +57,7 @@ class ToppingCard extends React.Component {
 const mapStateToProps = (state) => ({
     meats: state.toppings.meats,
     veggies: state.toppings.veggies,
-    // isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated
   });
   
 export default connect(mapStateToProps, { addTopping, removeTopping })(ToppingCard);
