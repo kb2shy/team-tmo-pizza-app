@@ -153,11 +153,43 @@ const resolvers = {
     async createMeatOp(root, { meat_type, meat_price }, { Meat }) {
       return await Meat.create({ meat_type, meat_price })
     },
-    async createCustomer(
+
+    // In addition to creating customers, this is also used for updating an
+    // already-created and non-registered customer.
+    // Updating already-created customers is needed to allow a guest, whom ordered a pizza,
+    // to reuse their email for registering later or making an additional order.
+    // Cases to consider:
+    // @todo
+    // 1. What happens if guest orders with email of a registered customer?
+    //    Should we link the registered customer to the unauthenticated customer? No! Yes for easy fix;
+    //    It is better to encourage the user to sign in by outing a message:
+    //    "Looks like you already have an account. Please sign to order a pizza"
+    //    Please sign in to order a pizza
+    async CreateCustomer(
       root,
       { first_name, last_name, phone, email, password, isRegistered },
       { Customer }
     ) {
+      // override registered if password is falsy (null, undefined, '')
+      let isRegistered2 = isRegistered && password ? true : false;
+
+      // query a customer by the given email
+      let existingCustomer = null;
+      try {
+        existingCustomer = Customer.findOne({ where: { email } });
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+
+      // In case an attempt is made to register/order pizza as guest
+      // (but passing an email of an existing account)
+      // Encourage the order
+      if (existingCustomer && existingCustomer.isRegistered) {
+        // @todo it is better to return an error (and not just for this case)
+        return null;
+      }
+
       try {
         // generate hash from password
         let passHash = null;
@@ -171,13 +203,14 @@ const resolvers = {
           phone,
           email,
           password: passHash,
-          isRegistered,
+          isRegistered: isRegistered2,
         });
       } catch (err) {
         console.log(err);
         return null;
       }
     },
+    
     async createPizza(root, { size_id, crust_id, sauce_id }, { Pizza }) {
       return await Pizza.create({
         size_id, crust_id, sauce_id
