@@ -2,14 +2,16 @@ import { combineReducers } from 'redux';
 
 import menu from './menu';
 import auth from './auth';
-import customer from './customer';
+import guest from './guest';
 import toppings from './toppings';
 import pizza from './pizza';
+import pizzas from './pizzas';
 
 export default combineReducers({
   menu,
   auth,
-  customer,
+  guest,
   toppings,
   pizza,
+  pizzas
 });
