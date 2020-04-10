@@ -12,6 +12,7 @@ class Toppings extends React.Component {
     //Needs type (i.e. 'Meats') from parent components
     //Renders specific Topping section with cards for each topping
     render() {
+        
         return (
             <Card className="text-center">
                 <Card.Header>

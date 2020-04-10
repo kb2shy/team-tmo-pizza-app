@@ -56,8 +56,8 @@ class ToppingCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    meats: state.pizza.meats,
-    veggies: state.pizza.veggies,
+    meats: state.pizza.toppings.meats,
+    veggies: state.pizza.toppings.veggies,
     isAuthenticated: state.auth.isAuthenticated,
     pastPizzaIds: state.toppings.pastPizzaIds
   });
