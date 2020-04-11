@@ -13,6 +13,7 @@ import Cart from '../Cart/Cart';
 
 import { loadCustomer } from '../../actions/auth';
 
+
 //this example is for how to use graphql to persist data to backend
 // import Example from "./example";
 
@@ -48,10 +49,10 @@ class App extends Component {
         {/* Render Home, Main, or a preferred component based on the step of the menu */}
         {this.getViewState()}
         {/* <Register></Register> */}
-        <Login></Login>
-        <Logout></Logout>
+        {/* <Login></Login> */}
+        {/* <Logout></Logout> */}
         {/* <CreatePizza /> */}
-        <Cart />
+        {/* <Cart /> */}
       </Container>
     );
   }

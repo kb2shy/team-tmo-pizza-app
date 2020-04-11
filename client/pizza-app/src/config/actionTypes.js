@@ -31,9 +31,10 @@ export const REMOVE_TOPPING = "REMOVE_TOPPING";
 
 // Toppings actions
 export const LOAD_TOPPINGS = "LOAD_TOPPINGS";
-export const SET_TOTAL_PIZZAS = "SET_TOTAL_PIZZAS";
 export const SET_PAST_ORDERS = 'SET_PAST_ORDERS';
 export const SET_PAST_PIZZAS = 'SET_PAST_PIZZAS';
+export const SET_VEGGIE_COUNT = 'SET_VEGGIE_COUNT';
+export const SET_MEATS_COUNT = 'SET_MEATS_COUNT';
 
 // Array of Pizzas
 export const ADD_PIZZA = 'ADD_PIZZA';
