@@ -36,18 +36,16 @@ class App extends Component {
   getViewState() {
     switch (this.props.step) {
       case 1:
-        return <Home />;
+        return this.props.isAuthenticated ? <OrderChoice /> : <Home />;
       case 2:
-        return <OrderChoice />;
-      case 3:
         return <OrderHistory />;
-      case 4:
+      case 3:
         return <CreatePizza />;
-      case 5:
+      case 4:
         return <Cart />;
-      case 6:
+      case 5:
         return <Confirmation />;
-      case 7:
+      case 6:
         return <Register />;
       default:
         return null;
@@ -79,10 +77,12 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   step: state.menu.step,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 App.propTypes = {
   step: PropTypes.number.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
   loadCustomer: PropTypes.func.isRequired,
 };
 

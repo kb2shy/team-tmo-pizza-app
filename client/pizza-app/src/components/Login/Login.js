@@ -15,11 +15,11 @@ const Login = ({ loginCustomer, loading, setMenu, step, isAuthenticated }) => {
     password: '',
   });
 
-  useEffect(() => {
-    if (isAuthenticated && step === 1) {
-      setMenu(2);
-    }
-  }, [step, isAuthenticated]);
+  // useEffect(() => {
+  //   if (isAuthenticated && step === 1) {
+  //     setMenu(2);
+  //   }
+  // }, [step, isAuthenticated]);
 
   const isValid = user.email.length !== 0 && user.password.length !== 0;
 

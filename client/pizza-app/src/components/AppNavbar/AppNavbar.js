@@ -16,7 +16,7 @@ import logo from '../../assets/logo.svg';
 const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
   const handleHomeClick = (evt) => {
     evt.preventDefault();
-    setMenu(isAuthenticated ? 2 : 1);
+    setMenu(1);
   };
 
   return (
