@@ -14,7 +14,7 @@ const Logout = ({ logoutCustomer, isAuthenticated }) => {
 
   return (
     <Button
-      variant="danger"
+      variant="primary"
       type="button"
       onClick={handleClick}
       disabled={!isAuthenticated}
