@@ -12,6 +12,6 @@ h1 {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	margin-top: 10%;
+	padding-top: 10%; /* Used padding-top instead of margin-top to prevent white-space in background-image*/
 	color: #fbffda;
 }
