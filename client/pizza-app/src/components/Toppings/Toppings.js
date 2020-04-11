@@ -28,8 +28,8 @@ class Toppings extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    meats: state.toppings.meats,
-    veggies: state.toppings.veggies
+    meats: state.database.meats,
+    veggies: state.database.veggies
   });
   
 export default connect(mapStateToProps)(Toppings);

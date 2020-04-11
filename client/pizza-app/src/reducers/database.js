@@ -13,7 +13,7 @@ import {
     pastPizzaIds: []
   };
   
-  const toppingsReducer = (state = initialState, action) => {
+  const databaseReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_TOPPINGS:
             const newToppingsListState = { ...state }
@@ -68,5 +68,5 @@ import {
         }
     };
   
-  export default toppingsReducer;
+  export default databaseReducer;
   

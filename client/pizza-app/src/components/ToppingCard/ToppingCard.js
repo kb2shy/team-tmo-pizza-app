@@ -51,7 +51,7 @@ const mapStateToProps = (state) => ({
     meats: state.pizza.toppings.meats,
     veggies: state.pizza.toppings.veggies,
     isAuthenticated: state.auth.isAuthenticated,
-    pastPizzaIds: state.toppings.pastPizzaIds
+    pastPizzaIds: state.database.pastPizzaIds
   });
   
 export default connect(mapStateToProps, { addTopping, removeTopping })(ToppingCard);

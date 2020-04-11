@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { getToppings, getOrderIds } from '../../actions/toppings';
+import { getToppings, getOrderIds } from '../../actions/database';
 import Toppings from '../Toppings/Toppings';
 
 class CreatePizza extends React.Component {
@@ -28,7 +28,7 @@ class CreatePizza extends React.Component {
 const mapStateToProps = (state) => ({
     user: state.auth.user,
     isAuthenticated: state.auth.isAuthenticated,
-    orders: state.toppings.pastOrderIds
+    orders: state.database.pastOrderIds
 });
 
 export default connect(mapStateToProps, { getToppings, getOrderIds })(CreatePizza);
