@@ -16,7 +16,7 @@ import logo from '../../assets/logo.svg';
 const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
   const handleHomeClick = (evt) => {
     evt.preventDefault();
-    setMenu(1)
+    setMenu(isAuthenticated ? 2 : 1);
   };
 
   return (
@@ -39,12 +39,16 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto d-flex align-items-center">
-          {step !== 1 && <Button variant="primary" type="button" onClick={handleHomeClick}>
-            Home
-          </Button>}
-          {!isAuthenticated && <div className="ml-1">
-            <Logout />
-          </div>}
+          {step !== 1 && (
+            <Button variant="primary" type="button" onClick={handleHomeClick}>
+              Home
+            </Button>
+          )}
+          {isAuthenticated && (
+            <div className="ml-1">
+              <Logout />
+            </div>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

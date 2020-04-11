@@ -11,9 +11,21 @@ const BackButton = ({ step, previousMenu }) => {
     evt.preventDefault();
     previousMenu();
   };
-  return step !== 0 ? (
-    <div style={{ position: 'absolute', left: '12px', marginTop: '12px' }}>
-      <Button onClick={handleClick} type="button" variant="primary">
+  return step !== 1 ? (
+    <div
+      style={{
+        position: 'absolute',
+        left: '12px',
+        marginTop: '12px',
+        zIndex: 9999,
+      }}
+    >
+      <Button
+        onClick={handleClick}
+        type="button"
+        variant="primary"
+        disabled={step === 1}
+      >
         Back
       </Button>
     </div>

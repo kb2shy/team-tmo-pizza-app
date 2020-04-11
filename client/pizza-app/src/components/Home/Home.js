@@ -12,6 +12,7 @@ import Title from '../Title/Title';
 // - Guest button (part of login if wanted)
 // - *Don’t render BackButton, Home, or Logout on this step; also they are rendered outside
 class Home extends Component {
+
 	render() {
 		return (
 			<div className={classes.bodyImage}>

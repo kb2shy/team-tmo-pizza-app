@@ -28,6 +28,7 @@ export const CREATE_CUSTOMER = gql`
     $phone: String!
     $email: String!
     $password: String
+    $isRegistered: Boolean
   ) {
     createCustomer(
       first_name: $first_name
@@ -35,6 +36,7 @@ export const CREATE_CUSTOMER = gql`
       phone: $phone
       email: $email
       password: $password
+      isRegistered: $isRegistered
     ) {
       customer_id
       first_name

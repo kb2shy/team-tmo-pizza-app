@@ -6,7 +6,6 @@ module.exports = {
   Query: {
     // used for login
     async getTokenByCustomer(root, { email, password }, { Customer }) {
-      console.log('getTokenByCustomer')
       return await authGetTokenByCustomer(email, password, Customer);
     },
     // used for validating current token
