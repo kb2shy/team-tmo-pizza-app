@@ -1,6 +1,6 @@
 .bodyImage {
-  /* margin: 0; */
-  /* border: 2px solid black; */
+  margin: 0;
+  border: 2px solid black;
   height: 100%;
   background: #fbffda url(./style/home_background.jpg);
   background-repeat: no-repeat;

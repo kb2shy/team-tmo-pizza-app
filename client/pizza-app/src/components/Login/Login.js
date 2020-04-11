@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classes from './Login.module.css';
 
-import { loginCustomer } from '../../actions/auth';
+import { Form, Button, Spinner } from 'react-bootstrap';
 import AppSpinner from '../AppSpinner/AppSpinner';
 
-import { Form, Button, Spinner } from 'react-bootstrap';
+import { loginCustomer } from '../../actions/auth';
+import { setMenu } from '../../actions/menu';
 
-const Login = ({ loginCustomer, loading }) => {
+const Login = ({ loginCustomer, loading, setMenu }) => {
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -21,6 +22,11 @@ const Login = ({ loginCustomer, loading }) => {
     const email = user.email.trim();
     const password = user.password;
     loginCustomer({ email, password });
+  };
+
+  const handleGuestOrderClick = (evt) => {
+    evt.preventDefault();
+    setMenu(4);
   };
 
   const handleChange = (evt) => {
@@ -58,14 +64,24 @@ const Login = ({ loginCustomer, loading }) => {
           />
         </Form.Group>
         <div className={`d-flex align-items-center ${classes.spacingTop}`}>
-            <Button
-              id={classes.buttonStyle}
-              variant="primary"
-              type="submit"
-              disabled={loading || !isValid}
-            >
-              Sign In
-            </Button>
+          <Button
+            id={classes.buttonStyle}
+            variant="primary"
+            type="submit"
+            disabled={loading || !isValid}
+          >
+            Sign In
+          </Button>
+          <Button
+            id={classes.buttonStyle}
+            variant="primary"
+            type="button"
+            disabled={loading}
+            className="ml-2"
+            onClick={handleGuestOrderClick}
+          >
+            Order As Guest
+          </Button>
           {loading && <AppSpinner />}
         </div>
       </Form>
@@ -75,12 +91,13 @@ const Login = ({ loginCustomer, loading }) => {
 };
 
 Login.propTypes = {
-  loginCustomer: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  loginCustomer: PropTypes.func.isRequired,
+  setMenu: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
 });
 
-export default connect(mapStateToProps, { loginCustomer })(Login);
+export default connect(mapStateToProps, { loginCustomer, setMenu })(Login);

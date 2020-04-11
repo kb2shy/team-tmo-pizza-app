@@ -16,7 +16,6 @@ const authContext = ({ req, res }) => {
   if (token) {
     try {
       const decrypted = jwt.verify(token, MY_JWT_SECRET);
-      console.log('DECRYPT', decrypted);
       user = decrypted.customer;
     } catch (err) {
       user = null;
@@ -49,6 +48,7 @@ const authGetTokenByCustomer = async (email, password, Customer) => {
   try {
     // validate password
     const match = await bcrypt.compare(password, customer.password);
+    console.log('no match')
     // return null if passwords do not match
     if (!match) {
       return null;
