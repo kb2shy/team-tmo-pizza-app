@@ -56,7 +56,7 @@ class App extends Component {
     return (
       <div data-test="component-App">
         <AppNavbar />
-        <BackButton />
+        {/* <BackButton /> */}
         <div>
           {/* code to see example connection to send data to db */}
           {/* <Example></Example> */}

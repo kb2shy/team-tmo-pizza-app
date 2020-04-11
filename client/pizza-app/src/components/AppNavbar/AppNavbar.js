@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import Logout from '../Logout/Logout';
+import BackButton from '../BackButton/BackButton'
 
 import { setMenu } from '../../actions/menu';
 import { logoutCustomer } from '../../actions/auth';
@@ -21,14 +22,15 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
   };
 
   return (
+      <div style={{position: 'relative'}}>
     <Navbar
       collapseOnSelect
       expand="sm"
       variant="dark"
       style={{ backgroundColor: 'crimson' }}
-      className="px-2 py-0 m-0"
+      className="px-2 py-1 m-0"
     >
-      <Navbar.Brand href="#" className="d-flex align-items-center">
+      <Navbar.Brand href="#" className="d-flex align-items-center p-0">
         <img
           src={logo}
           height="80"
@@ -43,12 +45,14 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
           {step !== 1 && <Button variant="primary" type="button" onClick={handleHomeClick}>
             Home
           </Button>}
-          {isAuthenticated && <div className="ml-1">
+          {!isAuthenticated && <div className="ml-1">
             <Logout />
           </div>}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
+    <BackButton />
+    </div>
   );
 };
 

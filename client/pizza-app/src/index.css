@@ -3,7 +3,8 @@
 }
 
 html,
-body {
+body,
+div {
   margin: 0;
   padding: 0;
 }
