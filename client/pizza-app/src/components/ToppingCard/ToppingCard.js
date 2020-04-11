@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import BarChart from '../BarChart/BarChart';
 import { Card } from "react-bootstrap";
-import { addTopping, removeTopping } from '../../actions/toppings';
+import { addTopping, removeTopping } from '../../actions/pizza';
 
 class ToppingCard extends React.Component {
     constructor(props) {
@@ -11,14 +11,6 @@ class ToppingCard extends React.Component {
             status: false,
             style: { width: '200px', display: 'inline-block', margin: '10px' }
         }
-    }
-
-    //TO-DO get number of pizzas with this topping / total number of pizzas
-    //Get percentage of topping from db, currently getting random percentage
-    getPercent = () => {
-        let percent = Math.random();
-        ///get percentage of topping ordered from database
-        return percent;
     }
 
     handleClick = () => {
@@ -39,6 +31,7 @@ class ToppingCard extends React.Component {
 
     //Renders card with topping name and percentage bar chart
     render() {
+        const total = this.props.pastPizzaIds.length;
         return (
             <Card 
             id={this.props.label}
@@ -47,7 +40,7 @@ class ToppingCard extends React.Component {
             onClick={(e) => this.handleClick()}>
                 <Card.Body>
                     <Card.Title>{this.props.label}</Card.Title>
-                    {this.props.isAuthenticated ? <BarChart data={this.getPercent()} item={this.props.label}/> : null}
+                    {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label}/> : null}
                 </Card.Body>
             </Card>
         )
@@ -55,9 +48,10 @@ class ToppingCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    meats: state.toppings.meats,
-    veggies: state.toppings.veggies,
-    isAuthenticated: state.auth.isAuthenticated
+    meats: state.pizza.toppings.meats,
+    veggies: state.pizza.toppings.veggies,
+    isAuthenticated: state.auth.isAuthenticated,
+    pastPizzaIds: state.database.pastPizzaIds
   });
   
 export default connect(mapStateToProps, { addTopping, removeTopping })(ToppingCard);

@@ -15,6 +15,7 @@ export const GET_CUSTOMER_BY_TOKEN = gql`
       email
       first_name
       last_name
+      phone
     }
   }
 `;
@@ -64,3 +65,38 @@ export const GET_VEGGIE_OPTIONS = gql`
     }
   }
   `;
+
+export const GET_CUST_ORDERS = gql`
+  query GetAllOrdersByCustomer($customer_id: Int!){
+    getAllOrdersByCustomer(customer_id: $customer_id){
+      order_id
+    }
+}
+`;
+export const GET_PIZZAS_BY_ORDER = gql`
+  query GetAllPizzasByOrder($order_id: Int!){
+    getAllPizzasByOrder(order_id: $order_id){
+      pizza_id
+    }
+  }
+`;
+
+export const GET_VEGGIES_BY_PIZZA = gql`
+  query GetSelectedVeggies($pizza_id: Int!){
+    getSelectedVeggies(pizza_id: $pizza_id){
+      veggie{
+        veggie_type
+      }
+    }
+  }
+`;
+
+export const GET_MEATS_BY_PIZZA = gql`
+  query GetSelectedMeats($pizza_id: Int!){
+    getSelectedMeats(pizza_id: $pizza_id){
+      meat{
+        meat_type
+      }
+    }
+  }
+`;

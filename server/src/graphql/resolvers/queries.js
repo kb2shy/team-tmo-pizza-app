@@ -37,7 +37,7 @@ module.exports = {
     //returns Pizza array that shows crust, size, and sauce
     //additional joins needed to find specific toppings
     //returns all id info
-    async getAllPizzasByCustomer(root, { customer_id }, { OrderItem, Customer, Order, Pizza }) {
+    async getAllPizzasByCustomer(root, { customer_id }, { OrderItem, Customer, Order, Pizza, Size, Crust, Sauce, Cheese}) {
       const res1 = await Order.findAll({
         attributes: ['order_id'],
         where: {
@@ -67,7 +67,7 @@ module.exports = {
           pizza_id: {
             [Op.in]: items
           }
-        }
+        }, include: [Size, Crust, Sauce, Cheese]
       })
     },
     //returns all order ids for a customer
@@ -79,7 +79,7 @@ module.exports = {
       }).catch(err => console.log(err))
     },
     //returns all pizza ids by order
-    async getAllPizzasByOrder(rood, { order_id }, { Order, OrderItem, Pizza}) {
+    async getAllPizzasByOrder(rood, { order_id }, { Order, OrderItem, Pizza, Size, Crust, Sauce, Cheese}) {
       const res = await OrderItem.findAll({
         attributes: ['pizza_id'],
         where: {
@@ -94,7 +94,7 @@ module.exports = {
           pizza_id: {
             [Op.in]: ids
           }
-        }
+        }, include: [Size, Crust, Sauce, Cheese]
       })
     },
     //gets all possible meat options

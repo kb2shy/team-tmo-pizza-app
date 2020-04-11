@@ -7,6 +7,11 @@ import { registerCustomer } from '../../actions/auth';
 import { Form, Button } from 'react-bootstrap';
 import AppSpinner from '../AppSpinner/AppSpinner';
 
+// Register
+// - Title component
+// - Form: first, last, email, phone, pasword
+// - Create my account button
+
 const Register = ({ registerCustomer, loading }) => {
   const [user, setUser] = useState({
     first_name: '',

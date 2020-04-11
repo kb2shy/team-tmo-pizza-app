@@ -4,22 +4,11 @@ import { Card } from "react-bootstrap";
 import ToppingCard from '../ToppingCard/ToppingCard';
 
 class Toppings extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            arrayName: 'allMeats'
-        }
-    }
-
-    //Get correct array from store
-    componentDidMount = () => {
-        const arrayName = this.props.type === 'Meats' ? 'allMeats' : 'allVeggies';
-        this.setState({arrayName});
-    }
 
     //Needs type (i.e. 'Meats') from parent components
     //Renders specific Topping section with cards for each topping
     render() {
+        //console.log(this.props.meats)
         return (
             <Card className="text-center">
                 <Card.Header>
@@ -27,8 +16,10 @@ class Toppings extends React.Component {
                 </Card.Header>
                 <Card.Body>
                     {/* Map correct array (veggies or meats) */}
-                    {this.props[this.state.arrayName].map((item, i) => {
-                        return <ToppingCard key={item} label={item} type={this.props.type.toLowerCase()}/>
+                    {this.props[this.props.type.toLowerCase()].map((item, i) => {
+                        const itemLabel = this.props.type === 'Meats' ? item.meats.meat_type : item.veggies.veggie_type;
+
+                        return <ToppingCard key={`${this.props.type}${i}`} label={itemLabel} type={this.props.type.toLowerCase()} count={item.count}/>
                     })}
                 </Card.Body>
             </Card>
@@ -37,8 +28,8 @@ class Toppings extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    allMeats: state.toppings.allMeats,
-    allVeggies: state.toppings.allVeggies
+    meats: state.database.meats,
+    veggies: state.database.veggies
   });
   
 export default connect(mapStateToProps)(Toppings);

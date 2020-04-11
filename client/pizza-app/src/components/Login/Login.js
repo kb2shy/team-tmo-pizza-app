@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import classes from './Login.module.css';
 
 import { loginCustomer } from '../../actions/auth';
 import AppSpinner from '../AppSpinner/AppSpinner';
@@ -29,11 +30,12 @@ const Login = ({ loginCustomer, loading }) => {
   };
 
   return (
-    <div>
+    <div className={classes.container}>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label className={classes.label}>Email address</Form.Label>
           <Form.Control
+            className={classes.input}
             name="email"
             type="email"
             placeholder="Enter email"
@@ -45,8 +47,9 @@ const Login = ({ loginCustomer, loading }) => {
           </Form.Text>
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className={classes.label}>Password</Form.Label>
           <Form.Control
+            className={classes.input}
             name="password"
             type="password"
             placeholder="Password"
@@ -54,14 +57,15 @@ const Login = ({ loginCustomer, loading }) => {
             onChange={handleChange}
           />
         </Form.Group>
-        <div className="d-flex align-items-center">
-          <Button
-            variant="primary"
-            type="submit"
-            disabled={loading || !isValid}
-          >
-            Sign In
-          </Button>
+        <div className={`d-flex align-items-center ${classes.spacingTop}`}>
+            <Button
+              id={classes.buttonStyle}
+              variant="primary"
+              type="submit"
+              disabled={loading || !isValid}
+            >
+              Sign In
+            </Button>
           {loading && <AppSpinner />}
         </div>
       </Form>
