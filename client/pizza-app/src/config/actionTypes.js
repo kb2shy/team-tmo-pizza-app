@@ -35,4 +35,6 @@ export const SET_TOTAL_PIZZAS = "SET_TOTAL_PIZZAS";
 export const SET_PAST_ORDERS = 'SET_PAST_ORDERS';
 export const SET_PAST_PIZZAS = 'SET_PAST_PIZZAS';
 
+//History actions 
+//export const GET_PAST
 // Other action defines here...

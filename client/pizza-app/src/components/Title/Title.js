@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const Title = props => {
     return (
         <div>
-           Title 
+            {props.title}
         </div>
     )
 }

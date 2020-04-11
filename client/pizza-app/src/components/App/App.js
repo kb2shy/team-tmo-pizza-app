@@ -9,7 +9,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Logout from '../Logout/Logout';
 import CreatePizza from "../CreatePizza/CreatePizza";
-
+import OrderHistory from '../OrderHistory/OrderHistory'
 import { loadCustomer } from '../../actions/auth';
 
 //this example is for how to use graphql to persist data to backend
@@ -50,6 +50,7 @@ class App extends Component {
         <Login></Login>
         <Logout></Logout>
         <CreatePizza/>
+        <OrderHistory/>
       </Container>
     );
   }

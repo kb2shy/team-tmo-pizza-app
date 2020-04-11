@@ -72,6 +72,8 @@ export const GET_CUST_ORDERS = gql`
     }
 }
 `;
+
+//dont think this works, try changing it to getAllPizzasByOrder instead
 export const GET_PIZZAS_BY_ORDER = gql`
   query GetPizzaIdsByOrder($order_id: Int!){
     getPizzaIdsByOrder(order_id: $order_id){
@@ -79,3 +81,21 @@ export const GET_PIZZAS_BY_ORDER = gql`
     }
   }
 `;
+
+//returns all basic info for pizza order 
+export const GET_ALL_PIZZA_INFO_BY_ORDER = gql`
+  query GetAllPizzasByOrder($order_id: Int!){
+    getAllPizzasByOrder(order_id: $order_id){
+      size{
+        size_type
+      }
+      crust{
+        crust_type
+      }
+      sauce{
+        sauce_type
+      }
+    }
+  }
+`
+
