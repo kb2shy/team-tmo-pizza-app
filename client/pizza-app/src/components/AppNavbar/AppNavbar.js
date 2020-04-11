@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import Logout from '../Logout/Logout';
-import BackButton from '../BackButton/BackButton'
 
 import { setMenu } from '../../actions/menu';
-import { logoutCustomer } from '../../actions/auth';
 
 import logo from '../../assets/logo.svg';
 
@@ -22,7 +20,6 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
   };
 
   return (
-      <div style={{position: 'relative'}}>
     <Navbar
       collapseOnSelect
       expand="sm"
@@ -35,7 +32,7 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
           src={logo}
           height="80"
           className="d-inline-block align-top m-0 p-0"
-          alt="React Bootstrap logo"
+          alt="Logo"
         />
         <div className="ml-2">PizzaShop</div>
       </Navbar.Brand>
@@ -51,8 +48,6 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-    <BackButton />
-    </div>
   );
 };
 

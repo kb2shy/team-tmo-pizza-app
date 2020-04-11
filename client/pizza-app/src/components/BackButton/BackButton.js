@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,16 +11,14 @@ const BackButton = ({ step, previousMenu }) => {
     evt.preventDefault();
     previousMenu();
   };
-  return (
-    <div>
-      {step !== 0 && (
-        <div style={{ position: 'absolute', left: '12px', marginTop: '12px' }}>
-          <Button onClick={handleClick} type="button" variant="primary">
-            Back
-          </Button>
-        </div>
-      )}
+  return step !== 0 ? (
+    <div style={{ position: 'absolute', left: '12px', marginTop: '12px' }}>
+      <Button onClick={handleClick} type="button" variant="primary">
+        Back
+      </Button>
     </div>
+  ) : (
+    <Fragment />
   );
 };
 

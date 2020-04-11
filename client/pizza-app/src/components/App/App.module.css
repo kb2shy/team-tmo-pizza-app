@@ -1,0 +1,17 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  flex-shrink: 0;
+  /* position: relative; */
+}
+
+.container {
+  flex: 1 0 auto;
+  /* background: #fbffda url(../Home/style/home_background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover; */
+}

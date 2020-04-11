@@ -16,6 +16,8 @@ import Register from '../Register/Register';
 
 import { loadCustomer } from '../../actions/auth';
 
+import classes from './App.module.css';
+
 // This example is for how to use graphql to persist data to backend.
 // import Example from "./example";
 
@@ -54,10 +56,12 @@ class App extends Component {
 
   render() {
     return (
-      <div data-test="component-App">
-        <AppNavbar />
-        {/* <BackButton /> */}
-        <div>
+      <div data-test="component-App" className={classes.main}>
+        <div className={classes.header}>
+          <AppNavbar />
+          <BackButton />
+        </div>
+        <div className={classes.container}>
           {/* code to see example connection to send data to db */}
           {/* <Example></Example> */}
           {/* Render Home, Main, or a preferred component based on the step of the menu */}
