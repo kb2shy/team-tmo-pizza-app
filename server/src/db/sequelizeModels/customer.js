@@ -54,9 +54,9 @@ Customer.init({
     isRegistered: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
+        defaultValue: false,
         validate: {
-            default: false 
-         }
+        }
     }
 }, { sequelize, modelName: 'customer'})
 

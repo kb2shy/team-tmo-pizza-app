@@ -12,21 +12,23 @@
 	margin: 60px auto;
 	padding: 20px;
 }
-#buttonStyle {
+#buttonStyle { /* suggestion: use class selector */
 	color: #eb6d76;
 	border: 5px solid #eb6d76;
 	border-radius: 0px;
 	background-color: #fbffda;
 	opacity: 1;
 	font-family: 'Adamina', serif;
-	margin-top: 30px;
+	/* margin-top: 30px; */ /* Commented out by Anton to allow for centering spinner*/
 }
 #buttonStyle:hover {
 	background-color: #d8dbba;
 	border: 5px solid #ce6067;
 	color: #f0a9ae;
 }
-
+.spacingTop {
+	margin-top: 30px;
+}
 .input {
 	background-color: #fbffda;
 	color: #eb6d76;

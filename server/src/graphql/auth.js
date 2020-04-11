@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 // Better to store this constant in separate JSON file and not commit,
 // but for the sake of the demo...
@@ -15,7 +16,6 @@ const authContext = ({ req, res }) => {
   if (token) {
     try {
       const decrypted = jwt.verify(token, MY_JWT_SECRET);
-      console.log('DECRYPT', decrypted);
       user = decrypted.customer;
     } catch (err) {
       user = null;
@@ -27,13 +27,12 @@ const authContext = ({ req, res }) => {
 };
 
 const authGetTokenByCustomer = async (email, password, Customer) => {
-  // @todo hash password and compare
   let customer;
   try {
     customer = await Customer.findOne({
       where: {
         email,
-        password,
+        isRegistered: true, // ensure we're finding the user that is registered
       },
     });
   } catch (err) {
@@ -41,10 +40,24 @@ const authGetTokenByCustomer = async (email, password, Customer) => {
     return null;
   }
 
+  // return null if no user found
   if (!customer) {
     return null;
   }
 
+  try {
+    // validate password
+    const match = await bcrypt.compare(password, customer.password);
+    // return null if passwords do not match
+    if (!match) {
+      return null;
+    }
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+
+  // create token based on customer_id
   const payload = {
     customer: {
       customer_id: customer.customer_id,

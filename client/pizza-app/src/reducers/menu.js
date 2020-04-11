@@ -6,7 +6,7 @@ import {
 } from '../config/actionTypes';
 
 const initialState = {
-  step: 0,
+  step: 1,
 };
 
 const menuReducer = (state = initialState, action) => {
@@ -18,7 +18,7 @@ const menuReducer = (state = initialState, action) => {
 
     case PREVIOUS_MENU:
       return {
-        step: Math.max(state.step - 1, 0),
+        step: Math.max(state.step - 1, 1),
       };
     case SET_MENU:
       return {

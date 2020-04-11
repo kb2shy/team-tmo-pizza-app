@@ -18,7 +18,7 @@ import {
 import apolloClient from '../configureApolloClient';
 
 // Get token by customer email and password (and store to localStorage)
-export const loginCustomer = ({email, password}) => async (dispatch) => {
+export const loginCustomer = ({ email, password }) => async (dispatch) => {
   // Indicate that the customer is in the process of logging in - useful for spinners
   dispatch({
     type: AUTH_PROGRESS,
@@ -31,7 +31,7 @@ export const loginCustomer = ({email, password}) => async (dispatch) => {
       variables: { email, password },
     });
 
-    console.log(result)
+    console.log(result);
 
     const token = result.data.getTokenByCustomer;
 
@@ -113,10 +113,22 @@ export const registerCustomer = ({
   phone,
   password,
 }) => async (dispatch) => {
+  // Indicate that the customer is in the process of registering
+  dispatch({
+    type: AUTH_PROGRESS,
+  });
+
   try {
     const result = await apolloClient.mutate({
       mutation: CREATE_CUSTOMER,
-      variables: { first_name, last_name, email, phone, password },
+      variables: {
+        first_name,
+        last_name,
+        email,
+        phone,
+        password,
+        isRegistered: true,
+      },
     });
 
     const customer = result.data.createCustomer;

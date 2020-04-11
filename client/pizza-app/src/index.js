@@ -6,6 +6,7 @@ import { ApolloProvider } from "react-apollo";
 
 import apolloClient from "./configureApolloClient.js";
 
+import "./index.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import App from "./components/App/App";
