@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classes from './Login.module.css';
@@ -9,11 +9,17 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 import { loginCustomer } from '../../actions/auth';
 import { setMenu } from '../../actions/menu';
 
-const Login = ({ loginCustomer, loading, setMenu }) => {
+const Login = ({ loginCustomer, loading, setMenu, step, isAuthenticated }) => {
   const [user, setUser] = useState({
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    if (isAuthenticated && step === 1) {
+      setMenu(2);
+    }
+  }, [step, isAuthenticated]);
 
   const isValid = user.email.length !== 0 && user.password.length !== 0;
 
@@ -92,12 +98,16 @@ const Login = ({ loginCustomer, loading, setMenu }) => {
 
 Login.propTypes = {
   loading: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  step: PropTypes.number.isRequired,
   loginCustomer: PropTypes.func.isRequired,
   setMenu: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
+  isAuthenticated: state.auth.isAuthenticated,
+  step: state.menu.step,
 });
 
 export default connect(mapStateToProps, { loginCustomer, setMenu })(Login);
