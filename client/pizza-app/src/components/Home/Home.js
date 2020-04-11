@@ -1,5 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Login from '../Login/Login';
+import classes from './Home.module.css';
+import Title from '../Title/Title';
+import Logo from '../Logo/logo';
 
 // Home
 // - Login component
@@ -8,9 +12,15 @@ import PropTypes from "prop-types";
 // - Guest button (part of login if wanted)
 // - *Don’t render BackButton, Home, or Logout on this step; also they are rendered outside
 class Home extends Component {
-  render() {
-    return <div>Home</div>;
-  }
+	render() {
+		return (
+			<div className={classes.bodyImage}>
+				<Logo />
+				<Title />
+				<Login />
+			</div>
+		);
+	}
 }
 
 Home.propTypes = {};

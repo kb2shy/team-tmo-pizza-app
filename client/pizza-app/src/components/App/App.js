@@ -8,9 +8,12 @@ import Home from '../Home/Home';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Logout from '../Logout/Logout';
-import CreatePizza from "../CreatePizza/CreatePizza";
 import OrderHistory from '../OrderHistory/OrderHistory'
+import CreatePizza from '../CreatePizza/CreatePizza';
+import Cart from '../Cart/Cart';
+
 import { loadCustomer } from '../../actions/auth';
+
 
 //this example is for how to use graphql to persist data to backend
 // import Example from "./example";
@@ -51,6 +54,11 @@ class App extends Component {
         <Logout></Logout>
         <CreatePizza/>
         <OrderHistory/>
+        {/* <Register></Register> */}
+        {/* <Login></Login> */}
+        {/* <Logout></Logout> */}
+        {/* <CreatePizza /> */}
+        {/* <Cart /> */}
       </Container>
     );
   }

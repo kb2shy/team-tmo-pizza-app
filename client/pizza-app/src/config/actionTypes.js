@@ -22,8 +22,8 @@ export const SEND_EMAIL_PROGRESS = 'SEND_EMAIL_PROGRESS';
 export const SEND_EMAIL_SUCCESS = 'SEND_EMAIL_SUCCESS';
 export const SEND_EMAIL_FAILURE = 'SEND_EMAIL_FAILURE';
 
-// Customer
-export const SET_CUSTOMER_EMAIL = 'SET_CUSTOMER_EMAIL';
+// Guest customer
+export const SET_GUEST = 'SET_GUEST';
 
 // Order actions
 export const ADD_TOPPING = "ADD_TOPPING";
@@ -31,9 +31,15 @@ export const REMOVE_TOPPING = "REMOVE_TOPPING";
 
 // Toppings actions
 export const LOAD_TOPPINGS = "LOAD_TOPPINGS";
-export const SET_TOTAL_PIZZAS = "SET_TOTAL_PIZZAS";
 export const SET_PAST_ORDERS = 'SET_PAST_ORDERS';
 export const SET_PAST_PIZZAS = 'SET_PAST_PIZZAS';
+export const SET_VEGGIE_COUNT = 'SET_VEGGIE_COUNT';
+export const SET_MEATS_COUNT = 'SET_MEATS_COUNT';
+
+// Array of Pizzas
+export const ADD_PIZZA = 'ADD_PIZZA';
+export const REMOVE_PIZZA = 'REMOVE_PIZZA';
+export const CLEAR_PIZZAS = 'CLEAR_PIZZAS'
 
 //History actions 
 //export const GET_PAST
