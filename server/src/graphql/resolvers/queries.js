@@ -2,6 +2,10 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op; //allows you to query using joins on sequelize
 const { authGetTokenByCustomer } = require('../auth');
 
+const errHandler = (err) => {
+  console.error("Error: ", err);
+}
+
 module.exports = {
   Query: {
     // used for login
@@ -98,27 +102,27 @@ module.exports = {
     },
     //gets all possible meat options
     async getMeatOptions(root, args, { Meat }) {
-      return await Meat.findAll({})
+      return await Meat.findAll({}).catch(errHandler);
     },
     //gets all possible veggie options
     async getVeggieOptions(root, args, { Veggie }) {
-      return await Veggie.findAll({})
+      return await Veggie.findAll({}).catch(errHandler);
     },
     //gets all possible cheese options
     async getCheeseOptions(root, args, { Cheese }) {
-      return await Cheese.findAll({})
+      return await Cheese.findAll({}).catch(errHandler);
     },
     //gets all possible crust options
     async getCrustOptions(root, args, { Crust }) {
-      return await Crust.findAll({})
+      return await Crust.findAll({}).catch(errHandler);
     },
     //gets all possible sauce options
     async getSauceOptions(root, args, { Sauce }) {
-      return await Sauce.findAll({})
+      return await Sauce.findAll({}).catch(errHandler);
     },
     //gets all possible size options
     async getSizeOptions(root, args, { Size }) {
-      return await Size.findAll({})
+      return await Size.findAll({}).catch(errHandler);
     },
     //gets all selected meat options for specific pizza
     async getSelectedMeats(root, { pizza_id }, { MeatSelect, Meat }) {
@@ -144,7 +148,7 @@ module.exports = {
         where: {
           isRegistered: true
         }
-      })
+      }).catch(errHandler);
     },
     //gets all customers who haven't registered
     async getGuests(root, args, { Customer }) {
@@ -152,21 +156,21 @@ module.exports = {
         where: {
           isRegistered: null
         }
-      })
+      }).catch(errHandler);
     },
     async getTotalSelectedVeggie(root, { veggie_id }, { VeggieSelect}) {
       return await VeggieSelect.findAll({
         where: {
           veggie_id: veggie_id
         }
-      })
+      }).catch(errHandler);
     },
     async getTotalSelectedMeat(root, { meat_id }, { MeatSelect}) {
       return await MeatSelect.findAll({
         where: {
           meat_id: meat_id
         }
-      })
+      }).catch(errHandler);
     }
   },
 

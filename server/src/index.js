@@ -43,7 +43,7 @@ Pizza.belongsTo(Cheese, { foreignKey: 'cheese_id' })
 //creates composite fk on meat selections table - many to many between pizza and meat types table
 Pizza.hasMany(MeatSelect, { foreignKey: { name: 'pizza_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
 MeatSelect.belongsTo(Pizza, { foreignKey: 'pizza_id' })
-Meat.hasMany(MeatSelect, { foreignKey: { name: 'meat_id', allowNull: false }, onDelete: 'CASCADE', onUdate: 'CASCADE' })
+Meat.hasMany(MeatSelect, { foreignKey: { name: 'meat_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
 MeatSelect.belongsTo(Meat, { foreignKey: 'meat_id' })
 
 //removed functionality for multiple cheese selections
