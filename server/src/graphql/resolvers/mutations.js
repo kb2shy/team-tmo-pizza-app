@@ -73,7 +73,7 @@ module.exports = {
             phone,
             password: passHash,
             isRegistered: isRegistered2,
-          });
+          }).catch(errHandler);
         } else {
           return await Customer.create({
             first_name,
@@ -82,7 +82,7 @@ module.exports = {
             email,
             password: passHash,
             isRegistered: isRegistered2,
-          });
+          }).catch(errHandler);
         }
       } catch (err) {
         console.log(err);

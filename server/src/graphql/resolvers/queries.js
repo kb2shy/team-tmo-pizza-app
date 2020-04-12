@@ -10,7 +10,7 @@ module.exports = {
   Query: {
     // used for login
     async getTokenByCustomer(root, { email, password }, { Customer }) {
-      return await authGetTokenByCustomer(email, password, Customer);
+      return await authGetTokenByCustomer(email, password, Customer).catch(errHandler);;
     },
     // used for validating current token
     // user, which is either null or {customer_id: Int} is extracted from token
@@ -60,7 +60,7 @@ module.exports = {
           }
         },
         include: [Pizza]
-      })
+      }).catch(errHandler);
 
       const items = Object.values(res2).map(i => {
         return parseInt(i.pizza_id)
@@ -71,7 +71,7 @@ module.exports = {
             [Op.in]: items
           }
         }, include: [Size, Crust, Sauce, Cheese]
-      })
+      }).catch(errHandler);
     },
     //returns all order ids for a customer
     async getAllOrdersByCustomer(root, { customer_id }, { Order }) {
@@ -88,7 +88,7 @@ module.exports = {
         where: {
           order_id: order_id
         }, include: [Order]
-      })
+      }).catch(errHandler);
       const ids = Object.values(res).map(id => {
         return parseInt(id.pizza_id)
       })
@@ -98,7 +98,7 @@ module.exports = {
             [Op.in]: ids
           }
         }, include: [Size, Crust, Sauce, Cheese]
-      })
+      }).catch(errHandler);
     },
     //gets all possible meat options
     async getMeatOptions(root, args, { Meat }) {
