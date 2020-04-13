@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { setBase }  from '../../actions/pizza';
+import { setBase, clearPizza }  from '../../actions/pizza';
+import { addPizza } from '../../actions/pizzas';
 import { nextMenu } from '../../actions/menu';
 import { Button } from "react-bootstrap";
 
@@ -12,6 +13,14 @@ class CreatePizza extends React.Component {
     //changes store to user input
     handleChange = (e, item) => {
         this.props.setBase(e.target.name.toLowerCase(), item);
+    }
+
+    //Adds current pizza to pizzas array and clears current pizza
+    handleSubmit = () => {
+        const currentPizza = this.props.pizza;
+        this.props.addPizza(currentPizza);
+        //this.props.clearPizza();
+        this.props.nextMenu();
     }
 
     //Renders topping sections
@@ -48,7 +57,7 @@ class CreatePizza extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <Button onClick={this.props.nextMenu}>Add to Cart</Button>
+                <Button onClick={this.handleSubmit}>Add to Cart</Button>
             </div>
         )
     }
@@ -83,6 +92,7 @@ const mapStateToProps = (state) => ({
     sauces: state.database.sauces,
     cheeses: state.database.cheeses,
     crusts: state.database.crusts,
+    pizza: state.pizza
 });
 
-export default connect(mapStateToProps, { nextMenu, setBase })(CreatePizza);
+export default connect(mapStateToProps, { nextMenu, setBase, clearPizza, addPizza })(CreatePizza);

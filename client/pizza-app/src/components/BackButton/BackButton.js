@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { previousMenu, setMenu } from '../../actions/menu';
+import { clearPizza }  from '../../actions/pizza';
 
 import { Button } from 'react-bootstrap';
 
-const BackButton = ({ step, previousMenu, setMenu, isAuthenticated }) => {
+const BackButton = ({ step, previousMenu, setMenu, clearPizza}) => {
   const handleClick = (evt) => {
     evt.preventDefault();
+    //clear current pizza
+    clearPizza();
     //when on create pizza, skip order history page
     (step === 3) ? setMenu(1) : previousMenu();
   };
@@ -45,4 +48,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { setMenu, previousMenu })(BackButton);
+export default connect(mapStateToProps, { setMenu, previousMenu, clearPizza })(BackButton);
