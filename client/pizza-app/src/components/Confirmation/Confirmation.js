@@ -17,7 +17,7 @@ const Confirmation = props => {
 
     const handleClickCreateAccount = (e) => {
         e.preventDefault();
-        return props.setMenu(7);
+        return props.setMenu(2);
     }
 
     const saveOrder = () => {
@@ -68,16 +68,16 @@ Confirmation.propTypes = {
 
 const mapStateToProps = (state) => ({
     // uncomment the below line and remove the dummy auth object
-    // auth: state.auth,
-    auth: { 
-        user: { 
-            email: `blahblahblah@email.com`,
-        },
-        isAuthenticated: true,
-    },
+    auth: state.auth,
+    // auth: { 
+    //     user: { 
+    //         email: `blahblahblah@email.com`,
+    //     },
+    //     isAuthenticated: false,
+    // },
     // uncomment the next line below code and remove duplicate dummy code
-    // guest: state.guest
-    guest: { email: "guest@email.com"},
+    guest: state.guest
+    // guest: { email: "guest@email.com"},
 })
 
 
