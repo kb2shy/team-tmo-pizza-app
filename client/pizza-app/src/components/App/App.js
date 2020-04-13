@@ -64,11 +64,11 @@ class App extends Component {
           {/* <Example></Example> */}
           {/* Render Home, Main, or a preferred component based on the step of the menu */}
           {this.getViewState()}
-          <Register></Register>
+          {/* <Register></Register> */}
           {/* <Login></Login> */}
           {/* <Logout></Logout> */}
           {/* <CreatePizza /> */}
-          {/* <Cart /> */}
+          <Cart />
         </div>
       </div>
     );
@@ -77,7 +77,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   step: state.menu.step,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 App.propTypes = {
