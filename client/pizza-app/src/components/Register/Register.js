@@ -6,7 +6,6 @@ import { registerCustomer } from '../../actions/auth';
 
 import { Form, Button } from 'react-bootstrap';
 import AppSpinner from '../AppSpinner/AppSpinner';
-import { setMenu } from '../../actions/menu';
 
 // Register
 // - Title component
@@ -29,15 +28,14 @@ const Register = ({ registerCustomer, loading, guest }) => {
     user.email.trim().length !== 0 &&
     user.password.trim().length !== 0;
 
-  const handleSubmit = async (evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
     const first_name = user.first_name.trim();
     const last_name = user.last_name.trim();
     const phone = user.phone.trim();
     const email = user.email.trim();
     const password = user.password;
-    await registerCustomer({ first_name, last_name, phone, email, password });
-    return await setMenu(1);
+    registerCustomer({ first_name, last_name, phone, email, password });
   };
 
   const handleChange = (evt) => {
@@ -125,5 +123,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   registerCustomer,
-  setMenu
 })(Register);
