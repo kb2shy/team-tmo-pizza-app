@@ -1,11 +1,13 @@
 import {
     ADD_TOPPING,
     REMOVE_TOPPING,
+    SET_PIZZA_BASE,
+    CLEAR_PIZZA
   } from "../config/actionTypes";
   
   const initialState = {
-        size: 0,
-        crustType: '',
+        size: '',
+        crust: '',
         sauce: '',
         cheese: '',
         toppings: {
@@ -36,6 +38,15 @@ import {
                 ...state,
                 toppings: removeTopping
             };
+
+        case SET_PIZZA_BASE:
+            const newBase = { ...state }
+            newBase[action.payload.type] = action.payload.value;
+
+            return newBase;
+
+        case CLEAR_PIZZA:
+            return initialState;
 
         default:
             return state;

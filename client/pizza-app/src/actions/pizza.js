@@ -1,6 +1,8 @@
 import { 
     ADD_TOPPING, 
     REMOVE_TOPPING,
+    SET_PIZZA_BASE,
+    CLEAR_PIZZA
   } from "../config/actionTypes";
   
   //customer orders
@@ -15,5 +17,18 @@ import {
     dispatch({
       type: REMOVE_TOPPING,
       payload: {type, item}
+    });
+  };
+
+  export const setBase = (type, value) => (dispatch) => {
+    dispatch({
+      type: SET_PIZZA_BASE,
+      payload: {type, value}
+    });
+  };
+
+  export const clearPizza = () => (dispatch) => {
+    dispatch({
+      type: CLEAR_PIZZA
     });
   };

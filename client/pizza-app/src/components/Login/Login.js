@@ -32,7 +32,7 @@ const Login = ({ loginCustomer, loading, setMenu, step, isAuthenticated }) => {
 
   const handleGuestOrderClick = (evt) => {
     evt.preventDefault();
-    setMenu(4);
+    setMenu(3);
   };
 
   const handleChange = (evt) => {

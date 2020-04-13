@@ -15,6 +15,7 @@ import Confirmation from '../Confirmation/Confirmation';
 import Register from '../Register/Register';
 
 import { loadCustomer } from '../../actions/auth';
+import { getToppings } from '../../actions/database';
 
 import classes from './App.module.css';
 
@@ -30,6 +31,9 @@ class App extends Component {
   componentDidMount() {
     // Check user token in local storage and load authenticated user
     this.props.loadCustomer();
+    //Get all possible toppings - necessary to get past topping orders
+    this.props.getToppings('veggies');
+    this.props.getToppings('meats');
   }
 
   /* Render Home, Main, or a preferred component based on the step of the menu */
@@ -64,7 +68,7 @@ class App extends Component {
           {/* <Example></Example> */}
           {/* Render Home, Main, or a preferred component based on the step of the menu */}
           {this.getViewState()}
-          <Register></Register>
+          {/* <Register></Register> */}
           {/* <Login></Login> */}
           {/* <Logout></Logout> */}
           {/* <CreatePizza /> */}
@@ -86,4 +90,4 @@ App.propTypes = {
   loadCustomer: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { loadCustomer })(App);
+export default connect(mapStateToProps, { loadCustomer, getToppings })(App);
