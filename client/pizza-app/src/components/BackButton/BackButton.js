@@ -2,14 +2,15 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { previousMenu } from '../../actions/menu';
+import { previousMenu, setMenu } from '../../actions/menu';
 
 import { Button } from 'react-bootstrap';
 
-const BackButton = ({ step, previousMenu }) => {
+const BackButton = ({ step, previousMenu, setMenu, isAuthenticated }) => {
   const handleClick = (evt) => {
     evt.preventDefault();
-    previousMenu();
+    //handles special case where guest is making pizza
+    (step === 3 && isAuthenticated === false) ? setMenu(1) : previousMenu();
   };
   return step !== 1 ? (
     <div
@@ -41,6 +42,7 @@ BackButton.propTypes = {
 
 const mapStateToProps = (state) => ({
   step: state.menu.step,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { previousMenu })(BackButton);
+export default connect(mapStateToProps, { setMenu, previousMenu })(BackButton);

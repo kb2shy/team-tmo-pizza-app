@@ -72,7 +72,7 @@ class App extends Component {
           {/* <Login></Login> */}
           {/* <Logout></Logout> */}
           {/* <CreatePizza /> */}
-          <Cart />
+          {/* <Cart /> */}
         </div>
       </div>
     );
