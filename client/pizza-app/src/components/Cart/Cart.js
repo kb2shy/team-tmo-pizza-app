@@ -60,10 +60,10 @@ const Cart = ({ setGuest, setMenu, step, isAuthenticated, user }) => {
     setGuest({ first_name, last_name, email, phone });
 
     // don't go anywhere
-    return '';
+    // return '';
 
     // for integrating with the rest of the app
-    // return setMenu(5);
+    return setMenu(5);
   };
 
   const handleChange = (e) => {
