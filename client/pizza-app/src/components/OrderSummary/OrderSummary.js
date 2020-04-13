@@ -12,13 +12,15 @@ const OrderSummary = ({ pizzas }) => {
     <div>
       {pizzas.map((pz) => {
         return (
-          <PizzaCard
-            size={pz.size}
-            crust={pz.crust}
-            sauce={pz.sauce}
-            cheese={pz.cheese}
-            toppings={pz.toppings}
-          />
+          <div key={pz}>
+            <PizzaCard
+              size={pz.size}
+              crust={pz.crust}
+              sauce={pz.sauce}
+              cheese={pz.cheese}
+              toppings={pz.toppings}
+            />
+          </div>
         );
       })}
     </div>
