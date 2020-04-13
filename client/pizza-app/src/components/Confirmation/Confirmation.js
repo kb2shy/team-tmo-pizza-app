@@ -17,7 +17,7 @@ const Confirmation = props => {
 
     const handleClickCreateAccount = (e) => {
         e.preventDefault();
-        return props.setMenu(7);
+        return props.setMenu(2);
     }
 
     const saveOrder = () => {
