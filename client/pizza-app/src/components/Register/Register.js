@@ -12,13 +12,13 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 // - Form: first, last, email, phone, pasword
 // - Create my account button
 
-const Register = ({ registerCustomer, loading }) => {
+const Register = ({ registerCustomer, loading, guest }) => {
   const [user, setUser] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
+    first_name: guest.first_name,
+    last_name: guest.last_name,
+    email: guest.email,
     password: '',
-    phone: '',
+    phone: guest.phone,
   });
 
   const isValid =
@@ -118,6 +118,7 @@ Register.propTypes = {
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
+  guest: state.guest
 });
 
 export default connect(mapStateToProps, {
