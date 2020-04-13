@@ -43,6 +43,7 @@ import {
             const newBase = { ...state }
             newBase[action.payload.type] = action.payload.value;
 
+            console.log(newBase);
             return newBase;
 
         case CLEAR_PIZZA:

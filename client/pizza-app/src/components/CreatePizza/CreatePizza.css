@@ -1,0 +1,27 @@
+.centerDiv {
+    text-align: center;
+}
+
+.createPizzaTitle {
+    padding: 30px 0px;
+}
+
+.toppingTable {
+    width: 70%;
+    margin: 10px auto;
+}
+
+td:first-child{
+    width: 100px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+td {
+    width: max-content;
+    text-align: left;
+}
+
+label {
+    padding-left: 10px;
+}
