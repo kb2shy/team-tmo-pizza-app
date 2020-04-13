@@ -46,6 +46,8 @@ import {
             return newBase;
 
         case CLEAR_PIZZA:
+            initialState.toppings.meats = [];
+            initialState.toppings.veggies = [];
             return initialState;
 
         default:

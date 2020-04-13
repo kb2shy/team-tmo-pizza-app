@@ -37,17 +37,21 @@ export default class BarChart extends React.Component {
         canvas.selectAll("rect")
             .remove();
 
+        const filledWidth = (this.props.count/this.props.total) !== 0 ? width * (this.props.count/this.props.total) : 0;
+        const unfilledWidth = (this.props.count/this.props.total) !== 0 ? width - filledWidth - 3 : width - 2;
+        const unfilledTrans = (this.props.count/this.props.total) !== 0 ? filledWidth + 2 : filledWidth + 1;
+
         //unfilled
         canvas.append("rect")
         .attr('height', height-2)
-        .attr('width', width - (width * (this.props.count/this.props.total)) - 2)
-        .attr('transform', `translate(${width * (this.props.count/this.props.total) + 1}, 1)`)
+        .attr('width', unfilledWidth)
+        .attr('transform', `translate(${unfilledTrans}, 1)`)
         .style('fill', '#ffe6cc')
 
         //filled
         canvas.append("rect")
         .attr('height', height-2)
-        .attr('width', width * (this.props.count/this.props.total) - 1)
+        .attr('width', filledWidth)
         .attr('transform', 'translate(1, 1)')
         .style('fill', 'brown')
     }
