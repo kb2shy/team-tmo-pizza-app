@@ -1,19 +1,9 @@
-import React, { useState, Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import {
-  Card,
-  Button,
-  Container,
-  Form,
-  Row,
-  Col,
-  Table,
-} from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import { Card, Table } from 'react-bootstrap';
 
 /**
  * OrderSummary component
- * - NOTE: currently hard-coded implementation. Are we doing pizza order id?
  * @param {*}  pizza - reducer
  * @return {*} Table - selected pizza information
  */
@@ -37,9 +27,9 @@ const OrderSummary = ({ pizza }) => {
             <td>Size</td>
             <td>{pizza.size}</td>
           </tr>
-          <tr id="CrustType">
-            <td>Crust Type</td>
-            <td>{pizza.crustType}</td>
+          <tr id="crust">
+            <td>Crust</td>
+            <td>{pizza.crust}</td>
           </tr>
           <tr id="Sauce">
             <td>Sauce</td>
@@ -49,13 +39,13 @@ const OrderSummary = ({ pizza }) => {
             <td>Cheese</td>
             <td>{pizza.cheese}</td>
           </tr>
-          <tr id="Meats">
-            <td>Meats</td>
-            <td>{printMultiple(pizza.toppings.meats)}</td>
-          </tr>
           <tr id="Veggies">
             <td>Veggies</td>
             <td>{printMultiple(pizza.toppings.veggies)}</td>
+          </tr>
+          <tr id="Meats">
+            <td>Meats</td>
+            <td>{printMultiple(pizza.toppings.meats)}</td>
           </tr>
         </tbody>
       </Table>
@@ -66,15 +56,9 @@ const OrderSummary = ({ pizza }) => {
     <>
       <Card>
         <Card.Body>
-          <Card.Title>Order # NUM</Card.Title>
           <Card.Text as={renderOrderInTable} />
         </Card.Body>
       </Card>
-
-      {/* setting up for future: adding and removing pizzas to the order */}
-      {/* <Button variant="primary" onClick="">
-          Add Another Pizza
-        </Button>*/}
     </>
   );
 };
@@ -82,28 +66,13 @@ const OrderSummary = ({ pizza }) => {
 const mapStateToProps = (state) => {
   return {
     pizza: {
-      // default (for anyone) - NOTE! not done yet until Toppings implementation is finished
-      // size: state.pizza.size,
-      // crustType: state.pizza.crustType,
-      // sauce: state.pizza.sauce,
-      // cheese: state.pizza.cheese,
-      // toppings:{
-      //   meats: state.pizza.toppings.meats,
-      //   veggies: state.pizza.toppings.veggies
-      // }
-
-      // dummy data:
-      size: 'large - 14 in',
-      crustType: 'brooklyn style',
-      sauce: 'garlic parmesan white sauce',
-      cheese: 'parmigiana',
+      size: state.pizza.size,
+      crust: state.pizza.crust,
+      sauce: state.pizza.sauce,
+      cheese: state.pizza.cheese,
       toppings: {
-        // one way of saving the data, as objects
-        // meats: [{ name: 'chicken' }, { name: 'bacon' }, { name: 'prosciutto' }],
-
-        // another way: just have the topping names individually
-        meats: ['chicken', 'bacon', 'prosciutto', 'prosciutto'],
-        veggies: ['spinach', 'roasted red peppers'],
+        meats: state.pizza.toppings.meats,
+        veggies: state.pizza.toppings.veggies,
       },
     },
   };
