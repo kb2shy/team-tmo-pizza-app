@@ -70,6 +70,40 @@ export const GET_VEGGIE_OPTIONS = gql`
   }
   `;
 
+export const GET_CHEESE_OPTIONS = gql`
+query{
+  getCheeseOptions{
+    cheese_id
+    cheese_type
+    cheese_price
+  }
+}
+`;
+
+export const GET_CRUST_OPTIONS = gql`
+query{
+  getCrustOptions{
+    crust_type
+  }
+}
+`;
+
+export const GET_SAUCE_OPTIONS = gql`
+query{
+  getSauceOptions{
+    sauce_type
+  }
+}
+`;
+
+export const GET_SIZE_OPTIONS = gql`
+query{
+  getSizeOptions{
+    size_type
+  }
+}
+`;
+
 export const GET_CUST_ORDERS = gql`
   query GetAllOrdersByCustomer($customer_id: Int!){
     getAllOrdersByCustomer(customer_id: $customer_id){

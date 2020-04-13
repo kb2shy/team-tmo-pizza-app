@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Card } from "react-bootstrap";
 import ToppingCard from '../ToppingCard/ToppingCard';
 
 class Toppings extends React.Component {

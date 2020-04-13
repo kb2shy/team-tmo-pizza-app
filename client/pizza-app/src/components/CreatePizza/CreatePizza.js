@@ -1,38 +1,34 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { getOrderIds } from '../../actions/database';
 import { setBase }  from '../../actions/pizza';
 import { nextMenu } from '../../actions/menu';
 import { Button } from "react-bootstrap";
+
+import './CreatePizza.css';
 import Toppings from '../Toppings/Toppings';
 
 class CreatePizza extends React.Component {
 
-    componentDidMount = () => {
-        // if(this.props.user !== null) {
-        //     this.props.getTotalNumberOrders(this.props.user.customer_id);
-        // }
-        this.props.getOrderIds(1);
-    }
-
+    //changes store to user input
     handleChange = (e, item) => {
-        this.props.setBase(e.target.name.toLowerCase(), item.toLowerCase());
+        this.props.setBase(e.target.name.toLowerCase(), item);
     }
 
     //Renders topping sections
     render() {
         return (
-            <div>
-                <table>
+            <div className='centerDiv'>
+                <h3 className='createPizzaTitle'>Create Your Pizza</h3>
+                <table className='toppingTable'>
                     <tbody>
-                        <RadioButtonRow type={'Size'} options={['Small', 'Medium', 'Large', 'X-Large']} handleChange={this.handleChange}/>
-                        <RadioButtonRow type={'Crust'} options={['Standard', 'Thin Crust', 'Deep Dish']} handleChange={this.handleChange}/>
-                        <RadioButtonRow type={'Sauce'} options={['Red', 'Cheese', 'BBQ', 'Buffalo']} handleChange={this.handleChange}/>
-                        <RadioButtonRow type={'Cheese'} options={['Light', 'Standard', 'Extra']} handleChange={this.handleChange}/>
+                        <RadioButtonRow type={'Size'} options={this.props.sizes} handleChange={this.handleChange}/>
+                        <RadioButtonRow type={'Crust'} options={this.props.crusts} handleChange={this.handleChange}/>
+                        <RadioButtonRow type={'Sauce'} options={this.props.sauces} handleChange={this.handleChange}/>
+                        <RadioButtonRow type={'Cheese'} options={this.props.cheeses} handleChange={this.handleChange}/>
                     </tbody>
                 </table>
 
-                <table>
+                <table className='toppingTable'>
                     <tbody>
                         <tr>
                             <td>
@@ -71,7 +67,6 @@ class RadioButtonRow extends React.Component {
                             <td key={item}>
                                 <input type='radio' 
                                     name={this.props.type} 
-                                    selected={this.props[this.props.type.toLowerCase()] === item.toLowerCase()} 
                                     onChange={(e) => this.props.handleChange(e, item)}
                                 />
                                 <label>{item}</label>
@@ -84,11 +79,10 @@ class RadioButtonRow extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    size: state.pizza.size,
-    crust: state.pizza.crust,
-    sauce: state.pizza.sauce,
-    cheese: state.pizza.cheese,
-    pizza: state.pizza
+    sizes: state.database.sizes,
+    sauces: state.database.sauces,
+    cheeses: state.database.cheeses,
+    crusts: state.database.crusts,
 });
 
-export default connect(mapStateToProps, { nextMenu, getOrderIds, setBase })(CreatePizza);
+export default connect(mapStateToProps, { nextMenu, setBase })(CreatePizza);

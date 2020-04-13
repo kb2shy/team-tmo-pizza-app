@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Title from '../Title/Title';
 import BackButton from '../BackButton/BackButton'
@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import classes from './OrderChoice.module.css';
 import { setMenu } from '../../actions/menu';
+import { getUserHistory } from '../../actions/database';
 
 // OrderChoice: displayed for logged-in customer only, page 2
 // - Title sub-component
@@ -14,6 +15,12 @@ import { setMenu } from '../../actions/menu';
 // - Simple text
 // - *BackButton component is displayed but rendered outside (don't render in component)
 const OrderChoice = props => {
+
+    //Gets user history data
+    useEffect(() => {
+        props.getUserHistory(1);
+        //props.getUserHistory(props.user.customer_id);
+    },[]);
 
     const handleOrderHistory = (e) => {
         e.preventDefault();
@@ -52,5 +59,5 @@ const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { setMenu })(OrderChoice);
+export default connect(mapStateToProps, { setMenu, getUserHistory })(OrderChoice);
 
