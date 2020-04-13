@@ -12,7 +12,7 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 // - Form: first, last, email, phone, pasword
 // - Create my account button
 
-const Register = ({ registerCustomer, loading }) => {
+const Register = ({ registerCustomer, loading, guest }) => {
   const [user, setUser] = useState({
     first_name: '',
     last_name: '',
@@ -53,7 +53,7 @@ const Register = ({ registerCustomer, loading }) => {
             name="first_name"
             type="text"
             placeholder="First Name"
-            value={user.first_name}
+            value={guest.first_name}
             onChange={handleChange}
           />
         </Form.Group>
@@ -63,7 +63,7 @@ const Register = ({ registerCustomer, loading }) => {
             name="last_name"
             type="text"
             placeholder="Last Name"
-            value={user.last_name}
+            value={guest.last_name}
             onChange={handleChange}
           />
         </Form.Group>
@@ -73,7 +73,7 @@ const Register = ({ registerCustomer, loading }) => {
             name="phone"
             type="text"
             placeholder="Phone"
-            value={user.phone}
+            value={guest.phone}
             onChange={handleChange}
           />
         </Form.Group>
@@ -83,7 +83,7 @@ const Register = ({ registerCustomer, loading }) => {
             name="email"
             type="email"
             placeholder="Enter email"
-            value={user.email}
+            value={guest.email}
             onChange={handleChange}
           />
           <Form.Text className="text-muted">
@@ -118,6 +118,7 @@ Register.propTypes = {
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
+  guest: state.guest
 });
 
 export default connect(mapStateToProps, {
