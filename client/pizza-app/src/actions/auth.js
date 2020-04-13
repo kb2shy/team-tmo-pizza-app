@@ -10,7 +10,7 @@ import {
 } from '../config/actionTypes';
 
 import {
-  CREATE_CUSTOMER,
+  UPDATE_OR_CREATE_CUSTOMER,
   GET_TOKEN_BY_CUSTOMER,
   GET_CUSTOMER_BY_TOKEN,
 } from '../config/gqlDefines';
@@ -31,11 +31,9 @@ export const loginCustomer = ({ email, password }) => async (dispatch) => {
       variables: { email, password },
     });
 
-    console.log(result);
-
     const token = result.data.getTokenByCustomer;
-
     if (token !== null) {
+      // Store the token
       dispatch({
         type: LOGIN_SUCCESS,
         payload: {
@@ -43,6 +41,7 @@ export const loginCustomer = ({ email, password }) => async (dispatch) => {
         },
       });
 
+      // Load `user` from token (if token is null, sets `user` to null)
       dispatch(loadCustomer());
     } else {
       dispatch({
@@ -50,7 +49,7 @@ export const loginCustomer = ({ email, password }) => async (dispatch) => {
       });
     }
   } catch (err) {
-    console.log(err);
+    console.log('Error in loginCustomer:', err);
 
     dispatch({
       type: LOGIN_FAILURE,
@@ -84,7 +83,6 @@ export const loadCustomer = () => async (dispatch, getState) => {
   try {
     const result = await apolloClient.query({
       query: GET_CUSTOMER_BY_TOKEN,
-      variables: { token }, // passing anything here is not needed; will update query to have zero args
       context: {
         headers: {
           'x-auth-token': token,
@@ -99,6 +97,8 @@ export const loadCustomer = () => async (dispatch, getState) => {
       payload: customer,
     });
   } catch (err) {
+    console.log('Error in loadCustomer:', err);
+
     dispatch({
       type: AUTH_ERROR,
     });
@@ -120,7 +120,7 @@ export const registerCustomer = ({
 
   try {
     const result = await apolloClient.mutate({
-      mutation: CREATE_CUSTOMER,
+      mutation: UPDATE_OR_CREATE_CUSTOMER,
       variables: {
         first_name,
         last_name,
@@ -131,7 +131,7 @@ export const registerCustomer = ({
       },
     });
 
-    const customer = result.data.createCustomer;
+    const customer = result.data.updateOrCreateCustomer;
     if (customer) {
       // dispatch success
       dispatch({
@@ -151,7 +151,8 @@ export const registerCustomer = ({
       });
     }
   } catch (err) {
-    console.error(err);
+    console.log('Error in registerCustomer:', err);
+
     dispatch({
       type: REGISTER_FAILURE,
     });

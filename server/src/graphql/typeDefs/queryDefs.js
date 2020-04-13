@@ -4,7 +4,7 @@ type Query{
       email: String!
       password: String!
     ) : String
-    getCustomerByToken(token: String) : Customer
+    getCustomerByToken : Customer
     getCustomerByEmail(email: String): Customer
 
     getRegisteredUsers: [Customer]

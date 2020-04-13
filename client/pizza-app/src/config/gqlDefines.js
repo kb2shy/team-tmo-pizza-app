@@ -8,9 +8,10 @@ export const GET_TOKEN_BY_CUSTOMER = gql`
 `;
 
 // Used for retrieving customer details by token.
+// Pass token as `x-auth-token` in context header.
 export const GET_CUSTOMER_BY_TOKEN = gql`
-  query GetCustomerByToken($token: String) {
-    getCustomerByToken(token: $token) {
+  query {
+    getCustomerByToken {
       customer_id
       email
       first_name
@@ -20,9 +21,10 @@ export const GET_CUSTOMER_BY_TOKEN = gql`
   }
 `;
 
-// Used for creating a new customer
-export const CREATE_CUSTOMER = gql`
-  mutation CreateCustomer(
+// Used for creating a new customer or getting and updating an existing
+// customer if `isRegistered` flag (for query and existing) is false.
+export const UPDATE_OR_CREATE_CUSTOMER = gql`
+  mutation UpdateOrCreateCustomer(
     $first_name: String!
     $last_name: String!
     $phone: String!
@@ -30,7 +32,7 @@ export const CREATE_CUSTOMER = gql`
     $password: String
     $isRegistered: Boolean
   ) {
-    createCustomer(
+    updateOrCreateCustomer(
       first_name: $first_name
       last_name: $last_name
       phone: $phone
