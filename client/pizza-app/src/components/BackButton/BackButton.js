@@ -9,8 +9,8 @@ import { Button } from 'react-bootstrap';
 const BackButton = ({ step, previousMenu, setMenu, isAuthenticated }) => {
   const handleClick = (evt) => {
     evt.preventDefault();
-    //handles special case where guest is making pizza
-    (step === 3 && isAuthenticated === false) ? setMenu(1) : previousMenu();
+    //when on create pizza, skip order history page
+    (step === 3) ? setMenu(1) : previousMenu();
   };
   return step !== 1 ? (
     <div
