@@ -17,12 +17,12 @@ const OrderChoice = props => {
 
     const handleOrderHistory = (e) => {
         e.preventDefault();
-        return props.setMenu(3);
+        return props.setMenu(2);
     }
 
     const handleCreateOrder = (e) => {
         e.preventDefault();
-        return props.setMenu(4);
+        return props.setMenu(3);
     }
 
     return (
