@@ -1,9 +1,10 @@
 const updateOrCreateCustomer = require('./updateOrCreateCustomer');
+const createAndFillPizza = require('./createAndFillPizza');
 
 async function createGuestOrder(
   root,
   { first_name, last_name, phone, email, pizzas },
-  { Customer }
+  { Customer, ...rest }
 ) {
   // update or create guest customer
   let customer = null;
@@ -11,7 +12,7 @@ async function createGuestOrder(
     customer = await updateOrCreateCustomer(
       root,
       { first_name, last_name, phone, email, isRegistered: false },
-      { Customer }
+      { Customer, Pizza }
     );
   } catch (err) {
     console.log('Error with updateOrCreateCustomer:', err);
@@ -21,6 +22,18 @@ async function createGuestOrder(
   // Usually customer can be null if given email references a registered customer
   if (!customer) {
     return null; // @todo return an error object instead
+  }
+
+  // create pizzas
+  const pizza_ids = [];
+  for (let pizza of pizzas) {
+    try {
+      const pizza_id = createAndFillPizza(root, pizza, rest);
+      pizza_ids.push(pizza_id);
+    } catch (err) {
+      console.log('An error ocurred with creating a pizza', err);
+      return null; // @todo delete all other created pizzas
+    }
   }
 
   // create order
@@ -33,8 +46,10 @@ async function createGuestOrder(
   }
   // order is never null here
 
-  // create pizzas
-  pizzas
+  // tie pizzas to the order
+
+  // return the order
+  return order;
 }
 
 module.exports = createGuestOrder;
