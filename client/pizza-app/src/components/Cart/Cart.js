@@ -1,14 +1,6 @@
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import {
-  Card,
-  Button,
-  Container,
-  Form,
-  Row,
-  Col,
-  Table,
-} from 'react-bootstrap';
+import { Button, Container, Form, Row, Col, Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 // actions
@@ -42,14 +34,19 @@ const Cart = ({ setGuest, setMenu, step, isAuthenticated, user }) => {
     phone: '',
   });
 
-  // ensures all input fields are entered
-  const isValid =
+  const userDoesNotExist = !isAuthenticated || user === null;
+
+  // Conditional check:
+  // Guest view: ensures all input fields are entered
+  // User view: true, all fields are pulled from store
+  let isValid =
     guestData.first_name.length !== 0 &&
     guestData.last_name.length !== 0 &&
     guestData.email.length !== 0 &&
     guestData.phone.length !== 0;
 
-  // adds guest and their information to the store's state
+  // Adds guest and their information to the store's state
+  // Directs user to the Confirmation page
   const handleClickSubmit = (e) => {
     e.preventDefault();
     const first_name = guestData.first_name.trim();
@@ -58,11 +55,6 @@ const Cart = ({ setGuest, setMenu, step, isAuthenticated, user }) => {
     const phone = guestData.phone.trim();
 
     setGuest({ first_name, last_name, email, phone });
-
-    // don't go anywhere
-    // return '';
-
-    // for integrating with the rest of the app
     return setMenu(5);
   };
 
@@ -72,7 +64,7 @@ const Cart = ({ setGuest, setMenu, step, isAuthenticated, user }) => {
     setGuestData((d) => ({ ...d, [name]: value }));
   };
 
-  // User view: prints user information
+  // User view: prints user information in a table
   const renderUserDisplay = () => {
     return (
       <Table borderless>
@@ -161,9 +153,10 @@ const Cart = ({ setGuest, setMenu, step, isAuthenticated, user }) => {
 
   // Conditional rendering dependent on if guest or user
   const customerSummary = () => {
-    if (!isAuthenticated || user === null) {
+    if (userDoesNotExist) {
       return renderGuestInput();
     } else {
+      isValid = true;
       return renderUserDisplay();
     }
   };
@@ -210,21 +203,18 @@ const Cart = ({ setGuest, setMenu, step, isAuthenticated, user }) => {
 
 const mapStateToProps = (state) => {
   return {
-    // default (for anyone)
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
     guest: state.guest,
     step: state.menu.step,
-
-    // dummy data: user
-    // isAuthenticated: true,
-    // user: {
-    //   first_name: 'barney',
-    //   last_name: 'dino',
-    //   email: 'barn@gmail.com',
-    //   phone: '1234',
-    // },
   };
+};
+
+Cart.propTypes = {
+  step: PropTypes.number.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  setGuest: PropTypes.func.isRequired,
+  setMenu: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, { setGuest, setMenu })(Cart);
