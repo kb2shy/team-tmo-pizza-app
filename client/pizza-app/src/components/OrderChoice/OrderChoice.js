@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Title from '../Title/Title';
 import BackButton from '../BackButton/BackButton'
@@ -14,6 +14,12 @@ import { setMenu } from '../../actions/menu';
 // - Simple text
 // - *BackButton component is displayed but rendered outside (don't render in component)
 const OrderChoice = props => {
+
+    //Gets user history data
+    useEffect(() => {
+        props.getUserHistory(1);
+        //props.getUserHistory(props.user.customer_id);
+    },[]);
 
     const handleOrderHistory = (e) => {
         e.preventDefault();

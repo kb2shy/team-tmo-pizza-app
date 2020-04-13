@@ -15,7 +15,7 @@ import Confirmation from '../Confirmation/Confirmation';
 import Register from '../Register/Register';
 
 import { loadCustomer } from '../../actions/auth';
-import { getToppings } from '../../actions/database';
+import { getAllToppings } from '../../actions/database';
 
 import classes from './App.module.css';
 
@@ -31,9 +31,8 @@ class App extends Component {
   componentDidMount() {
     // Check user token in local storage and load authenticated user
     this.props.loadCustomer();
-    //Get all possible toppings - necessary to get past topping orders
-    this.props.getToppings('veggies');
-    this.props.getToppings('meats');
+    //Get all possible toppings
+    this.props.getAllToppings();
   }
 
   /* Render Home, Main, or a preferred component based on the step of the menu */
@@ -90,4 +89,4 @@ App.propTypes = {
   loadCustomer: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { loadCustomer, getToppings })(App);
+export default connect(mapStateToProps, { loadCustomer, getAllToppings })(App);

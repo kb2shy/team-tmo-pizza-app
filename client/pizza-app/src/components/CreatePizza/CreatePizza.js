@@ -9,12 +9,10 @@ import Toppings from '../Toppings/Toppings';
 class CreatePizza extends React.Component {
 
     componentDidMount = () => {
-        // if(this.props.user !== null) {
-        //     this.props.getTotalNumberOrders(this.props.user.customer_id);
-        // }
         this.props.getOrderIds(1);
     }
 
+    //changes store to user input
     handleChange = (e, item) => {
         this.props.setBase(e.target.name.toLowerCase(), item.toLowerCase());
     }
@@ -87,8 +85,7 @@ const mapStateToProps = (state) => ({
     size: state.pizza.size,
     crust: state.pizza.crust,
     sauce: state.pizza.sauce,
-    cheese: state.pizza.cheese,
-    pizza: state.pizza
+    cheese: state.pizza.cheese
 });
 
 export default connect(mapStateToProps, { nextMenu, getOrderIds, setBase })(CreatePizza);

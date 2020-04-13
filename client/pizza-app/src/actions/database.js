@@ -17,6 +17,10 @@ import {
 
 import apolloClient from '../configureApolloClient';
 
+export const getUserHistory = (customer_id) => async (dispatch) => {
+  dispatch(getOrderIds(customer_id));
+}
+
 //Gets array or past order ids and sets the array in the store
 export const getOrderIds = (customer_id) => async (dispatch) => {
   try{
@@ -113,6 +117,11 @@ export const getMeatsCount = (pizza_id) => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
+}
+
+export const getAllToppings = () => async (dispatch) => {
+  dispatch(getToppings('veggies'));
+  dispatch(getToppings('meats'));
 }
 
 // Get array of toppings of a certain type
