@@ -6,6 +6,7 @@ import { registerCustomer } from '../../actions/auth';
 
 import { Form, Button } from 'react-bootstrap';
 import AppSpinner from '../AppSpinner/AppSpinner';
+import { setMenu } from '../../actions/menu';
 
 // Register
 // - Title component
@@ -14,11 +15,11 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 
 const Register = ({ registerCustomer, loading, guest }) => {
   const [user, setUser] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
+    first_name: guest.first_name,
+    last_name: guest.last_name,
+    email: guest.email,
     password: '',
-    phone: '',
+    phone: guest.phone,
   });
 
   const isValid =
@@ -28,14 +29,15 @@ const Register = ({ registerCustomer, loading, guest }) => {
     user.email.trim().length !== 0 &&
     user.password.trim().length !== 0;
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
     const first_name = user.first_name.trim();
     const last_name = user.last_name.trim();
     const phone = user.phone.trim();
     const email = user.email.trim();
     const password = user.password;
-    registerCustomer({ first_name, last_name, phone, email, password });
+    await registerCustomer({ first_name, last_name, phone, email, password });
+    return await setMenu(1);
   };
 
   const handleChange = (evt) => {
@@ -53,7 +55,7 @@ const Register = ({ registerCustomer, loading, guest }) => {
             name="first_name"
             type="text"
             placeholder="First Name"
-            value={guest.first_name}
+            value={user.first_name}
             onChange={handleChange}
           />
         </Form.Group>
@@ -63,7 +65,7 @@ const Register = ({ registerCustomer, loading, guest }) => {
             name="last_name"
             type="text"
             placeholder="Last Name"
-            value={guest.last_name}
+            value={user.last_name}
             onChange={handleChange}
           />
         </Form.Group>
@@ -73,7 +75,7 @@ const Register = ({ registerCustomer, loading, guest }) => {
             name="phone"
             type="text"
             placeholder="Phone"
-            value={guest.phone}
+            value={user.phone}
             onChange={handleChange}
           />
         </Form.Group>
@@ -83,7 +85,7 @@ const Register = ({ registerCustomer, loading, guest }) => {
             name="email"
             type="email"
             placeholder="Enter email"
-            value={guest.email}
+            value={user.email}
             onChange={handleChange}
           />
           <Form.Text className="text-muted">
@@ -123,4 +125,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   registerCustomer,
+  setMenu
 })(Register);
