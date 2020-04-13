@@ -25,7 +25,7 @@ export default class BarChart extends React.Component {
             .append('svg')
             .attr('width', width)
             .attr('height', height)
-            .style("background-color", "gray")
+            .style("background-color", "gray") //border
             .append('g');
         
         this.setState({canvas: svg});
@@ -37,10 +37,19 @@ export default class BarChart extends React.Component {
         canvas.selectAll("rect")
             .remove();
 
+        //unfilled
         canvas.append("rect")
-        .attr('height', height)
-        .attr('width', width * (this.props.count/this.props.total))
-        .style('fill', 'brown');
+        .attr('height', height-2)
+        .attr('width', width - (width * (this.props.count/this.props.total)) - 2)
+        .attr('transform', `translate(${width * (this.props.count/this.props.total) + 1}, 1)`)
+        .style('fill', '#ffe6cc')
+
+        //filled
+        canvas.append("rect")
+        .attr('height', height-2)
+        .attr('width', width * (this.props.count/this.props.total) - 1)
+        .attr('transform', 'translate(1, 1)')
+        .style('fill', 'brown')
     }
 
     render() {

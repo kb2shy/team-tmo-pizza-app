@@ -10,19 +10,14 @@ class Toppings extends React.Component {
     render() {
         //console.log(this.props.meats)
         return (
-            <Card className="text-center">
-                <Card.Header>
-                    <Card.Title>{this.props.type}</Card.Title>
-                </Card.Header>
-                <Card.Body>
-                    {/* Map correct array (veggies or meats) */}
-                    {this.props[this.props.type.toLowerCase()].map((item, i) => {
-                        const itemLabel = this.props.type === 'Meats' ? item.meats.meat_type : item.veggies.veggie_type;
+            <div>
+                {/* Map correct array (veggies or meats) */}
+                {this.props[this.props.type.toLowerCase()].map((item, i) => {
+                    const itemLabel = this.props.type === 'Meats' ? item.meats.meat_type : item.veggies.veggie_type;
 
-                        return <ToppingCard key={`${this.props.type}${i}`} label={itemLabel} type={this.props.type.toLowerCase()} count={item.count}/>
-                    })}
-                </Card.Body>
-            </Card>
+                    return <ToppingCard key={`${this.props.type}${i}`} label={itemLabel} type={this.props.type.toLowerCase()} count={item.count}/>
+                })}
+            </div>
         )
     }
 }

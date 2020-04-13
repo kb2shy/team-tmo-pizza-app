@@ -39,6 +39,8 @@ export const SET_MEATS_COUNT = 'SET_MEATS_COUNT';
 // Array of Pizzas
 export const ADD_PIZZA = 'ADD_PIZZA';
 export const REMOVE_PIZZA = 'REMOVE_PIZZA';
-export const CLEAR_PIZZAS = 'CLEAR_PIZZAS'
+export const SET_PIZZA_BASE = 'SET_PIZZA_BASE';
+export const CLEAR_PIZZA = 'CLEAR_PIZZA';
+export const CLEAR_PIZZAS = 'CLEAR_PIZZAS';
 
 // Other action defines here...
