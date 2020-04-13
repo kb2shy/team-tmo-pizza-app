@@ -1,5 +1,9 @@
 import {
     LOAD_TOPPINGS,
+    LOAD_CHEESES,
+    LOAD_CRUSTS,
+    LOAD_SAUCES,
+    LOAD_SIZES,
     SET_PAST_PIZZAS,
     SET_PAST_ORDERS,
     SET_VEGGIE_COUNT,
@@ -9,6 +13,10 @@ import {
   const initialState = {
     meats: [{meats: '', count: 0}], //list from db
     veggies: [{veggies: '', count: 0}],
+    sizes: [],
+    sauces: [],
+    cheeses: [],
+    crusts: [],
     pastOrderIds: [],
     pastPizzaIds: []
   };
@@ -61,6 +69,34 @@ import {
             return {
                 ...state,
                 meats: newMeatList
+            }
+
+        case LOAD_SIZES:
+
+            return {
+                ...state,
+                sizes: action.payload
+            }
+
+        case LOAD_SAUCES:
+
+            return {
+                ...state,
+                sauces: action.payload
+            }
+
+        case LOAD_CHEESES:
+
+            return {
+                ...state,
+                cheeses: action.payload
+            }
+
+        case LOAD_CRUSTS:
+
+            return {
+                ...state,
+                crusts: action.payload
             }
 
         default:

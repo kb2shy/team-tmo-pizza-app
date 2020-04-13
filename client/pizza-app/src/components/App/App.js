@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Container } from 'react-bootstrap';
-
 import AppNavbar from '../AppNavbar/AppNavbar';
 import BackButton from '../BackButton/BackButton';
 import Home from '../Home/Home';

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import classes from './OrderChoice.module.css';
 import { setMenu } from '../../actions/menu';
+import { getUserHistory } from '../../actions/database';
 
 // OrderChoice: displayed for logged-in customer only, page 2
 // - Title sub-component
@@ -23,12 +24,12 @@ const OrderChoice = props => {
 
     const handleOrderHistory = (e) => {
         e.preventDefault();
-        return props.setMenu(3);
+        return props.setMenu(2);
     }
 
     const handleCreateOrder = (e) => {
         e.preventDefault();
-        return props.setMenu(4);
+        return props.setMenu(3);
     }
 
     return (
@@ -58,5 +59,5 @@ const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { setMenu })(OrderChoice);
+export default connect(mapStateToProps, { setMenu, getUserHistory })(OrderChoice);
 

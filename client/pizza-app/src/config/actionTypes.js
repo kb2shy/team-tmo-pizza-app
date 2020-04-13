@@ -29,8 +29,12 @@ export const SET_GUEST = 'SET_GUEST';
 export const ADD_TOPPING = "ADD_TOPPING";
 export const REMOVE_TOPPING = "REMOVE_TOPPING";
 
-// Toppings actions
+// Database actions
 export const LOAD_TOPPINGS = "LOAD_TOPPINGS";
+export const LOAD_CHEESES = "LOAD_CHEESES";
+export const LOAD_CRUSTS = "LOAD_CRUSTS";
+export const LOAD_SAUCES = "LOAD_SAUCES";
+export const LOAD_SIZES = "LOAD_SIZES";
 export const SET_PAST_ORDERS = 'SET_PAST_ORDERS';
 export const SET_PAST_PIZZAS = 'SET_PAST_PIZZAS';
 export const SET_VEGGIE_COUNT = 'SET_VEGGIE_COUNT';
