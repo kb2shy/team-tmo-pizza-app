@@ -18,9 +18,10 @@ const OrderChoice = props => {
 
     //Gets user history data
     useEffect(() => {
-        props.getUserHistory(1);
-        //props.getUserHistory(props.user.customer_id);
-    },[]);
+        if(props.user !== null) {
+            props.getUserHistory(props.user.customer_id);
+        }
+    },[props.user]);
 
     const handleOrderHistory = (e) => {
         e.preventDefault();
