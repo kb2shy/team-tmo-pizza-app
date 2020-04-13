@@ -72,7 +72,7 @@ class App extends Component {
           {/* <Login></Login> */}
           {/* <Logout></Logout> */}
           {/* <CreatePizza /> */}
-          {/* <Cart /> */}
+          <Cart />
         </div>
       </div>
     );
@@ -81,7 +81,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   step: state.menu.step,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 App.propTypes = {
