@@ -204,7 +204,7 @@ const Cart = ({
           </Col>
         </Row>
       </Container>
-      <div className=" centerStyled-flex align-items-center">
+      <div className="centerStyle d-flex align-items-center">
         <Button
           variant="primary"
           onClick={handleClickSubmit}
