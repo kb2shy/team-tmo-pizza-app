@@ -1,10 +1,10 @@
 const queries = `
-type Query{
+  type Query {
     getTokenByCustomer(
-      email: String!
+      email: String!,
       password: String!
-    ) : String
-    getCustomerByToken : Customer
+    ): String
+    getCustomerByToken: Customer
     getCustomerByEmail(email: String): Customer
 
     getRegisteredUsers: [Customer]
@@ -21,16 +21,15 @@ type Query{
     getCrustOptions: [Crust]
     getSauceOptions: [Sauce]
     getSizeOptions: [Size]
-    
 
     getAllPizzas: [Pizza]
     getAllPizzasByCustomer(customer_id: Int!): [Pizza]
     getSelectedMeats(pizza_id: Int): [MeatSelection]
     getSelectedVeggies(pizza_id: Int): [VeggieSelection]
-    
+
     getTotalSelectedVeggie(veggie_id: Int): [Veggie]
     getTotalSelectedMeat(meat_id: Int): [MeatSelection]
   }
-  `
+`;
 
-  module.exports = queries
+module.exports = queries;

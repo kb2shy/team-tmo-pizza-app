@@ -25,16 +25,16 @@ export const SEND_EMAIL_FAILURE = 'SEND_EMAIL_FAILURE';
 // Guest customer
 export const SET_GUEST = 'SET_GUEST';
 
-// Order actions
-export const ADD_TOPPING = "ADD_TOPPING";
-export const REMOVE_TOPPING = "REMOVE_TOPPING";
+// Topping actions
+export const ADD_TOPPING = 'ADD_TOPPING';
+export const REMOVE_TOPPING = 'REMOVE_TOPPING';
 
 // Database actions
-export const LOAD_TOPPINGS = "LOAD_TOPPINGS";
-export const LOAD_CHEESES = "LOAD_CHEESES";
-export const LOAD_CRUSTS = "LOAD_CRUSTS";
-export const LOAD_SAUCES = "LOAD_SAUCES";
-export const LOAD_SIZES = "LOAD_SIZES";
+export const LOAD_TOPPINGS = 'LOAD_TOPPINGS';
+export const LOAD_CHEESES = 'LOAD_CHEESES';
+export const LOAD_CRUSTS = 'LOAD_CRUSTS';
+export const LOAD_SAUCES = 'LOAD_SAUCES';
+export const LOAD_SIZES = 'LOAD_SIZES';
 export const SET_PAST_ORDERS = 'SET_PAST_ORDERS';
 export const SET_PAST_PIZZAS = 'SET_PAST_PIZZAS';
 export const SET_VEGGIE_COUNT = 'SET_VEGGIE_COUNT';
@@ -46,5 +46,10 @@ export const REMOVE_PIZZA = 'REMOVE_PIZZA';
 export const SET_PIZZA_BASE = 'SET_PIZZA_BASE';
 export const CLEAR_PIZZA = 'CLEAR_PIZZA';
 export const CLEAR_PIZZAS = 'CLEAR_PIZZAS';
+
+// Order actions
+export const ORDER_PROCESS = 'ORDER_PROCESS';
+export const ORDER_SUCCESS = 'ORDER_SUCCESS';
+export const ORDER_FAILURE = 'ORDER_FAILURE';
 
 // Other action defines here...

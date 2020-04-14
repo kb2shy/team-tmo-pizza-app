@@ -1,8 +1,8 @@
 const { gql } = require('apollo-server');
+const inputDefs = require(`./inputDefs`);
+const gqlModels = require('./modelDefs');
 const queries = require('./queryDefs');
 const mutations = require('./mutationDefs');
-const gqlModels = require('./modelDefs');
-const inputDefs = require(`./inputDefs`);
 
 //graphql schemas
 //defines the data and how it can be created

@@ -1,6 +1,14 @@
 async function createAndFillPizza(
   root,
-  { pizza: {size, crust, sauce, cheese, meats, veggies} },
+  {
+    pizza: {
+      size,
+      crust,
+      sauce,
+      cheese,
+      toppings: { meats, veggies },
+    },
+  },
   { Cheese, Crust, Pizza, Sauce, Meat, Veggie, Size, MeatSelect, VeggieSelect }
 ) {
   // find size id by type

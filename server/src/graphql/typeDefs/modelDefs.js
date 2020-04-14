@@ -1,49 +1,48 @@
-
-const gqlModels = ` 
-  type Crust{
+const gqlModels = `
+  type Crust {
     crust_id: Int
     crust_type: String
   }
-  type Cheese{
+  type Cheese {
     cheese_id: Int
     cheese_type: String
     cheese_price: Float
   }
-  type Sauce{
+  type Sauce {
     sauce_id: Int
     sauce_type: String
   }
-  type Size{
+  type Size {
     size_id: Int
     size_type: String
     size_price: Float
   }
-  type Meat{
+  type Meat {
     meat_id: Int
     meat_type: String
     meat_price: Float
   }
-  type Veggie{
+  type Veggie {
     veggie_id: Int
     veggie_type: String
     veggie_price: Float
   }
-  type Order{
+  type Order {
     order_id: Int
     customer_id: Int
     isCompleted: Int
     createdAt: String
   }
-  type Customer{
+  type Customer {
     customer_id: Int
     first_name: String
-    last_name: String 
+    last_name: String
     phone: String
     email: String
     password: String
     isRegistered: Boolean
   }
-  type Pizza{
+  type Pizza {
     pizza_id: Int
     size_id: Int
     crust_id: Int
@@ -56,22 +55,22 @@ const gqlModels = `
     meat: [Meat]
     veggie: [Veggie]
   }
-  type MeatSelection{
+  type MeatSelection {
     meat_id: Int
     pizza_id: Int
     meat: Meat
   }
-  type VeggieSelection{
+  type VeggieSelection {
     veggie_id: Int
     pizza_id: Int
     veggie: Veggie
   }
-  type OrderItem{
+  type OrderItem {
     pizza_id: Int
     order_id: Int
     pizza: [Pizza]
     order: Order
   }
-`
+`;
 
-module.exports = gqlModels
+module.exports = gqlModels;

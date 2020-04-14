@@ -61,19 +61,16 @@ const mutations = `
     ): Pizza
 
     createAndFillPizza(
-      pizza: PizzaContent!
+      pizza: PizzaInput!
     ): Pizza
 
     createGuestOrder(
-      first_name: String!
-      last_name: String!
-      phone: String!
-      email: String!
-      pizzas: [PizzaContent!]!
+      guest: GuestInput
+      pizzas: [PizzaInput!]!
     ): Order
 
     createMemberOrder(
-      pizzas: [PizzaContent!]!
+      pizzas: [PizzaInput!]!
     ): Order
   }`;
 
