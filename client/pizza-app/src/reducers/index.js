@@ -6,6 +6,7 @@ import guest from './guest';
 import database from './database';
 import pizza from './pizza';
 import pizzas from './pizzas';
+import order from './order';
 
 export default combineReducers({
   menu,
@@ -13,5 +14,6 @@ export default combineReducers({
   guest,
   database,
   pizza,
-  pizzas
+  pizzas,
+  order,
 });

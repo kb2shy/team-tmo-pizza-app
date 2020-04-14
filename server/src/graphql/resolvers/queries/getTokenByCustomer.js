@@ -1,32 +1,9 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { AUTH_JWT_SECRET } = require('../../constants');
 
-// Better to store this constant in separate JSON file and not commit,
-// but for the sake of the demo...
-const MY_JWT_SECRET = 'MY_PREFERRED_AUTH_SECRET';
-
-// Middleware
-const authContext = ({ req, res }) => {
-  // Get token from header
-  const token = req.header('x-auth-token');
-
-  let user = null;
-
-  // attempt to decrypt token if exists
-  if (token) {
-    try {
-      const decrypted = jwt.verify(token, MY_JWT_SECRET);
-      user = decrypted.customer;
-    } catch (err) {
-      user = null;
-    }
-  }
-
-  // return an object containing the user
-  return { user };
-};
-
-const authGetTokenByCustomer = async (email, password, Customer) => {
+// Used for login
+async function getTokenByCustomer(root, { email, password }, { Customer }) {
   let customer;
   try {
     customer = await Customer.findOne({
@@ -36,7 +13,7 @@ const authGetTokenByCustomer = async (email, password, Customer) => {
       },
     });
   } catch (err) {
-    //console.log(err);
+    console.log(err);
     return null;
   }
 
@@ -64,14 +41,13 @@ const authGetTokenByCustomer = async (email, password, Customer) => {
     },
   };
 
-  const token = jwt.sign(payload, MY_JWT_SECRET, {
+  const token = jwt.sign(payload, AUTH_JWT_SECRET, {
     expiresIn: 3600, // have user be required to resign in after one hour
   });
 
-  return token;
-};
+  console.log('Token', token)
 
-module.exports = {
-  authContext,
-  authGetTokenByCustomer,
-};
+  return token;
+}
+
+module.exports = getTokenByCustomer;

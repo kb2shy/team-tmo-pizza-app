@@ -1,18 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { registerCustomer } from '../../actions/auth';
+import { setMenu } from '../../actions/menu';
 
 import { Form, Button } from 'react-bootstrap';
 import AppSpinner from '../AppSpinner/AppSpinner';
 
 // Register
 // - Title component
-// - Form: first, last, email, phone, pasword
+// - Form: first, last, email, phone, password
 // - Create my account button
 
-const Register = ({ registerCustomer, loading, guest }) => {
+const Register = ({
+  registerCustomer,
+  loading,
+  guest,
+  step,
+  isAuthenticated,
+  setMenu,
+}) => {
+  useEffect(() => {
+    if (isAuthenticated && step === 6) {
+      setMenu(1);
+    }
+  }, [isAuthenticated, step, setMenu]);
+
   const [user, setUser] = useState({
     first_name: guest.first_name,
     last_name: guest.last_name,
@@ -113,14 +127,21 @@ const Register = ({ registerCustomer, loading, guest }) => {
 
 Register.propTypes = {
   loading: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  guest: PropTypes.object.isRequired,
+  step: PropTypes.number.isRequired,
   registerCustomer: PropTypes.func.isRequired,
+  setMenu: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
-  guest: state.guest
+  isAuthenticated: state.auth.isAuthenticated,
+  guest: state.guest,
+  step: state.menu.step,
 });
 
 export default connect(mapStateToProps, {
   registerCustomer,
+  setMenu,
 })(Register);

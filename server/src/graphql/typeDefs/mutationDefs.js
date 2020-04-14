@@ -40,7 +40,7 @@ const mutations = `
       pizza_id: Int!
     ): OrderItem
 
-    createCustomer(
+    updateOrCreateCustomer(
       first_name: String!
       last_name: String!
       phone: String!
@@ -60,6 +60,18 @@ const mutations = `
       cheese_id: Int
     ): Pizza
 
-  }`
+    createAndFillPizza(
+      pizza: PizzaInput!
+    ): Pizza
 
-  module.exports = mutations
+    createGuestOrder(
+      guest: GuestInput!
+      pizzas: [PizzaInput!]!
+    ): Order
+
+    createMemberOrder(
+      pizzas: [PizzaInput!]!
+    ): Order
+  }`;
+
+module.exports = mutations;

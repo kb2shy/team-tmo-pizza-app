@@ -15,7 +15,8 @@ const BackButton = ({ step, previousMenu, setMenu, clearPizza}) => {
     //when on create pizza, skip order history page
     (step === 3) ? setMenu(1) : previousMenu();
   };
-  return step !== 1 ? (
+  // don't display the buttons on home and confirmation pages
+  return step !== 1 && step !== 5 ? (
     <div
       style={{
         position: 'absolute',

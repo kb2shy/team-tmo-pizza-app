@@ -17,7 +17,7 @@ const Login = ({ loginCustomer, loading, setMenu, step, isAuthenticated }) => {
 
   // useEffect(() => {
   //   if (isAuthenticated && step === 1) {
-  //     setMenu(2);
+  //     setMenu(2); 
   //   }
   // }, [step, isAuthenticated]);
 

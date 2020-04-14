@@ -2,9 +2,7 @@ const { ApolloServer } = require('apollo-server');
 const sequelize = require('./db/dbConfig')
 const resolvers = require('./graphql/resolvers/resolvers')
 const typeDefs = require('./graphql/typeDefs/typeDefs')
-const { authContext } = require('./graphql/auth') // used for JWT authentication
-const query = require('./graphql/resolvers/queries')
-const mutation = require('./graphql/resolvers/mutations')
+const authContext = require('./graphql/contexts/auth') // used for JWT authentication
 //sequelize models
 const Crust = require('./db/sequelizeModels/crust')
 const Sauce = require('./db/sequelizeModels/sauce')
