@@ -137,6 +137,7 @@ export const GET_MEATS_BY_PIZZA = gql`
   }
 `;
 
+//returns all basic pizza info (size, crust, sauce, cheese) from an order
 export const GET_ALL_PIZZAS_BY_ORDER = gql`
 query
     getAllPizzasByOrder($order_id: Int){

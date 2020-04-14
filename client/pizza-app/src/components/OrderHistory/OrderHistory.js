@@ -18,7 +18,7 @@ const OrderHistory = props => {
 
             <Container>
                 {
-                    props.orders.map((order, index) => {
+                    ordersRev.map((order, index) => {
                         return <OrderDisplay orderId={order}></OrderDisplay>
                     })
                 }
