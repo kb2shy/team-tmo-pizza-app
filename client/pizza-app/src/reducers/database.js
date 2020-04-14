@@ -7,7 +7,8 @@ import {
     SET_PAST_PIZZAS,
     SET_PAST_ORDERS,
     SET_VEGGIE_COUNT,
-    SET_MEATS_COUNT
+    SET_MEATS_COUNT,
+    CLEAR_USER_HISTORY
   } from "../config/actionTypes";
   
   const initialState = {
@@ -45,7 +46,7 @@ import {
         case SET_PAST_PIZZAS:
             const newPizzaIds = [...state.pastPizzaIds];
             newPizzaIds[newPizzaIds.length] = action.payload;
-            
+
             return {
                 ...state,
                 pastPizzaIds: newPizzaIds
@@ -99,6 +100,21 @@ import {
                 crusts: action.payload
             }
 
+        case CLEAR_USER_HISTORY:
+            const resetMeats = state.meats.map(item => {
+                return {meats: item.meats, count: 0};
+            })
+
+            const resetVeggies = state.veggies.map(item => {
+                return {veggies: item.veggies, count: 0};
+            })
+            return {
+                ...state,
+                meats: resetMeats, 
+                veggies: resetVeggies,
+                pastOrderIds: [],
+                pastPizzaIds: []
+            }
         default:
             return state;
         }

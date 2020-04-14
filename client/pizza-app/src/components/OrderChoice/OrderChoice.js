@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import classes from './OrderChoice.module.css';
 import { setMenu } from '../../actions/menu';
-import { getUserHistory } from '../../actions/database';
+import { clearUserHistory, getUserHistory } from '../../actions/database';
 import { clearPizza }  from '../../actions/pizza';
 
 // OrderChoice: displayed for logged-in customer only, page 2
@@ -19,6 +19,7 @@ const OrderChoice = props => {
 
     //Gets user history data
     useEffect(() => {
+        props.clearUserHistory();
         if(props.user !== null) {
             props.getUserHistory(props.user.customer_id);
             console.log('Getting user history')
@@ -64,5 +65,5 @@ const mapStateToProps = (state) => ({
     step: state.menu.step
 });
 
-export default connect(mapStateToProps, { setMenu, getUserHistory, clearPizza })(OrderChoice);
+export default connect(mapStateToProps, { setMenu, clearUserHistory, getUserHistory, clearPizza })(OrderChoice);
 

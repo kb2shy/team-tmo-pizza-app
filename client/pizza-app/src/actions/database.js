@@ -7,7 +7,8 @@ import {
   SET_PAST_PIZZAS,
   SET_PAST_ORDERS,
   SET_VEGGIE_COUNT,
-  SET_MEATS_COUNT
+  SET_MEATS_COUNT,
+  CLEAR_USER_HISTORY
 } from "../config/actionTypes";
 
 import {
@@ -25,9 +26,15 @@ import {
 
 import apolloClient from '../configureApolloClient';
 
+export const clearUserHistory = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_USER_HISTORY
+  });
+}
+
 export const getUserHistory = (customer_id) => async (dispatch) => {
   dispatch(getOrderIds(customer_id));
-  console.log(`customer_id: ${customer_id}`)
+  //console.log(`customer_id: ${customer_id}`)
 }
 
 //Gets array or past order ids and sets the array in the store
@@ -39,7 +46,7 @@ export const getOrderIds = (customer_id) => async (dispatch) => {
     });
 
     const orders = result.data.getAllOrdersByCustomer.map(item => item.order_id);
-    console.log(`Orders: ${orders}`)
+    //console.log(`Orders: ${orders}`)
 
     dispatch({
       type: SET_PAST_ORDERS,
@@ -66,7 +73,7 @@ export const getPizzasByOrder = (order_id) => async (dispatch) => {
     });
 
     const pizzas = result.data.getAllPizzasByOrder.map(item => item.pizza_id);
-    console.log(`Pizzas: ${pizzas}`)
+    //console.log(`Pizzas: ${pizzas}`)
 
     for(let pizza_id of pizzas) {
       dispatch(setPastPizzas(pizza_id));
