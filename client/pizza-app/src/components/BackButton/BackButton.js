@@ -11,7 +11,7 @@ const BackButton = ({ step, previousMenu, setMenu, clearPizza}) => {
   const handleClick = (evt) => {
     evt.preventDefault();
     //clear current pizza
-    clearPizza();
+    // clearPizza();
     //when on create pizza, skip order history page
     (step === 3) ? setMenu(1) : previousMenu();
   };
