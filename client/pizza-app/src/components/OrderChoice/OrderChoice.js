@@ -22,7 +22,6 @@ const OrderChoice = props => {
         props.clearUserHistory();
         if(props.user !== null) {
             props.getUserHistory(props.user.customer_id);
-            console.log('Getting user history')
         }
     }, [props.user]);
 
