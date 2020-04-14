@@ -65,7 +65,7 @@ const mutations = `
     ): Pizza
 
     createGuestOrder(
-      guest: GuestInput
+      guest: GuestInput!
       pizzas: [PizzaInput!]!
     ): Order
 

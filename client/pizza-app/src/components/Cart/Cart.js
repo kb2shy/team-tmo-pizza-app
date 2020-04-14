@@ -7,9 +7,11 @@ import PropTypes from 'prop-types';
 import { setMenu } from '../../actions/menu';
 import { setGuest } from '../../actions/guest';
 import { clearPizzas } from '../../actions/pizzas';
+import { createGuestOrder, createMemberOrder } from '../../actions/order';
 
 import './Cart.css';
 import OrderSummary from '../OrderSummary/OrderSummary';
+import AppSpinner from '../AppSpinner/AppSpinner';
 
 /**
  * Cart page component
@@ -25,10 +27,12 @@ import OrderSummary from '../OrderSummary/OrderSummary';
 const Cart = ({
   setGuest,
   setMenu,
-  step,
   isAuthenticated,
   user,
   clearPizzas,
+  createGuestOrder,
+  createMemberOrder,
+  order,
 }) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
@@ -57,15 +61,20 @@ const Cart = ({
     const email = guestData.email.trim();
     const phone = guestData.phone.trim();
 
-    setGuest({ first_name, last_name, email, phone });
-    if (isAuthenticated) {
-      
-    }
-    else {
+    const guest = { first_name, last_name, email, phone };
+    setGuest(guest);
 
+    if (isAuthenticated) {
+      createMemberOrder(() => {
+        clearPizzas();
+        setMenu(5);
+      });
+    } else {
+      createGuestOrder(guest, () => {
+        clearPizzas();
+        setMenu(5);
+      });
     }
-    clearPizzas();
-    return setMenu(5);
   };
 
   const handleChange = (e) => {
@@ -195,7 +204,7 @@ const Cart = ({
           </Col>
         </Row>
       </Container>
-      <div className="centerStyle">
+      <div className=" centerStyled-flex align-items-center">
         <Button
           variant="primary"
           onClick={handleClickSubmit}
@@ -203,6 +212,7 @@ const Cart = ({
         >
           Submit
         </Button>
+        {order.processing && <AppSpinner />}
       </div>
     </div>
   );
@@ -213,17 +223,25 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
     guest: state.guest,
-    step: state.menu.step,
+    order: state.order,
   };
 };
 
 Cart.propTypes = {
-  step: PropTypes.number.isRequired,
+  user: PropTypes.object,
+  guest: PropTypes.object.isRequired,
+  order: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   setGuest: PropTypes.func.isRequired,
   setMenu: PropTypes.func.isRequired,
+  createGuestOrder: PropTypes.func.isRequired,
+  createMemberOrder: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { setGuest, setMenu, clearPizzas })(
-  Cart
-);
+export default connect(mapStateToProps, {
+  setGuest,
+  setMenu,
+  clearPizzas,
+  createGuestOrder,
+  createMemberOrder,
+})(Cart);

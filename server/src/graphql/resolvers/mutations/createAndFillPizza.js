@@ -57,7 +57,7 @@ async function createAndFillPizza(
     if (!meatRecord) {
       throw new Error(`Could not find meat id by type ${meat}`);
     }
-    const meat_id = cheeseRecord.meat_id;
+    const meat_id = meatRecord.meat_id;
     meat_ids.push(meat_id);
   }
 

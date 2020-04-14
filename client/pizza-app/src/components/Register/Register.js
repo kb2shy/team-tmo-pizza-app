@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -25,7 +25,7 @@ const Register = ({
     if (isAuthenticated && step === 6) {
       setMenu(1);
     }
-  }, [isAuthenticated, step]);
+  }, [isAuthenticated, step, setMenu]);
 
   const [user, setUser] = useState({
     first_name: guest.first_name,
@@ -128,6 +128,7 @@ const Register = ({
 Register.propTypes = {
   loading: PropTypes.bool.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  guest: PropTypes.object.isRequired,
   step: PropTypes.number.isRequired,
   registerCustomer: PropTypes.func.isRequired,
   setMenu: PropTypes.func.isRequired,
@@ -135,8 +136,9 @@ Register.propTypes = {
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
-  guest: state.guest,
   isAuthenticated: state.auth.isAuthenticated,
+  guest: state.guest,
+  step: state.menu.step,
 });
 
 export default connect(mapStateToProps, {

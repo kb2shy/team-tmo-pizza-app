@@ -14,7 +14,7 @@ async function createMemberOrder(
   const pizza_ids = [];
   for (let pizza of pizzas) {
     try {
-      const pizzaRecord = createAndFillPizza(root, { pizza }, rest);
+      const pizzaRecord = await createAndFillPizza(root, { pizza }, rest);
       pizza_ids.push(pizzaRecord.pizza_id);
     } catch (err) {
       console.log('An error ocurred with creating a pizza:', err);
@@ -23,7 +23,7 @@ async function createMemberOrder(
   }
 
   // create order
-  const order = null;
+  let order = null;
   try {
     order = await Order.create({ customer_id: user.customer_id });
   } catch (err) {
@@ -33,8 +33,13 @@ async function createMemberOrder(
   // order is never null here
 
   // tie pizzas to the order
-  for (let pizza_id of pizzas) {
-    await OrderItem.create({ order_id, pizza_id });
+  for (let pizza_id of pizza_ids) {
+    try {
+      await OrderItem.create({ order_id: order.order_id, pizza_id });
+    } catch (err) {
+      console.log('Error with OrderItem.create:', err);
+      return null;
+    }
   }
 
   // return the order
