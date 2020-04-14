@@ -136,3 +136,24 @@ export const GET_MEATS_BY_PIZZA = gql`
     }
   }
 `;
+
+export const GET_ALL_PIZZAS_BY_ORDER = gql`
+query
+    getAllPizzasByOrder($order_id: Int){
+        getAllPizzasByOrder(order_id: $order_id){
+            pizza_id
+            size{
+                size_type
+            }
+            crust{
+                crust_type
+            }
+            sauce{
+                sauce_type
+            }
+            cheese{
+                cheese_type
+            }
+        }
+    }
+`
