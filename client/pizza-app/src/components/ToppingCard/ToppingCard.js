@@ -13,12 +13,31 @@ class ToppingCard extends React.Component {
         }
     }
 
+    componentDidMount() {
+       if (this.props.type === 'meats') {
+            for (let meat of this.props.meats) {
+                if (meat === this.props.label) {
+                    this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
+                    break;
+                }
+            }
+        }
+        else {
+            for (let veggies of this.props.veggies) {
+                if (veggies === this.props.label) {
+                    this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
+                    break;
+                }
+            }
+        }
+    }
+
     handleClick = () => {
         //change card background
-        const newStyle = this.state.status ? { ...this.state.style, background: 'white'} : { ...this.state.style, background: '#ffcc99'};
+        const newStyle = this.state.status ? { ...this.state.style, background: 'white' } : { ...this.state.style, background: '#ffcc99' };
 
         //Update store
-        if(this.state.status) {
+        if (this.state.status) {
             this.props.removeTopping(this.props.type, this.props.label);
         } else {
             this.props.addTopping(this.props.type, this.props.label);
@@ -26,21 +45,23 @@ class ToppingCard extends React.Component {
 
         //change status
         const newStatus = !this.state.status;
-        this.setState({style: newStyle, status: newStatus});
+        this.setState({ style: newStyle, status: newStatus });
     }
+
 
     //Renders card with topping name and percentage bar chart
     render() {
         const total = this.props.pastPizzaIds.length;
+
         return (
-            <Card 
-            id={this.props.label}
-            style={this.state.style} 
-            className="text-center"
-            onClick={(e) => this.handleClick()}>
+            <Card
+                id={this.props.label}
+                style={this.state.style}
+                className="text-center"
+                onClick={(e) => this.handleClick()}>
                 <Card.Body>
                     <Card.Title>{this.props.label}</Card.Title>
-                    {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label}/> : null}
+                    {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
                 </Card.Body>
             </Card>
         )
@@ -51,7 +72,9 @@ const mapStateToProps = (state) => ({
     meats: state.pizza.toppings.meats,
     veggies: state.pizza.toppings.veggies,
     isAuthenticated: state.auth.isAuthenticated,
-    pastPizzaIds: state.database.pastPizzaIds
-  });
-  
+    pastPizzaIds: state.database.pastPizzaIds,
+    pizza: state.pizza
+});
+
+
 export default connect(mapStateToProps, { addTopping, removeTopping })(ToppingCard);
