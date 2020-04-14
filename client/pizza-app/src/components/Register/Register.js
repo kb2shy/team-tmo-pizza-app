@@ -21,6 +21,7 @@ const Register = ({
   isAuthenticated,
   setMenu,
 }) => {
+
   useEffect(() => {
     if (isAuthenticated && step === 6) {
       setMenu(1);

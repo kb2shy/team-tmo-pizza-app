@@ -11,7 +11,6 @@ import Toppings from '../Toppings/Toppings';
 class CreatePizza extends React.Component {
     constructor(props) {
         super(props);
-        this.inputElement = React.createRef();
     }
 
     //changes store to user input

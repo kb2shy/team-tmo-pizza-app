@@ -2,7 +2,13 @@ import React from 'react';
 import { connect } from "react-redux";
 import ToppingCard from '../ToppingCard/ToppingCard';
 
+import { getAllToppings } from '../../actions/database';
+
 class Toppings extends React.Component {
+
+    // componentDidUpdate = (meats, veggies) => {
+    //     this.props.getAllToppings();
+    // }
 
     //Needs type (i.e. 'Meats') from parent components
     //Renders specific Topping section with cards for each topping
@@ -26,4 +32,4 @@ const mapStateToProps = (state) => ({
     veggies: state.database.veggies
   });
   
-export default connect(mapStateToProps)(Toppings);
+export default connect(mapStateToProps, { getAllToppings })(Toppings);

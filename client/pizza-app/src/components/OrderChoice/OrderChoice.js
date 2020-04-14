@@ -21,6 +21,7 @@ const OrderChoice = props => {
     useEffect(() => {
         if(props.user !== null) {
             props.getUserHistory(props.user.customer_id);
+            console.log('Getting user history')
         }
     },[props.user]);
 
@@ -36,7 +37,6 @@ const OrderChoice = props => {
     }
 
     return (
-        
         <div className={classes.Body}>
             <BackButton></BackButton>
             <br></br>

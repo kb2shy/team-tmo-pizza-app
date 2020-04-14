@@ -45,7 +45,7 @@ import {
         case SET_PAST_PIZZAS:
             const newPizzaIds = [...state.pastPizzaIds];
             newPizzaIds[newPizzaIds.length] = action.payload;
-           
+            
             return {
                 ...state,
                 pastPizzaIds: newPizzaIds
