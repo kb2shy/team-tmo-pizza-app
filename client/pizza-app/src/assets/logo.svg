@@ -58,7 +58,7 @@
       <circle cx="3" cy="3" r="3" stroke="none"/>
       <circle cx="3" cy="3" r="2.5" fill="none"/>
     </g>
-    <text id="Pizza_Shop" data-name="Pizza Shop" transform="translate(44.713 75)" fill="#efebde" font-size="12" font-family="PerpetuaTitlingMT-Bold, Perpetua Titling MT" font-weight="700" ><tspan x="0" y="0" text-anchor='right'>Pizza Shop</tspan></text>
+    <text id="Pizza_Shop" data-name="Pizza Shop" transform="translate(44.713 75)" fill="#efebde" font-size="12" font-family="PerpetuaTitlingMT-Bold, Perpetua Titling MT" font-weight="700" ><tspan x="0" y="0">Pizza Shop</tspan></text>
     <path id="Path_1006" data-name="Path 1006" d="M-5922.63,6836l-4.74-2.148-1.878-1.494-1-1.35v-1.986l1.668-.977,2.359-.5,3.592-.248,2.9-.519,1.05-1.274v-1.891l-2.134-1.569-2.687-1.4-3.41-1.074-1.678-.384-1.047-.25-.614-.425.423-.39,1.238-.086,7.126.086h2.892l.89-.434.293-1.13-.293-.661-1.148-1.208-1.616-.856-5.466-2.064-4.949-.945,5.95,3.406-1.612.82-4.338.848-3.226.375-.824.313-.288.91.588,1.327,1.248.786,3.728,1.4,3.113,1.285,1.612,1.321v.826l-1,.564-2.488,1.007-3.035,1.287-2.232.979-1.532,1.621.1,1.242.452.649,4.672,2.169Z" transform="translate(6007.347 -6785)" fill="#efebde" stroke="#d3c598" stroke-width="0.8"/>
     <path id="Path_1029" data-name="Path 1029" d="M-5949.468,6842.766l-53.185,6.094-1.061.8v1.452l1.061,1.723,1.326.8h1.858l54.64-9.01Z" transform="translate(6003.713 -6785)" fill="#a44939" stroke="#efebde" stroke-width="1"/>
   </g>
