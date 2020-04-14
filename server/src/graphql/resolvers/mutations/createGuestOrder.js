@@ -4,7 +4,7 @@ const createAndFillPizza = require('./createAndFillPizza');
 async function createGuestOrder(
   root,
   { first_name, last_name, phone, email, pizzas },
-  { Customer, ...rest }
+  { Customer, Order, OrderItem, ...rest }
 ) {
   // update or create guest customer
   let customer = null;
@@ -28,10 +28,10 @@ async function createGuestOrder(
   const pizza_ids = [];
   for (let pizza of pizzas) {
     try {
-      const pizza_id = createAndFillPizza(root, pizza, rest);
-      pizza_ids.push(pizza_id);
+      const pizzaRecord = createAndFillPizza(root, { pizza }, rest);
+      pizza_ids.push(pizzaRecord.pizza_id);
     } catch (err) {
-      console.log('An error ocurred with creating a pizza', err);
+      console.log('An error ocurred with creating a pizza:', err);
       return null; // @todo delete all other created pizzas
     }
   }
@@ -47,6 +47,9 @@ async function createGuestOrder(
   // order is never null here
 
   // tie pizzas to the order
+  for (let pizza_id of pizzas) {
+    await OrderItem.create({ order_id, pizza_id });
+  }
 
   // return the order
   return order;

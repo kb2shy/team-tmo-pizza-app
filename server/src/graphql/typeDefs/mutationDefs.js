@@ -60,6 +60,21 @@ const mutations = `
       cheese_id: Int
     ): Pizza
 
+    createAndFillPizza(
+      pizza: PizzaContent!
+    ): Pizza
+
+    createGuestOrder(
+      first_name: String!
+      last_name: String!
+      phone: String!
+      email: String!
+      pizzas: [PizzaContent!]!
+    ): Order
+
+    createMemberOrder(
+      pizzas: [PizzaContent!]!
+    ): Order
   }`;
 
 module.exports = mutations;

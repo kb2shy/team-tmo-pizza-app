@@ -1,19 +1,7 @@
 async function createAndFillPizza(
   root,
-  { size, crust, sauce, cheese, toppings: { meats, veggies } },
-  {
-    Cheese,
-    Crust,
-    Order,
-    Pizza,
-    Sauce,
-    Meat,
-    Veggie,
-    Size,
-    MeatSelect,
-    VeggieSelect,
-    OrderItem,
-  }
+  { pizza: {size, crust, sauce, cheese, meats, veggies} },
+  { Cheese, Crust, Pizza, Sauce, Meat, Veggie, Size, MeatSelect, VeggieSelect }
 ) {
   // find size id by type
   const sizeRecord = await Size.findOne({
@@ -81,13 +69,25 @@ async function createAndFillPizza(
 
   // create pizza
   const pizzaRecord = await Pizza.create({
-    size_id, crust_id, sauce_id, cheese_id
-  })
+    size_id,
+    crust_id,
+    sauce_id,
+    cheese_id,
+  });
+  const pizza_id = pizzaRecord.pizza_id;
 
   // add meats to the pizza
   for (let meat_id of meat_ids) {
-      await 
+    await MeatSelect.create({ meat_id, pizza_id });
   }
+
+  // add veggies to the pizza
+  for (let veggie_id of veggie_ids) {
+    await VeggieSelect.create({ veggie_id, pizza_id });
+  }
+
+  // return the pizza id
+  return pizzaRecord;
 }
 
 module.exports = createAndFillPizza;

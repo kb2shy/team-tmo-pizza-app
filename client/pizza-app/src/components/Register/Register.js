@@ -9,10 +9,16 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 
 // Register
 // - Title component
-// - Form: first, last, email, phone, pasword
+// - Form: first, last, email, phone, password
 // - Create my account button
 
-const Register = ({ registerCustomer, loading, guest }) => {
+const Register = ({ registerCustomer, loading, guest, isAuthenticated }) => {
+  useEffect(() => {
+      if (isAuthenticated === true) {
+        setMenu(1);
+      }
+    }, [isAuthenticated]);
+
   const [user, setUser] = useState({
     first_name: guest.first_name,
     last_name: guest.last_name,
