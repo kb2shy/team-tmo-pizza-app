@@ -6,15 +6,10 @@ import PropTypes from 'prop-types';
 // actions
 import { setMenu } from '../../actions/menu';
 import { setGuest } from '../../actions/guest';
+import { clearPizzas } from '../../actions/pizzas';
 
+import './Cart.css';
 import OrderSummary from '../OrderSummary/OrderSummary';
-
-// note: this can be put into .css later
-const centerStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
 
 /**
  * Cart page component
@@ -25,8 +20,16 @@ const centerStyle = {
  * @param {*}  step - menu reducer state
  * @param {*}  isAuthenticated - auth reducer state
  * @param {*}  user - user reducer
+ * @param {*}  clearPizzas - clears the pizzas
  */
-const Cart = ({ setGuest, setMenu, step, isAuthenticated, user }) => {
+const Cart = ({
+  setGuest,
+  setMenu,
+  step,
+  isAuthenticated,
+  user,
+  clearPizzas,
+}) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
     last_name: '',
@@ -55,6 +58,7 @@ const Cart = ({ setGuest, setMenu, step, isAuthenticated, user }) => {
     const phone = guestData.phone.trim();
 
     setGuest({ first_name, last_name, email, phone });
+    clearPizzas();
     return setMenu(5);
   };
 
@@ -163,16 +167,13 @@ const Cart = ({ setGuest, setMenu, step, isAuthenticated, user }) => {
 
   return (
     <div>
-      <div style={centerStyle} id="title-cart">
+      <div className="centerStyle">
         <h2>Cart</h2>
       </div>
-      <div style={centerStyle} id="subtitle-review-your-order-below">
+      <div className="centerStyle">
         <h2>Review your order below</h2>
       </div>
-      <div
-        style={centerStyle}
-        id="description-all-orders-carry-out-pay-in-store"
-      >
+      <div className="centerStyle">
         <p>All orders are carry out and pay in store</p>
       </div>
 
@@ -188,7 +189,7 @@ const Cart = ({ setGuest, setMenu, step, isAuthenticated, user }) => {
           </Col>
         </Row>
       </Container>
-      <div style={centerStyle} id="submit-button">
+      <div className="centerStyle">
         <Button
           variant="primary"
           onClick={handleClickSubmit}
@@ -217,4 +218,6 @@ Cart.propTypes = {
   setMenu: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { setGuest, setMenu })(Cart);
+export default connect(mapStateToProps, { setGuest, setMenu, clearPizzas })(
+  Cart
+);
