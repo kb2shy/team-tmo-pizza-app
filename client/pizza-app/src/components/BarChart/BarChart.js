@@ -62,7 +62,6 @@ export default class BarChart extends React.Component {
         const id = this.props.item.replace(/\s+/g, '');
         return (
             <div>
-                {`${this.props.count}/${this.props.total}`}
                 <div id={`bar${id}`}/>
             </div>
         )
