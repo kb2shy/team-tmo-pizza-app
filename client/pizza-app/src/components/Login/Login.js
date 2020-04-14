@@ -36,7 +36,7 @@ const Login = ({ loginCustomer, loading, setMenu, step, clearPizza, clearPizzas,
     evt.preventDefault();
     clearPizza();
     clearPizzas();
-    setMenu(3);
+    setMenu(3, step);
   };
 
   const handleChange = (evt) => {
