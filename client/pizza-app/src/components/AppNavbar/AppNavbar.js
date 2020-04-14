@@ -16,8 +16,15 @@ import logo from '../../assets/logo.svg';
 const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
   const handleHomeClick = (evt) => {
     evt.preventDefault();
-    setMenu(1);
+    setMenu(1, step);
   };
+
+  const handleHomeCart = (evt) => {
+    evt.preventDefault();
+    setMenu(4, step);
+  };
+
+
 
   return (
     <Navbar
@@ -42,6 +49,11 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
           {step !== 1 && (
             <Button variant="primary" type="button" onClick={handleHomeClick}>
               Home
+            </Button>
+          )}
+          {isAuthenticated && (
+            <Button variant="primary" type="button" onClick={handleHomeCart}>
+              Cart
             </Button>
           )}
           {isAuthenticated && (

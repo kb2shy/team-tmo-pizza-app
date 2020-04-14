@@ -14,20 +14,20 @@ const OrderDisplay = (props) => {
 
     return (
         <React.Fragment>
-            <Row><h5 >Order # {props.orderId}</h5></Row>
-            <Row>
+            <Row key={'key1_'+order_id}><h5 >Order # {order_id}</h5></Row>
+            <Row key={'key2_'+order_id}>
                 {
                     data.getAllPizzasByOrder.map((pizza, index) => {
                         return (
-                            <Col>
-                                <Card style={{ width: '18rem' }} key={'key_' + index}>
-                                    <Card.Body>
+                            <Col key={'key_col_'+order_id+index}>
+                                <Card style={{ width: '18rem' }} key={'key_card_'+order_id + index}>
+                                    <Card.Body key={'key_body_'+order_id + index}>
                                         <Card.Title >Pizza {index + 1}</Card.Title>
                                         <Card.Text><b>Size: </b>{pizza.size.size_type}</Card.Text>
                                         <Card.Text><b>Crust:</b> {pizza.crust.crust_type}</Card.Text>
                                         <Card.Text><b>Sauce:</b> {pizza.sauce.sauce_type}</Card.Text>
                                         <Card.Text><b>Cheese: </b>{pizza.cheese.cheese_type}</Card.Text>
-                                        <OrderDetails pizzaId={pizza.pizza_id} key={'key_' + index}></OrderDetails>
+                                        <OrderDetails pizzaId={pizza.pizza_id} key={'key_details_'+order_id+ index}></OrderDetails>
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -39,8 +39,4 @@ const OrderDisplay = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-
-};
-
-export default connect(mapStateToProps)(OrderDisplay);
+export default OrderDisplay;

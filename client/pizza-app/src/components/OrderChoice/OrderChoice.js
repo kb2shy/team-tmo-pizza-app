@@ -23,17 +23,18 @@ const OrderChoice = props => {
             props.getUserHistory(props.user.customer_id);
             console.log('Getting user history')
         }
-    },[props.user]);
+    }, [props.user]);
 
     const handleOrderHistory = (e) => {
         e.preventDefault();
-        return props.setMenu(2);
+        return props.setMenu(2, props.step);
     }
 
     const handleCreateOrder = (e) => {
         e.preventDefault();
         props.clearPizza();
-        return props.setMenu(3);
+        console.log(props.step);
+        return props.setMenu(3, props.step);
     }
 
     return (
@@ -59,7 +60,8 @@ OrderChoice.propTypes = {
 
 const mapStateToProps = (state) => ({
     user: state.auth.user,
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    step: state.menu.step
 });
 
 export default connect(mapStateToProps, { setMenu, getUserHistory, clearPizza })(OrderChoice);

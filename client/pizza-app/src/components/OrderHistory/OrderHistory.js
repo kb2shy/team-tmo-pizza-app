@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { Pagination, Container, Row } from 'react-bootstrap'
+import { Container} from 'react-bootstrap'
 import OrderDisplay from './OrderDisplay'
 // OrderHistory: displayed for logged in user
 // - Title component
@@ -12,14 +12,15 @@ import OrderDisplay from './OrderDisplay'
 
 const OrderHistory = props => {
     const ordersRev = props.orders.reverse()
+
     return (
         <div className="centerDiv">
             <h3>OrderHistory</h3>
 
             <Container>
                 {
-                    props.orders.map((order, index) => {
-                        return <OrderDisplay orderId={order}></OrderDisplay>
+                   ordersRev.map((order) => {
+                        return <OrderDisplay orderId={order} key={'key_'+order}></OrderDisplay>
                     })
                 }
             </Container>

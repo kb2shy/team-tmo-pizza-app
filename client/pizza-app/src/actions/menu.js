@@ -5,22 +5,23 @@ import {
   RESET_MENU,
 } from '../config/actionTypes';
 
-export const nextMenu = () => (dispatch) => {
+export const nextMenu = (prevStep) => (dispatch) => {
   dispatch({
     type: NEXT_MENU,
+    payload: prevStep
   });
 };
 
 export const previousMenu = () => (dispatch) => {
   dispatch({
-    type: PREVIOUS_MENU,
+    type: PREVIOUS_MENU
   });
 };
 
-export const setMenu = (step) => (dispatch) => {
+export const setMenu = (step, prevStep) => (dispatch) => {
   dispatch({
     type: SET_MENU,
-    payload: step,
+    payload: {step: step, prevStep: prevStep},
   });
 };
 

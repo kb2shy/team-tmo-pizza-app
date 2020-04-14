@@ -22,8 +22,7 @@ class CreatePizza extends React.Component {
     handleSubmit = () => {
         const currentPizza = this.props.pizza;
         this.props.addPizza(currentPizza);
-        this.props.clearPizza();
-        this.props.nextMenu();
+        this.props.nextMenu(this.props.step);
     }
 
     //Renders topping sections
@@ -102,6 +101,7 @@ const mapStateToProps = (state) => ({
     cheeses: state.database.cheeses,
     crusts: state.database.crusts,
     pizza: state.pizza,
+    step: state.menu.step
 });
 
 export default connect(mapStateToProps, { nextMenu, setBase, clearPizza, addPizza })(CreatePizza);
