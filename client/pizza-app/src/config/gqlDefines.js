@@ -60,6 +60,7 @@ export const GET_MEAT_OPTIONS = gql`
   }
 `;
 
+//gets all possible veggie options
 export const GET_VEGGIE_OPTIONS = gql`
   query {
     getVeggieOptions {
@@ -70,6 +71,7 @@ export const GET_VEGGIE_OPTIONS = gql`
   }
 `;
 
+//gets all possible cheese options
 export const GET_CHEESE_OPTIONS = gql`
   query {
     getCheeseOptions {
@@ -80,6 +82,7 @@ export const GET_CHEESE_OPTIONS = gql`
   }
 `;
 
+//gets all possible crust options
 export const GET_CRUST_OPTIONS = gql`
   query {
     getCrustOptions {
@@ -88,6 +91,7 @@ export const GET_CRUST_OPTIONS = gql`
   }
 `;
 
+//gets all possible sauce options
 export const GET_SAUCE_OPTIONS = gql`
   query {
     getSauceOptions {
@@ -96,6 +100,7 @@ export const GET_SAUCE_OPTIONS = gql`
   }
 `;
 
+//gets all possible size options
 export const GET_SIZE_OPTIONS = gql`
   query {
     getSizeOptions {
@@ -104,6 +109,7 @@ export const GET_SIZE_OPTIONS = gql`
   }
 `;
 
+//returns array of all order ids based on a customer Id
 export const GET_CUST_ORDERS = gql`
   query GetAllOrdersByCustomer($customer_id: Int!) {
     getAllOrdersByCustomer(customer_id: $customer_id) {
@@ -111,6 +117,8 @@ export const GET_CUST_ORDERS = gql`
     }
   }
 `;
+
+//returns array of all pizza 
 export const GET_PIZZAS_BY_ORDER = gql`
   query GetAllPizzasByOrder($order_id: Int!) {
     getAllPizzasByOrder(order_id: $order_id) {
@@ -119,6 +127,7 @@ export const GET_PIZZAS_BY_ORDER = gql`
   }
 `;
 
+//returns an array of all selected veggies from pizza
 export const GET_VEGGIES_BY_PIZZA = gql`
   query GetSelectedVeggies($pizza_id: Int!) {
     getSelectedVeggies(pizza_id: $pizza_id) {
@@ -129,6 +138,7 @@ export const GET_VEGGIES_BY_PIZZA = gql`
   }
 `;
 
+//returns an array of all selected meats from pizza
 export const GET_MEATS_BY_PIZZA = gql`
   query GetSelectedMeats($pizza_id: Int!) {
     getSelectedMeats(pizza_id: $pizza_id) {
@@ -139,6 +149,7 @@ export const GET_MEATS_BY_PIZZA = gql`
   }
 `;
 
+//creates a guest order and returns an order_id
 export const CREATE_GUEST_ORDER = gql`
   mutation CreateGuestOrder(
     $guest: GuestInput!
@@ -149,6 +160,7 @@ export const CREATE_GUEST_ORDER = gql`
     }
 `;
 
+//creates a member order and returns an order_id
 export const CREATE_MEMBER_ORDER = gql`
   mutation CreateGuestOrder(
     $pizzas: [PizzaInput!]!){
@@ -158,6 +170,7 @@ export const CREATE_MEMBER_ORDER = gql`
     }
 `;
 
+//returns an array of pizzas with all basic info (size, crust, sauce, cheese)
 export const GET_ALL_PIZZAS_BY_ORDER = gql`
 query
     getAllPizzasByOrder($order_id: Int){
