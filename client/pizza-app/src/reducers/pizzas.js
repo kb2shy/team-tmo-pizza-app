@@ -1,4 +1,4 @@
-import { ADD_PIZZA, REMOVE_PIZZA, CLEAR_PIZZAS } from '../config/actionTypes';
+import { ADD_PIZZA, REMOVE_PIZZA, CLEAR_PIZZAS, RESET_PIZZA } from '../config/actionTypes';
 
 const initialState = [];
 

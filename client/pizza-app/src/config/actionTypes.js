@@ -40,6 +40,7 @@ export const SET_PAST_PIZZAS = 'SET_PAST_PIZZAS';
 export const SET_VEGGIE_COUNT = 'SET_VEGGIE_COUNT';
 export const SET_MEATS_COUNT = 'SET_MEATS_COUNT';
 
+
 // Array of Pizzas
 export const ADD_PIZZA = 'ADD_PIZZA';
 export const REMOVE_PIZZA = 'REMOVE_PIZZA';

@@ -5,11 +5,12 @@ import classes from './Login.module.css';
 
 import { Form, Button, Spinner } from 'react-bootstrap';
 import AppSpinner from '../AppSpinner/AppSpinner';
-
+import { clearPizza } from '../../actions/pizza';
 import { loginCustomer } from '../../actions/auth';
 import { setMenu } from '../../actions/menu';
+import { clearPizzas } from '../../actions/pizzas';
 
-const Login = ({ loginCustomer, loading, setMenu, step, isAuthenticated }) => {
+const Login = ({ loginCustomer, loading, setMenu, step, clearPizza, clearPizzas, isAuthenticated}) => {
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -25,6 +26,7 @@ const Login = ({ loginCustomer, loading, setMenu, step, isAuthenticated }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    clearPizzas();
     const email = user.email.trim();
     const password = user.password;
     loginCustomer({ email, password });
@@ -32,6 +34,8 @@ const Login = ({ loginCustomer, loading, setMenu, step, isAuthenticated }) => {
 
   const handleGuestOrderClick = (evt) => {
     evt.preventDefault();
+    clearPizza();
+    clearPizzas();
     setMenu(3);
   };
 
@@ -110,4 +114,4 @@ const mapStateToProps = (state) => ({
   step: state.menu.step,
 });
 
-export default connect(mapStateToProps, { loginCustomer, setMenu })(Login);
+export default connect(mapStateToProps, { loginCustomer, setMenu, clearPizza, clearPizzas })(Login);
