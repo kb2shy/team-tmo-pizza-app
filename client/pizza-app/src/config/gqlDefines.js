@@ -143,13 +143,17 @@ export const CREATE_GUEST_ORDER = gql`
   mutation CreateGuestOrder(
     $guest: GuestInput
     $pizzas: [PizzaInput!]!){
-      createGuestOrder(guest: $guest, pizzas: $pizzas): Order
+      createGuestOrder(guest: $guest, pizzas: $pizzas) {
+        order_id
+      }
     }
 `;
 
 export const CREATE_MEMBER_ORDER = gql`
   mutation CreateGuestOrder(
     $pizzas: [PizzaInput!]!){
-      createMemberOrder(pizzas: $pizzas): Order
+      createMemberOrder(pizzas: $pizzas) {
+        order_id
+      }
     }
 `;
