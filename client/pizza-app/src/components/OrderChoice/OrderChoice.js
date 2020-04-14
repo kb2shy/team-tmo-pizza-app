@@ -22,7 +22,7 @@ const OrderChoice = props => {
         if(props.user !== null) {
             props.getUserHistory(props.user.customer_id);
         }
-    },[props.user]);
+    }, [props.user]);
 
     const handleOrderHistory = (e) => {
         e.preventDefault();

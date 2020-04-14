@@ -12,13 +12,14 @@ import OrderDisplay from './OrderDisplay'
 
 const OrderHistory = props => {
     const ordersRev = props.orders.reverse()
+
     return (
         <div className="centerDiv">
             <h3>OrderHistory</h3>
 
             <Container>
                 {
-                   ordersRev.map((order, index) => {
+                   ordersRev.map((order) => {
                         return <OrderDisplay orderId={order} key={'key_'+order}></OrderDisplay>
                     })
                 }

@@ -9,9 +9,9 @@ const OrderDetails = (props) => {
 
     const { loading: loadingVeggie, error: errorVeggie, data: dataVeggie } = useQuery(GET_VEGGIES_BY_PIZZA, { variables: { pizza_id } })
     const { loading, error, data } = useQuery(GET_MEATS_BY_PIZZA, { variables: { pizza_id } })
-    if(loadingVeggie) return <p>{errorVeggie.message}</p>
+    if(loadingVeggie) return <p></p>
     if(loadingVeggie) return <p>Loading...</p>
-    if (error) return <p>{error.message}</p>
+    if (error) return <p></p>
     if (loading) return <p>Loading...</p>
 
     return (
@@ -28,7 +28,7 @@ const OrderDetails = (props) => {
                         {
                             data.getSelectedMeats.map((meatSelect, index) => {
                                 return(
-                                    index !== data.getSelectedMeats.length-1 ? <React.Fragment key={'key_'+meatSelect.meat.meat_type+index}> {meatSelect.meat.meat_type}, </React.Fragment> : <React.Fragment key={'key_'+meatSelect.meat.meat_type+index}>{meatSelect.meat.meat_type}</React.Fragment>
+                                    index !== data.getSelectedMeats.length-1 ? <React.Fragment key={'key_'+meatSelect.meat.meat_type+index}> {meatSelect.meat.meat_type}, </React.Fragment> : <React.Fragment key={'key_'+meatSelect.meat.meat_type+index}> {meatSelect.meat.meat_type}</React.Fragment>
                                 )
                             })
                         }
@@ -37,7 +37,7 @@ const OrderDetails = (props) => {
                         {
                             dataVeggie.getSelectedVeggies.map((veggieSelect, index) => {
                                 return(
-                                    index !== dataVeggie.getSelectedVeggies.length-1 ? <React.Fragment key={'key_'+veggieSelect.veggie.veggie_type+index}> {veggieSelect.veggie.veggie_type}, </React.Fragment> : <React.Fragment key={'key_'+veggieSelect.veggie.veggie_type+index}>{veggieSelect.veggie.veggie_type}</React.Fragment>
+                                    index !== dataVeggie.getSelectedVeggies.length-1 ? <React.Fragment key={'key_'+veggieSelect.veggie.veggie_type+index}> {veggieSelect.veggie.veggie_type}, </React.Fragment> : <React.Fragment key={'key_'+veggieSelect.veggie.veggie_type+index}> {veggieSelect.veggie.veggie_type}</React.Fragment>
                                 )
                             })
                         }
