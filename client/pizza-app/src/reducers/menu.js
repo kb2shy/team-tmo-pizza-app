@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   step: 1,
+  prevStep: 1
 };
 
 const menuReducer = (state = initialState, action) => {
@@ -14,16 +15,18 @@ const menuReducer = (state = initialState, action) => {
     case NEXT_MENU:
       return {
         step: state.step + 1,
+        prevStep: action.payload
       };
 
     case PREVIOUS_MENU:
       return {
-        step: Math.max(state.step - 1, 1),
+        step: state.prevStep,
       };
     case SET_MENU:
       return {
         ...initialState,
-        step: action.payload,
+        step: action.payload.step,
+        prevStep: action.payload.prevStep
       };
     case RESET_MENU:
       return {

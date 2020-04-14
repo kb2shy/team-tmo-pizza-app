@@ -5,13 +5,15 @@ import { previousMenu, setMenu } from '../../actions/menu';
 import { clearPizza }  from '../../actions/pizza';
 import { Button } from 'react-bootstrap';
 
-const BackButton = ({ step, previousMenu, setMenu, clearPizza}) => {
+const BackButton = ({ step, previousMenu, prevStep, setMenu, clearPizza}) => {
   const handleClick = (evt) => {
     evt.preventDefault();
     //clear current pizza
     // clearPizza();
     //when on create pizza, skip order history page
-    (step === 3) ? setMenu(1) : previousMenu();
+     // (step === 3) ? setMenu(1) : previousMenu();
+     console.log(prevStep);
+     previousMenu();
   };
   // don't display the buttons on home and confirmation pages
   return step !== 1 && step !== 5 ? (
@@ -44,7 +46,8 @@ BackButton.propTypes = {
 
 const mapStateToProps = (state) => ({
   step: state.menu.step,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  prevStep: state.menu.prevStep
 });
 
 export default connect(mapStateToProps, { setMenu, previousMenu, clearPizza })(BackButton);
