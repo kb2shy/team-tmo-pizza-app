@@ -58,6 +58,12 @@ const Cart = ({
     const phone = guestData.phone.trim();
 
     setGuest({ first_name, last_name, email, phone });
+    if (isAuthenticated) {
+      
+    }
+    else {
+
+    }
     clearPizzas();
     return setMenu(5);
   };
