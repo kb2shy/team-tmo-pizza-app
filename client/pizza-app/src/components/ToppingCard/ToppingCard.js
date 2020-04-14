@@ -14,17 +14,20 @@ class ToppingCard extends React.Component {
     }
 
     componentDidMount() {
-        for (let meat of this.props.meats) {
-            if (meat === this.props.label) {
-                this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
-              break;
+       if (this.props.type === 'meats') {
+            for (let meat of this.props.meats) {
+                if (meat === this.props.label) {
+                    this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
+                    break;
+                }
             }
         }
-
-        for (let veggies of this.props.veggies) {
-            if (veggies === this.props.label) {
-                this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
-              break;
+        else {
+            for (let veggies of this.props.veggies) {
+                if (veggies === this.props.label) {
+                    this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
+                    break;
+                }
             }
         }
     }
