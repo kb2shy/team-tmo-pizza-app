@@ -16,7 +16,7 @@ const OrderDetails = (props) => {
 
     return (
         <Accordion>
-            <Card>
+            <Card key={'key_'+pizza_id}>
                 <Card.Header>
                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                         view details
@@ -28,7 +28,7 @@ const OrderDetails = (props) => {
                         {
                             data.getSelectedMeats.map((meatSelect, index) => {
                                 return(
-                                    index !== data.getSelectedMeats.length-1 ? <React.Fragment> {meatSelect.meat.meat_type}, </React.Fragment> : <React.Fragment>{meatSelect.meat.meat_type}</React.Fragment>
+                                    index !== data.getSelectedMeats.length-1 ? <React.Fragment key={'key_'+meatSelect.meat.meat_type+index}> {meatSelect.meat.meat_type}, </React.Fragment> : <React.Fragment key={'key_'+meatSelect.meat.meat_type+index}>{meatSelect.meat.meat_type}</React.Fragment>
                                 )
                             })
                         }
@@ -37,7 +37,7 @@ const OrderDetails = (props) => {
                         {
                             dataVeggie.getSelectedVeggies.map((veggieSelect, index) => {
                                 return(
-                                    index !== dataVeggie.getSelectedVeggies.length-1 ? <React.Fragment> {veggieSelect.veggie.veggie_type}, </React.Fragment> : <React.Fragment>{veggieSelect.veggie.veggie_type}</React.Fragment>
+                                    index !== dataVeggie.getSelectedVeggies.length-1 ? <React.Fragment key={'key_'+veggieSelect.veggie.veggie_type+index}> {veggieSelect.veggie.veggie_type}, </React.Fragment> : <React.Fragment key={'key_'+veggieSelect.veggie.veggie_type+index}>{veggieSelect.veggie.veggie_type}</React.Fragment>
                                 )
                             })
                         }
