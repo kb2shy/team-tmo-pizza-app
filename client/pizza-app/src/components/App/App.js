@@ -65,7 +65,7 @@ class App extends Component {
           {/* <Example></Example> */}
           {/* Render Home, Main, or a preferred component based on the step of the menu */}
           {this.getViewState()}
-          <Register></Register>
+          {/* <Register></Register> */}
           {/* <Login></Login> */}
           {/* <Logout></Logout> */}
           {/* <CreatePizza /> */}
