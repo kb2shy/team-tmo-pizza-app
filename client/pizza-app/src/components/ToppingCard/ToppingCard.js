@@ -13,6 +13,7 @@ class ToppingCard extends React.Component {
         }
     }
 
+    //get state from store
     componentDidMount() {
        if (this.props.type === 'meats') {
             for (let meat of this.props.meats) {
@@ -72,8 +73,7 @@ const mapStateToProps = (state) => ({
     meats: state.pizza.toppings.meats,
     veggies: state.pizza.toppings.veggies,
     isAuthenticated: state.auth.isAuthenticated,
-    pastPizzaIds: state.database.pastPizzaIds,
-    pizza: state.pizza
+    pastPizzaIds: state.database.pastPizzaIds
 });
 
 

@@ -15,16 +15,15 @@ class CreatePizza extends React.Component {
     }
 
     //changes store to user input
-    handleChange = (e, item) => {
-        this.props.setBase(e.target.name.toLowerCase(), item);
+    handleChange = (name, item) => {
+        this.props.setBase(name.toLowerCase(), item);
     }
 
     //Adds current pizza to pizzas array and clears current pizza
     handleSubmit = () => {
-        
         const currentPizza = this.props.pizza;
         this.props.addPizza(currentPizza);
-        //this.props.clearPizza();
+        this.props.clearPizza();
         this.props.nextMenu();
     }
 
@@ -81,10 +80,15 @@ class RadioButtonRow extends React.Component {
                         <td key={item}>
                             <input type='radio'
                                 name={this.props.type}
-                                onChange={(e) => this.props.handleChange(e, item)}
-                                checked={item === this.props.value ? this.props.value: null}      
+                                onChange={(e) => this.props.handleChange(this.props.type, item)}
+                                checked={item === this.props.value}      
                             />
-                            <label>{item}</label>
+                            <label 
+                                name={this.props.type} 
+                                onClick={() => this.props.handleChange(this.props.type, item)}
+                            >
+                                {item}
+                            </label>
                         </td>
                     )
                 })}
@@ -99,7 +103,6 @@ const mapStateToProps = (state) => ({
     cheeses: state.database.cheeses,
     crusts: state.database.crusts,
     pizza: state.pizza,
-    newBase: state.newBase
 });
 
 export default connect(mapStateToProps, { nextMenu, setBase, clearPizza, addPizza })(CreatePizza);
