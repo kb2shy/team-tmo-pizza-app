@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { logoutCustomer } from '../../actions/auth';
 import { resetMenu } from '../../actions/menu';
 
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
+import StyledButton from '../common/Button/StyledButton';
 
 const Logout = ({ logoutCustomer, isAuthenticated, resetMenu }) => {
   const handleClick = (evt) => {
@@ -15,14 +16,21 @@ const Logout = ({ logoutCustomer, isAuthenticated, resetMenu }) => {
   };
 
   return (
-    <Button
-      variant="primary"
+    <StyledButton
+      variant="navbarButton"
       type="button"
       onClick={handleClick}
       disabled={!isAuthenticated}
-    >
-      Logout
-    </Button>
+      text="Logout"
+    />
+    // <Button
+    //   variant="primary"
+    //   type="button"
+    //   onClick={handleClick}
+    //   disabled={!isAuthenticated}
+    // >
+    //   Logout
+    // </Button>
   );
 };
 

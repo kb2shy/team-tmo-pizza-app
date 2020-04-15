@@ -3,14 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classes from './Login.module.css';
 
-import { Form, Button, Spinner } from 'react-bootstrap';
+// import {Button} from 'react-bootstrap'
+import StyledButton from '../common/Button/StyledButton';
+import { Form, Spinner } from 'react-bootstrap';
 import AppSpinner from '../AppSpinner/AppSpinner';
 import { clearPizza } from '../../actions/pizza';
 import { loginCustomer } from '../../actions/auth';
 import { setMenu } from '../../actions/menu';
 import { clearPizzas } from '../../actions/pizzas';
 
-const Login = ({ loginCustomer, loading, setMenu, step, clearPizza, clearPizzas, isAuthenticated}) => {
+const Login = ({
+  loginCustomer,
+  loading,
+  setMenu,
+  step,
+  clearPizza,
+  clearPizzas,
+  isAuthenticated,
+}) => {
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -18,7 +28,7 @@ const Login = ({ loginCustomer, loading, setMenu, step, clearPizza, clearPizzas,
 
   // useEffect(() => {
   //   if (isAuthenticated && step === 1) {
-  //     setMenu(2); 
+  //     setMenu(2);
   //   }
   // }, [step, isAuthenticated]);
 
@@ -74,15 +84,23 @@ const Login = ({ loginCustomer, loading, setMenu, step, clearPizza, clearPizzas,
           />
         </Form.Group>
         <div className={`d-flex align-items-center ${classes.spacingTop}`}>
-          <Button
+          {/* <Button
             id={classes.buttonStyle}
             variant="primary"
             type="submit"
             disabled={loading || !isValid}
           >
             Sign In
-          </Button>
-          <Button
+          </Button> */}
+          <StyledButton
+            variant="formButton"
+            type="submit"
+            disabled={loading || !isValid}
+            //onClick={}
+            text="Sign In"
+          />
+
+          {/* <Button
             id={classes.buttonStyle}
             variant="primary"
             type="button"
@@ -91,7 +109,15 @@ const Login = ({ loginCustomer, loading, setMenu, step, clearPizza, clearPizzas,
             onClick={handleGuestOrderClick}
           >
             Order As Guest
-          </Button>
+          </Button> */}
+
+          <StyledButton
+            variant="formButton"
+            type="button"
+            disabled={loading}
+            onClick={handleGuestOrderClick}
+            text="Order As Guest"
+          />
           {loading && <AppSpinner />}
         </div>
       </Form>
@@ -114,4 +140,9 @@ const mapStateToProps = (state) => ({
   step: state.menu.step,
 });
 
-export default connect(mapStateToProps, { loginCustomer, setMenu, clearPizza, clearPizzas })(Login);
+export default connect(mapStateToProps, {
+  loginCustomer,
+  setMenu,
+  clearPizza,
+  clearPizzas,
+})(Login);
