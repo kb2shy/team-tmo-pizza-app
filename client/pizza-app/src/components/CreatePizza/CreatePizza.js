@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from "react-redux";
 import { setBase, clearPizza } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { nextMenu } from '../../actions/menu';
-import { Button } from "react-bootstrap";
+import { Button, Dropdown, DropdownButton } from "react-bootstrap";
 
 import './CreatePizza.css';
 import Toppings from '../Toppings/Toppings';
@@ -22,6 +22,7 @@ class CreatePizza extends React.Component {
     handleSubmit = () => {
         const currentPizza = this.props.pizza;
         this.props.addPizza(currentPizza);
+        //this.props.clearPizza()
         this.props.nextMenu(this.props.step);
     }
 
@@ -30,14 +31,9 @@ class CreatePizza extends React.Component {
         return (
             <div className='centerDiv'>
                 <h3 className='createPizzaTitle'>Create Your Pizza</h3>
-                <table className='toppingTable'>
-                    <tbody>
-                        <RadioButtonRow value={this.props.pizza.size} type={'Size'} options={this.props.sizes} handleChange={this.handleChange} />
-                        <RadioButtonRow value={this.props.pizza.crust} type={'Crust'} options={this.props.crusts} handleChange={this.handleChange} />
-                        <RadioButtonRow value={this.props.pizza.sauce} type={'Sauce'} options={this.props.sauces} handleChange={this.handleChange} />
-                        {/* <RadioButtonRow value={this.props.pizza.cheese} type={'Cheese'} options={this.props.cheeses} handleChange={this.handleChange} /> */}
-                    </tbody>
-                </table>
+                    <BaseDropDown value={this.props.pizza.size} type={'Size'} options={this.props.sizes} handleChange={this.handleChange} />
+                    <BaseDropDown value={this.props.pizza.crust} type={'Crust'} options={this.props.crusts} handleChange={this.handleChange} />
+                    <BaseDropDown value={this.props.pizza.sauce} type={'Sauce'} options={this.props.sauces} handleChange={this.handleChange} />
 
                 <table className='toppingTable'>
                     <tbody>
@@ -74,31 +70,29 @@ class CreatePizza extends React.Component {
 }
 
 //Creates a row with title and all necessary radio buttons
-class RadioButtonRow extends React.Component {
+class BaseDropDown extends React.Component {
     render() {
+        console.log(this.props.value)
         return (
-            <tr>
-                <td>
-                    {this.props.type}
-                </td>
-                {this.props.options.map(item => {
-                    return (
-                        <td key={item}>
-                            <input type='radio'
+            <div>
+                <h5>{this.props.type}</h5>
+                <DropdownButton id="dropdown-basic-button" title={this.props.value}>
+                    {this.props.options.map(item => {
+                        return (
+                            <Dropdown.Item 
+                                key={item}
                                 name={this.props.type}
-                                onChange={(e) => this.props.handleChange(this.props.type, item)}
-                                checked={item === this.props.value}      
-                            />
-                            <label 
-                                name={this.props.type} 
-                                onClick={() => this.props.handleChange(this.props.type, item)}
+                                onClick={(e) => {
+                                    this.props.handleChange(this.props.type, item); 
+                                    this.setState({title: item}); 
+                                }}
                             >
                                 {item}
-                            </label>
-                        </td>
-                    )
-                })}
-            </tr>
+                            </Dropdown.Item>
+                        )
+                    })}
+                </DropdownButton>
+            </div>
         )
     }
 }

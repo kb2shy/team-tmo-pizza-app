@@ -6,9 +6,9 @@ import {
   } from "../config/actionTypes";
   
   const initialState = {
-        size: '',
-        crust: '',
-        sauce: '',
+        size: 'Choose Size',
+        crust: 'Choose Crust Type',
+        sauce: 'Choose Sauce',
         toppings: {
             meats: [],
             veggies: [],
