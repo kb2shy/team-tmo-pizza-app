@@ -45,6 +45,10 @@ const PizzaCard = (props) => {
             <td>Meats</td>
             <td>{printMultipleToppings(props.toppings.meats)}</td>
           </tr>
+          <tr id="Price">
+            <td>Total: </td>
+            <td>${props.price.toFixed(2)}</td>
+          </tr>
         </tbody>
         {/* </Table> */}
       </table>

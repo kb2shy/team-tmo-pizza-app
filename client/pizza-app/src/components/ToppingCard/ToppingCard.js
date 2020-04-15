@@ -46,9 +46,9 @@ class ToppingCard extends React.Component {
 
         //Update store
         if (this.state.status) {
-            this.props.removeTopping(this.props.type, this.props.label);
+            this.props.removeTopping(this.props.type, this.props.label, this.props.price);
         } else {
-            this.props.addTopping(this.props.type, this.props.label);
+            this.props.addTopping(this.props.type, this.props.label, this.props.price);
         }
 
         //change status
