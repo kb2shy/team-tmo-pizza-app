@@ -18,9 +18,12 @@ class Toppings extends React.Component {
             <div>
                 {/* Map correct array (veggies or meats) */}
                 {this.props[this.props.type.toLowerCase()].map((item, i) => {
-                    const itemLabel = this.props.type === 'Meats' ? item.meats.meat_type : item.veggies.veggie_type;
-
-                    return <ToppingCard key={`${this.props.type}${i}`} label={itemLabel} type={this.props.type.toLowerCase()} count={item.count}/>
+                    return <ToppingCard 
+                        key={`${this.props.type}${i}`} 
+                        type={this.props.type.toLowerCase()} 
+                        label={item.type}  
+                        price={item.price} 
+                        count={item.count}/>
                 })}
             </div>
         )

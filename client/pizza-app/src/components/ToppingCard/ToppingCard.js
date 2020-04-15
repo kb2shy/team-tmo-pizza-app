@@ -62,6 +62,7 @@ class ToppingCard extends React.Component {
                 onClick={(e) => this.handleClick()}>
                 <Card.Body>
                     <Card.Title>{this.props.label}</Card.Title>
+                    <Card.Text>${this.props.price.toFixed(2)}</Card.Text>
                     {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
                 </Card.Body>
             </Card>
