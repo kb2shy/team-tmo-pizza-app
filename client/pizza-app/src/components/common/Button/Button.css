@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+
+/* Form Button Styling --------------------------------- */
+.btn-formButton {
+  color: #eb6d76;
+  border: 5px solid #eb6d76;
+  border-radius: 0px;
+  background-color: #fbffda;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  margin: 5px;
+}
+
+.formButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+}
+
+/* back Button Styling --------------------------------- */
+.btn-backButton {
+  color: #eb6d76;
+  border: 5px solid #eb6d76;
+  border-radius: 0px;
+  background-color: #fbffda;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  margin: 5px;
+}
+
+.backButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+}
+
+/* navbar Button Styling --------------------------------- */
+.btn-navbarButton {
+  color: #fbffda;
+  border: 3px solid #fbffda;
+  border-radius: 0px;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  margin: 5px;
+}
+.navbarButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+}
+
+/* Order Choice Button Styling --------------------------------- */
+.btn-orderChoiceButton {
+  color: #eb6d76;
+  border: 5px solid #eb6d76;
+  border-radius: 0px;
+  background-color: #fbffda;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  margin: 5px;
+}
+
+.orderChoiceButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+}
+
+/* Create Account Button Styling --------------------------------- */
+.btn-createAccountButton {
+  color: #fff;
+  border: 5px solid #1c9d87;
+  border-radius: 0px;
+  background-color: #1ec4a8;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  margin: 5px;
+}
+
+.createAccountButton:hover {
+  background-color: #3fecd0;
+  border: 5px solid #1c9d87;
+  color: #f0a9ae;
+}
