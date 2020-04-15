@@ -35,7 +35,7 @@ const PizzaCard = (props) => {
           </tr>
           <tr id="Cheese">
             <td>Cheese</td>
-            <td>{props.cheese}</td>
+            <td>{printMultipleToppings(props.toppings.cheeses)}</td>
           </tr>
           <tr id="Veggies">
             <td>Veggies</td>

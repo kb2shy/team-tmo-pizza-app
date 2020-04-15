@@ -23,9 +23,16 @@ class ToppingCard extends React.Component {
                 }
             }
         }
-        else {
+        else if (this.props.type === 'veggies'){
             for (let veggies of this.props.veggies) {
                 if (veggies === this.props.label) {
+                    this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
+                    break;
+                }
+            }
+        } else {
+            for (let cheeses of this.props.cheeses) {
+                if (cheeses === this.props.label) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }
@@ -71,6 +78,7 @@ class ToppingCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+    cheeses: state.pizza.toppings.cheeses,
     meats: state.pizza.toppings.meats,
     veggies: state.pizza.toppings.veggies,
     isAuthenticated: state.auth.isAuthenticated,

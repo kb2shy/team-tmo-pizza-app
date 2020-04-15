@@ -9,10 +9,10 @@ import {
         size: '',
         crust: '',
         sauce: '',
-        cheese: '',
         toppings: {
             meats: [],
-            veggies: []
+            veggies: [],
+            cheeses: []
         },
   };
   
@@ -48,6 +48,7 @@ import {
         case CLEAR_PIZZA:
             initialState.toppings.meats = [];
             initialState.toppings.veggies = [];
+            initialState.toppings.cheeses = [];
             return initialState;
 
         default:

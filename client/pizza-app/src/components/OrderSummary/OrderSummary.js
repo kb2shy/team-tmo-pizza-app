@@ -17,7 +17,7 @@ const OrderSummary = ({ pizzas }) => {
               size={pz.size}
               crust={pz.crust}
               sauce={pz.sauce}
-              cheese={pz.cheese}
+              // cheese={pz.cheese}
               toppings={pz.toppings}
             />
           </div>

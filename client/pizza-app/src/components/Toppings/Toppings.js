@@ -16,7 +16,7 @@ class Toppings extends React.Component {
         //console.log(this.props.meats)
         return (
             <div>
-                {/* Map correct array (veggies or meats) */}
+                {/* Map correct array (cheeses, veggies or meats) */}
                 {this.props[this.props.type.toLowerCase()].map((item, i) => {
                     return <ToppingCard 
                         key={`${this.props.type}${i}`} 
@@ -32,7 +32,8 @@ class Toppings extends React.Component {
 
 const mapStateToProps = (state) => ({
     meats: state.database.meats,
-    veggies: state.database.veggies
+    veggies: state.database.veggies,
+    cheeses: state.database.cheeses
   });
   
 export default connect(mapStateToProps, { getAllToppings })(Toppings);

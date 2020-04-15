@@ -8,15 +8,16 @@ import {
     SET_PAST_ORDERS,
     SET_VEGGIE_COUNT,
     SET_MEATS_COUNT,
+    SET_CHEESE_COUNT,
     CLEAR_USER_HISTORY
   } from "../config/actionTypes";
   
   const initialState = {
-    meats: [{meats: '', price: 0, count: 0}], //list from db
-    veggies: [{veggies: '', price: 0, count: 0}],
+    meats: [{type: '', price: 0, count: 0}], //list from db
+    veggies: [{type: '', price: 0, count: 0}],
+    cheeses: [{type: '', price: 0, count: 0}],
     sizes: [],
     sauces: [],
-    cheeses: [],
     crusts: [],
     pastOrderIds: [],
     pastPizzaIds: []
@@ -70,6 +71,16 @@ import {
                 meats: newMeatList
             }
 
+        case SET_CHEESE_COUNT:
+            const newCheeseList = state.cheeses.map(item => {
+                return action.payload === item.type ? {...item, count: item.count + 1} : item;
+            })
+
+            return {
+                ...state,
+                cheeses: newCheeseList
+            }
+
         case LOAD_SIZES:
 
             return {
@@ -85,10 +96,13 @@ import {
             }
 
         case LOAD_CHEESES:
+            const newCheeseListState = action.payload.map(item => {
+                return {...item, count: 0};
+            });
 
             return {
                 ...state,
-                cheeses: action.payload
+                cheeses: newCheeseListState
             }
 
         case LOAD_CRUSTS:
