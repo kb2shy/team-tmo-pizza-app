@@ -1,4 +1,4 @@
-.Title {
+/* .Title {
     background-color: orange;
     color: white;
     width: 300px;
@@ -10,20 +10,21 @@
     align-items: center;
     margin: auto;
 }
+*/
 
-.Body{
-    background-color: #FAEBD7;
-    text-align: center;
+.Body {
+  background-color: #faebd7;
+  text-align: center;
 }
 
 .OrderChoice {
-    background-color: rgb(202, 192, 174);
-    color: white;
-    width: 700px;
-    height: 600px;
-    border: 1px solid black;
-    display: flex;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
+  background-color: rgb(202, 192, 174);
+  color: white;
+  width: 700px;
+  height: 600px;
+  border: 1px solid black;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
 }

@@ -6,13 +6,14 @@ import { nextMenu } from '../../actions/menu';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 // import { Button } from "react-bootstrap";
 
+// Custom Styling
 import StyledButton from '../common/Button/StyledButton';
+import StyledTitle from '../common/Title/StyledTitle';
 
 import './CreatePizza.css';
 import Toppings from '../Toppings/Toppings';
 
 class CreatePizza extends React.Component {
-
   //changes store to user input
   handleChange = (name, item) => {
     this.props.setBase(name.toLowerCase(), item);
@@ -32,19 +33,19 @@ class CreatePizza extends React.Component {
       <div className="centerDiv">
         <h3 className="createPizzaTitle">Create Your Pizza</h3>
         <BaseDropDown
-          value={this.props.pizza.size}
+          value={this.props.pizza.size || 'Choose Size'}
           type={'Size'}
           options={this.props.sizes}
           handleChange={this.handleChange}
         />
         <BaseDropDown
-          value={this.props.pizza.crust}
+          value={this.props.pizza.crust || 'Choose Crust Type'}
           type={'Crust'}
           options={this.props.crusts}
           handleChange={this.handleChange}
         />
         <BaseDropDown
-          value={this.props.pizza.sauce}
+          value={this.props.pizza.sauce || 'Choose Sauce'}
           type={'Sauce'}
           options={this.props.sauces}
           handleChange={this.handleChange}

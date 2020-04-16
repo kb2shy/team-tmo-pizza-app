@@ -8,9 +8,8 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 import StyledButton from '../common/Button/StyledButton';
 import isEmail from 'validator/lib/isEmail';
 import isAlpha from 'validator/lib/isAlpha';
-import isMobilePhone from 'validator/lib/isMobilePhone';
 
-
+import StyledTitle from '../common/Title/StyledTitle';
 
 // Register
 // - Title component
@@ -54,12 +53,22 @@ const Register = ({
     const phone = user.phone.trim();
     const email = user.email.trim();
     const password = user.password;
+
+    function isValidPhoneNumber(phone){
+      const test1 = /^\d{10}$/;
+      const test2 = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+      if (phone.match(test1) || phone.match(test2)){
+        return true;
+      }
+      return false;
+    }
+    
     console.log('emaill ' + isEmail(email));
     console.log('first name ' + isAlpha(first_name));
     console.log('last name ' + isAlpha(last_name));
-    console.log('phone ' + isMobilePhone(phone, ['en-US']))
+    console.log('phone ' + isValidPhoneNumber(phone))
 
-    if (isEmail(email) && isAlpha(first_name) && isAlpha(last_name) && isMobilePhone(phone, ['en-US'])) {
+    if (isEmail(email) && isAlpha(first_name) && isAlpha(last_name) && isValidPhoneNumber(phone, ['en-US'])) {
       registerCustomer({ first_name, last_name, phone, email, password });
     }
     else {
@@ -76,7 +85,14 @@ const Register = ({
 
 
   return (
-    <div style={{ 'marginTop': '100px' }}>
+    <div>
+      <StyledTitle
+        divClassName="titleBox"
+        text="Create An Account "
+        className="orderChoiceTitle"
+      />
+
+
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formFirstName">
           <Form.Label>First Name</Form.Label>

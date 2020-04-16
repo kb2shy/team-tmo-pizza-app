@@ -164,7 +164,7 @@ export const CREATE_GUEST_ORDER = gql`
 
 //creates a member order and returns an order_id
 export const CREATE_MEMBER_ORDER = gql`
-  mutation CreateGuestOrder(
+  mutation CreateMemberOrder(
     $pizzas: [PizzaInput!]!){
       createMemberOrder(pizzas: $pizzas) {
         order_id
