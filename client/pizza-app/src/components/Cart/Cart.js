@@ -202,14 +202,19 @@ const Cart = ({
             {customerSummary()}
           </Col>
           <Col>
-            <h2>Pizza Order Summary:</h2>
+            <h2>Order Summary:</h2>
             <OrderSummary />
+            <StyledButton
+              onClick=""
+              variant="basicButton"
+              text="Add another pizza"
+            />
           </Col>
         </Row>
       </Container>
       <div className="centerStyle d-flex align-items-center">
         <StyledButton
-          variant="formButton"
+          variant="basicButton"
           onClick={handleClickSubmit}
           disabled={!isValid}
           text="Submit"

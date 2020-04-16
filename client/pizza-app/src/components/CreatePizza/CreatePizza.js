@@ -31,7 +31,7 @@ class CreatePizza extends React.Component {
   render() {
     return (
       <div className="centerDiv">
-        <StyledTitle text="Create Your Pizza" className="basicTitle"/>
+        <StyledTitle text="Create Your Pizza" className="basicTitle" />
         {/* <h3 className="createPizzaTitle">Create Your Pizza</h3> */}
         <BaseDropDown
           value={this.props.pizza.size || 'Choose Size'}
@@ -82,7 +82,7 @@ class CreatePizza extends React.Component {
         </table>
         {/* <Button onClick={this.handleSubmit}>Add to Cart</Button> */}
         <StyledButton
-          variant="formButton"
+          variant="basicButton"
           text="Add to Cart"
           onClick={this.handleSubmit}
         />
