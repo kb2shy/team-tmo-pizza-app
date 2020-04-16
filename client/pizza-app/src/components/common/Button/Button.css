@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
 
-/* Form Button Styling --------------------------------- */
-.btn-formButton {
+/* Basic Button Styling (also used in forms) --------------------------------- */
+.btn-basicButton {
   color: #eb6d76;
   border: 5px solid #eb6d76;
   border-radius: 0px;
@@ -11,7 +11,7 @@
   margin: 5px;
 }
 
-.formButton:hover {
+.basicButton:hover {
   background-color: #d8dbba;
   border: 5px solid #ce6067;
   color: #f0a9ae;

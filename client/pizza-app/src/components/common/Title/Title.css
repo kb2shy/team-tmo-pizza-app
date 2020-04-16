@@ -34,6 +34,14 @@
   color: #000;
 }
 
+.navbarTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2em;
+  display: block;
+  color: #fbffda;
+  padding: 15px;
+}
+
 /* divClassName styling --------------------------------- */
 .titleBox {
   background-color: #a44939;

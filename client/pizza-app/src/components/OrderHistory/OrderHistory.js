@@ -21,7 +21,8 @@ const OrderHistory = (props) => {
     if (props.user !== null) {
       return (
         <div className="centerDiv">
-          <h3>OrderHistory</h3>
+          <StyledTitle text="Order History" className="basicTitle" />
+          {/* <h3>OrderHistory</h3> */}
 
           <Container>
             {props.orders !== null ? (
