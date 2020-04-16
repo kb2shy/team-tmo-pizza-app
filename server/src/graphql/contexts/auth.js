@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('config')
+const config = require('config');
 
 // Authentication context, which extracts the token from request header and
 // decrypts to user object (which contains customer_id).
