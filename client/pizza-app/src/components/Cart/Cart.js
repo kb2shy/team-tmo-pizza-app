@@ -188,7 +188,6 @@ const Cart = ({
   const calcTotalPrice = () => {
     let total = 0;
     for (let pizza of pizzas) {
-      console.log(pizza)
       total += pizza.totalPrice;
     }
     return total.toFixed(2);
