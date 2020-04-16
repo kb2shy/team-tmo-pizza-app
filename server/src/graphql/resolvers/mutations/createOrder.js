@@ -4,6 +4,9 @@ const createAndFillPizza = require('./createAndFillPizza');
 
 sgMail.setApiKey(config.get('sendGridAPI'));
 
+// This mutation is meant to be as a helper function for
+// `createGuestOrder` and `createMemberOrder` mutations.
+// Thus mutation must not be shared with the end client.
 async function createOrder(
   root,
   { customer, pizzas },

@@ -64,10 +64,6 @@ const mutations = `
       sauce_id: Int
     ): Pizza
 
-    createAndFillPizza(
-      pizza: PizzaInput!
-    ): Pizza
-
     createGuestOrder(
       guest: GuestInput!
       pizzas: [PizzaInput!]!
