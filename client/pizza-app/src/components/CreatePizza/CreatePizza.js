@@ -117,7 +117,7 @@ class CreatePizza extends React.Component {
                 {/* <Button onClick={this.handleSubmit}>Add to Cart</Button> */}
                 <div style={{color: 'red'}}>{this.state.message}</div>
                 <StyledButton
-                    variant="formButton"
+                    variant="basicButton"
                     text="Add to Cart"
                     onClick={this.handleSubmit}
                 />

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { AUTH_JWT_SECRET } = require('../constants');
+const config = require('config');
 
 // Authentication context, which extracts the token from request header and
 // decrypts to user object (which contains customer_id).
@@ -12,7 +12,7 @@ function auth({ req, res }) {
   // attempt to decrypt token if exists
   if (token) {
     try {
-      const decrypted = jwt.verify(token, AUTH_JWT_SECRET);
+      const decrypted = jwt.verify(token, config.get('authJWTSecret'));
       user = decrypted.customer;
     } catch (err) {
       user = null;
