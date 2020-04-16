@@ -24,10 +24,7 @@ import {
             const addTopping = { ...state.toppings };
             addTopping[action.payload.type][addTopping[action.payload.type].length] = { type: action.payload.item, price : action.payload.price };
 
-            return {
-                ...state,
-                toppings: addTopping
-            };
+            return { ...state, toppings: addTopping };
   
         case REMOVE_TOPPING:
             const removeTopping = {...state.toppings};
@@ -35,16 +32,13 @@ import {
                 return topping.type !== action.payload.item;
             });
 
-            return {
-                ...state,
-                toppings: removeTopping
-            };
+            return { ...state, toppings: removeTopping };
 
         case SET_PIZZA_BASE:
             let {price, item, type} = action.payload;
             const newBase = { ...state }
             newBase[type] = (type === 'size') ? { type: item, price } : item;
-            console.log(newBase);
+
             return newBase;
 
         case CLEAR_PIZZA:
@@ -54,11 +48,7 @@ import {
             return initialState;
 
         case ADD_TOTAL_PRICE:
-            console.log(action.payload)
-            return {
-                 ...state,
-                  totalPrice: action.payload
-            };
+            return { ...state, totalPrice: action.payload };
 
         default:
             return state;

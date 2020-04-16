@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { setBase, clearPizza, addTotalPrice } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { nextMenu } from '../../actions/menu';
-import { Dropdown, DropdownButton } from 'react-bootstrap';
 // import { Button } from "react-bootstrap";
 
 // Custom Styling
@@ -12,6 +11,7 @@ import StyledTitle from '../common/Title/StyledTitle';
 
 import './CreatePizza.css';
 import Toppings from '../Toppings/Toppings';
+import BaseDropDown from './BaseDropDown';
 
 class CreatePizza extends React.Component {
     //changes store to user input
@@ -76,28 +76,16 @@ class CreatePizza extends React.Component {
                 <table className="toppingTable">
                     <tbody>
                         <tr>
-                        <td>
-                            <p>Additional Cheeses</p>
-                        </td>
-                        <td>
-                            <Toppings type={'Cheeses'} />
-                        </td>
+                            <td><p>Additional Cheeses</p></td>
+                            <td><Toppings type={'Cheeses'} /></td>
                         </tr>
                         <tr>
-                        <td>
-                            <p>Veggies</p>
-                        </td>
-                        <td>
-                            <Toppings type={'Veggies'} />
-                        </td>
+                            <td><p>Veggies</p></td>
+                            <td><Toppings type={'Veggies'} /></td>
                         </tr>
                         <tr>
-                        <td>
-                            <p>Meats</p>
-                        </td>
-                        <td>
-                            <Toppings type={'Meats'} />
-                        </td>
+                            <td><p>Meats</p></td>
+                            <td><Toppings type={'Meats'} /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -108,34 +96,6 @@ class CreatePizza extends React.Component {
                     onClick={this.handleSubmit}
                 />
             </div>
-        );
-    }
-}
-
-//Creates a row with title and all necessary radio buttons
-class BaseDropDown extends React.Component {
-    render() {
-        // console.log(this.props.value);
-        return (
-        <div>
-            <h5>{this.props.type}</h5>
-            <DropdownButton id="dropdown-basic-button" title={this.props.value}>
-            {this.props.options.map((item) => {
-                return (
-                <Dropdown.Item
-                    key={ this.props.type === 'Size' ? item.type : item}
-                    name={this.props.type}
-                    onClick={(e) => {
-                        this.props.type === 'Size' ? this.props.handleChange(this.props.type, item.type, item.price) : this.props.handleChange(this.props.type, item);
-                        this.setState({ title: item });
-                    }}
-                >
-                    {this.props.type === 'Size' ? `${item.type} - ${item.price}` : `${item}`}
-                </Dropdown.Item>
-                );
-            })}
-            </DropdownButton>
-        </div>
         );
     }
 }

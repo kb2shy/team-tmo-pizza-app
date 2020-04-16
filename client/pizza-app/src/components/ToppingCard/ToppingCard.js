@@ -13,7 +13,7 @@ class ToppingCard extends React.Component {
         }
     }
 
-    //get state from store
+    //set component state from store state
     componentDidMount() {
        if (this.props.type === 'meats') {
             for (let meat of this.props.meats) {
