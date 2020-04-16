@@ -13,7 +13,7 @@ class ToppingCard extends React.Component {
         }
     }
 
-    //get state from store
+    //set component state from store state
     componentDidMount() {
        if (this.props.type === 'meats') {
             for (let meat of this.props.meats) {
@@ -70,7 +70,7 @@ class ToppingCard extends React.Component {
                 <Card.Body>
                     <Card.Title>{this.props.label}</Card.Title>
                     <Card.Text>{this.props.price!== undefined ? `$${this.props.price.toFixed(2)}` : null}</Card.Text>
-                    {(this.props.isAuthenticated && total > 0 && this.props.type !== 'cheeses') ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
+                    {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
                 </Card.Body>
             </Card>
         )

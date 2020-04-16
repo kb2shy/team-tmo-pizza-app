@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Container, Form, Row, Col, Table, Button } from 'react-bootstrap';
+import { Container, Form, Row, Col, Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 // Custom Styling
@@ -37,6 +37,7 @@ const Cart = ({
   createGuestOrder,
   createMemberOrder,
   order,
+  pizzas,
 }) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
@@ -184,6 +185,14 @@ const Cart = ({
     }
   };
 
+  const calcTotalPrice = () => {
+    let total = 0;
+    for (let pizza of pizzas) {
+      total += pizza.totalPrice;
+    }
+    return total.toFixed(2);
+  };
+
   return (
     <div>
       <StyledTitle text="Cart" className="basicTitle" />
@@ -202,14 +211,20 @@ const Cart = ({
             {customerSummary()}
           </Col>
           <Col>
-            <h2>Pizza Order Summary:</h2>
+            <h2>Order Summary:</h2>
             <OrderSummary />
+            <StyledButton
+              onClick=""
+              variant="basicButton"
+              text="Add another pizza"
+            />
+            <h6>Sub-Total: ${calcTotalPrice()}</h6>
           </Col>
         </Row>
       </Container>
       <div className="centerStyle d-flex align-items-center">
         <StyledButton
-          variant="formButton"
+          variant="basicButton"
           onClick={handleClickSubmit}
           disabled={!isValid}
           text="Submit"
@@ -234,6 +249,7 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
     guest: state.guest,
     order: state.order,
+    pizzas: state.pizzas,
   };
 };
 
