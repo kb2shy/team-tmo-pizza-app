@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Container, Form, Row, Col, Table, Button } from 'react-bootstrap';
+import { Container, Form, Row, Col, Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 // Custom Styling
@@ -8,8 +8,9 @@ import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
 
 // actions
-import { setMenu } from '../../actions/menu';
+import { setMenu, previousMenu } from '../../actions/menu';
 import { setGuest } from '../../actions/guest';
+import { clearPizza } from '../../actions/pizza';
 import { clearPizzas } from '../../actions/pizzas';
 import { createGuestOrder, createMemberOrder } from '../../actions/order';
 
@@ -33,11 +34,13 @@ const Cart = ({
   setMenu,
   isAuthenticated,
   user,
+  clearPizza,
   clearPizzas,
   createGuestOrder,
   createMemberOrder,
   order,
-  pizzas
+  previousMenu,
+  pizzas,
 }) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
@@ -185,13 +188,21 @@ const Cart = ({
     }
   };
 
+  // Calculates the total price of all orders in the cart
   const calcTotalPrice = () => {
     let total = 0;
     for (let pizza of pizzas) {
       total += pizza.totalPrice;
     }
     return total.toFixed(2);
-  }
+  };
+
+  const handleAddAnotherPizza = (e) => {
+    e.preventDefault();
+    // alert("let's add another");
+    clearPizza();
+    previousMenu();
+  };
 
   return (
     <div>
@@ -211,15 +222,22 @@ const Cart = ({
             {customerSummary()}
           </Col>
           <Col>
-            <h2>Pizza Order Summary:</h2>
+            <h2>Order Summary:</h2>
+            {/* <h6>Sub-Total: ${calcTotalPrice()}</h6> */}
+            <h6>Total: ${calcTotalPrice()}</h6>
+
             <OrderSummary />
-            <h6>Sub-Total: ${calcTotalPrice()}</h6>
+            <StyledButton
+              onClick={handleAddAnotherPizza}
+              variant="basicButton"
+              text="Add another pizza"
+            />
           </Col>
         </Row>
       </Container>
       <div className="centerStyle d-flex align-items-center">
         <StyledButton
-          variant="formButton"
+          variant="basicButton"
           onClick={handleClickSubmit}
           disabled={!isValid}
           text="Submit"
@@ -244,7 +262,7 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
     guest: state.guest,
     order: state.order,
-    pizzas: state.pizzas
+    pizzas: state.pizzas,
   };
 };
 
@@ -262,6 +280,8 @@ Cart.propTypes = {
 export default connect(mapStateToProps, {
   setGuest,
   setMenu,
+  previousMenu,
+  clearPizza,
   clearPizzas,
   createGuestOrder,
   createMemberOrder,

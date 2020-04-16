@@ -93,7 +93,7 @@ const Login = ({
             Sign In
           </Button> */}
           <StyledButton
-            variant="formButton"
+            variant="basicButton"
             type="submit"
             disabled={loading || !isValid}
             //onClick={}
@@ -112,7 +112,7 @@ const Login = ({
           </Button> */}
 
           <StyledButton
-            variant="formButton"
+            variant="basicButton"
             type="button"
             disabled={loading}
             onClick={handleGuestOrderClick}

@@ -36,26 +36,26 @@ class CreatePizza extends React.Component {
         }
     };
 
-    //Calculates total price of pizza
-    calcPrice = () => {
-        let totalPrice = 0;
-        for (let meat of this.props.pizza.toppings.meats) {
-            totalPrice += meat.price;
-        }
-
-        for (let veggie of this.props.pizza.toppings.veggies) {
-            totalPrice += veggie.price;
-        }
-
-        for (let cheese of this.props.pizza.toppings.cheeses) {
-            totalPrice += cheese.price;
-        }
-
-        totalPrice += this.props.pizza.size.price;
-        addTotalPrice(totalPrice);
-
-        return totalPrice;
+  //Calculates total price of pizza
+  calcPrice = () => {
+    let totalPrice = 0;
+    for (let meat of this.props.pizza.toppings.meats) {
+      totalPrice += meat.price;
     }
+
+    for (let veggie of this.props.pizza.toppings.veggies) {
+      totalPrice += veggie.price;
+    }
+
+    for (let cheese of this.props.pizza.toppings.cheeses) {
+      totalPrice += cheese.price;
+    }
+
+    totalPrice += this.props.pizza.size.price;
+    addTotalPrice(totalPrice);
+
+    return totalPrice;
+  };
 
     verifyUserInput = () => {
         if(this.props.pizza.size.type === null) {
@@ -74,28 +74,29 @@ class CreatePizza extends React.Component {
     }
 
   //Renders topping sections
-    render() {
-        return (
-            <div className="centerDiv">
-                <h3 className="createPizzaTitle">Create Your Pizza</h3>
-                <BaseDropDown
-                    value={this.props.pizza.size.type || 'Choose Size'}
-                    type={'Size'}
-                    options={this.props.sizes}
-                    handleChange={this.handleChange}
-                />
-                <BaseDropDown
-                    value={this.props.pizza.crust || 'Choose Crust Type'}
-                    type={'Crust'}
-                    options={this.props.crusts}
-                    handleChange={this.handleChange}
-                />
-                <BaseDropDown
-                    value={this.props.pizza.sauce || 'Choose Sauce'}
-                    type={'Sauce'}
-                    options={this.props.sauces}
-                    handleChange={this.handleChange}
-                />
+  render() {
+    return (
+      <div className="centerDiv">
+        {/* <h3 className="createPizzaTitle">Create Your Pizza</h3> */}
+        <StyledTitle text="Create Your Pizza" className="basicTitle" />
+        <BaseDropDown
+          value={this.props.pizza.size.type || 'Choose Size'}
+          type={'Size'}
+          options={this.props.sizes}
+          handleChange={this.handleChange}
+        />
+        <BaseDropDown
+          value={this.props.pizza.crust || 'Choose Crust Type'}
+          type={'Crust'}
+          options={this.props.crusts}
+          handleChange={this.handleChange}
+        />
+        <BaseDropDown
+          value={this.props.pizza.sauce || 'Choose Sauce'}
+          type={'Sauce'}
+          options={this.props.sauces}
+          handleChange={this.handleChange}
+        />
 
                 <table className="toppingTable">
                     <tbody>
@@ -126,18 +127,18 @@ class CreatePizza extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    sizes: state.database.sizes,
-    sauces: state.database.sauces,
-    cheeses: state.database.cheeses,
-    crusts: state.database.crusts,
-    pizza: state.pizza,
-    step: state.menu.step,
+  sizes: state.database.sizes,
+  sauces: state.database.sauces,
+  cheeses: state.database.cheeses,
+  crusts: state.database.crusts,
+  pizza: state.pizza,
+  step: state.menu.step,
 });
 
 export default connect(mapStateToProps, {
-    nextMenu,
-    setBase,
-    clearPizza,
-    addPizza,
-    addTotalPrice
+  nextMenu,
+  setBase,
+  clearPizza,
+  addPizza,
+  addTotalPrice,
 })(CreatePizza);

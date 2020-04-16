@@ -73,7 +73,7 @@ const Confirmation = (props) => {
             type="button"
             onClick={handleClickHome}
             text="Return to Home"
-            variant="formButton"
+            variant="basicButton"
           />
           {/* <button onClick={handleClickHome}>
                         Return to Home
