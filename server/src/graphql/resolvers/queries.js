@@ -32,10 +32,10 @@ module.exports = {
     async getAllPizzas(
       root,
       args,
-      { Pizza, Size, Crust, Sauce, Cheese, MeatSelect, VeggieSelect }
+      { Pizza, Size, Crust, Sauce}
     ) {
       return await Pizza.findAll({
-        include: [Size, Crust, Sauce, Cheese, MeatSelect, VeggieSelect],
+        include: [Size, Crust, Sauce],
       }).catch((err) => console.log(err));
     },
     //performs three table joins to get all pizza ids for a specific customer
@@ -45,7 +45,7 @@ module.exports = {
     async getAllPizzasByCustomer(
       root,
       { customer_id },
-      { OrderItem, Customer, Order, Pizza, Size, Crust, Sauce, Cheese }
+      { OrderItem, Customer, Order, Pizza, Size, Crust, Sauce}
     ) {
       const res1 = await Order.findAll({
         attributes: ['order_id'],
@@ -77,7 +77,7 @@ module.exports = {
             [Op.in]: items,
           },
         },
-        include: [Size, Crust, Sauce, Cheese],
+        include: [Size, Crust, Sauce],
       }).catch(errHandler);
     },
     //returns all order ids for a customer
@@ -92,7 +92,7 @@ module.exports = {
     async getAllPizzasByOrder(
       rood,
       { order_id },
-      { Order, OrderItem, Pizza, Size, Crust, Sauce, Cheese }
+      { Order, OrderItem, Pizza, Size, Crust, Sauce}
     ) {
       const res = await OrderItem.findAll({
         attributes: ['pizza_id'],
@@ -110,7 +110,7 @@ module.exports = {
             [Op.in]: ids,
           },
         },
-        include: [Size, Crust, Sauce, Cheese],
+        include: [Size, Crust, Sauce],
       }).catch(errHandler);
     },
     //gets all possible meat options
@@ -155,6 +155,15 @@ module.exports = {
         include: [Veggie],
       }).catch((err) => console.log(err));
     },
+    //gets selected cheese options for specific pizza
+    async getSelectedCheeses(root, { pizza_id }, { CheeseSelect, Cheese }) {
+      return await CheeseSelect.findAll({
+        where: {
+          pizza_id: pizza_id,
+        },
+        include: [Cheese],
+      }).catch((err) => console.log(err));
+    },
     //gets all registered customers
     async getRegisteredUsers(root, args, { Customer }) {
       return await Customer.findAll({
@@ -171,6 +180,7 @@ module.exports = {
         },
       }).catch(errHandler);
     },
+    //gets all order items/pizza ids that selected a certain veggie
     async getTotalSelectedVeggie(root, { veggie_id }, { VeggieSelect }) {
       return await VeggieSelect.findAll({
         where: {
@@ -178,10 +188,19 @@ module.exports = {
         },
       }).catch(errHandler);
     },
+    //gets all order items/pizza ids that selected a certain meat
     async getTotalSelectedMeat(root, { meat_id }, { MeatSelect }) {
       return await MeatSelect.findAll({
         where: {
           meat_id: meat_id,
+        },
+      }).catch(errHandler);
+    },
+    //gets all order items/pizza ids that selected a certain cheese
+    async getTotalSelectedCheese(root, { cheese_id }, { CheeseSelect }) {
+      return await CheeseSelect.findAll({
+        where: {
+          cheese_id: cheese_id,
         },
       }).catch(errHandler);
     },

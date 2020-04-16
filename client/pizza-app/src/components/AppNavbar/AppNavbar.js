@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import StyledButton from '../common/Button/StyledButton';
+import { Navbar, Nav } from 'react-bootstrap';
 import Logout from '../Logout/Logout';
 
 import { setMenu } from '../../actions/menu';
@@ -23,8 +24,6 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
     evt.preventDefault();
     setMenu(4, step);
   };
-
-
 
   return (
     <Navbar
@@ -47,14 +46,26 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto d-flex align-items-center">
           {step !== 1 && (
-            <Button variant="primary" type="button" onClick={handleHomeClick}>
-              Home
-            </Button>
+            <StyledButton
+              variant="navbarButton"
+              onClick={handleHomeClick}
+              type="button"
+              text="Home"
+            />
+            // <Button variant="primary" type="button" onClick={handleHomeClick}>
+            //   Home
+            // </Button>
           )}
           {isAuthenticated && (
-            <Button variant="primary" type="button" onClick={handleHomeCart}>
-              Cart
-            </Button>
+            <StyledButton
+              variant="navbarButton"
+              type="button"
+              onClick={handleHomeCart}
+              text="Cart"
+            />
+            // <Button variant="primary" type="button" onClick={handleHomeCart}>
+            //   Cart
+            // </Button>
           )}
           {isAuthenticated && (
             <div className="ml-1">

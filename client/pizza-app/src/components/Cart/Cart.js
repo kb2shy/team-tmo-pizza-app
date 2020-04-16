@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, Container, Form, Row, Col, Table } from 'react-bootstrap';
+import { Container, Form, Row, Col, Table, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+
+// Custom Styling
+import StyledButton from '../common/Button/StyledButton';
+import StyledTitle from '../common/Title/StyledTitle';
 
 // actions
 import { setMenu } from '../../actions/menu';
@@ -184,16 +188,16 @@ const Cart = ({
   const calcTotalPrice = () => {
     let total = 0;
     for (let pizza of pizzas) {
-      total+=pizza.totalPrice;
+      console.log(pizza)
+      total += pizza.totalPrice;
     }
     return total.toFixed(2);
   }
 
   return (
     <div>
-      <div className="centerStyle">
-        <h2>Cart</h2>
-      </div>
+      <StyledTitle text="Cart" className="basicTitle" />
+
       <div className="centerStyle">
         <h2>Review your order below</h2>
       </div>
@@ -210,18 +214,25 @@ const Cart = ({
           <Col>
             <h2>Pizza Order Summary:</h2>
             <OrderSummary />
-            <h6>Order Total: ${calcTotalPrice()}</h6>
+            <h6>Sub-Total: ${calcTotalPrice()}</h6>
           </Col>
         </Row>
       </Container>
       <div className="centerStyle d-flex align-items-center">
-        <Button
+        <StyledButton
+          variant="formButton"
+          onClick={handleClickSubmit}
+          disabled={!isValid}
+          text="Submit"
+        />
+
+        {/* <Button
           variant="primary"
           onClick={handleClickSubmit}
           disabled={!isValid}
         >
           Submit
-        </Button>
+        </Button> */}
         {order.processing && <AppSpinner />}
       </div>
     </div>

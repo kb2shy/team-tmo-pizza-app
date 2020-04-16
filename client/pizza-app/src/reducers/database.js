@@ -16,7 +16,7 @@ import {
     meats: [{type: '', price: 0, count: 0}], //list from db
     veggies: [{type: '', price: 0, count: 0}],
     cheeses: [{type: '', price: 0, count: 0}],
-    sizes: [],
+    sizes: [{type:'', price: 0}],
     sauces: [],
     crusts: [],
     pastOrderIds: [],

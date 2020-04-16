@@ -2,13 +2,14 @@ import {
     ADD_TOPPING,
     REMOVE_TOPPING,
     SET_PIZZA_BASE,
+    ADD_TOTAL_PRICE,
     CLEAR_PIZZA
   } from "../config/actionTypes";
   
   const initialState = {
-        size: 'Choose Size',
-        crust: 'Choose Crust Type',
-        sauce: 'Choose Sauce',
+        size: {type: null},
+        crust: null,
+        sauce: null,
         toppings: {
             meats: [],
             veggies: [],
@@ -21,33 +22,29 @@ import {
     switch (action.type) {
         case ADD_TOPPING:
             const addTopping = { ...state.toppings };
-            addTopping[action.payload.type][addTopping[action.payload.type].length] = action.payload.item;
+            addTopping[action.payload.type][addTopping[action.payload.type].length] = { type: action.payload.item, price : action.payload.price };
 
             return {
                 ...state,
-                toppings: addTopping,
-                totalPrice: state.totalPrice + action.payload.price
-
+                toppings: addTopping
             };
   
         case REMOVE_TOPPING:
-            
             const removeTopping = {...state.toppings};
             removeTopping[action.payload.type] = state.toppings[action.payload.type].filter(topping => {
-                return topping!==action.payload.item;
+                return topping.type !== action.payload.item;
             });
 
             return {
                 ...state,
-                toppings: removeTopping,
-                totalPrice: state.totalPrice - action.payload.price
+                toppings: removeTopping
             };
 
         case SET_PIZZA_BASE:
+            let {price, item, type} = action.payload;
             const newBase = { ...state }
-            newBase[action.payload.type] = action.payload.item;
-            newBase.totalPrice += action.payload.price;
-
+            newBase[type] = (type === 'size') ? { type: item, price } : item;
+            console.log(newBase);
             return newBase;
 
         case CLEAR_PIZZA:
@@ -55,6 +52,13 @@ import {
             initialState.toppings.veggies = [];
             initialState.toppings.cheeses = [];
             return initialState;
+
+        case ADD_TOTAL_PRICE:
+            console.log(action.payload)
+            return {
+                 ...state,
+                  totalPrice: action.payload
+            };
 
         default:
             return state;

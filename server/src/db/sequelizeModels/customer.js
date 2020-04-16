@@ -20,16 +20,15 @@ Customer.init({
     },
     last_name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-            notNull: true, 
             notEmpty: true,
             isAlpha: true
         }
     },
     phone: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
             notEmpty: true
         }

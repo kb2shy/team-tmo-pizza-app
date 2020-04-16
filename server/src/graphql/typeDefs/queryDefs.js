@@ -26,9 +26,11 @@ const queries = `
     getAllPizzasByCustomer(customer_id: Int!): [Pizza]
     getSelectedMeats(pizza_id: Int): [MeatSelection]
     getSelectedVeggies(pizza_id: Int): [VeggieSelection]
+    getSelectedCheeses(pizza_id: Int): [CheeseSelection]
 
     getTotalSelectedVeggie(veggie_id: Int): [Veggie]
-    getTotalSelectedMeat(meat_id: Int): [MeatSelection]
+    getTotalSelectedMeat(meat_id: Int): [Meat]
+    getTotalSelectedCheese(cheese_id: Int): [Cheese]
   }
 `;
 

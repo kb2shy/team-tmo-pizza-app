@@ -28,6 +28,7 @@ export const SET_GUEST = 'SET_GUEST';
 // Topping actions
 export const ADD_TOPPING = 'ADD_TOPPING';
 export const REMOVE_TOPPING = 'REMOVE_TOPPING';
+export const ADD_TOTAL_PRICE = 'ADD_TOTAL_PRICE';
 
 // Database actions
 export const LOAD_TOPPINGS = 'LOAD_TOPPINGS';

@@ -1,8 +1,11 @@
-// Anton's code - use apollo-boost with all available utils
+// use apollo-boost with all available utils
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";
 
 //doesn't cache queries
 const DefaultOptions = {
+  watchQuery: {
+    fetchPolicy: 'no-cache'
+  },
   query: {
     fetchPolicy: 'no-cache'
   },

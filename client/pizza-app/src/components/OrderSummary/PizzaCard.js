@@ -10,7 +10,7 @@ const PizzaCard = (props) => {
   const printMultipleToppings = (arr) => {
     let text = '';
     for (let i = 0; i < arr.length; i++) {
-      text = text + arr[i];
+      text = text + arr[i].type;
       if (i < arr.length - 1) text = text + ', ';
     }
     return text;
@@ -23,7 +23,7 @@ const PizzaCard = (props) => {
         <tbody>
           <tr id="Size">
             <td>Size</td>
-            <td>{props.size}</td>
+            <td>{props.size.type}</td>
           </tr>
           <tr id="crust">
             <td>Crust</td>

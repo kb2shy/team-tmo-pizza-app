@@ -47,13 +47,12 @@ const gqlModels = `
     size_id: Int
     crust_id: Int
     sauce_id: Int
-    cheese_id: Int
     size: Size
     crust: Crust
     sauce: Sauce
-    cheese: Cheese
     meat: [Meat]
     veggie: [Veggie]
+    cheese: [Cheese]
   }
   type MeatSelection {
     meat_id: Int
@@ -64,6 +63,11 @@ const gqlModels = `
     veggie_id: Int
     pizza_id: Int
     veggie: Veggie
+  }
+  type CheeseSelection {
+    cheese_id: Int
+    pizza_id: Int
+    cheese: Cheese
   }
   type OrderItem {
     pizza_id: Int

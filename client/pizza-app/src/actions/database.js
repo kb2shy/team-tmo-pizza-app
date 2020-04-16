@@ -287,7 +287,10 @@ export const getSizes = () => async (dispatch) => {
     });
 
     const sizes = result.data.getSizeOptions.map(item => {
-      return item.size_type;
+      let obj = {};
+      obj.type = item.size_type;
+      obj.price = item.size_price;
+      return obj;
     })
 
     dispatch({

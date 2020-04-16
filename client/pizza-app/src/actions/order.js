@@ -17,7 +17,20 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
   dispatch,
   getState
 ) => {
-  const pizzas = getState().pizzas;
+  // convert pizza reducer to [PizzaInput]!
+  // (for this to work, the PizzaInput cannot contain any
+  //  additional fields that do not apply to the PizzaInput)
+  const pizzasRed = getState().pizzas;
+  const pizzas = [];
+  for (let pizza of pizzasRed) {
+    const { size, crust, sauce, toppings } = pizza;
+    pizzas.push({
+      size,
+      crust,
+      sauce,
+      toppings,
+    });
+  }
 
   // indicate the order is in progress of being persisted
   dispatch({
@@ -32,6 +45,8 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
       mutation: CREATE_GUEST_ORDER,
       variables: { guest, pizzas },
     });
+
+    console.log(result);
 
     const order = result.data.createGuestOrder;
 
@@ -77,7 +92,20 @@ export const createMemberOrder = (onSuccessEvent) => async (
     return;
   }
 
-  const pizzas = getState().pizzas;
+  // convert pizza reducer to [PizzaInput]!
+  // (for this to work, the PizzaInput cannot contain any
+  //  additional fields that do not apply to the PizzaInput)
+  const pizzasRed = getState().pizzas;
+  const pizzas = [];
+  for (let pizza of pizzasRed) {
+    const { size, crust, sauce, toppings } = pizza;
+    pizzas.push({
+      size,
+      crust,
+      sauce,
+      toppings,
+    });
+  }
 
   // indicate the order is in progress of being persisted
   dispatch({
