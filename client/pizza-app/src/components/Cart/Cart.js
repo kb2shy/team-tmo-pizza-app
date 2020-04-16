@@ -37,7 +37,6 @@ const Cart = ({
   createGuestOrder,
   createMemberOrder,
   order,
-  pizzas
 }) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
@@ -245,7 +244,6 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
     guest: state.guest,
     order: state.order,
-    pizzas: state.pizzas
   };
 };
 
