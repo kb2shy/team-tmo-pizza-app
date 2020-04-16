@@ -22,7 +22,7 @@ import {
   GET_CUST_ORDERS,
   GET_PIZZAS_BY_ORDER,
   GET_VEGGIES_BY_PIZZA,
-  //GET_CHEESES_BY_PIZZA,
+  GET_CHEESES_BY_PIZZA,
   GET_MEATS_BY_PIZZA
 } from '../config/gqlDefines';
 
@@ -78,6 +78,7 @@ export const getPizzasByOrder = (order_id) => async (dispatch) => {
       dispatch(setPastPizzas(pizza_id));
       dispatch(getVeggieCount(pizza_id));
       dispatch(getMeatsCount(pizza_id));
+      dispatch(getCheeseCount(pizza_id));
     }
   } catch (err) {
     console.log(err);
@@ -134,26 +135,27 @@ export const getMeatsCount = (pizza_id) => async (dispatch) => {
   }
 }
 
-// export const getCheeseCount = (pizza_id) => async (dispatch) => {
-//   try{
-//     const result = await apolloClient.query({
-//       query: GET_CHEESES_BY_PIZZA,
-//       variables: {pizza_id},
-//     });
+export const getCheeseCount = (pizza_id) => async (dispatch) => {
+  try{
+    const result = await apolloClient.query({
+      query: GET_CHEESES_BY_PIZZA,
+      variables: {pizza_id},
+    });
     
-//     const cheeses = result.data.getSelectedCheeses.map(item => item.cheese.cheese_type);
+    console.log(result.data.getSelectedCheeses)
+    const cheeses = result.data.getSelectedCheeses.map(item => item.cheese.cheese_type);
 
-//     for(let topping of cheeses) {
-//       dispatch({
-//         type: SET_CHEESE_COUNT,
-//         payload: topping
-//       });
-//     }
+    for(let topping of cheeses) {
+      dispatch({
+        type: SET_CHEESE_COUNT,
+        payload: topping
+      });
+    }
 
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 export const getAllToppings = () => async (dispatch) => {
   dispatch(getVeggies());
