@@ -52,7 +52,6 @@ class CreatePizza extends React.Component {
         }
 
         totalPrice += this.props.pizza.size.price;
-        console.log(this.props.pizza.size.price)
         addTotalPrice(totalPrice);
 
         return totalPrice;
