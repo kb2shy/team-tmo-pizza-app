@@ -214,7 +214,7 @@ const Cart = ({
             <h2>Order Summary:</h2>
             <OrderSummary />
             <StyledButton
-              onClick=""
+              onClick=""  
               variant="basicButton"
               text="Add another pizza"
             />

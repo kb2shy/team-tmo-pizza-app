@@ -12,12 +12,12 @@ Pizza.init({
     },
     size_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        // allowNull: false,
         defaultValue: 1
     },
     crust_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        // allowNull: false,
         defaultValue: 1
     },
     sauce_id: {
