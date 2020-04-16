@@ -8,8 +8,9 @@ import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
 
 // actions
-import { setMenu } from '../../actions/menu';
+import { setMenu, previousMenu } from '../../actions/menu';
 import { setGuest } from '../../actions/guest';
+import { clearPizza } from '../../actions/pizza';
 import { clearPizzas } from '../../actions/pizzas';
 import { createGuestOrder, createMemberOrder } from '../../actions/order';
 
@@ -33,10 +34,12 @@ const Cart = ({
   setMenu,
   isAuthenticated,
   user,
+  clearPizza,
   clearPizzas,
   createGuestOrder,
   createMemberOrder,
   order,
+  previousMenu,
   pizzas,
 }) => {
   const [guestData, setGuestData] = useState({
@@ -185,12 +188,20 @@ const Cart = ({
     }
   };
 
+  // Calculates the total price of all orders in the cart
   const calcTotalPrice = () => {
     let total = 0;
     for (let pizza of pizzas) {
       total += pizza.totalPrice;
     }
     return total.toFixed(2);
+  };
+
+  const handleAddAnotherPizza = (e) => {
+    e.preventDefault();
+    // alert("let's add another");
+    clearPizza();
+    previousMenu();
   };
 
   return (
@@ -212,13 +223,15 @@ const Cart = ({
           </Col>
           <Col>
             <h2>Order Summary:</h2>
+            {/* <h6>Sub-Total: ${calcTotalPrice()}</h6> */}
+            <h6>Total: ${calcTotalPrice()}</h6>
+
             <OrderSummary />
             <StyledButton
-              onClick=""
+              onClick={handleAddAnotherPizza}
               variant="basicButton"
               text="Add another pizza"
             />
-            <h6>Sub-Total: ${calcTotalPrice()}</h6>
           </Col>
         </Row>
       </Container>
@@ -267,6 +280,8 @@ Cart.propTypes = {
 export default connect(mapStateToProps, {
   setGuest,
   setMenu,
+  previousMenu,
+  clearPizza,
   clearPizzas,
   createGuestOrder,
   createMemberOrder,
