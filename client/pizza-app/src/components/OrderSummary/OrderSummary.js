@@ -8,10 +8,10 @@ import PizzaCard from './PizzaCard';
  * 2. renders a card displaying each pizza's info via PizzaCard subcomponent
  */
 const OrderSummary = ({ pizzas }) => {
-
+  
   return (
     <div>
-      {pizzas.map((pz) => {
+      {pizzas.map((pz, i) => {
         return (
           <div key={pz}>
             <PizzaCard
@@ -21,6 +21,7 @@ const OrderSummary = ({ pizzas }) => {
               // cheese={pz.cheese}
               toppings={pz.toppings}
               price={pz.totalPrice}
+              index={i}
             />
           </div>
         );

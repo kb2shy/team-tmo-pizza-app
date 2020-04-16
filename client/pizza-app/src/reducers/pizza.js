@@ -3,6 +3,7 @@ import {
     REMOVE_TOPPING,
     SET_PIZZA_BASE,
     ADD_TOTAL_PRICE,
+    SET_PIZZA,
     CLEAR_PIZZA
   } from "../config/actionTypes";
   
@@ -40,6 +41,9 @@ import {
             newBase[type] = (type === 'size') ? { type: item, price } : item;
 
             return newBase;
+
+        case SET_PIZZA:
+            return action.payload;
 
         case CLEAR_PIZZA:
             initialState.toppings.meats = [];
