@@ -36,7 +36,6 @@ export const clearUserHistory = () => (dispatch) => {
 
 export const getUserHistory = (customer_id) => async (dispatch) => {
   dispatch(getOrderIds(customer_id));
-  //console.log(`customer_id: ${customer_id}`)
 }
 
 //Gets array or past order ids and sets the array in the store
@@ -48,7 +47,6 @@ export const getOrderIds = (customer_id) => async (dispatch) => {
     });
 
     const orders = result.data.getAllOrdersByCustomer.map(item => item.order_id);
-    //console.log(`Orders: ${orders}`)
 
     dispatch({
       type: SET_PAST_ORDERS,
@@ -75,7 +73,6 @@ export const getPizzasByOrder = (order_id) => async (dispatch) => {
     });
 
     const pizzas = result.data.getAllPizzasByOrder.map(item => item.pizza_id);
-    //console.log(`Pizzas: ${pizzas}`)
 
     for(let pizza_id of pizzas) {
       dispatch(setPastPizzas(pizza_id));
@@ -110,7 +107,6 @@ export const getVeggieCount = (pizza_id) => async (dispatch) => {
         payload: topping
       });
     }
-    
 
   } catch (err) {
     console.log(err);
@@ -123,7 +119,6 @@ export const getMeatsCount = (pizza_id) => async (dispatch) => {
       query: GET_MEATS_BY_PIZZA,
       variables: {pizza_id},
     });
-
     
     const meats = result.data.getSelectedMeats.map(item => item.meat.meat_type);
 
@@ -145,7 +140,6 @@ export const getMeatsCount = (pizza_id) => async (dispatch) => {
 //       query: GET_CHEESES_BY_PIZZA,
 //       variables: {pizza_id},
 //     });
-
     
 //     const cheeses = result.data.getSelectedCheeses.map(item => item.cheese.cheese_type);
 
@@ -177,10 +171,7 @@ export const getMeats = () => async (dispatch) => {
     });
 
     const results = result.data.getMeatOptions.map(item => {
-      let obj = {};
-      obj.type = item.meat_type;
-      obj.price = item.meat_price;
-      return obj;
+      return { type: item.meat_type, price: item.meat_price};
     })
 
     dispatch({
@@ -201,10 +192,7 @@ export const getVeggies = () => async (dispatch) => {
     });
 
     const results = result.data.getVeggieOptions.map(item => {
-      let obj = {};
-      obj.type = item.veggie_type;
-      obj.price = item.veggie_price;
-      return obj;
+      return { type: item.veggie_type, price: item.veggie_price };
     })
 
     dispatch({
@@ -224,10 +212,7 @@ export const getCheeses = () => async (dispatch) => {
     });
 
     const cheeses = result.data.getCheeseOptions.map(item => {
-      let obj = {};
-      obj.type = item.cheese_type;
-      obj.price = item.cheese_price;
-      return obj;
+      return { type: item.cheese_type, price: item.cheese_price };
     })
 
     dispatch({
@@ -287,7 +272,7 @@ export const getSizes = () => async (dispatch) => {
     });
 
     const sizes = result.data.getSizeOptions.map(item => {
-      return item.size_type;
+      return { type: item.size_type, price: item.size_price };
     })
 
     dispatch({

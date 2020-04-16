@@ -102,6 +102,7 @@ export const GET_SIZE_OPTIONS = gql`
   query {
     getSizeOptions {
       size_type
+      size_price
     }
   }
 `;

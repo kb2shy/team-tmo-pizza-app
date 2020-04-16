@@ -2,11 +2,12 @@ import {
     ADD_TOPPING,
     REMOVE_TOPPING,
     SET_PIZZA_BASE,
+    ADD_TOTAL_PRICE,
     CLEAR_PIZZA
   } from "../config/actionTypes";
   
   const initialState = {
-        size: null,
+        size: {type: null},
         crust: null,
         sauce: null,
         toppings: {
@@ -14,38 +15,29 @@ import {
             veggies: [],
             cheeses: []
         },
-        totalPrice: 10
+        totalPrice: 0
   };
   
   const pizzaReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TOPPING:
             const addTopping = { ...state.toppings };
-            addTopping[action.payload.type][addTopping[action.payload.type].length] = action.payload.item;
+            addTopping[action.payload.type][addTopping[action.payload.type].length] = { type: action.payload.item, price : action.payload.price };
 
-            return {
-                ...state,
-                toppings: addTopping,
-                totalPrice: state.totalPrice + action.payload.price
-
-            };
+            return { ...state, toppings: addTopping };
   
         case REMOVE_TOPPING:
-            
             const removeTopping = {...state.toppings};
             removeTopping[action.payload.type] = state.toppings[action.payload.type].filter(topping => {
-                return topping!==action.payload.item;
+                return topping.type !== action.payload.item;
             });
 
-            return {
-                ...state,
-                toppings: removeTopping,
-                totalPrice: state.totalPrice - action.payload.price
-            };
+            return { ...state, toppings: removeTopping };
 
         case SET_PIZZA_BASE:
+            let {price, item, type} = action.payload;
             const newBase = { ...state }
-            newBase[action.payload.type] = action.payload.value;
+            newBase[type] = (type === 'size') ? { type: item, price } : item;
 
             return newBase;
 
@@ -54,6 +46,9 @@ import {
             initialState.toppings.veggies = [];
             initialState.toppings.cheeses = [];
             return initialState;
+
+        case ADD_TOTAL_PRICE:
+            return { ...state, totalPrice: action.payload };
 
         default:
             return state;
