@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import { registerCustomer } from '../../actions/auth';
 import { setMenu } from '../../actions/menu';
 
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import AppSpinner from '../AppSpinner/AppSpinner';
+
+import StyledButton from '../common/Button/StyledButton';
 
 // Register
 // - Title component
@@ -21,7 +23,6 @@ const Register = ({
   isAuthenticated,
   setMenu,
 }) => {
-
   useEffect(() => {
     if (isAuthenticated && step === 6) {
       setMenu(1);
@@ -116,9 +117,16 @@ const Register = ({
           />
         </Form.Group>
         <div className="d-flex align-items-center">
-          <Button variant="primary" type="submit" disabled={!isValid}>
+          {/* <Button variant="primary" type="submit" disabled={!isValid}>
             Sign Up
-          </Button>
+          </Button> */}
+          <StyledButton
+            type="submit"
+            text="Sign Up"
+            variant="formButton"
+            disabled={!isValid}
+            text="Sign Up"
+          />
           {loading && <AppSpinner />}
         </div>
       </Form>
