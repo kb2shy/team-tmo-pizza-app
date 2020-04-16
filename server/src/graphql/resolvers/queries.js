@@ -32,10 +32,10 @@ module.exports = {
     async getAllPizzas(
       root,
       args,
-      { Pizza, Size, Crust, Sauce, Cheese, MeatSelect, VeggieSelect }
+      { Pizza, Size, Crust, Sauce}
     ) {
       return await Pizza.findAll({
-        include: [Size, Crust, Sauce, Cheese, MeatSelect, VeggieSelect],
+        include: [Size, Crust, Sauce],
       }).catch((err) => console.log(err));
     },
     //performs three table joins to get all pizza ids for a specific customer
@@ -45,7 +45,7 @@ module.exports = {
     async getAllPizzasByCustomer(
       root,
       { customer_id },
-      { OrderItem, Customer, Order, Pizza, Size, Crust, Sauce, Cheese }
+      { OrderItem, Customer, Order, Pizza, Size, Crust, Sauce}
     ) {
       const res1 = await Order.findAll({
         attributes: ['order_id'],
@@ -77,7 +77,7 @@ module.exports = {
             [Op.in]: items,
           },
         },
-        include: [Size, Crust, Sauce, Cheese],
+        include: [Size, Crust, Sauce],
       }).catch(errHandler);
     },
     //returns all order ids for a customer
