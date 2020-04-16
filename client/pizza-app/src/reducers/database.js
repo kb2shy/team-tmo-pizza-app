@@ -16,7 +16,7 @@ import {
     meats: [{type: '', price: 0, count: 0}], //list from db
     veggies: [{type: '', price: 0, count: 0}],
     cheeses: [{type: '', price: 0, count: 0}],
-    sizes: [],
+    sizes: [{type:'', price: 0}],
     sauces: [],
     crusts: [],
     pastOrderIds: [],
@@ -28,89 +28,56 @@ import {
         case LOAD_TOPPINGS:
             const newToppingsListState = { ...state }
             newToppingsListState[action.payload.type] = action.payload.results.map(item => {
-                item.count = 0;
-                return item;
+                return {...item, count: 0 };
             });
 
-            return {
-                ...newToppingsListState
-            }
-
-        case SET_PAST_ORDERS:
-            return {
-                ...state,
-                pastOrderIds: action.payload
-            }
-        
-        case SET_PAST_PIZZAS:
-            const newPizzaIds = [...state.pastPizzaIds];
-            newPizzaIds[newPizzaIds.length] = action.payload;
-
-            return {
-                ...state,
-                pastPizzaIds: newPizzaIds
-            }
-
-        case SET_VEGGIE_COUNT:
-            const newVeggieList = state.veggies.map(item => {
-                return action.payload === item.type ? {...item, count: item.count + 1} : item;
-            })
-
-            return {
-                ...state,
-                veggies: newVeggieList
-            }
-
-        case SET_MEATS_COUNT:
-            const newMeatList = state.meats.map(item => {
-                return action.payload === item.type ? {...item, count: item.count + 1} : item;
-            })
-
-            return {
-                ...state,
-                meats: newMeatList
-            }
-
-        case SET_CHEESE_COUNT:
-            const newCheeseList = state.cheeses.map(item => {
-                return action.payload === item.type ? {...item, count: item.count + 1} : item;
-            })
-
-            return {
-                ...state,
-                cheeses: newCheeseList
-            }
-
-        case LOAD_SIZES:
-
-            return {
-                ...state,
-                sizes: action.payload
-            }
-
-        case LOAD_SAUCES:
-
-            return {
-                ...state,
-                sauces: action.payload
-            }
+            return newToppingsListState;
 
         case LOAD_CHEESES:
             const newCheeseListState = action.payload.map(item => {
                 return {...item, count: 0};
             });
 
-            return {
-                ...state,
-                cheeses: newCheeseListState
-            }
+            return { ...state, cheeses: newCheeseListState }
+    
+        case SET_PAST_ORDERS:
+            return { ...state, pastOrderIds: action.payload };
+        
+        case SET_PAST_PIZZAS:
+            const newPizzaIds = [...state.pastPizzaIds];
+            newPizzaIds[newPizzaIds.length] = action.payload;
+
+            return { ...state, pastPizzaIds: newPizzaIds };
+
+        case SET_VEGGIE_COUNT:
+            const newVeggieList = state.veggies.map(item => {
+                return action.payload === item.type ? {...item, count: item.count + 1} : item;
+            })
+
+            return { ...state, veggies: newVeggieList };
+
+        case SET_MEATS_COUNT:
+            const newMeatList = state.meats.map(item => {
+                return action.payload === item.type ? {...item, count: item.count + 1} : item;
+            })
+
+            return {  ...state, meats: newMeatList }
+
+        case SET_CHEESE_COUNT:
+            const newCheeseList = state.cheeses.map(item => {
+                return action.payload === item.type ? {...item, count: item.count + 1} : item;
+            })
+
+            return { ...state, cheeses: newCheeseList }
+
+        case LOAD_SIZES:
+            return { ...state, sizes: action.payload }
+
+        case LOAD_SAUCES:
+            return { ...state, sauces: action.payload }
 
         case LOAD_CRUSTS:
-
-            return {
-                ...state,
-                crusts: action.payload
-            }
+            return { ...state, crusts: action.payload }
 
         case CLEAR_USER_HISTORY:
             const resetMeats = state.meats.map(item => {
@@ -120,10 +87,15 @@ import {
             const resetVeggies = state.veggies.map(item => {
                 return {veggies: item.veggies, count: 0};
             })
+
+            const resetCheeses = state.cheeses.map(item => {
+                return {cheeses: item.cheeses, count: 0};
+            })
             return {
                 ...state,
                 meats: resetMeats, 
                 veggies: resetVeggies,
+                cheeses: resetCheeses,
                 pastOrderIds: [],
                 pastPizzaIds: []
             }
