@@ -92,7 +92,7 @@ module.exports = {
     async getAllPizzasByOrder(
       rood,
       { order_id },
-      { Order, OrderItem, Pizza, Size, Crust, Sauce, Cheese }
+      { Order, OrderItem, Pizza, Size, Crust, Sauce}
     ) {
       const res = await OrderItem.findAll({
         attributes: ['pizza_id'],
@@ -110,7 +110,7 @@ module.exports = {
             [Op.in]: ids,
           },
         },
-        include: [Size, Crust, Sauce, Cheese],
+        include: [Size, Crust, Sauce],
       }).catch(errHandler);
     },
     //gets all possible meat options
