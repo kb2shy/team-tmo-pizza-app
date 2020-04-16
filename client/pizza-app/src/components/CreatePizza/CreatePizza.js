@@ -14,6 +14,12 @@ import Toppings from '../Toppings/Toppings';
 import BaseDropDown from './BaseDropDown';
 
 class CreatePizza extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            message: null
+        }
+    }
     //changes store to user input
     handleChange = (name, item, price = -1) => {
         this.props.setBase(name.toLowerCase(), item, price);
@@ -21,11 +27,13 @@ class CreatePizza extends React.Component {
 
     //Adds current pizza to pizzas array and clears current pizza
     handleSubmit = () => {
-        const totalPrice = this.calcPrice();
+        if (this.verifyUserInput()){
+            const totalPrice = this.calcPrice();
             const currentPizza = this.props.pizza;
             this.props.addPizza({ ...currentPizza, totalPrice}); //wouldn't be updated fast enough
             this.props.clearPizza()
             this.props.nextMenu(this.props.step);
+        }
     };
 
     //Calculates total price of pizza
@@ -44,9 +52,26 @@ class CreatePizza extends React.Component {
         }
 
         totalPrice += this.props.pizza.size.price;
+        console.log(this.props.pizza.size.price)
         addTotalPrice(totalPrice);
 
         return totalPrice;
+    }
+
+    verifyUserInput = () => {
+        if(this.props.pizza.size.type === null) {
+            this.setState({message: 'Please select pizza size.'});
+            return false;
+        } else if (this.props.pizza.crust === null){
+            this.setState({message: 'Please select crust type.'});
+            return false;
+        } else if (this.props.pizza.sauce === null){
+            this.setState({message: 'Please select sauce type.'});
+            return false;
+        }
+
+        this.setState({message: null});
+        return true;
     }
 
   //Renders topping sections
@@ -90,6 +115,7 @@ class CreatePizza extends React.Component {
                     </tbody>
                 </table>
                 {/* <Button onClick={this.handleSubmit}>Add to Cart</Button> */}
+                <div style={{color: 'red'}}>{this.state.message}</div>
                 <StyledButton
                     variant="formButton"
                     text="Add to Cart"
