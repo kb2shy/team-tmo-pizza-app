@@ -4,7 +4,9 @@ import { setMenu } from '../../actions/menu';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
+// Custom Styling
 import StyledButton from '../common/Button/StyledButton';
+import StyledTitle from '../common/Title/StyledTitle';
 
 // Confirmation: the confirmation page
 // - Paragraph
@@ -59,7 +61,7 @@ const Confirmation = (props) => {
     >
       <Row className="col-header">
         <Col>
-          <h3>CONFIRMATION</h3>
+          <StyledTitle text="Confirmation" className="basicTitle" />
         </Col>
       </Row>
       <Row>

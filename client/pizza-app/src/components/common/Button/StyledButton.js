@@ -9,6 +9,7 @@ import './Button.css';
  * @param {string} type submit, button
  * @param {string} disabled !isValid or other validation criterias
  * @param {string} onClick respective click handler
+ * @param {string} text button text
  */
 const StyledButton = (props) => {
   return (

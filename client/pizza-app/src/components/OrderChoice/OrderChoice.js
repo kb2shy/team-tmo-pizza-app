@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Title from '../Title/Title';
+// import Title from '../Title/Title';
 import BackButton from '../BackButton/BackButton';
 import { connect } from 'react-redux';
 // import { Button } from 'react-bootstrap';
+
+// Custom Styling
 import StyledButton from '../common/Button/StyledButton';
+import StyledTitle from '../common/Title/StyledTitle';
 
 import classes from './OrderChoice.module.css';
 import { setMenu } from '../../actions/menu';
@@ -41,7 +44,19 @@ const OrderChoice = (props) => {
     <div className={classes.Body}>
       <BackButton></BackButton>
       <br></br>
-      <div className={classes.Title}> title </div>
+      {/* <div className={classes.Title}> title </div> */}
+      <div>
+        <StyledTitle
+          divClassName="titleBox"
+          text="Welcome back, "
+          className="orderChoiceTitle"
+        />
+        <StyledTitle
+          divClassName="titleBox"
+          text="first last"
+          className="cursiveTitle"
+        />
+      </div>
       <div className={classes.OrderChoice}>
         <h1>What would you like to do today?</h1>
         <br></br>
