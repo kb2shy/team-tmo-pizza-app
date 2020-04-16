@@ -6,13 +6,14 @@ import { nextMenu } from '../../actions/menu';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 // import { Button } from "react-bootstrap";
 
+// Custom Styling
 import StyledButton from '../common/Button/StyledButton';
+import StyledTitle from '../common/Title/StyledTitle';
 
 import './CreatePizza.css';
 import Toppings from '../Toppings/Toppings';
 
 class CreatePizza extends React.Component {
-
   //changes store to user input
   handleChange = (name, item) => {
     this.props.setBase(name.toLowerCase(), item);

@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Diplomata+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+/* different className styling --------------------------------- */
+.homeTitleTop {
+  font-family: 'Diplomata SC', cursive;
+  font-size: 2.5em;
+  display: block;
+  padding-top: 10%;
+  /* color: #fbffda; */
+}
+
+.cursiveTitle {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5em;
+  display: block;
+  /* color: #fbffda; */
+}
+
+.orderChoiceTitle {
+  font-family: 'Playfair Display SC', serif;
+  font-size: 2.5em;
+  display: block;
+  /* padding-top: 10%; */
+  /* color: #fbffda; */
+}
+
+.basicTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5em;
+  display: block;
+  color: #000;
+}
+
+/* divClassName styling --------------------------------- */
+.titleBox {
+  background-color: #a44939;
+  color: white;
+  width: 40%;
+  /* border: 1px solid black; */
+  /* margin: 20px; */
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding-top: 25px;
+}
+
+/* default heading styling --------------------------------- */
+h1 {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: '10%';
+  color: #fbffda;
+  /* color: #000; */
+}

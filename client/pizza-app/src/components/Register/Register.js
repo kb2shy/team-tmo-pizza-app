@@ -9,6 +9,7 @@ import { Form } from 'react-bootstrap';
 import AppSpinner from '../AppSpinner/AppSpinner';
 
 import StyledButton from '../common/Button/StyledButton';
+import StyledTitle from '../common/Title/StyledTitle';
 
 // Register
 // - Title component
@@ -62,6 +63,12 @@ const Register = ({
 
   return (
     <div>
+      <StyledTitle
+        divClassName="titleBox"
+        text="Create An Account "
+        className="orderChoiceTitle"
+      />
+
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formFirstName">
           <Form.Label>First Name</Form.Label>
