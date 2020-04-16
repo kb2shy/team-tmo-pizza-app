@@ -14,19 +14,27 @@ import Toppings from '../Toppings/Toppings';
 import BaseDropDown from './BaseDropDown';
 
 class CreatePizza extends React.Component {
-  //changes store to user input
-  handleChange = (name, item, price = -1) => {
-    this.props.setBase(name.toLowerCase(), item, price);
-  };
+    constructor(props) {
+        super(props);
+        this.state = {
+            message: null
+        }
+    }
+    //changes store to user input
+    handleChange = (name, item, price = -1) => {
+        this.props.setBase(name.toLowerCase(), item, price);
+    }
 
-  //Adds current pizza to pizzas array and clears current pizza
-  handleSubmit = () => {
-    const totalPrice = this.calcPrice();
-    const currentPizza = this.props.pizza;
-    this.props.addPizza({ ...currentPizza, totalPrice }); //wouldn't be updated fast enough
-    this.props.clearPizza();
-    this.props.nextMenu(this.props.step);
-  };
+    //Adds current pizza to pizzas array and clears current pizza
+    handleSubmit = () => {
+        if (this.verifyUserInput()){
+            const totalPrice = this.calcPrice();
+            const currentPizza = this.props.pizza;
+            this.props.addPizza({ ...currentPizza, totalPrice}); //wouldn't be updated fast enough
+            this.props.clearPizza()
+            this.props.nextMenu(this.props.step);
+        }
+    };
 
   //Calculates total price of pizza
   calcPrice = () => {
@@ -48,6 +56,22 @@ class CreatePizza extends React.Component {
 
     return totalPrice;
   };
+
+    verifyUserInput = () => {
+        if(this.props.pizza.size.type === null) {
+            this.setState({message: 'Please select pizza size.'});
+            return false;
+        } else if (this.props.pizza.crust === null){
+            this.setState({message: 'Please select crust type.'});
+            return false;
+        } else if (this.props.pizza.sauce === null){
+            this.setState({message: 'Please select sauce type.'});
+            return false;
+        }
+
+        this.setState({message: null});
+        return true;
+    }
 
   //Renders topping sections
   render() {
@@ -74,43 +98,32 @@ class CreatePizza extends React.Component {
           handleChange={this.handleChange}
         />
 
-        <table className="toppingTable">
-          <tbody>
-            <tr>
-              <td>
-                <p>Additional Cheeses</p>
-              </td>
-              <td>
-                <Toppings type={'Cheeses'} />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>Veggies</p>
-              </td>
-              <td>
-                <Toppings type={'Veggies'} />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>Meats</p>
-              </td>
-              <td>
-                <Toppings type={'Meats'} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        {/* <Button onClick={this.handleSubmit}>Add to Cart</Button> */}
-        <StyledButton
-          variant="basicButton"
-          text="Add to Cart"
-          onClick={this.handleSubmit}
-        />
-      </div>
-    );
-  }
+                <table className="toppingTable">
+                    <tbody>
+                        <tr>
+                            <td><p>Additional Cheeses</p></td>
+                            <td><Toppings type={'Cheeses'} /></td>
+                        </tr>
+                        <tr>
+                            <td><p>Veggies</p></td>
+                            <td><Toppings type={'Veggies'} /></td>
+                        </tr>
+                        <tr>
+                            <td><p>Meats</p></td>
+                            <td><Toppings type={'Meats'} /></td>
+                        </tr>
+                    </tbody>
+                </table>
+                {/* <Button onClick={this.handleSubmit}>Add to Cart</Button> */}
+                <div style={{color: 'red'}}>{this.state.message}</div>
+                <StyledButton
+                    variant="formButton"
+                    text="Add to Cart"
+                    onClick={this.handleSubmit}
+                />
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = (state) => ({

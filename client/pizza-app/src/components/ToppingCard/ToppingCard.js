@@ -17,7 +17,7 @@ class ToppingCard extends React.Component {
     componentDidMount() {
        if (this.props.type === 'meats') {
             for (let meat of this.props.meats) {
-                if (meat === this.props.label) {
+                if (meat.type === this.props.label) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }
@@ -25,14 +25,14 @@ class ToppingCard extends React.Component {
         }
         else if (this.props.type === 'veggies'){
             for (let veggies of this.props.veggies) {
-                if (veggies === this.props.label) {
+                if (veggies.type === this.props.label) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }
             }
         } else {
             for (let cheeses of this.props.cheeses) {
-                if (cheeses === this.props.label) {
+                if (cheeses.type === this.props.label) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }

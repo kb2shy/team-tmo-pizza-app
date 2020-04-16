@@ -25,10 +25,12 @@ export const SEND_EMAIL_FAILURE = 'SEND_EMAIL_FAILURE';
 // Guest customer
 export const SET_GUEST = 'SET_GUEST';
 
-// Topping actions
+// pizza actions
 export const ADD_TOPPING = 'ADD_TOPPING';
 export const REMOVE_TOPPING = 'REMOVE_TOPPING';
 export const ADD_TOTAL_PRICE = 'ADD_TOTAL_PRICE';
+export const SET_PIZZA = 'SET_PIZZA';
+export const CLEAR_PIZZA = 'CLEAR_PIZZA';
 
 // Database actions
 export const LOAD_TOPPINGS = 'LOAD_TOPPINGS';
@@ -48,7 +50,6 @@ export const CLEAR_USER_HISTORY = 'CLEAR_USER_HISTORY';
 export const ADD_PIZZA = 'ADD_PIZZA';
 export const REMOVE_PIZZA = 'REMOVE_PIZZA';
 export const SET_PIZZA_BASE = 'SET_PIZZA_BASE';
-export const CLEAR_PIZZA = 'CLEAR_PIZZA';
 export const CLEAR_PIZZAS = 'CLEAR_PIZZAS';
 
 // Order actions
