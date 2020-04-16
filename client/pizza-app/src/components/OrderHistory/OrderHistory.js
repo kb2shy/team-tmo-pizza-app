@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { Container} from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import OrderDisplay from './OrderDisplay'
 // OrderHistory: displayed for logged in user
 // - Title component
@@ -13,20 +13,24 @@ import OrderDisplay from './OrderDisplay'
 const OrderHistory = props => {
     const ordersRev = props.orders.reverse()
 
-    return (
-        <div className="centerDiv">
-            <h3>OrderHistory</h3>
+    {
+        if (props.user !== null) {
+            return (
+                <div className="centerDiv">
+                    <h3>OrderHistory</h3>
 
-            <Container>
-                {
-                   ordersRev.map((order) => {
-                        return <OrderDisplay orderId={order} key={'key_'+order}></OrderDisplay>
-                    })
-                }
-            </Container>
+                    <Container>
+                        {
+                            props.orders !== null ?  ordersRev.map((order) => {
+                                return <OrderDisplay orderId={order} key={'key_' + order}></OrderDisplay>
+                            }) : <p>You have no previous orders</p>
+                        }
+                    </Container>
 
-        </div>
-    )
+                </div>
+            )
+        }
+    }
 }
 
 const mapStateToProps = (state) => ({

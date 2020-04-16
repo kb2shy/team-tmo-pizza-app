@@ -35,6 +35,11 @@ const mutations = `
       pizza_id: Int!
     ): MeatSelection
 
+    setCheeseSelection(
+      cheese_id: Int! 
+      pizza_id: Int!
+    ): CheeseSelection
+
     setOrderItem(
       order_id: Int!
       pizza_id: Int!
@@ -57,7 +62,6 @@ const mutations = `
       size_id: Int
       crust_id: Int
       sauce_id: Int
-      cheese_id: Int
     ): Pizza
 
     createAndFillPizza(
