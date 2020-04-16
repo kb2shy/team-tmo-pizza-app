@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { AUTH_JWT_SECRET } = require('../../constants');
+const config = require('config');
 
 // Used for login
 async function getTokenByCustomer(root, { email, password }, { Customer }) {
@@ -41,11 +41,9 @@ async function getTokenByCustomer(root, { email, password }, { Customer }) {
     },
   };
 
-  const token = jwt.sign(payload, AUTH_JWT_SECRET, {
+  const token = jwt.sign(payload, config.get('authJWTSecret'), {
     expiresIn: 3600, // have user be required to resign in after one hour
   });
-
-  console.log('Token', token)
 
   return token;
 }

@@ -4,8 +4,6 @@ const createAndFillPizza = require('./createAndFillPizza');
 
 sgMail.setApiKey(config.get('sendGridAPI'));
 
-const supportEmail = config.get('supportEmail');
-
 async function createOrder(
   root,
   { customer, pizzas },
@@ -49,7 +47,7 @@ async function createOrder(
   // send order confirmation email
   const msg = {
     to: customer.email,
-    from: supportEmail,
+    from: config.get('supportEmail'),
     subject: 'Thank You for your TmoPizza Order',
     // text: '',
     html: `
