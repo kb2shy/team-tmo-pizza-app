@@ -53,7 +53,6 @@ export const UPDATE_OR_CREATE_CUSTOMER = gql`
 export const GET_MEAT_OPTIONS = gql`
   query {
     getMeatOptions {
-      meat_id
       meat_type
       meat_price
     }
@@ -64,7 +63,6 @@ export const GET_MEAT_OPTIONS = gql`
 export const GET_VEGGIE_OPTIONS = gql`
   query {
     getVeggieOptions {
-      veggie_id
       veggie_type
       veggie_price
     }
@@ -75,7 +73,6 @@ export const GET_VEGGIE_OPTIONS = gql`
 export const GET_CHEESE_OPTIONS = gql`
   query {
     getCheeseOptions {
-      cheese_id
       cheese_type
       cheese_price
     }
@@ -148,6 +145,11 @@ export const GET_MEATS_BY_PIZZA = gql`
     }
   }
 `;
+
+//returns an array of all selected cheeses from pizza
+// export const GET_CHEESES_BY_PIZZA = gql`
+//   TO-DO
+// `;
 
 //creates a guest order and returns an order_id
 export const CREATE_GUEST_ORDER = gql`

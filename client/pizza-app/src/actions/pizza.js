@@ -6,17 +6,17 @@ import {
   } from "../config/actionTypes";
   
   //customer orders
-  export const addTopping = (type, item) => (dispatch) => {
+  export const addTopping = (type, item, price) => (dispatch) => {
     dispatch({
       type: ADD_TOPPING,
-      payload: {type, item}
+      payload: {type, item, price}
     });
   };
   
-  export const removeTopping = (type, item) => (dispatch) => {
+  export const removeTopping = (type, item, price) => (dispatch) => {
     dispatch({
       type: REMOVE_TOPPING,
-      payload: {type, item}
+      payload: {type, item, price}
     });
   };
 

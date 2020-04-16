@@ -52,17 +52,25 @@ class CreatePizza extends React.Component {
               options={this.props.sauces}
               handleChange={this.handleChange}
             />
-            <RadioButtonRow
+            {/* <RadioButtonRow
               value={this.props.pizza.cheese}
               type={'Cheese'}
               options={this.props.cheeses}
               handleChange={this.handleChange}
-            />
+            /> */}
           </tbody>
         </table>
 
         <table className="toppingTable">
           <tbody>
+            <tr>
+              <td>
+                <p>Additional Cheeses</p>
+              </td>
+              <td>
+                <Toppings type={'Cheeses'} />
+              </td>
+            </tr>
             <tr>
               <td>
                 <p>Veggies</p>

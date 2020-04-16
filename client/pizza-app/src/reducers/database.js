@@ -8,15 +8,16 @@ import {
     SET_PAST_ORDERS,
     SET_VEGGIE_COUNT,
     SET_MEATS_COUNT,
+    SET_CHEESE_COUNT,
     CLEAR_USER_HISTORY
   } from "../config/actionTypes";
   
   const initialState = {
-    meats: [{meats: '', count: 0}], //list from db
-    veggies: [{veggies: '', count: 0}],
+    meats: [{type: '', price: 0, count: 0}], //list from db
+    veggies: [{type: '', price: 0, count: 0}],
+    cheeses: [{type: '', price: 0, count: 0}],
     sizes: [],
     sauces: [],
-    cheeses: [],
     crusts: [],
     pastOrderIds: [],
     pastPizzaIds: []
@@ -26,11 +27,9 @@ import {
     switch (action.type) {
         case LOAD_TOPPINGS:
             const newToppingsListState = { ...state }
-            newToppingsListState[action.payload.type] = action.payload.result.map(item => {
-                const obj = {};
-                obj[action.payload.type] = item
-                obj.count = 0;
-                return obj;
+            newToppingsListState[action.payload.type] = action.payload.results.map(item => {
+                item.count = 0;
+                return item;
             });
 
             return {
@@ -54,7 +53,7 @@ import {
 
         case SET_VEGGIE_COUNT:
             const newVeggieList = state.veggies.map(item => {
-                return action.payload === item.veggies.veggie_type ? {veggies: item.veggies, count: item.count + 1} : item;
+                return action.payload === item.type ? {...item, count: item.count + 1} : item;
             })
 
             return {
@@ -64,12 +63,22 @@ import {
 
         case SET_MEATS_COUNT:
             const newMeatList = state.meats.map(item => {
-                return action.payload === item.meats.meat_type ? {meats: item.meats, count: item.count + 1} : item;
+                return action.payload === item.type ? {...item, count: item.count + 1} : item;
             })
 
             return {
                 ...state,
                 meats: newMeatList
+            }
+
+        case SET_CHEESE_COUNT:
+            const newCheeseList = state.cheeses.map(item => {
+                return action.payload === item.type ? {...item, count: item.count + 1} : item;
+            })
+
+            return {
+                ...state,
+                cheeses: newCheeseList
             }
 
         case LOAD_SIZES:
@@ -87,10 +96,13 @@ import {
             }
 
         case LOAD_CHEESES:
+            const newCheeseListState = action.payload.map(item => {
+                return {...item, count: 0};
+            });
 
             return {
                 ...state,
-                cheeses: action.payload
+                cheeses: newCheeseListState
             }
 
         case LOAD_CRUSTS:

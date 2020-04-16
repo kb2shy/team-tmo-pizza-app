@@ -34,6 +34,7 @@ const Cart = ({
   createGuestOrder,
   createMemberOrder,
   order,
+  pizzas
 }) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
@@ -181,6 +182,14 @@ const Cart = ({
     }
   };
 
+  const calcTotalPrice = () => {
+    let total = 0;
+    for (let pizza of pizzas) {
+      total+=pizza.totalPrice;
+    }
+    return total.toFixed(2);
+  }
+
   return (
     <div>
       <div className="centerStyle">
@@ -202,6 +211,7 @@ const Cart = ({
           <Col>
             <h2>Pizza Order Summary:</h2>
             <OrderSummary />
+            <h6>Order Total: ${calcTotalPrice()}</h6>
           </Col>
         </Row>
       </Container>
@@ -232,6 +242,7 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
     guest: state.guest,
     order: state.order,
+    pizzas: state.pizzas
   };
 };
 

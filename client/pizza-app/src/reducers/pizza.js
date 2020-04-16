@@ -9,11 +9,12 @@ import {
         size: '',
         crust: '',
         sauce: '',
-        cheese: '',
         toppings: {
             meats: [],
-            veggies: []
+            veggies: [],
+            cheeses: []
         },
+        totalPrice: 10
   };
   
   const pizzaReducer = (state = initialState, action) => {
@@ -24,7 +25,9 @@ import {
 
             return {
                 ...state,
-                toppings: addTopping
+                toppings: addTopping,
+                totalPrice: state.totalPrice + action.payload.price
+
             };
   
         case REMOVE_TOPPING:
@@ -36,7 +39,8 @@ import {
 
             return {
                 ...state,
-                toppings: removeTopping
+                toppings: removeTopping,
+                totalPrice: state.totalPrice - action.payload.price
             };
 
         case SET_PIZZA_BASE:
@@ -48,6 +52,7 @@ import {
         case CLEAR_PIZZA:
             initialState.toppings.meats = [];
             initialState.toppings.veggies = [];
+            initialState.toppings.cheeses = [];
             return initialState;
 
         default:

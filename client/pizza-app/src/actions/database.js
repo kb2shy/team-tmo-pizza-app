@@ -8,6 +8,7 @@ import {
   SET_PAST_ORDERS,
   SET_VEGGIE_COUNT,
   SET_MEATS_COUNT,
+  SET_CHEESE_COUNT,
   CLEAR_USER_HISTORY
 } from "../config/actionTypes";
 
@@ -21,6 +22,7 @@ import {
   GET_CUST_ORDERS,
   GET_PIZZAS_BY_ORDER,
   GET_VEGGIES_BY_PIZZA,
+  //GET_CHEESES_BY_PIZZA,
   GET_MEATS_BY_PIZZA
 } from '../config/gqlDefines';
 
@@ -137,37 +139,77 @@ export const getMeatsCount = (pizza_id) => async (dispatch) => {
   }
 }
 
+// export const getCheeseCount = (pizza_id) => async (dispatch) => {
+//   try{
+//     const result = await apolloClient.query({
+//       query: GET_CHEESES_BY_PIZZA,
+//       variables: {pizza_id},
+//     });
+
+    
+//     const cheeses = result.data.getSelectedCheeses.map(item => item.cheese.cheese_type);
+
+//     for(let topping of cheeses) {
+//       dispatch({
+//         type: SET_CHEESE_COUNT,
+//         payload: topping
+//       });
+//     }
+
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
+
 export const getAllToppings = () => async (dispatch) => {
-  dispatch(getToppings('veggies'));
-  dispatch(getToppings('meats'));
+  dispatch(getVeggies());
+  dispatch(getMeats());
   dispatch(getCheeses());
   dispatch(getCrusts());
   dispatch(getSauces());
   dispatch(getSizes());
 }
 
-// Get array of toppings of a certain type
-export const getToppings = (type) => async (dispatch) => {
+export const getMeats = () => async (dispatch) => {
   try {
-    let result = '';
-    if(type === 'meats') {
-      result = await apolloClient.query({
-        query: GET_MEAT_OPTIONS,
-        variables: type,
-      });
-      result = result.data.getMeatOptions;
+    const result = await apolloClient.query({
+        query: GET_MEAT_OPTIONS
+    });
 
-    } else {
-      result = await apolloClient.query({
-        query: GET_VEGGIE_OPTIONS,
-        variables: type,
-      });
-      result = result.data.getVeggieOptions;
-    }
+    const results = result.data.getMeatOptions.map(item => {
+      let obj = {};
+      obj.type = item.meat_type;
+      obj.price = item.meat_price;
+      return obj;
+    })
 
     dispatch({
       type: LOAD_TOPPINGS,
-      payload: { type, result }
+      payload: { type: 'meats', results }
+    });
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Get array of toppings of a certain type
+export const getVeggies = () => async (dispatch) => {
+  try {
+    const result = await apolloClient.query({
+        query: GET_VEGGIE_OPTIONS
+    });
+
+    const results = result.data.getVeggieOptions.map(item => {
+      let obj = {};
+      obj.type = item.veggie_type;
+      obj.price = item.veggie_price;
+      return obj;
+    })
+
+    dispatch({
+      type: LOAD_TOPPINGS,
+      payload: { type: 'veggies', results }
     });
 
   } catch (err) {
@@ -182,7 +224,10 @@ export const getCheeses = () => async (dispatch) => {
     });
 
     const cheeses = result.data.getCheeseOptions.map(item => {
-      return item.cheese_type;
+      let obj = {};
+      obj.type = item.cheese_type;
+      obj.price = item.cheese_price;
+      return obj;
     })
 
     dispatch({

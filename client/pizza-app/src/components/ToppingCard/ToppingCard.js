@@ -23,9 +23,16 @@ class ToppingCard extends React.Component {
                 }
             }
         }
-        else {
+        else if (this.props.type === 'veggies'){
             for (let veggies of this.props.veggies) {
                 if (veggies === this.props.label) {
+                    this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
+                    break;
+                }
+            }
+        } else {
+            for (let cheeses of this.props.cheeses) {
+                if (cheeses === this.props.label) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }
@@ -39,9 +46,9 @@ class ToppingCard extends React.Component {
 
         //Update store
         if (this.state.status) {
-            this.props.removeTopping(this.props.type, this.props.label);
+            this.props.removeTopping(this.props.type, this.props.label, this.props.price);
         } else {
-            this.props.addTopping(this.props.type, this.props.label);
+            this.props.addTopping(this.props.type, this.props.label, this.props.price);
         }
 
         //change status
@@ -62,7 +69,8 @@ class ToppingCard extends React.Component {
                 onClick={(e) => this.handleClick()}>
                 <Card.Body>
                     <Card.Title>{this.props.label}</Card.Title>
-                    {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
+                    <Card.Text>{this.props.price!== null ? `$${this.props.price.toFixed(2)}` : null}</Card.Text>
+                    {(this.props.isAuthenticated && total > 0 && this.props.type !== 'cheeses') ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
                 </Card.Body>
             </Card>
         )
@@ -70,6 +78,7 @@ class ToppingCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+    cheeses: state.pizza.toppings.cheeses,
     meats: state.pizza.toppings.meats,
     veggies: state.pizza.toppings.veggies,
     isAuthenticated: state.auth.isAuthenticated,
