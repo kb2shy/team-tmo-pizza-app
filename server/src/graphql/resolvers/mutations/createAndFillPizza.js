@@ -91,7 +91,7 @@ async function createAndFillPizza(
       for (let cheese of toppings.cheeses) {
         // find cheese id by type
         const cheeseRecord = await Cheese.findOne({
-          where: { cheese_type: veggie },
+          where: { cheese_type: cheese },
         });
         if (!cheeseRecord) {
           throw new Error(`Could not find cheese id by type ${cheese}`);
