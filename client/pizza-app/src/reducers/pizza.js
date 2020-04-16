@@ -14,7 +14,7 @@ import {
             veggies: [],
             cheeses: []
         },
-        totalPrice: 10
+        totalPrice: 0
   };
   
   const pizzaReducer = (state = initialState, action) => {
@@ -45,7 +45,8 @@ import {
 
         case SET_PIZZA_BASE:
             const newBase = { ...state }
-            newBase[action.payload.type] = action.payload.value;
+            newBase[action.payload.type] = action.payload.item;
+            newBase.totalPrice += action.payload.price;
 
             return newBase;
 

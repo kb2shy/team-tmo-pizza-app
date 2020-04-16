@@ -20,10 +20,10 @@ import {
     });
   };
 
-  export const setBase = (type, value) => (dispatch) => {
+  export const setBase = (type, item, price) => (dispatch) => {
     dispatch({
       type: SET_PIZZA_BASE,
-      payload: {type, value}
+      payload: {type, item, price}
     });
   };
 
