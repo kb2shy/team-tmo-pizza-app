@@ -1,78 +1,105 @@
 async function createAndFillPizza(
   root,
+  { pizza: { size, crust, sauce, toppings } },
   {
-    pizza: {
-      size,
-      crust,
-      sauce,
-      cheese,
-      toppings: { meats, veggies },
-    },
-  },
-  { Cheese, Crust, Pizza, Sauce, Meat, Veggie, Size, MeatSelect, VeggieSelect }
+    Cheese,
+    Crust,
+    Pizza,
+    Sauce,
+    Meat,
+    Veggie,
+    Size,
+    MeatSelect,
+    VeggieSelect,
+    CheeseSelect,
+  }
 ) {
   // find size id by type
-  const sizeRecord = await Size.findOne({
-    where: { size_type: size },
-  });
-  if (!sizeRecord) {
-    throw new Error(`Could not find size id by type ${size}`);
+  let size_id = null;
+  if (size) {
+    const sizeRecord = await Size.findOne({
+      where: { size_type: size },
+    });
+    if (!sizeRecord) {
+      throw new Error(`Could not find size id by type ${size}`);
+    }
+    size_id = sizeRecord.size_id;
   }
-  const size_id = sizeRecord.size_id;
 
   // find crust id by type
-  const crustRecord = await Crust.findOne({
-    where: { crust_type: crust },
-  });
-  if (!crustRecord) {
-    throw new Error(`Could not find crust id by type ${crust}`);
+  let crust_id = null;
+  if (crust) {
+    const crustRecord = await Crust.findOne({
+      where: { crust_type: crust },
+    });
+    if (!crustRecord) {
+      throw new Error(`Could not find crust id by type ${crust}`);
+    }
+    crust_id = crustRecord.crust_id;
   }
-  const crust_id = crustRecord.crust_id;
 
   // find sauce id by type
-  const sauceRecord = await Sauce.findOne({
-    where: { sauce_type: sauce },
-  });
-  if (!sauceRecord) {
-    throw new Error(`Could not find sauce id by type ${sauce}`);
+  let sauce_id = null;
+  if (sauce) {
+    const sauceRecord = await Sauce.findOne({
+      where: { sauce_type: sauce },
+    });
+    if (!sauceRecord) {
+      throw new Error(`Could not find sauce id by type ${sauce}`);
+    }
+    sauce_id = sauceRecord.sauce_id;
   }
-  const sauce_id = sauceRecord.sauce_id;
 
-  // find cheese id by type
-  const cheeseRecord = await Cheese.findOne({
-    where: { cheese_type: cheese },
-  });
-  if (!cheeseRecord) {
-    throw new Error(`Could not find cheese id by type ${cheese}`);
-  }
-  const cheese_id = cheeseRecord.cheese_id;
-
-  // collect meat ids
+  // collect meats, cheeses, and veggies
   const meat_ids = [];
-  for (let meat of meats) {
-    // find cheese id by type
-    const meatRecord = await Meat.findOne({
-      where: { meat_type: meat },
-    });
-    if (!meatRecord) {
-      throw new Error(`Could not find meat id by type ${meat}`);
-    }
-    const meat_id = meatRecord.meat_id;
-    meat_ids.push(meat_id);
-  }
-
-  // collect veggie ids
   const veggie_ids = [];
-  for (let veggie of veggies) {
-    // find cheese id by type
-    const veggieRecord = await Veggie.findOne({
-      where: { veggie_type: veggie },
-    });
-    if (!veggieRecord) {
-      throw new Error(`Could not find meat id by type ${veggie}`);
+  const cheese_ids = [];
+
+  if (toppings) {
+    // collect meat ids
+    if (toppings.meats) {
+      for (let meat of toppings.meats) {
+        // find cheese id by type
+        const meatRecord = await Meat.findOne({
+          where: { meat_type: meat },
+        });
+        if (!meatRecord) {
+          throw new Error(`Could not find meat id by type ${meat}`);
+        }
+        const meat_id = meatRecord.meat_id;
+        meat_ids.push(meat_id);
+      }
     }
-    const veggie_id = veggieRecord.veggie_id;
-    veggie_ids.push(veggie_id);
+
+    // collect veggie ids
+    if (toppings.veggies) {
+      for (let veggie of toppings.veggies) {
+        // find cheese id by type
+        const veggieRecord = await Veggie.findOne({
+          where: { veggie_type: veggie },
+        });
+        if (!veggieRecord) {
+          throw new Error(`Could not find meat id by type ${veggie}`);
+        }
+        const veggie_id = veggieRecord.veggie_id;
+        veggie_ids.push(veggie_id);
+      }
+    }
+
+    // collect cheese ids
+    if (toppings.cheeses) {
+      for (let cheese of toppings.cheeses) {
+        // find cheese id by type
+        const cheeseRecord = await Cheese.findOne({
+          where: { cheese_type: veggie },
+        });
+        if (!cheeseRecord) {
+          throw new Error(`Could not find cheese id by type ${cheese}`);
+        }
+        const cheese_id = cheeseRecord.cheese_id;
+        cheese_ids.push(cheese_id);
+      }
+    }
   }
 
   // create pizza
@@ -80,7 +107,6 @@ async function createAndFillPizza(
     size_id,
     crust_id,
     sauce_id,
-    cheese_id,
   });
   const pizza_id = pizzaRecord.pizza_id;
 
@@ -92,6 +118,11 @@ async function createAndFillPizza(
   // add veggies to the pizza
   for (let veggie_id of veggie_ids) {
     await VeggieSelect.create({ veggie_id, pizza_id });
+  }
+
+  // add cheeses to the pizza
+  for (let cheese_id of cheese_ids) {
+    await CheeseSelect.create({ cheese_id, pizza_id });
   }
 
   // return the pizza id
