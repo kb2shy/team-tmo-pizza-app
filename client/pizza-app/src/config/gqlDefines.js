@@ -148,9 +148,15 @@ export const GET_MEATS_BY_PIZZA = gql`
 `;
 
 //returns an array of all selected cheeses from pizza
-// export const GET_CHEESES_BY_PIZZA = gql`
-//   TO-DO
-// `;
+export const GET_CHEESES_BY_PIZZA = gql`
+  query GetSelectedCheeses($pizza_id: Int!) {
+    getSelectedCheeses(pizza_id: $pizza_id) {
+      cheese {
+        cheese_type
+      }
+    }
+  }
+ `;
 
 //creates a guest order and returns an order_id
 export const CREATE_GUEST_ORDER = gql`
