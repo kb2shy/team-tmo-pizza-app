@@ -12,17 +12,15 @@ Pizza.init({
     },
     size_id: {
         type: DataTypes.INTEGER,
-        // allowNull: false,
-        defaultValue: 1
+        allowNull: false
     },
     crust_id: {
         type: DataTypes.INTEGER,
-        // allowNull: false,
-        defaultValue: 1
+        allowNull: false
     },
     sauce_id: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false,
     }
 }, {sequelize, modelName: 'pizza', timestamps: false})
 

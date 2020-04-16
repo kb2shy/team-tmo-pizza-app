@@ -20,7 +20,7 @@ const OrderSummary = ({ pizzas }) => {
               cheese={pz.cheese}
               toppings={pz.toppings}
               price={pz.totalPrice}
-              index={i}
+              index={index}
             />
           </div>
         );
