@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { previousMenu, setMenu } from '../../actions/menu';
 import { clearPizza } from '../../actions/pizza';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import StyledButton from '../common/Button/StyledButton';
 
 const BackButton = ({ step, previousMenu, prevStep, setMenu, clearPizza }) => {

@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// Custom Styling
 import StyledButton from '../common/Button/StyledButton';
+import StyledTitle from '../common/Title/StyledTitle'
+
 import { Navbar, Nav } from 'react-bootstrap';
 import Logout from '../Logout/Logout';
 
@@ -40,7 +43,8 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
           className="d-inline-block align-top m-0 p-0"
           alt="Logo"
         />
-        <div className="ml-2">PizzaShop</div>
+        <StyledTitle text="Pizza Shop" className="navbarTitle"/>
+        {/* <div className="ml-2">PizzaShop</div> */}
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">

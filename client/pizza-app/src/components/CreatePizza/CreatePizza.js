@@ -31,7 +31,8 @@ class CreatePizza extends React.Component {
   render() {
     return (
       <div className="centerDiv">
-        <h3 className="createPizzaTitle">Create Your Pizza</h3>
+        <StyledTitle text="Create Your Pizza" className="basicTitle"/>
+        {/* <h3 className="createPizzaTitle">Create Your Pizza</h3> */}
         <BaseDropDown
           value={this.props.pizza.size || 'Choose Size'}
           type={'Size'}
