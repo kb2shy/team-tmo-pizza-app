@@ -9,8 +9,8 @@ import {
   
   const initialState = {
         size: {type: null},
-        crust: null,
-        sauce: null,
+        crust: {type: null},
+        sauce: {type: null},
         toppings: {
             meats: [],
             veggies: [],
@@ -23,22 +23,22 @@ import {
     switch (action.type) {
         case ADD_TOPPING:
             const addTopping = { ...state.toppings };
-            addTopping[action.payload.type][addTopping[action.payload.type].length] = { type: action.payload.item, price : action.payload.price };
+            addTopping[action.payload.type][addTopping[action.payload.type].length] = action.payload.item;
 
             return { ...state, toppings: addTopping };
   
         case REMOVE_TOPPING:
             const removeTopping = {...state.toppings};
             removeTopping[action.payload.type] = state.toppings[action.payload.type].filter(topping => {
-                return topping.type !== action.payload.item;
+                return topping.type !== action.payload.item.type;
             });
 
             return { ...state, toppings: removeTopping };
 
         case SET_PIZZA_BASE:
-            let {price, item, type} = action.payload;
+            let {item, type} = action.payload;
             const newBase = { ...state }
-            newBase[type] = (type === 'size') ? { type: item, price } : item;
+            newBase[type] = item;
 
             return newBase;
 
