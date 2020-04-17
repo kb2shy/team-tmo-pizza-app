@@ -13,11 +13,11 @@ class ToppingCard extends React.Component {
         }
     }
 
-    //get state from store
+    //set component state from store state
     componentDidMount() {
        if (this.props.type === 'meats') {
             for (let meat of this.props.meats) {
-                if (meat === this.props.label) {
+                if (meat.type === this.props.label) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }
@@ -25,14 +25,14 @@ class ToppingCard extends React.Component {
         }
         else if (this.props.type === 'veggies'){
             for (let veggies of this.props.veggies) {
-                if (veggies === this.props.label) {
+                if (veggies.type === this.props.label) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }
             }
         } else {
             for (let cheeses of this.props.cheeses) {
-                if (cheeses === this.props.label) {
+                if (cheeses.type === this.props.label) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }
@@ -70,7 +70,7 @@ class ToppingCard extends React.Component {
                 <Card.Body>
                     <Card.Title>{this.props.label}</Card.Title>
                     <Card.Text>{this.props.price!== undefined ? `$${this.props.price.toFixed(2)}` : null}</Card.Text>
-                    {(this.props.isAuthenticated && total > 0 && this.props.type !== 'cheeses') ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
+                    {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
                 </Card.Body>
             </Card>
         )

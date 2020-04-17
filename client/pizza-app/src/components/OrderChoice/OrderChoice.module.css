@@ -15,16 +15,25 @@
 .Body {
   background-color: #faebd7;
   text-align: center;
+  height: 100%;
 }
 
 .OrderChoice {
   background-color: rgb(202, 192, 174);
   color: white;
   width: 700px;
-  height: 600px;
+  height: 300px;
   border: 1px solid black;
   display: flex;
+  flex-direction: column;
   margin: auto;
   justify-content: center;
   align-items: center;
+}
+
+.ButtonGroup {
+  display: flex;
+  flex-direction: row;
+    /* justify-content: space-between;
+    width: 100%; */
 }

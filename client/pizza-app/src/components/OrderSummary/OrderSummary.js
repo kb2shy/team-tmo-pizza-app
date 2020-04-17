@@ -10,16 +10,17 @@ import PizzaCard from './PizzaCard';
 const OrderSummary = ({ pizzas }) => {
   return (
     <div>
-      {pizzas.map((pz) => {
+      {pizzas.map((pz, index) => {
         return (
-          <div key={pz}>
+          <div key={index}>
             <PizzaCard
               size={pz.size}
               crust={pz.crust}
               sauce={pz.sauce}
-              // cheese={pz.cheese}
+              cheese={pz.cheese}
               toppings={pz.toppings}
               price={pz.totalPrice}
+              index={index}
             />
           </div>
         );

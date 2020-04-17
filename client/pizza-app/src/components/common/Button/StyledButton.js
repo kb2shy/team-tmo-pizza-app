@@ -5,7 +5,7 @@ import './Button.css';
 /**
  * A common Button element in the application
  *
- * @param {string} variant  formButton, navbarButton, backButton, createAccountButton, orderChoiceButton
+ * @param {string} variant  basicButton, navbarButton, backButton, createAccountButton, orderChoiceButton
  * @param {string} type submit, button
  * @param {string} disabled !isValid or other validation criterias
  * @param {string} onClick respective click handler

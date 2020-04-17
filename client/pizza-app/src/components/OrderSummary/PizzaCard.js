@@ -6,11 +6,13 @@ import { Card } from 'react-bootstrap';
  * displays pizza order information in a table in a card
  */
 const PizzaCard = (props) => {
+  const style = { width: '100%', display: 'inline-block', margin: '5px' };
+
   // helper method for printing multiple toppings
   const printMultipleToppings = (arr) => {
     let text = '';
     for (let i = 0; i < arr.length; i++) {
-      text = text + arr[i];
+      text = text + arr[i].type;
       if (i < arr.length - 1) text = text + ', ';
     }
     return text;
@@ -18,12 +20,11 @@ const PizzaCard = (props) => {
 
   const renderOrderInTable = () => {
     return (
-      //   <Table borderless>
       <table>
         <tbody>
           <tr id="Size">
             <td>Size</td>
-            <td>{props.size}</td>
+            <td>{props.size.type}</td>
           </tr>
           <tr id="crust">
             <td>Crust</td>
@@ -50,13 +51,12 @@ const PizzaCard = (props) => {
             <td>${props.price.toFixed(2)}</td>
           </tr>
         </tbody>
-        {/* </Table> */}
       </table>
     );
   };
 
   return (
-    <Card>
+    <Card style={style}>
       <Card.Body>
         <Card.Text as={renderOrderInTable} />
       </Card.Body>

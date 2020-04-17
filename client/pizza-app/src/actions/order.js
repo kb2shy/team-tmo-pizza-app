@@ -24,11 +24,18 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
   const pizzas = [];
   for (let pizza of pizzasRed) {
     const { size, crust, sauce, toppings } = pizza;
+
+    const sizeType = size.type;
+    const meatsType = toppings.meats.map(item => item.type);
+    const cheesesType = toppings.cheeses.map(item => item.type);
+    const veggiesType = toppings.veggies.map(item => item.type);
+    const toppingsType = {meats: meatsType, veggies: veggiesType, cheeses: cheesesType};
+
     pizzas.push({
-      size,
+      size: sizeType,
       crust,
       sauce,
-      toppings,
+      toppings: toppingsType,
     });
   }
 
@@ -99,11 +106,18 @@ export const createMemberOrder = (onSuccessEvent) => async (
   const pizzas = [];
   for (let pizza of pizzasRed) {
     const { size, crust, sauce, toppings } = pizza;
+
+    const sizeType = size.type;
+    const meatsType = toppings.meats.map(item => item.type);
+    const cheesesType = toppings.cheeses.map(item => item.type);
+    const veggiesType = toppings.veggies.map(item => item.type);
+    const toppingsType = {meats: meatsType, veggies: veggiesType, cheeses: cheesesType};
+
     pizzas.push({
-      size,
+      size: sizeType,
       crust,
       sauce,
-      toppings,
+      toppings: toppingsType,
     });
   }
 

@@ -1,3 +1,6 @@
+// This mutation is meant to be as a helper function for
+// `createGuestOrder` and `createMemberOrder` mutations.
+// Thus mutation must not be shared with the end client.
 async function createAndFillPizza(
   root,
   { pizza: { size, crust, sauce, toppings } },
