@@ -173,7 +173,7 @@ export const getMeats = () => async (dispatch) => {
     });
 
     const results = result.data.getMeatOptions.map(item => {
-      return { type: item.meat_type, price: item.meat_price};
+      return { id: item.meat_id, type: item.meat_type, price: item.meat_price};
     })
 
     dispatch({
@@ -194,7 +194,7 @@ export const getVeggies = () => async (dispatch) => {
     });
 
     const results = result.data.getVeggieOptions.map(item => {
-      return { type: item.veggie_type, price: item.veggie_price };
+      return { id: item.veggie_id, type: item.veggie_type, price: item.veggie_price };
     })
 
     dispatch({
@@ -214,7 +214,7 @@ export const getCheeses = () => async (dispatch) => {
     });
 
     const cheeses = result.data.getCheeseOptions.map(item => {
-      return { type: item.cheese_type, price: item.cheese_price };
+      return { id: item.cheese_id, type: item.cheese_type, price: item.cheese_price };
     })
 
     dispatch({
@@ -234,7 +234,7 @@ export const getCrusts = () => async (dispatch) => {
     });
 
     const crusts = result.data.getCrustOptions.map(item => {
-      return item.crust_type;
+      return {id: item.crust_id, type: item.crust_type};
     })
 
     dispatch({
@@ -254,7 +254,7 @@ export const getSauces = () => async (dispatch) => {
     });
 
     const sauces = result.data.getSauceOptions.map(item => {
-      return item.sauce_type;
+      return {id: item.sauce_id, type: item.sauce_type};
     })
 
     dispatch({
@@ -274,7 +274,7 @@ export const getSizes = () => async (dispatch) => {
     });
 
     const sizes = result.data.getSizeOptions.map(item => {
-      return { type: item.size_type, price: item.size_price };
+      return { id: item.size_id, type: item.size_type, price: item.size_price };
     })
 
     dispatch({

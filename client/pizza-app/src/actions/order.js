@@ -25,17 +25,19 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
   for (let pizza of pizzasRed) {
     const { size, crust, sauce, toppings } = pizza;
 
-    const sizeType = size.type;
-    const meatsType = toppings.meats.map(item => item.type);
-    const cheesesType = toppings.cheeses.map(item => item.type);
-    const veggiesType = toppings.veggies.map(item => item.type);
-    const toppingsType = {meats: meatsType, veggies: veggiesType, cheeses: cheesesType};
+    const sizeId = size.id;
+    const crustId = crust.id;
+    const sauceId = sauce.id;
+    const meatsIds = toppings.meats.map(item => item.id);
+    const cheesesIds = toppings.cheeses.map(item => item.id);
+    const veggiesIds = toppings.veggies.map(item => item.id);
+    const toppingsId = {meats: meatsIds, veggies: veggiesIds, cheeses: cheesesIds};
 
     pizzas.push({
-      size: sizeType,
-      crust,
-      sauce,
-      toppings: toppingsType,
+      size: sizeId,
+      crust: crustId,
+      sauce: sauceId,
+      toppings: toppingsId,
     });
   }
 
@@ -107,17 +109,19 @@ export const createMemberOrder = (onSuccessEvent) => async (
   for (let pizza of pizzasRed) {
     const { size, crust, sauce, toppings } = pizza;
 
-    const sizeType = size.type;
-    const meatsType = toppings.meats.map(item => item.type);
-    const cheesesType = toppings.cheeses.map(item => item.type);
-    const veggiesType = toppings.veggies.map(item => item.type);
-    const toppingsType = {meats: meatsType, veggies: veggiesType, cheeses: cheesesType};
+    const sizeId = size.id;
+    const crustId = crust.id;
+    const sauceId = sauce.id;
+    const meatsIds = toppings.meats.map(item => item.id);
+    const cheesesIds = toppings.cheeses.map(item => item.id);
+    const veggiesIds = toppings.veggies.map(item => item.id);
+    const toppingsId = {meats: meatsIds, veggies: veggiesIds, cheeses: cheesesIds};
 
     pizzas.push({
-      size: sizeType,
-      crust,
-      sauce,
-      toppings: toppingsType,
+      size: sizeId,
+      crust: crustId,
+      sauce: sauceId,
+      toppings: toppingsId,
     });
   }
 
