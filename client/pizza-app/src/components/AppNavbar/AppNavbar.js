@@ -9,7 +9,7 @@ import StyledTitle from '../common/Title/StyledTitle'
 import { Navbar, Nav } from 'react-bootstrap';
 import Logout from '../Logout/Logout';
 
-import { setMenu } from '../../actions/menu';
+import { setMenu, setPopCart } from '../../actions/menu';
 
 import logo from '../../assets/logo.svg';
 
@@ -17,7 +17,7 @@ import logo from '../../assets/logo.svg';
 // - Logo
 // - Home button - CR
 // - Log out button - CR
-const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
+const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
   const handleHomeClick = (evt) => {
     evt.preventDefault();
     setMenu(1, step);
@@ -25,7 +25,11 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
 
   const handleHomeCart = (evt) => {
     evt.preventDefault();
-    setMenu(4, step);
+    if(step === 3) {
+      setPopCart(true);
+    } else {
+      setMenu(4, step);
+    }
   };
 
   return (
@@ -93,4 +97,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { setMenu })(AppNavbar);
+export default connect(mapStateToProps, { setMenu, setPopCart })(AppNavbar);

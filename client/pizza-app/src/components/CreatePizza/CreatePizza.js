@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { setBase, clearPizza, addTotalPrice } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
-import { nextMenu } from '../../actions/menu';
-// import { Button } from "react-bootstrap";
+import { nextMenu, setPopCart } from '../../actions/menu';
 
 // Custom Styling
 import StyledButton from '../common/Button/StyledButton';
@@ -12,17 +11,27 @@ import StyledTitle from '../common/Title/StyledTitle';
 import './CreatePizza.css';
 import Toppings from '../Toppings/Toppings';
 import BaseDropDown from './BaseDropDown';
+import PopCart from '../Cart/PopCart';
 
 class CreatePizza extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: null
+            message: null,
+            showCart: false
         }
     }
+    componentDidMount = () => {
+      this.props.setPopCart(false);
+    }
+
     //changes store to user input
     handleChange = (name, item, price = -1) => {
         this.props.setBase(name.toLowerCase(), item);
+    }
+
+    toggleShowCart = () => {
+      
     }
 
     //Adds current pizza to pizzas array and clears current pizza
@@ -77,7 +86,7 @@ class CreatePizza extends React.Component {
   render() {
     return (
       <div className="centerDiv">
-        {/* <h3 className="createPizzaTitle">Create Your Pizza</h3> */}
+        {this.props.popCart ? <PopCart/> : null}
         <StyledTitle text="Create Your Pizza" className="basicTitle" />
         <BaseDropDown
           value={this.props.pizza.size.type || 'Choose Size'}
@@ -132,7 +141,9 @@ const mapStateToProps = (state) => ({
   cheeses: state.database.cheeses,
   crusts: state.database.crusts,
   pizza: state.pizza,
+  pizzas: state.pizzas,
   step: state.menu.step,
+  popCart: state.menu.popCart
 });
 
 export default connect(mapStateToProps, {
@@ -141,4 +152,5 @@ export default connect(mapStateToProps, {
   clearPizza,
   addPizza,
   addTotalPrice,
+  setPopCart
 })(CreatePizza);

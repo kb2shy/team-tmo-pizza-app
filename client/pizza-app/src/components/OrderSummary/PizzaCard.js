@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Card, Button } from 'react-bootstrap';
 import { setPizza } from '../../actions/pizza';
 import { removePizza } from '../../actions/pizzas';
-import { previousMenu } from '../../actions/menu';
+import { setMenu } from '../../actions/menu';
 
 import StyledButton from '../common/Button/StyledButton'
 
@@ -28,7 +28,7 @@ const PizzaCard = (props) => {
     const pizza = props.pizzas[index];
     props.setPizza(pizza);
     props.removePizza(index);
-    props.previousMenu();
+    props.setMenu(3, props.step);
   }
 
   const renderOrderInTable = () => {
@@ -84,7 +84,8 @@ const PizzaCard = (props) => {
 const mapStateToProps = (state) => {
   return {
     pizzas: state.pizzas,
+    step: state.menu.step
   };
 };
 
-export default connect(mapStateToProps, { setPizza, removePizza, previousMenu })(PizzaCard);
+export default connect(mapStateToProps, { setPizza, removePizza, setMenu })(PizzaCard);
