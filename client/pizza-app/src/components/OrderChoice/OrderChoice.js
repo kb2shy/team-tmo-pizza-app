@@ -42,8 +42,7 @@ const OrderChoice = (props) => {
 
   return (
     <div className={classes.Body}>
-      <BackButton></BackButton>
-      <br></br>
+      {/* <br></br> */}
       {/* <div className={classes.Title}> title </div> */}
       <div>
         <StyledTitle
@@ -59,22 +58,24 @@ const OrderChoice = (props) => {
       </div>
       <div className={classes.OrderChoice}>
         <h1>What would you like to do today?</h1>
-        <br></br>
-        {/* <Button onClick={handleOrderHistory}>See my order History</Button> */}
-        <StyledButton
-          type="button"
-          onClick={handleOrderHistory}
-          text="See My Order History"
-          variant="orderChoiceButton"
-        />
-        <StyledButton
-          type="button"
-          onClick={handleCreateOrder}
-          text="Make a new order"
-          variant="orderChoiceButton"
-        />
+        <div className={classes.ButtonGroup}>
+          {/* <br></br> */}
+          {/* <Button onClick={handleOrderHistory}>See my order History</Button> */}
+          <StyledButton
+            type="button"
+            onClick={handleOrderHistory}
+            text="See My Order History"
+            variant="orderChoiceButton"
+          />
+          <StyledButton
+            type="button"
+            onClick={handleCreateOrder}
+            text="Make a new order"
+            variant="orderChoiceButton"
+          />
 
-        {/* <Button onClick={handleCreateOrder}>Make a new order</Button> */}
+          {/* <Button onClick={handleCreateOrder}>Make a new order</Button> */}
+        </div>
       </div>
     </div>
   );
