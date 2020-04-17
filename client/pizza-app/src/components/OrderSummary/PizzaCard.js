@@ -5,6 +5,8 @@ import { setPizza } from '../../actions/pizza';
 import { removePizza } from '../../actions/pizzas';
 import { previousMenu } from '../../actions/menu';
 
+import StyledButton from '../common/Button/StyledButton'
+
 /**
  * Subcomponent for OrderSummary component
  * displays pizza order information in a table in a card
@@ -64,7 +66,8 @@ const PizzaCard = (props) => {
             </tr>
           </tbody>
         </table>
-        <Button onClick={() => editPizza(props.index)}>Edit Pizza</Button>
+        {/* <Button onClick={() => editPizza(props.index)}>Edit Pizza</Button> */}
+      <StyledButton text="Edit Pizza" type="Button" variant="basicButton" onClick={()=>editPizza(props.index)}/>
       </div>
     );
   };
