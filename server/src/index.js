@@ -11,9 +11,9 @@ const Meat = require('./db/sequelizeModels/meat')
 const Cheese = require('./db/sequelizeModels/cheese')
 const Veggie = require('./db/sequelizeModels/veggie')
 
-const MeatSelect = require('./db/sequelizeModels/meatSelection')
-const CheeseSelect = require('./db/sequelizeModels/cheeseSelection')
-const VeggieSelect = require('./db/sequelizeModels/veggieSelection')
+const MeatSelection = require('./db/sequelizeModels/meatSelection')
+const CheeseSelection = require('./db/sequelizeModels/cheeseSelection')
+const VeggieSelection = require('./db/sequelizeModels/veggieSelection')
 
 const Customer = require('./db/sequelizeModels/customer')
 //const Address = require('./db/sequelizeModels/address')
@@ -34,28 +34,30 @@ Pizza.belongsTo(Sauce, { foreignKey: 'sauce_id' })
 Size.hasMany(Pizza, { foreignKey: { name: 'size_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
 Pizza.belongsTo(Size, { foreignKey: 'size_id' })
 
-//creates fk on pizza table with cheese_id - refrences cheese types
-// Cheese.hasMany(Pizza, { foreignKey: { name: 'cheese_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-// Pizza.belongsTo(Cheese, { foreignKey: 'cheese_id' })
-
 //creates composite fk on meat selections table - many to many between pizza and meat types table
-Pizza.hasMany(MeatSelect, { foreignKey: { name: 'pizza_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-MeatSelect.belongsTo(Pizza, { foreignKey: 'pizza_id' })
-Meat.hasMany(MeatSelect, { foreignKey: { name: 'meat_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-MeatSelect.belongsTo(Meat, { foreignKey: 'meat_id' })
+Pizza.belongsToMany(Meat, {through: MeatSelection, foreignKey:'pizza_id'})
+Meat.belongsToMany(Pizza, {through: MeatSelection, foreignKey: 'meat_id'})
+Pizza.hasMany(MeatSelection, { foreignKey: { name: 'pizza_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+MeatSelection.belongsTo(Pizza, { foreignKey: 'pizza_id' })
+Meat.hasMany(MeatSelection, { foreignKey: { name: 'meat_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+MeatSelection.belongsTo(Meat, { foreignKey: 'meat_id' })
 
-//removed functionality for multiple cheese selections
 //creates composite fk on cheese selections table - many to many between pizza and cheese types table
-Pizza.hasMany(CheeseSelect, {foreignKey: {name: 'pizza_id', allowNull: false}, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-CheeseSelect.belongsTo(Pizza, {foreignKey: 'pizza_id'})
-Cheese.hasMany(CheeseSelect, {foreignKey: {name: 'cheese_id', allowNull: false}, onDelete:'CASCADE', onUpdate: 'CASCADE'})
-CheeseSelect.belongsTo(Cheese, {foreignKey: {name: 'cheese_id', allowNull: false}, onDelete: 'CASCADE', onUpdate:'CASCADE'})
+Pizza.belongsToMany(Cheese, {through: CheeseSelection, foreignKey:'pizza_id'})
+Cheese.belongsToMany(Pizza, {through: CheeseSelection, foreignKey: 'cheese_id'})
+Pizza.hasMany(CheeseSelection, {foreignKey: {name: 'pizza_id', allowNull: false}, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+CheeseSelection.belongsTo(Pizza, {foreignKey: 'pizza_id'})
+Cheese.hasMany(CheeseSelection, {foreignKey: {name: 'cheese_id', allowNull: false}, onDelete:'CASCADE', onUpdate: 'CASCADE'})
+CheeseSelection.belongsTo(Cheese, {foreignKey: {name: 'cheese_id', allowNull: false}, onDelete: 'CASCADE', onUpdate:'CASCADE'})
+
 
 //creates composite fk on veggie selections table - many to many between pizza and veggie types table
-Pizza.hasMany(VeggieSelect, { foreignKey: { name: 'pizza_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-VeggieSelect.belongsTo(Pizza, { foreignKey: 'pizza_id' })
-Veggie.hasMany(VeggieSelect, { foreignKey: { name: 'veggie_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-VeggieSelect.belongsTo(Veggie, { foreignKey: { name: 'veggie_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+Pizza.belongsToMany(Veggie, {through: VeggieSelection, foreignKey:'pizza_id'})
+Veggie.belongsToMany(Pizza, {through: VeggieSelection, foreignKey: 'veggie_id'})
+Pizza.hasMany(VeggieSelection, { foreignKey: { name: 'pizza_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+VeggieSelection.belongsTo(Pizza, { foreignKey: 'pizza_id' })
+Veggie.hasMany(VeggieSelection, { foreignKey: { name: 'veggie_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+VeggieSelection.belongsTo(Veggie, { foreignKey: { name: 'veggie_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
 
 //creates composite fk on order items table - many to many between pizzas and orders tables
 Pizza.hasMany(OrderItem, { foreignKey: { name: 'pizza_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
@@ -72,7 +74,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: (integrationContext) => ({
-    Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size, MeatSelect, VeggieSelect, OrderItem, CheeseSelect,
+    Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size, MeatSelect: MeatSelection, VeggieSelect: VeggieSelection, OrderItem, CheeseSelect: CheeseSelection,
     ...authContext(integrationContext)
   }),
 });

@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op; //allows you to query using joins on sequelize
 const getTokenByCustomer = require('./queries/getTokenByCustomer');
+const getAllPizzaInfoByOrder = require('./queries/getAllPizzaInfoByOrder')
 
 const errHandler = (err) => {
   console.error('Error: ', err);
@@ -90,7 +91,7 @@ module.exports = {
     },
     //returns all pizza ids by order
     async getAllPizzasByOrder(
-      rood,
+      root,
       { order_id },
       { Order, OrderItem, Pizza, Size, Crust, Sauce}
     ) {
@@ -204,5 +205,6 @@ module.exports = {
         },
       }).catch(errHandler);
     },
+    getAllPizzaInfoByOrder
   },
 };
