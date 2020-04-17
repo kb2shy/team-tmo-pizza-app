@@ -39,7 +39,7 @@ class CreatePizza extends React.Component {
         if (this.verifyUserInput()){
             const totalPrice = this.calcPrice();
             const currentPizza = this.props.pizza;
-            this.props.addPizza({ ...currentPizza, totalPrice}); //wouldn't be updated fast enough
+            this.props.addPizza({ ...currentPizza, totalPrice});
             this.props.clearPizza()
             this.props.nextMenu(this.props.step);
         }

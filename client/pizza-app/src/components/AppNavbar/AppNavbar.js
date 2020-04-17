@@ -64,16 +64,13 @@ const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
             //   Home
             // </Button>
           )}
-          {isAuthenticated && (
+          {(step !== 1 && step !== 4) && (
             <StyledButton
               variant="navbarButton"
               type="button"
               onClick={handleHomeCart}
               text="Cart"
             />
-            // <Button variant="primary" type="button" onClick={handleHomeCart}>
-            //   Cart
-            // </Button>
           )}
           {isAuthenticated && (
             <div className="ml-1">

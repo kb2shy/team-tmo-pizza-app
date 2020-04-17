@@ -5,7 +5,7 @@ import { setPizza } from '../../actions/pizza';
 import { removePizza } from '../../actions/pizzas';
 import { setMenu } from '../../actions/menu';
 
-import StyledButton from '../common/Button/StyledButton'
+import StyledButton from '../common/Button/StyledButton';
 
 /**
  * Subcomponent for OrderSummary component

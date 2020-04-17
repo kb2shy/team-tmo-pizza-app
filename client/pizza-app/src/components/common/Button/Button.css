@@ -82,3 +82,22 @@
   border: 5px solid #1c9d87;
   color: #f0a9ae;
 }
+
+/* Pop-Out Cart Button Styling --------------------------------- */
+.btn-popCartButton {
+  position: 'absolute';
+  left: '10px';
+  color: #eb6d76;
+  border: 5px solid #eb6d76;
+  border-radius: 0px;
+  background-color: #fbffda;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  margin: 5px;
+}
+
+.popCartButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+}
