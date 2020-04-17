@@ -26,7 +26,6 @@ const OrderDisplay = (props) => {
                                         <Card.Text><b>Size: </b>{pizza.size.size_type}</Card.Text>
                                         <Card.Text><b>Crust:</b> {pizza.crust.crust_type}</Card.Text>
                                         <Card.Text><b>Sauce:</b> {pizza.sauce.sauce_type}</Card.Text>
-                                        <Card.Text><b>Cheese: </b>{pizza.cheese.cheese_type}</Card.Text>
                                         <OrderDetails pizzaId={pizza.pizza_id} key={'key_details_'+order_id+ index}></OrderDetails>
                                     </Card.Body>
                                 </Card>
