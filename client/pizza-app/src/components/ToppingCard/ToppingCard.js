@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import BarChart from '../BarChart/BarChart';
 import { Card } from "react-bootstrap";
 import { addTopping, removeTopping } from '../../actions/pizza';
-import '../common/Button/StyledButton'
+
 class ToppingCard extends React.Component {
     constructor(props) {
         super(props);
@@ -63,17 +63,6 @@ class ToppingCard extends React.Component {
 
         return (
             <Card
-<<<<<<< HEAD
-                variant='basicButton'
-                id={this.props.label}
-                style={this.state.style}
-                className="text-center"
-                onClick={(e) => this.handleClick()}>
-                <Card.Body >
-                    <Card.Title>{this.props.label}</Card.Title>
-                    <Card.Text>{this.props.price!== undefined ? `$${this.props.price.toFixed(2)}` : null}</Card.Text>
-                    {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
-=======
                 id={this.props.item.type}
                 style={this.state.style}
                 className="text-center"
@@ -82,7 +71,6 @@ class ToppingCard extends React.Component {
                     <Card.Title>{this.props.item.type}</Card.Title>
                     <Card.Text>{this.props.item.price!== undefined ? `$${this.props.item.price.toFixed(2)}` : null}</Card.Text>
                     {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.item.count} total={total} item={this.props.item.type.replace(/\s+/g, '')} /> : null}
->>>>>>> ec9a4b1f817d6815b0eb29bf1448dc0c72f834a2
                 </Card.Body>
             </Card>
         )
