@@ -1,8 +1,19 @@
+const fs = require('fs');
+const handlebars = require('handlebars');
 const sgMail = require('@sendgrid/mail');
 const config = require('config');
 const createAndFillPizza = require('./createAndFillPizza');
 
 sgMail.setApiKey(config.get('sendGridAPI'));
+
+let orderConfirmationTemplate = null;
+fs.readFile('../../../templates/orderConfirmationEmail.html', 'utf8', function (
+  err,
+  data
+) {
+  if (err) throw err;
+  orderConfirmationTemplate = data;
+});
 
 // This mutation is meant to be as a helper function for
 // `createGuestOrder` and `createMemberOrder` mutations.
@@ -12,6 +23,11 @@ async function createOrder(
   { customer, pizzas },
   { Order, OrderItem, ...context }
 ) {
+  if (!orderConfirmationTemplate) {
+    console.log('Email confirmation template not loaded yet. Please try again later');
+    return null;
+  }
+
   // create pizzas
   const pizzaRecords = [];
   for (let pizza of pizzas) {
@@ -47,17 +63,16 @@ async function createOrder(
     }
   }
 
+  // create a formatted email
+  orderConfirmationTemplate;
+
   // send order confirmation email
   const msg = {
     to: customer.email,
     from: config.get('supportEmail'),
     subject: 'Thank You for your TmoPizza Order',
     // text: '',
-    html: `
-<h3>TmoPizza Order Confirmation</h3>
-<p>Thank you for your order, ${customer.first_name} ${customer.last_name}</p>
-<p>Your order id is <b>${orderRecord.order_id}</b>.
-</p><span>You are receiving this email because an order was made using ${customer.email} address. If you have not made an order with this email, please kindly disregard this message.</span>`,
+    html: htmlContent,
   };
 
   sgMail.send(msg).catch((err) => {
