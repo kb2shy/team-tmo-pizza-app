@@ -180,10 +180,10 @@ export const CREATE_MEMBER_ORDER = gql`
 `;
 
 //returns an array of pizzas with all basic info (size, crust, sauce, cheese)
-export const GET_ALL_PIZZAS_BY_ORDER = gql`
+export const GET_ALL_PIZZA_INFO_BY_ORDER = gql`
 query
-    getAllPizzasByOrder($order_id: Int){
-        getAllPizzasByOrder(order_id: $order_id){
+    getAllPizzaInfoByOrder($order_id: Int){
+        getAllPizzaInfoByOrder(order_id: $order_id){
             pizza_id
             size{
                 size_type
@@ -194,8 +194,14 @@ query
             sauce{
                 sauce_type
             }
-            cheese{
-                cheese_type
+            cheeses{
+              cheese_type
+            }
+            veggies{
+              veggie_type
+            }
+            meats{
+              meat_type
             }
         }
     }

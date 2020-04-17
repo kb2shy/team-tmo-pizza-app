@@ -154,7 +154,7 @@ const Register = ({
           <StyledButton
             type="submit"
             text="Sign Up"
-            variant="formButton"
+            variant="basicButton"
             disabled={!isValid}
             text="Sign Up"
           />

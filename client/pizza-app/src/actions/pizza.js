@@ -3,6 +3,7 @@ import {
     REMOVE_TOPPING,
     SET_PIZZA_BASE,
     ADD_TOTAL_PRICE,
+    SET_PIZZA,
     CLEAR_PIZZA
   } from "../config/actionTypes";
   
@@ -32,6 +33,13 @@ import {
     dispatch({
       type: ADD_TOTAL_PRICE,
       payload: price
+    });
+  }
+
+  export const setPizza = (pizza) => (dispatch) => {
+    dispatch({
+      type: SET_PIZZA,
+      payload: pizza
     });
   }
 

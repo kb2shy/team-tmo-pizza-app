@@ -14,6 +14,7 @@ const queries = `
     getCartInfo(cart_items: [Int]): [Pizza]
 
     getAllPizzasByOrder(order_id: Int): [Pizza]
+    getAllPizzaInfoByOrder(order_id: Int): [Pizza]
 
     getMeatOptions: [Meat]
     getVeggieOptions: [Veggie]

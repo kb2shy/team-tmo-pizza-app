@@ -1,7 +1,6 @@
 const updateOrCreateCustomer = require('./mutations/updateOrCreateCustomer');
 const createGuestOrder = require('./mutations/createGuestOrder');
 const createMemberOrder = require('./mutations/createMemberOrder');
-const createAndFillPizzaFunc = require('./mutations/createAndFillPizza');
 
 const errHandler = (err) => {
   console.error('Error: ', err);
@@ -40,14 +39,6 @@ module.exports = {
     updateOrCreateCustomer, // error handling done in file
     createGuestOrder, // error handling done in file
     createMemberOrder, // error handling done in file
-    async createAndFillPizza(root, attrs, context) {
-      try {
-        return await createAndFillPizzaFunc(root, attrs, context); // error handling done below
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
-    },
     //creates a pizza with basic info (size, sauce, crust)
     async createPizza(
       root,
