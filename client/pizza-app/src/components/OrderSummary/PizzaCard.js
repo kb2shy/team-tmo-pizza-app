@@ -47,15 +47,15 @@ const PizzaCard = (props) => {
               <td>{props.sauce.type}</td>
             </tr>
             <tr id="Cheese">
-              <td>Cheese</td>
+              <td>{props.toppings.cheeses.length > 0 ? 'Cheese' : null}</td>
               <td>{printMultipleToppings(props.toppings.cheeses)}</td>
             </tr>
             <tr id="Veggies">
-              <td>Veggies</td>
+              <td>{props.toppings.veggies.length > 0 ? 'Veggies' : null}</td>
               <td>{printMultipleToppings(props.toppings.veggies)}</td>
             </tr>
             <tr id="Meats">
-              <td>Meats</td>
+              <td>{props.toppings.meats.length > 0 ? 'Meats' : null}</td>
               <td>{printMultipleToppings(props.toppings.meats)}</td>
             </tr>
             <tr id="Price">

@@ -61,10 +61,10 @@ class CreatePizza extends React.Component {
         if(this.props.pizza.size.type === null) {
             this.setState({message: 'Please select pizza size.'});
             return false;
-        } else if (this.props.pizza.crust === null){
+        } else if (this.props.pizza.crust.type === null){
             this.setState({message: 'Please select crust type.'});
             return false;
-        } else if (this.props.pizza.sauce === null){
+        } else if (this.props.pizza.sauce.type === null){
             this.setState({message: 'Please select sauce type.'});
             return false;
         }
@@ -75,7 +75,6 @@ class CreatePizza extends React.Component {
 
   //Renders topping sections
   render() {
-    console.log(this.props.pizza)
     return (
       <div className="centerDiv">
         {/* <h3 className="createPizzaTitle">Create Your Pizza</h3> */}
