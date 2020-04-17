@@ -1,30 +1,45 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { previousMenu, setMenu } from '../../actions/menu';
 import { clearPizza } from '../../actions/pizza';
-// import { Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import StyledButton from '../common/Button/StyledButton';
+import './BackButton.css';
 
 const BackButton = ({ step, previousMenu, prevStep, setMenu, clearPizza }) => {
+  const [goToHome, setGoToHome] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleCloseAlert = () => setShowAlert(false);
+  const handleShowAlert = () => {
+    setShowAlert(true);
+  };
+
+  const handleGoToHome = () => {
+    setGoToHome(true);
+    handleCloseAlert();
+    clearPizza();
+    previousMenu();
+    setGoToHome(false);
+  };
+
   const handleClick = (evt) => {
     evt.preventDefault();
     //clear current pizza
     // clearPizza();
     //when on create pizza, skip order history page
     // (step === 3) ? setMenu(1) : previousMenu();
-    previousMenu();
+
+    // Incomplete order on the create pizza page
+    step === 3 ? handleShowAlert() : previousMenu();
+
+    // [TODO]: Cart -> Edit Pizza -> clicking "back" should bring the user back to Cart page
   };
+
   // don't display the buttons on home and confirmation pages
   return step !== 1 && step !== 5 ? (
-    <div
-      style={{
-        position: 'absolute',
-        left: '12px',
-        marginTop: '12px',
-        zIndex: 9999,
-      }}
-    >
+    <div className="backButtonPositioning">
       <StyledButton
         type="button"
         variant="backButton"
@@ -32,14 +47,32 @@ const BackButton = ({ step, previousMenu, prevStep, setMenu, clearPizza }) => {
         onClick={handleClick}
         text="Back"
       />
-      {/* <Button
-        onClick={handleClick}
-        type="button"
-        variant="primary"
-        disabled={step === 1}
-      >
-        Back
-      </Button> */}
+
+      <div className="alertStyle">
+        <Modal show={showAlert} onHide={handleCloseAlert}>
+          <Modal.Header closeButton>
+            <Modal.Title>Warning! Your order is incomplete</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>
+              Going to the home page will cause you to lose your pizza order. Do
+              you want to proceed?{' '}
+            </p>
+            <div className="alertStyle">
+              <StyledButton
+                variant="basicButton"
+                text="Proceed"
+                onClick={handleGoToHome}
+              />
+              <StyledButton
+                variant="basicButton"
+                text="Continue Order"
+                onClick={handleCloseAlert}
+              />
+            </div>
+          </Modal.Body>
+        </Modal>
+      </div>
     </div>
   ) : (
     <Fragment />
