@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import BarChart from '../BarChart/BarChart';
 import { Card } from "react-bootstrap";
 import { addTopping, removeTopping } from '../../actions/pizza';
-
+import '../common/Button/StyledButton'
 class ToppingCard extends React.Component {
     constructor(props) {
         super(props);
@@ -63,11 +63,12 @@ class ToppingCard extends React.Component {
 
         return (
             <Card
+                variant='basicButton'
                 id={this.props.label}
                 style={this.state.style}
                 className="text-center"
                 onClick={(e) => this.handleClick()}>
-                <Card.Body>
+                <Card.Body >
                     <Card.Title>{this.props.label}</Card.Title>
                     <Card.Text>{this.props.price!== undefined ? `$${this.props.price.toFixed(2)}` : null}</Card.Text>
                     {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
