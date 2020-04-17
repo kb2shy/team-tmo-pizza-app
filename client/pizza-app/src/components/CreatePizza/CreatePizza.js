@@ -22,7 +22,7 @@ class CreatePizza extends React.Component {
     }
     //changes store to user input
     handleChange = (name, item, price = -1) => {
-        this.props.setBase(name.toLowerCase(), item, price);
+        this.props.setBase(name.toLowerCase(), item);
     }
 
     //Adds current pizza to pizzas array and clears current pizza
@@ -75,6 +75,7 @@ class CreatePizza extends React.Component {
 
   //Renders topping sections
   render() {
+    console.log(this.props.pizza)
     return (
       <div className="centerDiv">
         {/* <h3 className="createPizzaTitle">Create Your Pizza</h3> */}
@@ -86,13 +87,13 @@ class CreatePizza extends React.Component {
           handleChange={this.handleChange}
         />
         <BaseDropDown
-          value={this.props.pizza.crust || 'Choose Crust Type'}
+          value={this.props.pizza.crust.type || 'Choose Crust Type'}
           type={'Crust'}
           options={this.props.crusts}
           handleChange={this.handleChange}
         />
         <BaseDropDown
-          value={this.props.pizza.sauce || 'Choose Sauce'}
+          value={this.props.pizza.sauce.type || 'Choose Sauce'}
           type={'Sauce'}
           options={this.props.sauces}
           handleChange={this.handleChange}

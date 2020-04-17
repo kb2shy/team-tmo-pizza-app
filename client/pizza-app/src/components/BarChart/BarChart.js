@@ -7,7 +7,7 @@ export default class BarChart extends React.Component {
         this.state = {
             height: 10,
             width: 100,
-            canvas: d3.select(`#bar${this.props.item.replace(/\s+/g, '')}`)
+            canvas: d3.select(`#bar${this.props.item}`)
         }
     }
 
@@ -17,11 +17,9 @@ export default class BarChart extends React.Component {
 
     drawCanvas = () => {
         const {width, height} = this.state;
-        //remove white spaces from id
-        const id = this.props.item.replace(/\s+/g, '');
 
         //canvas
-        const svg = d3.select(`#bar${id}`)
+        const svg = d3.select(`#bar${this.props.item}`)
             .append('svg')
             .attr('width', width)
             .attr('height', height)
@@ -60,10 +58,9 @@ export default class BarChart extends React.Component {
     render() {
         this.drawBar();
         //remove white spaces from id
-        const id = this.props.item.replace(/\s+/g, '');
         return (
             <div>
-                <div id={`bar${id}`}/>
+                <div id={`bar${ this.props.item}`}/>
             </div>
         )
     }
