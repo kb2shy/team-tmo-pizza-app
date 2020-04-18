@@ -60,8 +60,6 @@ const BackButton = ({ step, previousMenu, prevStep, setMenu, clearPizza }) => {
 
     // Incomplete order on the create pizza page
     step === 3 ? handleShowAlert() : previousMenu();
-
-    // [TODO]: Cart -> Edit Pizza -> clicking "back" should bring the user back to Cart page
   };
 
   // don't display the buttons on home, cart, and confirmation pages
