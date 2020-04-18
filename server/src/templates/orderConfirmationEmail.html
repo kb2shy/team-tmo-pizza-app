@@ -43,9 +43,6 @@
     device, please save a screenshot of your bar-code, as the internet can be
     unstable in some areas.
   </p>
-  <p style="font-size: 14px;">
-    Thank you for doing business with us! We value our customers.
-  </p>
   <p style="font-size: 14px;">Your order summary:</p>
   <table
     style="
@@ -68,30 +65,22 @@
         </td>
       </tr>
       <tr>
-        <td style="font-size: 14px;">Email</td>
+        <td style="font-size: 14px;">Customer Email</td>
         <td style="font-size: 14px;">{{customer.email}}</td>
       </tr>
       <tr>
-        <td style="font-size: 14px;">Total</td>
-        <td style="font-size: 14px;">${{order.total}} + TAX</td>
+        <td style="font-size: 14px;">Number of Pizzas</td>
+        <td style="font-size: 14px;">{{stats.quantity}}</td>
       </tr>
       <tr>
-        <td style="font-size: 14px;">Verify Link</td>
-        <td>
-          <a
-            style="
-              font-size: 14px;
-              text-decoration: none;
-              cursor: pointer;
-              color: #1671c0;
-            "
-            href="${url}"
-            >{{url}}</a
-          >
-        </td>
+        <td style="font-size: 14px;">Total Price</td>
+        <td style="font-size: 14px;">${{stats.price}} + TAX</td>
       </tr>
     </tbody>
   </table>
+  <p style="font-size: 14px;">
+    Thank you for doing business with us! We value our customers.
+  </p>
   <hr
     style="
       padding: 0;
