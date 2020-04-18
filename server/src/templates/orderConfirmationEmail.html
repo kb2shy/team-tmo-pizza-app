@@ -1,10 +1,112 @@
-<h3>TmoPizza Order Confirmation</h3>
-<p>Thank you for your order, {{customer.first_name}} {{customer.last_name}}!</p>
-<p>Your order id is <b>{{orderRecord.order_id}}</b>.</p>
-<div>
-  <span
-    >You are receiving this email because an order was made using
-    {{customer.email}} address. If you have not made an order with this email,
-    please kindly disregard this message.</span
+<div
+  style="
+    margin: auto;
+    max-width: 600px;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  "
+>
+  <p
+    style="padding: 24px 0 0 0; margin: 0; text-align: center; font-size: 24px;"
   >
+    TMoPizza Order Confirmation
+  </p>
+  <hr
+    style="
+      padding: 0;
+      margin: 12px 0 0 0;
+      border: 0;
+      height: 1px;
+      background: #ccc;
+      background-image: linear-gradient(to right, #ddd, #ccc, #ddd);
+    "
+  />
+  <!-- <p
+    style="text-align: center; font-size: 16px; padding: 24px 0 0 0; margin: 0;"
+  >
+    Thank you for your order, {{customer.first_name}} {{customer.last_name}}!
+  </p> -->
+  <p style="font-size: 14px;">
+    Thank you for your order, {{customer.first_name}} {{customer.last_name}}!
+  </p>
+  <p>
+    Your order is being readied for your pickup at the store! When picking up
+    your oder, please scan the attached bar-code. You can scan using your
+    phone/table device or by printing this receipt onto a paper. If using a
+    device, please save a screenshot of your bar-code, as the internet can be
+    unstable in some areas.
+  </p>
+  <div style="margin: 0; padding: 0; font-size: 14px; text-align: center;">
+    <img
+      style="margin: 0; padding: 0;"
+      alt="tmopizza-order-{{oder.order_id}}"
+      src="cid:barcode"
+    />
+  </div>
+  <p style="font-size: 14px;">
+    Once again, thank you for your order! We value customers like yourself.
+  </p>
+  <p style="font-size: 14px;">Your order summary:</p>
+  <table
+    style="
+      width: 100%;
+      table-layout: fixed;
+      border: none;
+      margin: 0;
+      padding: 0;
+    "
+  >
+    <colgroup>
+      <col style="width: 120px;" />
+      <col style="width: auto;" />
+    </colgroup>
+    <tbody>
+      <tr>
+        <td style="font-size: 14px;">Order ID</td>
+        <td style="font-size: 14px; font-weight: bold;">
+          {{order.order_id}}
+        </td>
+      </tr>
+      <tr>
+        <td style="font-size: 14px;">Email</td>
+        <td style="font-size: 14px;">{{customer.email}}</td>
+      </tr>
+      <tr>
+        <td style="font-size: 14px;">Total</td>
+        <td style="font-size: 14px;">${{order.total}} + TAX</td>
+      </tr>
+      <tr>
+        <td style="font-size: 14px;">Verify Link</td>
+        <td>
+          <a
+            style="
+              font-size: 14px;
+              text-decoration: none;
+              cursor: pointer;
+              color: #1671c0;
+            "
+            href="${url}"
+            >{{url}}</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr
+    style="
+      padding: 0;
+      margin: 12px 0 0 0;
+      border: 0;
+      height: 1px;
+      background: #ccc;
+      background-image: linear-gradient(to right, #ddd, #ccc, #ddd);
+    "
+  />
+  <div style="background-color: #fafafa; text-align: center; padding: 14px;">
+    <p style="font-size: 13px;">
+      You are receiving this email because an order was made with
+      {{customer.email}} email address. If you have not made the order, please
+      kindly disregard the message.
+    </p>
+  </div>
 </div>

@@ -1,18 +1,30 @@
 const fs = require('fs');
-const handlebars = require('handlebars');
+const path = require('path');
+const Handlebars = require('handlebars');
 const sgMail = require('@sendgrid/mail');
 const config = require('config');
+const JsBarcode = require('jsbarcode');
+const { createCanvas } = require('canvas');
 const createAndFillPizza = require('./createAndFillPizza');
 
 sgMail.setApiKey(config.get('sendGridAPI'));
 
 let orderConfirmationTemplate = null;
-fs.readFile('../../../templates/orderConfirmationEmail.html', 'utf8', function (
-  err,
-  data
-) {
+let canvasInst = null;
+
+const emailTemplateFile = path.join(
+  __dirname,
+  '../../../templates/orderConfirmationEmail.html'
+);
+
+const emailSampleFile = path.join(
+  __dirname,
+  '../../../templates/sampleEmail.html'
+);
+
+fs.readFile(emailTemplateFile, 'utf8', function (err, data) {
   if (err) throw err;
-  orderConfirmationTemplate = data;
+  orderConfirmationTemplate = Handlebars.compile(data);
 });
 
 // This mutation is meant to be as a helper function for
@@ -24,7 +36,9 @@ async function createOrder(
   { Order, OrderItem, ...context }
 ) {
   if (!orderConfirmationTemplate) {
-    console.log('Email confirmation template not loaded yet. Please try again later');
+    console.log(
+      'Email confirmation template not loaded yet. Please try again later'
+    );
     return null;
   }
 
@@ -63,16 +77,43 @@ async function createOrder(
     }
   }
 
+  // Draw barcode
+  if (!canvasInst) {
+    canvasInst = createCanvas();
+  }
+  JsBarcode(canvasInst, orderRecord.order_id, {
+    format: 'code128',
+    displayValue: false,
+  });
+  const imgData1 = canvasInst.toDataURL('image/png');
+  const imgData2 = imgData1.replace('data:image/png;base64,', '');
+
   // create a formatted email
-  orderConfirmationTemplate;
+  const html = orderConfirmationTemplate({
+    customer: customer.toJSON(),
+    order: orderRecord.toJSON(),
+  });
+
+  // fs.writeFile(emailSampleFile, html, (err) => {
+  //   if (err) throw err;
+  //   console.log('The file has been saved!');
+  // });
 
   // send order confirmation email
   const msg = {
     to: customer.email,
     from: config.get('supportEmail'),
-    subject: 'Thank You for your TmoPizza Order',
-    // text: '',
-    html: htmlContent,
+    subject: 'TMoPizza Order Confirmation',
+    html: html,
+    attachments: [
+      {
+        filename: `tmopizza-order-${orderRecord.order_id}.png`,
+        type: 'image/png',
+        content_id: 'barcode',
+        content: imgData2,
+        disposition: "inline"
+      },
+    ],
   };
 
   sgMail.send(msg).catch((err) => {
@@ -80,7 +121,8 @@ async function createOrder(
   }); // no need to await this request
 
   // return the order
-  return orderRecord;
+  // return orderRecord;
+  return null;
 }
 
 module.exports = createOrder;
