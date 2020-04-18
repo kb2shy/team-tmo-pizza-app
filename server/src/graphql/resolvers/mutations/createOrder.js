@@ -22,10 +22,27 @@ const emailSampleFile = path.join(
   '../../../templates/sampleEmail.html'
 );
 
+// load email template (do asynchronously to prevent delay)
 fs.readFile(emailTemplateFile, 'utf8', function (err, data) {
   if (err) throw err;
   orderConfirmationTemplate = Handlebars.compile(data);
 });
+
+/**
+ * Prepend zeros to number so that in string form, the length is at least totalLength
+ * Original Source: https://stackoverflow.com/questions/8513032/less-than-10-add-0-to-number/8513060#8513060
+ * @param {number} number
+ * @param {number} totalLength
+ * @return {string}
+ */
+function prependZeros(number, width) {
+  const padding = +width + 1 - (number + '').length;
+  if (padding > 0) {
+    return new Array(padding).join('0') + number;
+  } else {
+    return number.toString();
+  }
+}
 
 // This mutation is meant to be as a helper function for
 // `createGuestOrder` and `createMemberOrder` mutations.
@@ -77,8 +94,9 @@ async function createOrder(
 
   // draw bar-code based on order id (we may need to hash that id @todo)
   const canvasInst = createCanvas();
-  JsBarcode(canvasInst, orderRecord.order_id, {
-    format: 'code128',
+  const orderCode = prependZeros(orderRecord.order_id.toString('16'), 12);
+  JsBarcode(canvasInst, orderCode, {
+    format: 'CODE128',
     displayValue: false,
   });
   // convert to base64-encoded buffer for inline image insertion
@@ -124,7 +142,6 @@ async function createOrder(
   }); // no need to await this request
 
   // return the order
-  return null;
   return orderRecord;
 }
 
@@ -190,7 +207,7 @@ async function computePizzasPrice(
   if (counts.sizes.size !== 0) {
     const records = await Size.findAll({
       where: {
-        size_id: { [Op.in]:  Array.from(counts.sizes.keys()) },
+        size_id: { [Op.in]: Array.from(counts.sizes.keys()) },
       },
     });
     for (let record of records) {
