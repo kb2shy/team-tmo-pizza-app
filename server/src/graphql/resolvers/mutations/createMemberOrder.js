@@ -7,7 +7,7 @@ async function createMemberOrder(root, attrs, { user, Customer, ...context }) {
   }
 
   // query customer from the id
-  const customer = Customer.findByPk(user.customer_id);
+  const customer = await Customer.findByPk(user.customer_id);
   if (!customer) {
     console.log('Could not reference Customer by token.');
     return null;

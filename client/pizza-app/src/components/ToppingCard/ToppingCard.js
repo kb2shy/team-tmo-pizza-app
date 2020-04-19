@@ -17,7 +17,7 @@ class ToppingCard extends React.Component {
     componentDidMount() {
        if (this.props.type === 'meats') {
             for (let meat of this.props.meats) {
-                if (meat.type === this.props.label) {
+                if (meat.type === this.props.item.type) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }
@@ -25,14 +25,14 @@ class ToppingCard extends React.Component {
         }
         else if (this.props.type === 'veggies'){
             for (let veggies of this.props.veggies) {
-                if (veggies.type === this.props.label) {
+                if (veggies.type === this.props.item.type) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }
             }
         } else {
             for (let cheeses of this.props.cheeses) {
-                if (cheeses.type === this.props.label) {
+                if (cheeses.type === this.props.item.type) {
                     this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
                     break;
                 }
@@ -46,9 +46,9 @@ class ToppingCard extends React.Component {
 
         //Update store
         if (this.state.status) {
-            this.props.removeTopping(this.props.type, this.props.label, this.props.price);
+            this.props.removeTopping(this.props.type, this.props.item);
         } else {
-            this.props.addTopping(this.props.type, this.props.label, this.props.price);
+            this.props.addTopping(this.props.type, this.props.item);
         }
 
         //change status
@@ -63,14 +63,14 @@ class ToppingCard extends React.Component {
 
         return (
             <Card
-                id={this.props.label}
+                id={this.props.item.type}
                 style={this.state.style}
                 className="text-center"
                 onClick={(e) => this.handleClick()}>
                 <Card.Body>
-                    <Card.Title>{this.props.label}</Card.Title>
-                    <Card.Text>{this.props.price!== undefined ? `$${this.props.price.toFixed(2)}` : null}</Card.Text>
-                    {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.count} total={total} item={this.props.label} /> : null}
+                    <Card.Title>{this.props.item.type}</Card.Title>
+                    <Card.Text>{this.props.item.price!== undefined ? `$${this.props.item.price.toFixed(2)}` : null}</Card.Text>
+                    {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.item.count} total={total} item={this.props.item.type.replace(/\s+/g, '')} /> : null}
                 </Card.Body>
             </Card>
         )

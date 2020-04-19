@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
+import "../common/Button/Button.css"
 
 //Creates a row with title and all necessary radio buttons
 export default class BaseDropDown extends React.Component {
@@ -7,19 +8,16 @@ export default class BaseDropDown extends React.Component {
         return (
         <div>
             <h5>{this.props.type}</h5>
-            <DropdownButton id="dropdown-basic-button" title={this.props.value}>
+            <DropdownButton id="dropdown-basic-button" title={this.props.value}
+            variant="basicButton">
                 {this.props.options.map((item) => {
                     return (
                         <Dropdown.Item
-                            key={this.props.type === 'Size' ? item.type : item}
+                            key={item.type}
                             name={this.props.type}
-                            onClick={(e) => {
-                                this.props.type === 'Size' 
-                                ? this.props.handleChange(this.props.type, item.type, item.price) 
-                                : this.props.handleChange(this.props.type, item);
-                            }}
+                            onClick={(e) => this.props.handleChange(this.props.type, item)}
                         >
-                            {this.props.type === 'Size' ? `${item.type} - $${item.price.toFixed(2)}` : `${item}`}
+                            {this.props.type === 'Size' ? `${item.type} - $${item.price.toFixed(2)}` : `${item.type}`}
                         </Dropdown.Item>
                     );
                 })}

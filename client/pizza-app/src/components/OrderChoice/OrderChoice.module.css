@@ -13,27 +13,41 @@
 */
 
 .Body {
-  background-color: #faebd7;
   text-align: center;
-  height: 100%;
+  background:radial-gradient(closest-side, #f5f5c1, #f3ddc1, #f8bc7c);
+height: 100vh;
+margin-top: -4em;
 }
 
 .OrderChoice {
-  background-color: rgb(202, 192, 174);
+  background-color: rgb(238, 197, 121);
   color: white;
   width: 700px;
-  height: 300px;
-  border: 1px solid black;
+  height: 90vh;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: -400px auto;
   justify-content: center;
   align-items: center;
+  border-bottom: 8px solid rgb(85, 40, 17);
+  border-left:8px solid rgb(85, 40, 17) ;
+  border-right:8px solid rgb(85, 40, 17) ;
 }
 
 .ButtonGroup {
   display: flex;
   flex-direction: row;
-    /* justify-content: space-between;
-    width: 100%; */
+    justify-content: space-around;
+    width: 100%;
+}
+
+.orderChoiceTitleContainer{
+margin: auto;
+width: 60%;
+position: relative;
+padding: 0;
+margin-top: 7em;
+box-shadow: 0px 10px 6px rgba(0, 0, 0, 0.493);
+
+/* padding: 1em; */
 }
