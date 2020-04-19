@@ -11,6 +11,7 @@ import { clearPizza } from '../../actions/pizza';
 import { loginCustomer } from '../../actions/auth';
 import { setMenu } from '../../actions/menu';
 import { clearPizzas } from '../../actions/pizzas';
+import isEmail from 'validator/lib/isEmail';
 
 const Login = ({
   loginCustomer,
@@ -37,10 +38,26 @@ const Login = ({
   const handleSubmit = (evt) => {
     evt.preventDefault();
     clearPizzas();
-    const email = user.email.trim();
-    const password = user.password;
-    loginCustomer({ email, password });
+    let validated = true;
+    for (let i = 0; i < 2; i++) {
+      if (evt.currentTarget[i].className !== 'Login_input__V9359 form-control is-valid') {
+        validated = false;
+        break
+      }
+    }
+    if (validated) {
+      loginCustomer({ email: user.email.trim(), password: user.password });
+    }
+    else {
+      return false
+    }
   };
+
+  const [touched, setTouched] = useState({
+    email: false,
+    password: false
+  });
+
 
   const handleGuestOrderClick = (evt) => {
     evt.preventDefault();
@@ -67,7 +84,14 @@ const Login = ({
             placeholder="Enter email"
             value={user.email}
             onChange={handleChange}
+            isInvalid={touched.email && !isEmail(user.email)}
+            isValid={isEmail(user.email)}
+            onBlur={() => { setTouched({ email: true }) }}
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please enter a valid email address.
+        </Form.Control.Feedback>
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
           </Form.Text>
@@ -81,7 +105,14 @@ const Login = ({
             placeholder="Password"
             value={user.password}
             onChange={handleChange}
+            isInvalid={touched.password && user.password === ''}
+            isValid={user.password !== ''}
+            onBlur={() => { setTouched({ password: true }) }}
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please enter a password.
+        </Form.Control.Feedback>
         </Form.Group>
         <div className={`d-flex align-items-center ${classes.spacingTop}`}>
           {/* <Button

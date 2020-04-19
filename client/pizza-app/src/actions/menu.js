@@ -30,3 +30,15 @@ export const resetMenu = () => (dispatch) => {
     type: RESET_MENU,
   });
 };
+
+
+// const StepMenu = (props) => {
+//   return function setMenu(step, prevStep) {
+//     return (dispatch) => {
+//       dispatch({
+//         type: SET_MENU,
+//         payload: { step: step, prevStep: prevStep },
+//       });
+//     };
+//   }
+// }
