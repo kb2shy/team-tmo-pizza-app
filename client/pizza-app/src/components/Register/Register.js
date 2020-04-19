@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { registerCustomer } from '../../actions/auth';
 import { setMenu } from '../../actions/menu';
-
 import { Form } from 'react-bootstrap';
 import AppSpinner from '../AppSpinner/AppSpinner';
-
 import StyledButton from '../common/Button/StyledButton';
+import isEmail from 'validator/lib/isEmail';
+import isAlpha from 'validator/lib/isAlpha';
+
 import StyledTitle from '../common/Title/StyledTitle';
 
 // Register
 // - Title component
 // - Form: first, last, email, phone, password
 // - Create my account button
+// - add validations
 
 const Register = ({
   registerCustomer,
@@ -31,28 +32,44 @@ const Register = ({
   }, [isAuthenticated, step, setMenu]);
 
   const [user, setUser] = useState({
-    first_name: guest.first_name,
-    last_name: guest.last_name,
+    firstName: guest.first_name,
+    lastName: guest.last_name,
     email: guest.email,
     password: '',
     phone: guest.phone,
   });
 
-  const isValid =
-    user.first_name.trim().length !== 0 &&
-    user.last_name.trim().length !== 0 &&
-    user.phone.trim().length !== 0 &&
-    user.email.trim().length !== 0 &&
-    user.password.trim().length !== 0;
+  const [touched, setTouched] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    password: false,
+    phone: false,
+  });
+
+
+  function isValidPhoneNumber(phone) {
+    const test1 = /^\d{10}$/;
+    const test2 = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if (phone.match(test1) || phone.match(test2)) {
+      return true;
+    }
+    return false;
+  }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const first_name = user.first_name.trim();
-    const last_name = user.last_name.trim();
-    const phone = user.phone.trim();
-    const email = user.email.trim();
-    const password = user.password;
-    registerCustomer({ first_name, last_name, phone, email, password });
+    let validated = true;
+    for (let i = 0; i < 5; i++) {
+      if (evt.currentTarget[i].className !== 'form-control is-valid') {
+        validated = false;
+        break
+      }
+    }
+    if (validated) {
+      registerCustomer({ first_name: user.firstName.trim(), last_name: user.lastName.trim(), phone: user.phone.trim(), email: user.email.trim(), password: user.password });
+    }
+    return false
   };
 
   const handleChange = (evt) => {
@@ -69,26 +86,47 @@ const Register = ({
         className="orderChoiceTitle"
       />
 
+
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formFirstName">
           <Form.Label>First Name</Form.Label>
           <Form.Control
-            name="first_name"
+            name="firstName"
             type="text"
             placeholder="First Name"
-            value={user.first_name}
+            value={user.firstName}
             onChange={handleChange}
+            isInvalid={touched.firstName && !isAlpha(user.firstName)}
+            isValid={isAlpha(user.firstName)}
+            onBlur={() => { setTouched({ firstName: true }) }}
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please enter a valid first name.
+        </Form.Control.Feedback>
+          <Form.Control.Feedback>
+            Looks good!
+        </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formLastName">
           <Form.Label>Last Name</Form.Label>
           <Form.Control
-            name="last_name"
+            name="lastName"
             type="text"
             placeholder="Last Name"
-            value={user.last_name}
+            value={user.lastName}
             onChange={handleChange}
+            isInvalid={touched.lastName && !isAlpha(user.lastName)}
+            isValid={isAlpha(user.lastName)}
+            onBlur={() => { setTouched({ lastName: true }) }}
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please enter a valid last name.
+        </Form.Control.Feedback>
+          <Form.Control.Feedback>
+            Looks good!
+        </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formPhone">
           <Form.Label>Phone</Form.Label>
@@ -98,7 +136,17 @@ const Register = ({
             placeholder="Phone"
             value={user.phone}
             onChange={handleChange}
+            isInvalid={touched.phone && !isValidPhoneNumber(user.phone)}
+            isValid={isValidPhoneNumber(user.phone)}
+            onBlur={() => { setTouched({ phone: true }) }}
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please enter a valid phone number.
+        </Form.Control.Feedback>
+          <Form.Control.Feedback>
+            Looks good!
+        </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formEmail">
           <Form.Label>Email address</Form.Label>
@@ -108,10 +156,17 @@ const Register = ({
             placeholder="Enter email"
             value={user.email}
             onChange={handleChange}
+            isInvalid={touched.email && !isEmail(user.email)}
+            isValid={isEmail(user.email)}
+            onBlur={() => { setTouched({ email: true }) }}
+            required
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
+          <Form.Control.Feedback type="invalid">
+            Please enter a valid email address.
+        </Form.Control.Feedback>
+          <Form.Control.Feedback>
+            Looks good!
+        </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formPassword">
           <Form.Label>Password</Form.Label>
@@ -121,7 +176,17 @@ const Register = ({
             placeholder="Password"
             value={user.password}
             onChange={handleChange}
+            isInvalid={touched.password && user.password === ''}
+            isValid={user.password !== ''}
+            onBlur={() => { setTouched({ password: true }) }}
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please enter a password.
+        </Form.Control.Feedback>
+          <Form.Control.Feedback>
+            Looks good!
+        </Form.Control.Feedback>
         </Form.Group>
         <div className="d-flex align-items-center">
           {/* <Button variant="primary" type="submit" disabled={!isValid}>
@@ -131,7 +196,7 @@ const Register = ({
             type="submit"
             text="Sign Up"
             variant="basicButton"
-            disabled={!isValid}
+            disabled={user.email === '' && user.firstName === '' && user.lastName === '' && user.password === '', user.phone === ''}
             text="Sign Up"
           />
           {loading && <AppSpinner />}
