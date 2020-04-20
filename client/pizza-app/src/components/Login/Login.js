@@ -33,24 +33,10 @@ const Login = ({
   //   }
   // }, [step, isAuthenticated]);
 
-  const isValid = user.email.length !== 0 && user.password.length !== 0;
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
     clearPizzas();
-    let validated = true;
-    for (let i = 0; i < 2; i++) {
-      if (evt.currentTarget[i].className !== 'Login_input__V9359 form-control is-valid') {
-        validated = false;
-        break
-      }
-    }
-    if (validated) {
-      loginCustomer({ email: user.email.trim(), password: user.password });
-    }
-    else {
-      return false
-    }
+    loginCustomer({ email: user.email.trim(), password: user.password });
   };
 
   const [touched, setTouched] = useState({
@@ -126,7 +112,7 @@ const Login = ({
           <StyledButton
             variant="basicButton"
             type="submit"
-            disabled={loading || !isValid}
+            disabled={loading || !isEmail(user.email) || user.password === ''}
             //onClick={}
             text="Sign In"
           />
