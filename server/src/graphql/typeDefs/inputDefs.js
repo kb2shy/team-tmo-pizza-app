@@ -11,9 +11,9 @@ const inputDefs = `
     cheeses: [Int!]
   }
   input PizzaInput {
-    size: Int!
-    crust: Int!
-    sauce: Int!
+    size: Int
+    crust: Int
+    sauce: Int
     toppings: ToppingsInput
   }
 `;

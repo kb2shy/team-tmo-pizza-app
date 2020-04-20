@@ -47,8 +47,6 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
   });
 
   try {
-    console.log(JSON.stringify(guest, null, 2));
-    console.log(JSON.stringify(pizzas, null, 2));
     // trigger the create guest order resolver
     const result = await apolloClient.mutate({
       mutation: CREATE_GUEST_ORDER,
@@ -62,8 +60,6 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
     if (!order) {
       throw new Error('Failed to create a guest order.');
     }
-
-    console.log(order);
 
     dispatch({
       type: ORDER_SUCCESS,
@@ -148,8 +144,6 @@ export const createMemberOrder = (onSuccessEvent) => async (
     if (!order) {
       throw new Error('Failed to create a member order.');
     }
-
-    console.log(order);
 
     dispatch({
       type: ORDER_SUCCESS,
