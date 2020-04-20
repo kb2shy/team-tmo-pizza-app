@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Card, Button } from 'react-bootstrap';
 import { setPizza } from '../../actions/pizza';
 import { removePizza } from '../../actions/pizzas';
-import { previousMenu } from '../../actions/menu';
+import { setMenu } from '../../actions/menu';
 
-import StyledButton from '../common/Button/StyledButton'
+import StyledButton from '../common/Button/StyledButton';
 
 /**
  * Subcomponent for OrderSummary component
@@ -28,7 +28,7 @@ const PizzaCard = (props) => {
     const pizza = props.pizzas[index];
     props.setPizza(pizza);
     props.removePizza(index);
-    props.previousMenu();
+    props.setMenu(3, props.step);
   }
 
   const renderOrderInTable = () => {
@@ -49,15 +49,15 @@ const PizzaCard = (props) => {
               <td>{props.sauce.type}</td>
             </tr>
             <tr id="Cheese">
-              <td>Cheese</td>
+              <td>{props.toppings.cheeses.length > 0 ? 'Cheese' : null}</td>
               <td>{printMultipleToppings(props.toppings.cheeses)}</td>
             </tr>
             <tr id="Veggies">
-              <td>Veggies</td>
+              <td>{props.toppings.veggies.length > 0 ? 'Veggies' : null}</td>
               <td>{printMultipleToppings(props.toppings.veggies)}</td>
             </tr>
             <tr id="Meats">
-              <td>Meats</td>
+              <td>{props.toppings.meats.length > 0 ? 'Meats' : null}</td>
               <td>{printMultipleToppings(props.toppings.meats)}</td>
             </tr>
             <tr id="Price">
@@ -84,7 +84,8 @@ const PizzaCard = (props) => {
 const mapStateToProps = (state) => {
   return {
     pizzas: state.pizzas,
+    step: state.menu.step
   };
 };
 
-export default connect(mapStateToProps, { setPizza, removePizza, previousMenu })(PizzaCard);
+export default connect(mapStateToProps, { setPizza, removePizza, setMenu })(PizzaCard);

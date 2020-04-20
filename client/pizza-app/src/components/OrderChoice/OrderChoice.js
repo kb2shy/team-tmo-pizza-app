@@ -44,20 +44,20 @@ const OrderChoice = (props) => {
     <div className={classes.Body}>
       {/* <br></br> */}
       {/* <div className={classes.Title}> title </div> */}
-      <div>
+      <div className={classes.orderChoiceTitleContainer}>
         <StyledTitle
           divClassName="titleBox"
-          text="Welcome back, "
+          text="WELCOME BACK, "
           className="orderChoiceTitle"
         />
         <StyledTitle
           divClassName="titleBox"
-          text="first last"
+          text="First Last"
           className="cursiveTitle"
         />
       </div>
       <div className={classes.OrderChoice}>
-        <h1>What would you like to do today?</h1>
+        <StyledTitle className='orderChoiceSubtitle ' text='What would you like to do today?'></StyledTitle>
         <div className={classes.ButtonGroup}>
           {/* <br></br> */}
           {/* <Button onClick={handleOrderHistory}>See my order History</Button> */}

@@ -25,3 +25,12 @@ td {
 label {
     padding-left: 10px;
 }
+.dropdown-mystyle{
+  color: #eb6d76;
+  border: 5px solid #eb6d76;
+  border-radius: 0px;
+  background-color: #fbffda;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  margin: 5px;
+}

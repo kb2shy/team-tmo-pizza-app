@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  background:radial-gradient(closest-side, #f5f5c1, #f3ddc1, #f8bc7c);
 }
 
 .header {
