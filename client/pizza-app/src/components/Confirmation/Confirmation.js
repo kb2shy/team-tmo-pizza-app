@@ -69,9 +69,9 @@ const Confirmation = (props) => {
 
   const getPDFLink = () => (
     <PDFDownloadLink
-      document={<Receipt user={props.auth.isAuthenticated ? props.auth : props.guest}
-        pizzas={data.getAllPizzaInfoByOrder}
-        order={props.order} />}
+      document={<Receipt user={props.auth.isAuthenticated ? props.auth.user : props.guest}
+      pizzas={data.getAllPizzaInfoByOrder}
+      order={props.order} />}
       fileName={`PizzaOrder-${props.order.order_id}.pdf`}
       style={{ textDecoration: "none", color: "black" }}
     >
@@ -116,6 +116,10 @@ const Confirmation = (props) => {
               order={props.order}
             />
           </PDFViewer>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           {getPDFLink()}
         </Col>
       </Row>

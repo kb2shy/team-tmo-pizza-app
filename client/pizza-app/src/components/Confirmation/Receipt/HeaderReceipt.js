@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     image: {
         width: "25%",
         marginRight: 20,
+        padding: 10,
     }
 });
 
