@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Receipt = ({ order, user, guest }) => {
+const Receipt = ({ order, user, pizzas }) => {
 
     // Collect date from the order and parse it into date string
     const dateParser = () => {
@@ -67,4 +67,15 @@ const Receipt = ({ order, user, guest }) => {
     //  const calculatePizzas = (pizzas) => {
     //     return order.pizzas.reduce((total, pizza) => total + pizza.quantity, 0);
     // }
+
+    return (
+        <Document>
+            {console.log(pizzas)}
+            <Page size="LETTER" style={styles.page}>
+                
+            </Page>
+        </Document>
+    )
 }
+
+export default Receipt;

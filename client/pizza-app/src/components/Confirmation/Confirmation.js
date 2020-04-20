@@ -4,8 +4,12 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_ALL_PIZZA_INFO_BY_ORDER } from '../../config/gqlDefines';
 import { setMenu } from '../../actions/menu';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
-import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
+
 import PropTypes from 'prop-types';
+
+// importing PDF features and components
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
+import Receipt from './Receipt/Receipt';
 
 // Custom Styling
 import StyledButton from '../common/Button/StyledButton';
@@ -23,8 +27,7 @@ const Confirmation = (props) => {
   const { loading, error, data } = useQuery(GET_ALL_PIZZA_INFO_BY_ORDER, { variables: { order_id }});
   if (error) return <p>{error.message}</p>;
   if (loading) return <AppSpinner />;
-  if (data) console.log(data);
-  
+    
   const handleClickHome = (e) => {
     e.preventDefault();
     return props.setMenu(1);
@@ -80,9 +83,12 @@ const Confirmation = (props) => {
           <Alert variant="success">Success!</Alert>
           <p>An email has been sent to:</p>
           <p>{userEmail}</p>
-          {/* <PDFViewer>
-
-          </PDFViewer> */}
+          <PDFViewer>
+            <Receipt 
+              user={props.auth.isAuthenticated ? props.auth : props.guest}
+              pizzas={data.getAllPizzaInfoByOrder} 
+            />
+          </PDFViewer>
           <StyledButton
             type="button"
             onClick={handleClickHome}
