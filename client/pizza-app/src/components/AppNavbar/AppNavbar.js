@@ -32,6 +32,11 @@ const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
     }
   };
 
+  const handleHomeRegister = (evt) => {
+    evt.preventDefault();
+    setMenu(6, step);
+  };
+
   return (
     <Navbar
       collapseOnSelect
@@ -53,6 +58,15 @@ const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto d-flex align-items-center">
+          {step !== 6 && !isAuthenticated && (
+            <StyledButton
+            variant="navbarButton"
+            type="button"
+            onClick={handleHomeRegister}
+            text="Register"
+
+          />
+          )}
           {step !== 1 && (
             <StyledButton
               variant="navbarButton"

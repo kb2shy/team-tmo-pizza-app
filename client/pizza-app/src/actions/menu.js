@@ -38,3 +38,14 @@ export const setPopCart = (state) => (dispatch) => {
     payload: state
   });
 };
+
+// const StepMenu = (props) => {
+//   return function setMenu(step, prevStep) {
+//     return (dispatch) => {
+//       dispatch({
+//         type: SET_MENU,
+//         payload: { step: step, prevStep: prevStep },
+//       });
+//     };
+//   }
+// }
