@@ -20,7 +20,7 @@ const OrderDetails = (props) => {
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>Toppings
-                    <Card.Text><b>Cheeses:</b>
+                    <Card.Text><b>{cheeses.length > 0 ? 'Cheeses:' : null}</b>
                         {
                             cheeses.map((cheeseSelect, index) => {
                                 return(
@@ -29,7 +29,7 @@ const OrderDetails = (props) => {
                             })
                         }
                         </Card.Text>
-                        <Card.Text><b>Meats:</b>
+                        <Card.Text><b>{meats.length > 0 ? 'Meats:' : null}</b>
                         {
                             meats.map((meatSelect, index) => {
                                 return(
@@ -38,7 +38,7 @@ const OrderDetails = (props) => {
                             })
                         }
                         </Card.Text>
-                        <Card.Text><b>Veggies:</b>
+                        <Card.Text><b>{veggies.length > 0 ? 'Veggies:' : null}</b>
                         {
                             veggies.map((veggieSelect, index) => {
                                 return(

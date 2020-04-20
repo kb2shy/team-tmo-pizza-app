@@ -3,11 +3,13 @@ import {
   PREVIOUS_MENU,
   SET_MENU,
   RESET_MENU,
+  SET_POP_CART
 } from '../config/actionTypes';
 
 const initialState = {
   step: 1,
-  prevStep: []
+  prevStep: [],
+  popCart: false
 };
 
 let updatedPrevStep;
@@ -42,6 +44,10 @@ const menuReducer = (state = initialState, action) => {
       return {
         ...initialState,
       };
+
+    case SET_POP_CART:
+      return {...state, popCart: action.payload};
+
     default:
       return state;
   }

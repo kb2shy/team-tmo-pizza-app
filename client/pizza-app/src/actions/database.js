@@ -142,7 +142,6 @@ export const getCheeseCount = (pizza_id) => async (dispatch) => {
       variables: {pizza_id},
     });
     
-    console.log(result.data.getSelectedCheeses)
     const cheeses = result.data.getSelectedCheeses.map(item => item.cheese.cheese_type);
 
     for(let topping of cheeses) {
