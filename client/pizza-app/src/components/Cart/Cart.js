@@ -47,15 +47,15 @@ const Cart = ({
 }) => {
 
   const [guestData, setGuestData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     phone: '',
   });
 
   const [touched, setTouched] = useState({
-    firstName: false,
-    lastName: false,
+    first_name: false,
+    last_name: false,
     email: false,
     phone: false
   });
@@ -75,8 +75,8 @@ const Cart = ({
   // Guest view: ensures all input fields are entered
   // User view: true, all fields are pulled from store
   let isValid =
-    guestData.firstName.length !== 0 &&
-    guestData.lastName.length !== 0 &&
+    guestData.first_name.length !== 0 &&
+    guestData.last_name.length !== 0 &&
     guestData.email.length !== 0 &&
     guestData.phone.length !== 0;
 
@@ -84,12 +84,12 @@ const Cart = ({
   // Directs user to the Confirmation page
   const handleClickSubmit = (e) => {
     e.preventDefault();
-    const firstName = guestData.firstName.trim();
-    const lastName = guestData.lastName.trim();
+    const first_name = guestData.first_name.trim();
+    const last_name = guestData.last_name.trim();
     const email = guestData.email.trim();
     const phone = guestData.phone.trim();
 
-    const guest = { firstName, lastName, email, phone };
+    const guest = { first_name, last_name, email, phone };
     setGuest(guest);
 
     if (isAuthenticated) {
@@ -143,14 +143,14 @@ const Cart = ({
           </Form.Label>
           <Col>
             <Form.Control
-              name="firstName"
+              name="first_name"
               type="text"
               placeholder="first name"
-              value={guestData.firstName}
+              value={guestData.first_name}
               onChange={handleChange}
-              isInvalid={touched.firstName && !isAlpha(guestData.firstName)}
-              isValid={isAlpha(guestData.firstName)}
-              onBlur={() => { setTouched({ firstName: true }) }}
+              isInvalid={touched.first_name && !isAlpha(guestData.first_name)}
+              isValid={isAlpha(guestData.first_name)}
+              onBlur={() => { setTouched({ first_name: true }) }}
               required
             />
             <Form.Control.Feedback type="invalid">
@@ -162,14 +162,14 @@ const Cart = ({
           </Col>
           <Col>
             <Form.Control
-              name="lastName"
+              name="last_name"
               type="text"
               placeholder="last name"
-              value={guestData.lastName}
+              value={guestData.last_name}
               onChange={handleChange}
-              isInvalid={touched.lastName && !isAlpha(guestData.lastName)}
-              isValid={isAlpha(guestData.lastName)}
-              onBlur={() => { setTouched({ lastName: true }) }}
+              isInvalid={touched.last_name && !isAlpha(guestData.last_name)}
+              isValid={isAlpha(guestData.last_name)}
+              onBlur={() => { setTouched({ last_name: true }) }}
               required
             />
             <Form.Control.Feedback type="invalid">
@@ -296,7 +296,13 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
-          disabled={!isEmail(guestData.email) || !isAlpha(guestData.lastName) || !isAlpha(guestData.firstName) || !isValidPhoneNumber(guestData.phone)}
+          disabled={
+            !isAuthenticated &&
+            (!isEmail(guestData.email) ||
+              !isAlpha(guestData.last_name) ||
+              !isAlpha(guestData.first_name) ||
+              !isValidPhoneNumber(guestData.phone))
+          }
           text="Submit"
         />
 

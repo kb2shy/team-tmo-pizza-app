@@ -31,7 +31,7 @@ class CreatePizza extends React.Component {
     }
 
     toggleShowCart = () => {
-      
+
     }
 
     //Adds current pizza to pizzas array and clears current pizza
@@ -41,7 +41,7 @@ class CreatePizza extends React.Component {
             const currentPizza = this.props.pizza;
             this.props.addPizza({ ...currentPizza, totalPrice});
             this.props.clearPizza()
-            this.props.nextMenu(this.props.step);
+            this.props.nextMenu();
         }
     };
 

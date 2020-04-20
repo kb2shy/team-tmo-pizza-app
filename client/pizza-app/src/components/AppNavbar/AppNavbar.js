@@ -20,7 +20,7 @@ import logo from '../../assets/logo.svg';
 const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
   const handleHomeClick = (evt) => {
     evt.preventDefault();
-    setMenu(1, step);
+    setMenu(1);
   };
 
   const handleHomeCart = (evt) => {
@@ -28,13 +28,13 @@ const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
     if(step === 3) {
       setPopCart(true);
     } else {
-      setMenu(4, step);
+      setMenu(4);
     }
   };
 
   const handleHomeRegister = (evt) => {
     evt.preventDefault();
-    setMenu(6, step);
+    setMenu(6);
   };
 
   return (
