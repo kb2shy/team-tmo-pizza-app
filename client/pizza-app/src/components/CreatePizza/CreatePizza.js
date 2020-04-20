@@ -88,7 +88,8 @@ class CreatePizza extends React.Component {
       <div className="centerDiv">
         {this.props.popCart ? <PopCart/> : null}
         <StyledTitle text="Create Your Pizza" className="basicTitle" />
-        <BaseDropDown
+        <div className='baseDropdownContainer'>
+                <BaseDropDown
           value={this.props.pizza.size.type || 'Choose Size'}
           type={'Size'}
           options={this.props.sizes}
@@ -106,6 +107,8 @@ class CreatePizza extends React.Component {
           options={this.props.sauces}
           handleChange={this.handleChange}
         />
+        </div>
+
 
                 <table className="toppingTable">
                     <tbody>
