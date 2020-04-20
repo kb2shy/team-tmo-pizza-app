@@ -1,6 +1,8 @@
 import React from 'react';
 import { Document, Page, StyleSheet } from '@react-pdf/renderer';
 
+import HeaderReceipt from './HeaderReceipt';
+
 // Months variable to convert numerical month to string representation
 const MONTHS = [
     "January",
@@ -72,7 +74,7 @@ const Receipt = ({ order, user, pizzas }) => {
         <Document>
             {console.log(user, pizzas, order)}
             <Page size="LETTER" style={styles.page}>
-                
+                <HeaderReceipt order={order} user={user}/>
             </Page>
         </Document>
     )
