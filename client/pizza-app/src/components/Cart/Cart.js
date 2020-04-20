@@ -46,11 +46,6 @@ const Cart = ({
   pizzas,
 }) => {
 
-  const firstNameRef = React.createRef();
-  const lastNameRef = React.createRef();
-  const emailRef = React.createRef();
-  const phoneRef = React.createRef();
-
   const [guestData, setGuestData] = useState({
     firstName: '',
     lastName: '',
@@ -89,29 +84,24 @@ const Cart = ({
   // Directs user to the Confirmation page
   const handleClickSubmit = (e) => {
     e.preventDefault();
-    if (firstNameRef.current.className === 'form-control is-valid' && lastNameRef.current.className === 'form-control is-valid' && emailRef.current.className === 'form-control is-valid' && phoneRef.current.className === 'form-control is-valid') {
-      const firstName = guestData.firstName.trim();
-      const lastName = guestData.lastName.trim();
-      const email = guestData.email.trim();
-      const phone = guestData.phone.trim();
+    const firstName = guestData.firstName.trim();
+    const lastName = guestData.lastName.trim();
+    const email = guestData.email.trim();
+    const phone = guestData.phone.trim();
 
-      const guest = { firstName, lastName, email, phone };
-      setGuest(guest);
+    const guest = { firstName, lastName, email, phone };
+    setGuest(guest);
 
-      if (isAuthenticated) {
-        createMemberOrder(() => {
-          clearPizzas();
-          setMenu(5);
-        });
-      } else {
-        createGuestOrder(guest, () => {
-          clearPizzas();
-          setMenu(5);
-        });
-      }
-    }
-    else {
-      return false;
+    if (isAuthenticated) {
+      createMemberOrder(() => {
+        clearPizzas();
+        setMenu(5);
+      });
+    } else {
+      createGuestOrder(guest, () => {
+        clearPizzas();
+        setMenu(5);
+      });
     }
   };
 
@@ -153,7 +143,6 @@ const Cart = ({
           </Form.Label>
           <Col>
             <Form.Control
-              ref={firstNameRef}
               name="firstName"
               type="text"
               placeholder="first name"
@@ -173,7 +162,6 @@ const Cart = ({
           </Col>
           <Col>
             <Form.Control
-              ref={lastNameRef}
               name="lastName"
               type="text"
               placeholder="last name"
@@ -199,7 +187,6 @@ const Cart = ({
           </Form.Label>
           <Col sm={10}>
             <Form.Control
-              ref={emailRef}
               name="email"
               type="email"
               placeholder="email"
@@ -226,7 +213,6 @@ const Cart = ({
           </Form.Label>
           <Col sm={10}>
             <Form.Control
-              ref={phoneRef}
               name="phone"
               type="text"
               placeholder="phone"
@@ -310,7 +296,7 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
-          disabled={!isValid}
+          disabled={!isEmail(guestData.email) || !isAlpha(guestData.lastName) || !isAlpha(guestData.firstName) || !isValidPhoneNumber(guestData.phone)}
           text="Submit"
         />
 

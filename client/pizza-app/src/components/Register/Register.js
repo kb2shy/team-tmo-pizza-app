@@ -59,17 +59,8 @@ const Register = ({
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    let validated = true;
-    for (let i = 0; i < 5; i++) {
-      if (evt.currentTarget[i].className !== 'form-control is-valid') {
-        validated = false;
-        break
-      }
-    }
-    if (validated) {
-      registerCustomer({ first_name: user.firstName.trim(), last_name: user.lastName.trim(), phone: user.phone.trim(), email: user.email.trim(), password: user.password });
-    }
-    return false
+    console.log('hi')
+    registerCustomer({ first_name: user.firstName.trim(), last_name: user.lastName.trim(), phone: user.phone.trim(), email: user.email.trim(), password: user.password });
   };
 
   const handleChange = (evt) => {
@@ -77,8 +68,8 @@ const Register = ({
     const value = evt.target.value;
     setUser((u) => ({ ...u, [name]: value }));
   };
-
   return (
+
     <div>
       <StyledTitle
         divClassName="titleBox"
@@ -196,7 +187,7 @@ const Register = ({
             type="submit"
             text="Sign Up"
             variant="basicButton"
-            disabled={user.email === '' && user.firstName === '' && user.lastName === '' && user.password === '', user.phone === ''}
+            disabled={!isEmail(user.email) || !isAlpha(user.lastName) || !isAlpha(user.firstName) ||  user.password === '' || !isValidPhoneNumber(user.phone)}
             text="Sign Up"
           />
           {loading && <AppSpinner />}
