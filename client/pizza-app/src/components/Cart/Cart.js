@@ -18,6 +18,9 @@ import './Cart.css';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import AppSpinner from '../AppSpinner/AppSpinner';
 
+import isAlpha from 'validator/lib/isAlpha';
+import isEmail from 'validator/lib/isEmail';
+
 /**
  * Cart page component
  * - displays a cart with user or guest information, and pizza information
@@ -42,12 +45,29 @@ const Cart = ({
   previousMenu,
   pizzas,
 }) => {
+
   const [guestData, setGuestData] = useState({
-    first_name: '',
-    last_name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
   });
+
+  const [touched, setTouched] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    phone: false
+  });
+
+  function isValidPhoneNumber(phone) {
+    const test1 = /^\d{10}$/;
+    const test2 = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if (phone.match(test1) || phone.match(test2)) {
+      return true;
+    }
+    return false;
+  }
 
   const userDoesNotExist = !isAuthenticated || user === null;
 
@@ -55,8 +75,8 @@ const Cart = ({
   // Guest view: ensures all input fields are entered
   // User view: true, all fields are pulled from store
   let isValid =
-    guestData.first_name.length !== 0 &&
-    guestData.last_name.length !== 0 &&
+    guestData.firstName.length !== 0 &&
+    guestData.lastName.length !== 0 &&
     guestData.email.length !== 0 &&
     guestData.phone.length !== 0;
 
@@ -64,12 +84,12 @@ const Cart = ({
   // Directs user to the Confirmation page
   const handleClickSubmit = (e) => {
     e.preventDefault();
-    const first_name = guestData.first_name.trim();
-    const last_name = guestData.last_name.trim();
+    const firstName = guestData.firstName.trim();
+    const lastName = guestData.lastName.trim();
     const email = guestData.email.trim();
     const phone = guestData.phone.trim();
 
-    const guest = { first_name, last_name, email, phone };
+    const guest = { firstName, lastName, email, phone };
     setGuest(guest);
 
     if (isAuthenticated) {
@@ -123,23 +143,41 @@ const Cart = ({
           </Form.Label>
           <Col>
             <Form.Control
-              name="first_name"
+              name="firstName"
               type="text"
               placeholder="first name"
-              value={guestData.first_name}
+              value={guestData.firstName}
               onChange={handleChange}
+              isInvalid={touched.firstName && !isAlpha(guestData.firstName)}
+              isValid={isAlpha(guestData.firstName)}
+              onBlur={() => { setTouched({ firstName: true }) }}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter a valid first name.
+        </Form.Control.Feedback>
+            <Form.Control.Feedback>
+              Looks good!
+        </Form.Control.Feedback>
           </Col>
           <Col>
             <Form.Control
-              name="last_name"
+              name="lastName"
               type="text"
               placeholder="last name"
-              value={guestData.last_name}
+              value={guestData.lastName}
               onChange={handleChange}
+              isInvalid={touched.lastName && !isAlpha(guestData.lastName)}
+              isValid={isAlpha(guestData.lastName)}
+              onBlur={() => { setTouched({ lastName: true }) }}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter a valid last name.
+        </Form.Control.Feedback>
+            <Form.Control.Feedback>
+              Looks good!
+        </Form.Control.Feedback>
           </Col>
         </Form.Group>
 
@@ -154,8 +192,18 @@ const Cart = ({
               placeholder="email"
               value={guestData.email}
               onChange={handleChange}
+              onChange={handleChange}
+              isInvalid={touched.email && !isEmail(guestData.email)}
+              isValid={isEmail(guestData.email)}
+              onBlur={() => { setTouched({ email: true }) }}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter a valid email address.
+        </Form.Control.Feedback>
+            <Form.Control.Feedback>
+              Looks good!
+        </Form.Control.Feedback>
           </Col>
         </Form.Group>
 
@@ -170,8 +218,17 @@ const Cart = ({
               placeholder="phone"
               value={guestData.phone}
               onChange={handleChange}
+              isInvalid={touched.phone && !isValidPhoneNumber(guestData.phone)}
+              isValid={isValidPhoneNumber(guestData.phone)}
+              onBlur={() => { setTouched({ phone: true }) }}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter a valid phone number.
+        </Form.Control.Feedback>
+            <Form.Control.Feedback>
+              Looks good!
+        </Form.Control.Feedback>
           </Col>
         </Form.Group>
       </Form>
@@ -239,7 +296,7 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
-          disabled={!isValid}
+          disabled={!isEmail(guestData.email) || !isAlpha(guestData.lastName) || !isAlpha(guestData.firstName) || !isValidPhoneNumber(guestData.phone)}
           text="Submit"
         />
 

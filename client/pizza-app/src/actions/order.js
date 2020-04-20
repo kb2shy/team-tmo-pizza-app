@@ -127,6 +127,7 @@ export const createMemberOrder = (onSuccessEvent) => async (
   });
 
   try {
+    console.log(JSON.stringify(pizzas, null, 2));
     // trigger the create member order resolver
     const result = await apolloClient.mutate({
       mutation: CREATE_MEMBER_ORDER,
