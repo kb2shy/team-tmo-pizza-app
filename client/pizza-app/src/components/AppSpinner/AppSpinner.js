@@ -4,7 +4,7 @@ import { Spinner } from 'react-bootstrap';
 
 const AppSpinner = (props) => {
   return (
-    <Spinner animation="border" style={{ width: '2rem', height: '2rem' }} className="mx-1" />
+    <Spinner animation="border" style={{ width: '2rem', height: '2rem', flexShrink: 0 }} className="mx-1" />
   );
 };
 

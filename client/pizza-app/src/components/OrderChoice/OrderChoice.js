@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import Title from '../Title/Title';
-import BackButton from '../BackButton/BackButton';
 import { connect } from 'react-redux';
 // import { Button } from 'react-bootstrap';
 
@@ -31,13 +30,13 @@ const OrderChoice = (props) => {
 
   const handleOrderHistory = (e) => {
     e.preventDefault();
-    return props.setMenu(2, props.step);
+    return props.setMenu(2);
   };
 
   const handleCreateOrder = (e) => {
     e.preventDefault();
     props.clearPizza();
-    return props.setMenu(3, props.step);
+    return props.setMenu(3);
   };
 
   return (
