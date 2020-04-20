@@ -90,7 +90,6 @@ const pizzaDetails = (pizza, index) => (
 
 export default ({ pizzas }) => (
     <View style={styles.container}>
-        {console.log(pizzas)}
         {pizzaCard(pizzas)}
     </View>
 )
