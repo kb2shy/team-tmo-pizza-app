@@ -44,6 +44,7 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
+  step
 }) => {
 
   const [guestData, setGuestData] = useState({
@@ -258,7 +259,7 @@ const Cart = ({
     e.preventDefault();
     // alert("let's add another");
     clearPizza();
-    previousMenu();
+    setMenu(7, step);
   };
 
   return (
@@ -320,6 +321,7 @@ const mapStateToProps = (state) => {
     guest: state.guest,
     order: state.order,
     pizzas: state.pizzas,
+    step: state.menu.step
   };
 };
 

@@ -26,12 +26,8 @@ class CreatePizza extends React.Component {
     }
 
     //changes store to user input
-    handleChange = (name, item, price = -1) => {
+    handleChange = (name, item) => {
         this.props.setBase(name.toLowerCase(), item);
-    }
-
-    toggleShowCart = () => {
-      
     }
 
     //Adds current pizza to pizzas array and clears current pizza

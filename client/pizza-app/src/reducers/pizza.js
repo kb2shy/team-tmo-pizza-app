@@ -8,6 +8,7 @@ import {
   } from "../config/actionTypes";
   
   const initialState = {
+        name: null,
         size: {type: null},
         crust: {type: null},
         sauce: {type: null},

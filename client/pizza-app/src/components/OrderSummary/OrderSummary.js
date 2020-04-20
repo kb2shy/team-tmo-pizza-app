@@ -14,6 +14,7 @@ const OrderSummary = ({ pizzas }) => {
         return (
           <div key={index}>
             <PizzaCard
+              name={pz.name}
               size={pz.size}
               crust={pz.crust}
               sauce={pz.sauce}

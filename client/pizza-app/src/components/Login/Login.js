@@ -49,7 +49,7 @@ const Login = ({
     evt.preventDefault();
     clearPizza();
     clearPizzas();
-    setMenu(3, step);
+    setMenu(7, step);
   };
 
   const handleChange = (evt) => {
