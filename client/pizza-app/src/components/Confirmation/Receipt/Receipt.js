@@ -74,7 +74,7 @@ const Receipt = ({ order, user, pizzas }) => {
         <Document>
             {console.log(user, pizzas, order)}
             <Page size="LETTER" style={styles.page}>
-                <HeaderReceipt order={order} user={user}/>
+                <HeaderReceipt order={order} user={user} date={dateParser()}/>
             </Page>
         </Document>
     )

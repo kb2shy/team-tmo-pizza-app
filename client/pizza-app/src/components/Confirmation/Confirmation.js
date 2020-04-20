@@ -68,6 +68,11 @@ const Confirmation = (props) => {
     ? props.auth.user.email
     : props.guest.email;
 
+  const fakeOrder = {
+    order_id: 12,
+    createdAt: new Date()
+  }
+
   return (
     <Container
       data-test="component-Confirmation"
@@ -87,7 +92,7 @@ const Confirmation = (props) => {
             <Receipt 
               user={props.auth.isAuthenticated ? props.auth : props.guest}
               pizzas={data.getAllPizzaInfoByOrder}
-              order={props.order}
+              order={fakeOrder}
             />
           </PDFViewer>
           <StyledButton
