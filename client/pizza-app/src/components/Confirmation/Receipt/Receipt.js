@@ -70,7 +70,7 @@ const Receipt = ({ order, user, pizzas }) => {
 
     return (
         <Document>
-            {console.log(pizzas)}
+            {console.log(user, pizzas, order)}
             <Page size="LETTER" style={styles.page}>
                 
             </Page>

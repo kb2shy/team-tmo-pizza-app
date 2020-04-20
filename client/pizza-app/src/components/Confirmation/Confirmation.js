@@ -86,7 +86,8 @@ const Confirmation = (props) => {
           <PDFViewer>
             <Receipt 
               user={props.auth.isAuthenticated ? props.auth : props.guest}
-              pizzas={data.getAllPizzaInfoByOrder} 
+              pizzas={data.getAllPizzaInfoByOrder}
+              order={props.order}
             />
           </PDFViewer>
           <StyledButton
