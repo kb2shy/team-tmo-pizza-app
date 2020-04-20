@@ -45,10 +45,10 @@ const Receipt = ({ order, user, pizzas }) => {
         const day = date.getDate();
         const year = date.getFullYear();
         let hour = date.getHours();
-        const ampm = (hour > 12 ? "pm" : "am");
-        hour = (hour > 12 ? (hour - 12) : hour);
         let minutes = date.getMinutes();
+        hour = (hour > 12 ? (hour - 12) : hour);
         minutes = (minutes < 10 ? `0${minutes}` : minutes);
+        const ampm = ((hour >= 12 && minutes > 0) ? "pm" : "am");
         return `${MONTHS[month]} ${day}, ${year} at ${hour}:${minutes} ${ampm}`;
     }
 

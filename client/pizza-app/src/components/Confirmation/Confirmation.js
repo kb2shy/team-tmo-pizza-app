@@ -24,10 +24,10 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 const Confirmation = (props) => {
 
   const order_id = 12;
-  const { loading, error, data } = useQuery(GET_ALL_PIZZA_INFO_BY_ORDER, { variables: { order_id }});
+  const { loading, error, data } = useQuery(GET_ALL_PIZZA_INFO_BY_ORDER, { variables: { order_id } });
   if (error) return <p>{error.message}</p>;
   if (loading) return <AppSpinner />;
-    
+
   const handleClickHome = (e) => {
     e.preventDefault();
     return props.setMenu(1);
@@ -73,6 +73,29 @@ const Confirmation = (props) => {
     createdAt: new Date()
   }
 
+  const getPDFLink = () => (
+    <PDFDownloadLink
+      document={<Receipt user={props.auth.isAuthenticated ? props.auth : props.guest}
+        pizzas={data.getAllPizzaInfoByOrder}
+        order={fakeOrder} />}
+      fileName={`PizzaOrder-${fakeOrder.order_id}.pdf`}
+      style={{ textDecoration: "none", color: "black" }}
+    >
+      {({ blob, url, loading, error }) => (
+        loading ? 
+          'Loading document...' : 
+          <StyledButton
+            type="button"
+            text="Download receipt"
+            variant="basicButton"
+          >
+            
+          </StyledButton>
+        )
+      }
+    </PDFDownloadLink>
+  )
+
   return (
     <Container
       data-test="component-Confirmation"
@@ -88,13 +111,22 @@ const Confirmation = (props) => {
           <Alert variant="success">Success!</Alert>
           <p>An email has been sent to:</p>
           <p>{userEmail}</p>
-          <PDFViewer>
-            <Receipt 
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <PDFViewer style={{ width: "100%" }}>
+            <Receipt
               user={props.auth.isAuthenticated ? props.auth : props.guest}
               pizzas={data.getAllPizzaInfoByOrder}
               order={fakeOrder}
             />
           </PDFViewer>
+          {getPDFLink()}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           <StyledButton
             type="button"
             onClick={handleClickHome}
