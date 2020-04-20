@@ -91,14 +91,12 @@ export const loadCustomer = () => async (dispatch, getState) => {
     });
 
     const customer = result.data.getCustomerByToken;
-
     dispatch({
       type: USER_LOADED,
       payload: customer,
     });
   } catch (err) {
     console.log('Error in loadCustomer:', err);
-
     dispatch({
       type: AUTH_ERROR,
     });

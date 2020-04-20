@@ -296,7 +296,13 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
-          disabled={!isEmail(guestData.email) || !isAlpha(guestData.lastName) || !isAlpha(guestData.firstName) || !isValidPhoneNumber(guestData.phone)}
+          disabled={
+            !isAuthenticated &&
+            (!isEmail(guestData.email) ||
+              !isAlpha(guestData.lastName) ||
+              !isAlpha(guestData.firstName) ||
+              !isValidPhoneNumber(guestData.phone))
+          }
           text="Submit"
         />
 
