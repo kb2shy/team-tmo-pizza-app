@@ -31,13 +31,13 @@ const OrderChoice = (props) => {
 
   const handleOrderHistory = (e) => {
     e.preventDefault();
-    return props.setMenu(2, props.step);
+    return props.setMenu(2);
   };
 
   const handleCreateOrder = (e) => {
     e.preventDefault();
     props.clearPizza();
-    return props.setMenu(3, props.step);
+    return props.setMenu(3);
   };
 
   return (
