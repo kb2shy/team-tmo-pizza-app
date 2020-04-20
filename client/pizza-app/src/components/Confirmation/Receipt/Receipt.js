@@ -76,6 +76,7 @@ const Receipt = ({ order, user, pizzas }) => {
     return (
         <Document>
             <Page size="LETTER" style={styles.page}>
+                {console.log(user, order, pizzas)}
                 <HeaderReceipt order={order} user={user} date={dateParser()}/>
                 <Text style={styles.text}>Pizza(s): {countAllPizzas()}</Text>
                 <PizzasReceipt pizzas={pizzas}/>

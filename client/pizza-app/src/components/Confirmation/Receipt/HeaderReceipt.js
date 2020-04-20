@@ -33,7 +33,7 @@ export default ({ user, date, order }) => (
         <Text style={styles.title}>CONFIRMATION #{order.order_id}</Text>
         <Text style={styles.subtitle}>Order received: {date}</Text>
         <Text style={styles.title}>Customer Details:</Text>
-        <Text style={styles.subtitle}>{user.firstName} {user.lastName}</Text>
+        <Text style={styles.subtitle}>{user.first_name} {user.last_name}</Text>
         {/* <Text style={styles.subtitle}>{pickupOrDelivery(order.pickup, user.address)}</Text> */}
         <Text style={styles.subtitle}>Email: {user.email}</Text>
     </View>

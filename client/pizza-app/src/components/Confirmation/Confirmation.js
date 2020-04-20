@@ -23,7 +23,7 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 // - The Return to home button
 const Confirmation = (props) => {
 
-  const order_id = 12;
+  const order_id = props.order.order_id;
   const { loading, error, data } = useQuery(GET_ALL_PIZZA_INFO_BY_ORDER, { variables: { order_id } });
   if (error) return <p>{error.message}</p>;
   if (loading) return <AppSpinner />;
@@ -67,17 +67,12 @@ const Confirmation = (props) => {
     ? props.auth.user.email
     : props.guest.email;
 
-  const fakeOrder = {
-    order_id: 12,
-    createdAt: new Date()
-  }
-
   const getPDFLink = () => (
     <PDFDownloadLink
       document={<Receipt user={props.auth.isAuthenticated ? props.auth : props.guest}
         pizzas={data.getAllPizzaInfoByOrder}
-        order={fakeOrder} />}
-      fileName={`PizzaOrder-${fakeOrder.order_id}.pdf`}
+        order={props.order} />}
+      fileName={`PizzaOrder-${props.order.order_id}.pdf`}
       style={{ textDecoration: "none", color: "black" }}
     >
       {({ blob, url, loading, error }) => (
@@ -116,9 +111,9 @@ const Confirmation = (props) => {
         <Col>
           <PDFViewer style={{ width: "100%" }}>
             <Receipt
-              user={props.auth.isAuthenticated ? props.auth : props.guest}
+              user={props.auth.isAuthenticated ? props.auth.user : props.guest}
               pizzas={data.getAllPizzaInfoByOrder}
-              order={fakeOrder}
+              order={props.order}
             />
           </PDFViewer>
           {getPDFLink()}
