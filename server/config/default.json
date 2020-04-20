@@ -1,7 +1,7 @@
 {
   "sendGridAPI": "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",
   "supportEmail": "confirmation@tmopizza.com",
-  "authJWTSecret": "MY_PREFERRED_JWT_SECRET",
+  "authJWTSecret": "MY_PREFERRED_JWT_SECRET1",
   "db": {
     "username": "root",
     "password": "yWThhHvqPsRqGfjcz7G9",
