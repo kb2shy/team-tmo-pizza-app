@@ -135,7 +135,7 @@ async function createAndFillPizza(
     await CheeseSelect.create({ cheese_id, pizza_id });
   }
 
-  // return the pizza id
+  // return the pizza record along with meat ids, cheese ids, and veggie ids.
   return { pizzaRecord, meat_ids, cheese_ids, veggie_ids };
 }
 
