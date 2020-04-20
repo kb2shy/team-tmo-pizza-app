@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_ALL_PIZZA_INFO_BY_ORDER } from '../../config/gqlDefines';
 import { setMenu } from '../../actions/menu';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import PropTypes from 'prop-types';
 
 // Custom Styling
 import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
+import AppSpinner from '../AppSpinner/AppSpinner';
 
 // Confirmation: the confirmation page
 // - Paragraph
@@ -14,6 +18,13 @@ import StyledTitle from '../common/Title/StyledTitle';
 // - Create Account (CR: display for guest)
 // - The Return to home button
 const Confirmation = (props) => {
+
+  const order_id = 12;
+  const { loading, error, data } = useQuery(GET_ALL_PIZZA_INFO_BY_ORDER, { variables: { order_id }});
+  if (error) return <p>{error.message}</p>;
+  if (loading) return <AppSpinner />;
+  if (data) console.log(data);
+  
   const handleClickHome = (e) => {
     e.preventDefault();
     return props.setMenu(1);
@@ -69,15 +80,15 @@ const Confirmation = (props) => {
           <Alert variant="success">Success!</Alert>
           <p>An email has been sent to:</p>
           <p>{userEmail}</p>
+          {/* <PDFViewer>
+
+          </PDFViewer> */}
           <StyledButton
             type="button"
             onClick={handleClickHome}
             text="Return to Home"
             variant="basicButton"
           />
-          {/* <button onClick={handleClickHome}>
-                        Return to Home
-                    </button> */}
         </Col>
       </Row>
       <br />
@@ -100,6 +111,7 @@ const mapStateToProps = (state) => ({
   // uncomment the next line below code and remove duplicate dummy code
   guest: state.guest,
   // guest: { email: "guest@email.com"},
+  order: state.order,
 });
 
 export default connect(mapStateToProps, { setMenu })(Confirmation);
