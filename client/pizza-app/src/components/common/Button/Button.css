@@ -46,7 +46,7 @@
   background-color: #d8dbba;
   border: 5px solid #ce6067;
   color: #f0a9ae;
-   box-shadow: none;
+  box-shadow: none;
   transform: translateY(1px);
 }
 
@@ -82,6 +82,8 @@
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
+
 }
 
 .orderChoiceButton:hover {
@@ -90,6 +92,13 @@
   color: #f0a9ae;
 }
 
+.btn-orderChoiceButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+  box-shadow: none;
+  transform: translateY(1px);
+}
 /* Create Account Button Styling --------------------------------- */
 .btn-createAccountButton {
   color: #fff;
@@ -99,6 +108,8 @@
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
+
 }
 
 .createAccountButton:hover {
