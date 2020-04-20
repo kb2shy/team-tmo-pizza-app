@@ -3,50 +3,54 @@ import {
   PREVIOUS_MENU,
   SET_MENU,
   RESET_MENU,
-  SET_POP_CART
+  CLEAR_PREVIOUS_MENU,
+  SET_POP_CART,
 } from '../config/actionTypes';
 
 const initialState = {
   step: 1,
-  prevStep: [],
-  popCart: false
+  prevSteps: [],
+  popCart: false,
 };
-
-let updatedPrevStep;
 
 const menuReducer = (state = initialState, action) => {
   switch (action.type) {
     case NEXT_MENU:
-      updatedPrevStep = [...state.prevStep];
-      updatedPrevStep.push(action.payload);
       return {
+        ...state,
         step: state.step + 1,
-        prevStep: updatedPrevStep
+        prevSteps: [...state.prevSteps, state.step],
       };
 
     case PREVIOUS_MENU:
-      updatedPrevStep = state.prevStep.slice(0,-1);
-      const lastPrevStep = state.prevStep[state.prevStep.length-1];
-     
-      return {
-        prevStep: updatedPrevStep,
-        step: lastPrevStep,
-      };
+      if (state.prevSteps.length !== 0) {
+        return {
+          ...state,
+          prevSteps: state.prevSteps.slice(0, -1),
+          step: state.prevSteps[state.prevSteps.length - 1],
+        };
+      } else {
+        return state;
+      }
     case SET_MENU:
-      updatedPrevStep = [...state.prevStep];
-      updatedPrevStep.push(action.payload.prevStep);
       return {
-        ...initialState,
-        step: action.payload.step,
-        prevStep: updatedPrevStep
+        ...state,
+        prevSteps: [...state.prevSteps, state.step],
+        step: action.payload,
       };
     case RESET_MENU:
       return {
         ...initialState,
       };
 
+    case CLEAR_PREVIOUS_MENU:
+      return {
+        ...state,
+        prevSteps: [],
+      };
+
     case SET_POP_CART:
-      return {...state, popCart: action.payload};
+      return { ...state, popCart: action.payload };
 
     default:
       return state;

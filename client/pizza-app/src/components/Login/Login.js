@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classes from './Login.module.css';
@@ -27,12 +27,6 @@ const Login = ({
     password: '',
   });
 
-  // useEffect(() => {
-  //   if (isAuthenticated && step === 1) {
-  //     setMenu(2);
-  //   }
-  // }, [step, isAuthenticated]);
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
     clearPizzas();
@@ -49,7 +43,7 @@ const Login = ({
     evt.preventDefault();
     clearPizza();
     clearPizzas();
-    setMenu(3, step);
+    setMenu(3);
   };
 
   const handleChange = (evt) => {
