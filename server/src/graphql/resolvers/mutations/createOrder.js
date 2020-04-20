@@ -10,11 +10,14 @@ const createAndFillPizza = require('./createAndFillPizza');
 
 sgMail.setApiKey(config.get('sendGridAPI'));
 
-let orderConfirmationTemplate = null;
-
-const emailTemplateFile = path.join(
+const guestEmailTemplateFile = path.join(
   __dirname,
-  '../../../templates/orderConfirmationEmail.html'
+  '../../../templates/guest/orderConfirmationEmail.html'
+);
+
+const memberEmailTemplateFile = path.join(
+  __dirname,
+  '../../../templates/member/orderConfirmationEmail.html'
 );
 
 const emailSampleFile = path.join(
@@ -22,10 +25,17 @@ const emailSampleFile = path.join(
   '../../../templates/sampleEmail.html'
 );
 
-// load email template (do asynchronously to prevent delay)
-fs.readFile(emailTemplateFile, 'utf8', function (err, data) {
+let guestConfirmOrderTemplate = null;
+let memberConfirmOrderTemplate = null;
+// load email templates (do asynchronously to prevent delay)
+
+fs.readFile(guestEmailTemplateFile, 'utf8', function (err, data) {
   if (err) throw err;
-  orderConfirmationTemplate = Handlebars.compile(data);
+  guestConfirmOrderTemplate = Handlebars.compile(data);
+});
+fs.readFile(memberEmailTemplateFile, 'utf8', function (err, data) {
+  if (err) throw err;
+  memberConfirmOrderTemplate = Handlebars.compile(data);
 });
 
 /**
@@ -52,8 +62,8 @@ async function createOrder(
   { customer, pizzas },
   { Order, OrderItem, ...context }
 ) {
-  if (!orderConfirmationTemplate) {
-    throw 'Email confirmation template not loaded yet. Please try again later';
+  if (!memberConfirmOrderTemplate || !guestConfirmOrderTemplate) {
+    throw 'Email confirmation template(s) not loaded yet. Please try again later.';
   }
 
   // create pizzas
@@ -105,14 +115,26 @@ async function createOrder(
   const imgData2 = imgData1.replace('data:image/png;base64,', '');
 
   // create a formatted email
-  const html = orderConfirmationTemplate({
-    customer: customer.toJSON(),
-    order: orderRecord.toJSON(),
-    stats: {
-      quantity: pizzasDetails.length,
-      price: totalPrice.toFixed(2),
-    },
-  });
+  let html = null;
+  if (customer.isRegistered) {
+    html = memberConfirmOrderTemplate({
+      customer: customer.toJSON(),
+      order: orderRecord.toJSON(),
+      stats: {
+        quantity: pizzasDetails.length,
+        price: totalPrice.toFixed(2),
+      },
+    });
+  } else {
+    html = guestConfirmOrderTemplate({
+      customer: customer.toJSON(),
+      order: orderRecord.toJSON(),
+      stats: {
+        quantity: pizzasDetails.length,
+        price: totalPrice.toFixed(2),
+      },
+    });
+  }
 
   // store the generated html for sampling purposes
   // fs.writeFile(emailSampleFile, html, (err) => {
