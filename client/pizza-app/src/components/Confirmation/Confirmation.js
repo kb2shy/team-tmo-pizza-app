@@ -42,7 +42,6 @@ const Confirmation = (props) => {
     let userEmail = props.auth.isAuthenticated
       ? props.auth.user.email
       : props.guest.email;
-    console.log(userEmail);
 
     if (!props.auth.isAuthenticated && userEmail) {
       return (

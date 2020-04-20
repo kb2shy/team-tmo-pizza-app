@@ -1,7 +1,8 @@
 import React from 'react';
-import { Document, Page, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, Text, StyleSheet } from '@react-pdf/renderer';
 
 import HeaderReceipt from './HeaderReceipt';
+import PizzasReceipt from './PizzasReceipt';
 
 // Months variable to convert numerical month to string representation
 const MONTHS = [
@@ -46,9 +47,9 @@ const Receipt = ({ order, user, pizzas }) => {
         const year = date.getFullYear();
         let hour = date.getHours();
         let minutes = date.getMinutes();
+        const ampm = ((hour >= 12 && minutes > 0) ? "pm" : "am");
         hour = (hour > 12 ? (hour - 12) : hour);
         minutes = (minutes < 10 ? `0${minutes}` : minutes);
-        const ampm = ((hour >= 12 && minutes > 0) ? "pm" : "am");
         return `${MONTHS[month]} ${day}, ${year} at ${hour}:${minutes} ${ampm}`;
     }
 
@@ -56,25 +57,27 @@ const Receipt = ({ order, user, pizzas }) => {
      * TODO
      * Calculate total cost of pizzas when cost field updated with pizza data
      */
-    // UnComment below when cost field added to pizza object
+    // Un-comment below statement when cost field added to pizza object
     // const calculateTotal = () => {
     //     return order.pizzas.reduce((total, pizza) => total + pizza.cost, 0);
     // }
 
-     /**
+    /**
       * TODO
       * Calculate total quantities of pizzas when quantity field updated with pizzas data
       */
-     // Uncomment below when quantity field added to pizza object
-    //  const calculatePizzas = (pizzas) => {
-    //     return order.pizzas.reduce((total, pizza) => total + pizza.quantity, 0);
-    // }
+    // Delete 1st return statement and un-comment 2nd return statement when quantity field added to pizza object
+    const countAllPizzas = () => {
+        return pizzas.length;
+        // return order.pizzas.reduce((total, pizza) => total + pizza.quantity, 0);
+    }
 
     return (
         <Document>
-            {console.log(user, pizzas, order)}
             <Page size="LETTER" style={styles.page}>
                 <HeaderReceipt order={order} user={user} date={dateParser()}/>
+                <Text style={styles.text}>Pizza(s): {countAllPizzas()}</Text>
+                <PizzasReceipt pizzas={pizzas}/>
             </Page>
         </Document>
     )
