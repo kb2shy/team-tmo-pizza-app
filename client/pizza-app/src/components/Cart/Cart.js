@@ -118,7 +118,7 @@ const Cart = ({
         <tbody>
           <tr id="Name">
             <td>Name : </td>
-            <td>{user.firstName + ' ' + user.lastName}</td>
+            <td>{user.first_name + ' ' + user.last_name}</td>
           </tr>
           <tr id="Email">
             <td>Email : </td>
