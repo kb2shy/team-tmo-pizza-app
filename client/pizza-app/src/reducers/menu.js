@@ -3,6 +3,7 @@ import {
   PREVIOUS_MENU,
   SET_MENU,
   RESET_MENU,
+  CLEAR_PREVIOUS_MENU,
   SET_POP_CART,
 } from '../config/actionTypes';
 
@@ -40,6 +41,12 @@ const menuReducer = (state = initialState, action) => {
     case RESET_MENU:
       return {
         ...initialState,
+      };
+
+    case CLEAR_PREVIOUS_MENU:
+      return {
+        ...state,
+        prevSteps: [],
       };
 
     case SET_POP_CART:

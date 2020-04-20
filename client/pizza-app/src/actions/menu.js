@@ -3,6 +3,7 @@ import {
   PREVIOUS_MENU,
   SET_MENU,
   RESET_MENU,
+  CLEAR_PREVIOUS_MENU,
   SET_POP_CART,
 } from '../config/actionTypes';
 
@@ -15,6 +16,12 @@ export const nextMenu = () => (dispatch) => {
 export const previousMenu = () => (dispatch) => {
   dispatch({
     type: PREVIOUS_MENU,
+  });
+};
+
+export const clearPreviousMenu = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_PREVIOUS_MENU,
   });
 };
 
@@ -37,14 +44,3 @@ export const setPopCart = (state) => (dispatch) => {
     payload: state,
   });
 };
-
-// const StepMenu = (props) => {
-//   return function setMenu(step, prevStep) {
-//     return (dispatch) => {
-//       dispatch({
-//         type: SET_MENU,
-//         payload: { step: step, prevStep: prevStep },
-//       });
-//     };
-//   }
-// }
