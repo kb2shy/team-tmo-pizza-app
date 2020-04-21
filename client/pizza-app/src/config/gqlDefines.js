@@ -181,7 +181,7 @@ export const CREATE_MEMBER_ORDER = gql`
     $pizzas: [PizzaInput!]!){
       createMemberOrder(pizzas: $pizzas) {
         order_id
-        createdAt
+        created_at
       }
     }
 `;

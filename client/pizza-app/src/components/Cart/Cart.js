@@ -10,7 +10,7 @@ import StyledTitle from '../common/Title/StyledTitle';
 // actions
 import { setMenu, previousMenu } from '../../actions/menu';
 import { setGuest } from '../../actions/guest';
-import { clearPizza, setPizzaQty } from '../../actions/pizza';
+import { clearPizza } from '../../actions/pizza';
 import { clearPizzas } from '../../actions/pizzas';
 import { createGuestOrder, createMemberOrder } from '../../actions/order';
 
@@ -44,8 +44,11 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
+<<<<<<< HEAD
 //  setPizzaQty
   step
+=======
+>>>>>>> 120cfe32cd45cb888e80c72867c0c9ed7d0cae3e
 }) => {
 
   const [guestData, setGuestData] = useState({
