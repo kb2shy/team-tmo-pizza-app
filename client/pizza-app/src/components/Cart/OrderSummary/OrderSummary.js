@@ -27,10 +27,9 @@ class OrderSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantity: '1',
+      quantity: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
     this.editPizza = this.editPizza.bind(this);
   }
 
@@ -43,20 +42,10 @@ class OrderSummary extends React.Component {
 
   handleChange = (e, index) => {
     e.preventDefault();
-    let num = parseInt(e.target.value.trim());
-    this.setState({ quantity: isNaN(num) ? '' : num.toString() });
-  };
-
-  handleBlur = (e, index) => {
-    e.preventDefault();
-    let num = parseInt(e.target.value.trim());
-    if (isNaN(num) || num < 1) {
-      num = 1;
-    } else if (num > 1000) {
-      num = 1000;
-    }
-    this.props.updatePizzaQuantity(index, num);
-    this.setState({ quantity: num.toString() });
+    const value = e.target.value;
+    this.setState({ quantity: value });
+    this.props.updatePizzaQuantity(index, value);
+    this.setState({ quantity: '' });
   };
 
   render() {
@@ -86,10 +75,9 @@ class OrderSummary extends React.Component {
                           <Form.Control
                             name="quantity"
                             type="text"
-                            // placeholder={pz.quantity}
+                            placeholder={pz.quantity}
                             value={this.state.quantity}
                             onChange={(e) => this.handleChange(e, index)}
-                            onBlur={(e) => this.handleBlur(e, index)}
                           />
                         </Col>
                       </Form.Group>
