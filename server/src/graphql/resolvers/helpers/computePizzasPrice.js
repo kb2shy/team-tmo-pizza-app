@@ -107,4 +107,4 @@ async function computePizzasPrice(
   return total_price;
 }
 
-export default computePizzasPrice;
+module.exports = computePizzasPrice;

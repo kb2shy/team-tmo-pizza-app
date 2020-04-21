@@ -23,21 +23,26 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
   const pizzasRed = getState().pizzas;
   const pizzas = [];
   for (let pizza of pizzasRed) {
-    const { size, crust, sauce, toppings } = pizza;
+    const { size, crust, sauce, toppings, qty } = pizza;
 
     const sizeId = size.id;
     const crustId = crust.id;
     const sauceId = sauce.id;
-    const meatsIds = toppings.meats.map(item => item.id);
-    const cheesesIds = toppings.cheeses.map(item => item.id);
-    const veggiesIds = toppings.veggies.map(item => item.id);
-    const toppingsId = {meats: meatsIds, veggies: veggiesIds, cheeses: cheesesIds};
+    const meatsIds = toppings.meats.map((item) => item.id);
+    const cheesesIds = toppings.cheeses.map((item) => item.id);
+    const veggiesIds = toppings.veggies.map((item) => item.id);
+    const toppingsId = {
+      meats: meatsIds,
+      veggies: veggiesIds,
+      cheeses: cheesesIds,
+    };
 
     pizzas.push({
       size: sizeId,
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
+      quantity: qty,
     });
   }
 
@@ -102,21 +107,26 @@ export const createMemberOrder = (onSuccessEvent) => async (
   const pizzasRed = getState().pizzas;
   const pizzas = [];
   for (let pizza of pizzasRed) {
-    const { size, crust, sauce, toppings } = pizza;
+    const { size, crust, sauce, toppings, qty } = pizza;
 
     const sizeId = size.id;
     const crustId = crust.id;
     const sauceId = sauce.id;
-    const meatsIds = toppings.meats.map(item => item.id);
-    const cheesesIds = toppings.cheeses.map(item => item.id);
-    const veggiesIds = toppings.veggies.map(item => item.id);
-    const toppingsId = {meats: meatsIds, veggies: veggiesIds, cheeses: cheesesIds};
+    const meatsIds = toppings.meats.map((item) => item.id);
+    const cheesesIds = toppings.cheeses.map((item) => item.id);
+    const veggiesIds = toppings.veggies.map((item) => item.id);
+    const toppingsId = {
+      meats: meatsIds,
+      veggies: veggiesIds,
+      cheeses: cheesesIds,
+    };
 
     pizzas.push({
       size: sizeId,
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
+      quantity: qty,
     });
   }
 

@@ -3,7 +3,7 @@
 // Thus mutation must not be shared with the end client.
 async function createAndFillPizza(
   root,
-  { pizza: { size, crust, sauce, toppings } },
+  { pizza: { size, crust, sauce, toppings, quantity } },
   {
     Pizza,
     // Cheese,
@@ -111,8 +111,6 @@ async function createAndFillPizza(
   const meat_ids = toppings && toppings.meats ? toppings.meats : [];
   const veggie_ids = toppings && toppings.veggies ? toppings.veggies : [];
   const cheese_ids = toppings && toppings.cheeses ? toppings.cheeses : [];
-  //temp value
-  const quantity = 1
   // create pizza
   const pizzaRecord = await Pizza.create({
     size_id,
