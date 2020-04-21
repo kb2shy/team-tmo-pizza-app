@@ -4,7 +4,7 @@ import PizzaCard from './PizzaCard';
 import StyledButton from '../../common/Button/StyledButton';
 import { Form, Row, Col, Card } from 'react-bootstrap';
 import { setPizza, clearPizza } from '../../../actions/pizza';
-import { removePizza, updatePizzaQuantity } from '../../../actions/pizzas';
+import { removePizza, updatePizzaQuantity, updatePizzaTotalPrice } from '../../../actions/pizzas';
 import { previousMenu } from '../../../actions/menu';
 import './OrderSummary.css';
 
@@ -29,7 +29,7 @@ class OrderSummary extends React.Component {
     this.state = {
       quantity: '',
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleQuantityChange = this.handleQuantityChange.bind(this);
     this.editPizza = this.editPizza.bind(this);
   }
 
@@ -40,11 +40,17 @@ class OrderSummary extends React.Component {
     this.props.previousMenu();
   };
 
-  handleChange = (e, index) => {
+  handleQuantityChange = (e, index) => {
     e.preventDefault();
     const value = e.target.value;
     this.setState({ quantity: value });
     this.props.updatePizzaQuantity(index, value);
+
+    const newTotalPrice = (parseInt(value) * this.props.pizzas[index].totalPrice).toFixed(2);
+    
+    // this works, taking out for now to modularize cart.js
+    //this.props.updatePizzaTotalPrice(index, newTotalPrice);
+   
     this.setState({ quantity: '' });
   };
 
@@ -77,7 +83,7 @@ class OrderSummary extends React.Component {
                             type="text"
                             placeholder={pz.quantity}
                             value={this.state.quantity}
-                            onChange={(e) => this.handleChange(e, index)}
+                            onChange={(e) => this.handleQuantityChange(e, index)}
                           />
                         </Col>
                       </Form.Group>
@@ -121,4 +127,5 @@ export default connect(mapStateToProps, {
   clearPizza,
   previousMenu,
   updatePizzaQuantity,
+  updatePizzaTotalPrice
 })(OrderSummary);

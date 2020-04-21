@@ -3,6 +3,7 @@ import {
   REMOVE_PIZZA,
   CLEAR_PIZZAS,
   UPDATE_PIZZA_QUANTITY,
+  UPDATE_PIZZA_TOTAL_PRICE
 } from '../config/actionTypes';
 
 const initialState = [];
@@ -34,6 +35,16 @@ const pizzasReducer = (state = initialState, action) => {
 
         return pizza;
       });
+
+      case UPDATE_PIZZA_TOTAL_PRICE:
+        return state.map((pizza, index) => {
+          if (index === action.payload.index) {
+            return Object.assign({}, pizza, {
+              totalPrice: action.payload.totalPrice
+            });
+          }
+          return pizza;
+        });
 
     default:
       return state;

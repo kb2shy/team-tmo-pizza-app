@@ -56,6 +56,7 @@ export const ADD_PIZZA = 'ADD_PIZZA';
 export const REMOVE_PIZZA = 'REMOVE_PIZZA';
 export const CLEAR_PIZZAS = 'CLEAR_PIZZAS';
 export const UPDATE_PIZZA_QUANTITY = 'UPDATE_PIZZA_QUANTITY';
+export const UPDATE_PIZZA_TOTAL_PRICE = 'UPDATE_PIZZA_TOTAL_PRICE';
 
 // Order actions
 export const ORDER_PROCESS = 'ORDER_PROCESS';
