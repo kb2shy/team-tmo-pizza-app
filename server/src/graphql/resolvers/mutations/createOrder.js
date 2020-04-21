@@ -1,4 +1,3 @@
-const { Op } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const Handlebars = require('handlebars');
@@ -68,8 +67,8 @@ async function createOrder(
   let orderRecord = null;
   //hardcoded address and delivery is temporary variable until we implement selecting a store location
   try {
-    orderRecord = await Order.create({ 
-      customer_id: customer.customer_id, 
+    orderRecord = await Order.create({
+      customer_id: customer.customer_id,
       delivery: false,
       address_id: 1
     });

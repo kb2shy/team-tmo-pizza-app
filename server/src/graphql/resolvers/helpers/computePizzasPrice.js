@@ -1,3 +1,5 @@
+const { Op } = require('sequelize');
+
 /**
  * A helper function for computing pizzas price efficiently
  * @param {[object]} pizzasDetails [{pizzaRecord, meat_ids, cheese_ids, veggie_ids }, ...]
