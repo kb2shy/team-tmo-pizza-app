@@ -4,8 +4,7 @@ import {
     SET_PIZZA_BASE,
     ADD_TOTAL_PRICE,
     SET_PIZZA,
-    CLEAR_PIZZA, 
-    SET_PIZZA_QTY
+    CLEAR_PIZZA
   } from "../config/actionTypes";
   
   //customer orders
@@ -42,15 +41,6 @@ import {
       type: SET_PIZZA,
       payload: pizza
     });
-  }
-
-  export const setPizzaQty = (pizza) => (dispatch) => {
-    const obj=  {
-      type: SET_PIZZA_QTY,
-      payload: pizza.qty
-    }
-    console.log("in actions/pizza.js: dispatching : ", obj)
-    dispatch(obj);
   }
 
   export const clearPizza = () => (dispatch) => {

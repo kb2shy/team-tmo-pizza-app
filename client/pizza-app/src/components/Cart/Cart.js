@@ -41,7 +41,7 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
-  setPizzaQty
+//  setPizzaQty
 }) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
@@ -73,18 +73,17 @@ const Cart = ({
     const guest = { first_name, last_name, email, phone };
     setGuest(guest);
 
-    // commenting out for now
-    // if (isAuthenticated) {
-    //   createMemberOrder(() => {
-    //     clearPizzas();
-    //     setMenu(5);
-    //   });
-    // } else {
-    //   createGuestOrder(guest, () => {
-    //     clearPizzas();
-    //     setMenu(5);
-    //   });
-    // }
+    if (isAuthenticated) {
+      createMemberOrder(() => {
+        clearPizzas();
+        setMenu(5);
+      });
+    } else {
+      createGuestOrder(guest, () => {
+        clearPizzas();
+        setMenu(5);
+      });
+    }
   };
 
   const handleChange = (e) => {
@@ -225,7 +224,6 @@ const Cart = ({
           </Col>
           <Col>
             <h2>Order Summary:</h2>
-            {/* <h6>Sub-Total: ${calcTotalPrice()}</h6> */}
             <h6>Total: ${calcTotalPrice()}</h6>
 
             <OrderSummary />
@@ -241,7 +239,7 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
-          // disabled={!isValid}
+          disabled={!isValid}
           text="Submit"
         />
         {order.processing && <AppSpinner />}
