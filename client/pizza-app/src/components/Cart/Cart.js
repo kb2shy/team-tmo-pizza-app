@@ -44,10 +44,7 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
-<<<<<<< HEAD
-=======
 //  setPizzaQty
->>>>>>> dfb56371f8403b026eea34847ffda880825388d0
   step
 }) => {
 
