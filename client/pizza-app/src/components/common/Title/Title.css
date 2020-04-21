@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Diplomata&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Adamina|Allura|Courgette|Lobster+Two|Yellowtail&display=swap');
 /* different className styling --------------------------------- */
 .homeTitleTop {
   font-family: 'Diplomata SC', cursive;
@@ -15,6 +16,8 @@
 
 .cursiveTitle {
   font-family: 'Dancing Script', cursive;
+    text-shadow: 4px 2px 3px rgba(27, 6, 6, 0.973);
+
   font-size: 2.5em;
   display: block;
   text-transform: capitalize;
@@ -52,7 +55,13 @@ font-family: 'Courgette', cursive;  font-size: 2.5em;
   color: #fbffda;
   padding: 15px;
 }
-
+.registerTitle{
+  font-family: 'Allura', cursive;
+  font-size: 5rem;
+  text-shadow: 4px 2px 3px rgba(27, 6, 6, 0.973);
+  display: block;
+  color: #f7ddaf;
+}
 /* divClassName styling --------------------------------- */
 .titleBox {
   background-color: #a44939;
@@ -64,12 +73,25 @@ font-family: 'Courgette', cursive;  font-size: 2.5em;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin:  auto;
+  margin: auto;
   padding-top: 25px;
   padding-bottom: 25px;
   position: relative;
 }
-
+.titleBoxRegister{
+  background-color: #a44939;
+  color: white;
+  width: 60%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  position: relative;
+  box-shadow: 5px 5px 10px 3px rgba(46, 35, 21, 0.438);
+}
 /* default heading styling --------------------------------- */
 h1 {
   justify-content: center;
