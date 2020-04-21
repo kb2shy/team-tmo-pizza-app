@@ -42,13 +42,14 @@ module.exports = {
     //creates a pizza with basic info (size, sauce, crust)
     async createPizza(
       root,
-      { size_id, crust_id, sauce_id},
+      { size_id, crust_id, sauce_id, quantity },
       { Pizza }
     ) {
       return await Pizza.create({
         size_id,
         crust_id,
-        sauce_id
+        sauce_id,
+        quantity
       }).catch(errHandler);
     },
     //sets a veggie selection for a pizza
@@ -70,8 +71,14 @@ module.exports = {
       return await OrderItem.create({ order_id, pizza_id }).catch(errHandler);
     },
     //creates an order for a customer
-    async createOrder(root, { customer_id }, { Order }) {
-      return await Order.create({ customer_id }).catch(errHandler);
+    async createOrder(root, { customer_id, delivery, address_id }, { Order }) {
+      return await Order.create({ customer_id, delivery, address_id }).catch(errHandler);
     },
+
+    async createAddress(root, { street, city, state, zip }, { Address }) {
+      return await Address.create({
+        street, city, state, zip
+      }).catch(errHandler)
+    }
   },
 };

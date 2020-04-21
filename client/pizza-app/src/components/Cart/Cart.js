@@ -10,12 +10,12 @@ import StyledTitle from '../common/Title/StyledTitle';
 // actions
 import { setMenu, previousMenu } from '../../actions/menu';
 import { setGuest } from '../../actions/guest';
-import { clearPizza } from '../../actions/pizza';
+import { clearPizza, setPizzaQty } from '../../actions/pizza';
 import { clearPizzas } from '../../actions/pizzas';
 import { createGuestOrder, createMemberOrder } from '../../actions/order';
 
 import './Cart.css';
-import OrderSummary from '../OrderSummary/OrderSummary';
+import OrderSummary from './OrderSummary/OrderSummary';
 import AppSpinner from '../AppSpinner/AppSpinner';
 
 import isAlpha from 'validator/lib/isAlpha';
@@ -44,7 +44,11 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
+<<<<<<< HEAD
   step
+=======
+//  setPizzaQty
+>>>>>>> e5f746aeb7a2425207a91488740966ed0bfb4900
 }) => {
 
   const [guestData, setGuestData] = useState({
@@ -109,6 +113,7 @@ const Cart = ({
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    console.log(`Cart.js: handleChange: [name]:value = ${name}:${value}`)
     setGuestData((d) => ({ ...d, [name]: value }));
   };
 
@@ -257,7 +262,6 @@ const Cart = ({
 
   const handleAddAnotherPizza = (e) => {
     e.preventDefault();
-    // alert("let's add another");
     clearPizza();
     setMenu(7, step);
   };
@@ -281,7 +285,6 @@ const Cart = ({
           </Col>
           <Col>
             <h2>Order Summary:</h2>
-            {/* <h6>Sub-Total: ${calcTotalPrice()}</h6> */}
             <h6>Total: ${calcTotalPrice()}</h6>
 
             <OrderSummary />
@@ -306,14 +309,6 @@ const Cart = ({
           }
           text="Submit"
         />
-
-        {/* <Button
-          variant="primary"
-          onClick={handleClickSubmit}
-          disabled={!isValid}
-        >
-          Submit
-        </Button> */}
         {order.processing && <AppSpinner />}
       </div>
     </div>

@@ -2,7 +2,8 @@ const { AuthenticationError } = require('apollo-server');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op; //allows you to query using joins on sequelize
 const getTokenByCustomer = require('./queries/getTokenByCustomer');
-const getAllPizzaInfoByOrder = require('./queries/getAllPizzaInfoByOrder');
+const getAllOrderInfoByOrderId = require('./queries/getAllOrderInfoByOrderId')
+const getToppingsCountByCustomerId = require('./queries/getToppingsCountByCustomerId.js')
 
 const errHandler = (err) => {
   console.error('Error: ', err);
@@ -202,6 +203,7 @@ module.exports = {
         },
       }).catch(errHandler);
     },
-    getAllPizzaInfoByOrder,
+    getAllOrderInfoByOrderId,
+    getToppingsCountByCustomerId
   },
 };

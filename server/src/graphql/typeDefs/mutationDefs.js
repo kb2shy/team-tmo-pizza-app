@@ -56,13 +56,23 @@ const mutations = `
 
     createOrder(
       customer_id: Int!
+      delivery: Boolean
+      address_id: Int
     ): Order
 
     createPizza(
       size_id: Int
       crust_id: Int
       sauce_id: Int
+      quantity: Int
     ): Pizza
+
+    createAddress( 
+      street: String
+      city: String
+      state: String
+      zip: String
+    ): Address
 
     createGuestOrder(
       guest: GuestInput!

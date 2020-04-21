@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setBase, clearPizza, addTotalPrice } from '../../actions/pizza';
+import {
+  setBase,
+  clearPizza,
+  addTotalPrice,
+} from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { nextMenu, setPopCart } from '../../actions/menu';
 
@@ -37,9 +41,10 @@ class CreatePizza extends React.Component {
             const currentPizza = this.props.pizza;
             this.props.addPizza({ ...currentPizza, totalPrice});
             this.props.clearPizza()
-            this.props.nextMenu();
+            this.props.nextMenu(this.props.step);
         }
     };
+  
 
   //Calculates total price of pizza
   calcPrice = () => {
@@ -76,7 +81,8 @@ class CreatePizza extends React.Component {
 
         this.setState({message: null});
         return true;
-    }
+    };
+
 
   //Renders topping sections
   render() {
@@ -84,6 +90,7 @@ class CreatePizza extends React.Component {
       <div className="centerDiv">
         {this.props.popCart ? <PopCart/> : null}
         <StyledTitle text="Create Your Pizza" className="basicTitle" />
+        <div className='baseDropdownContainer'>
         <BaseDropDown
           value={this.props.pizza.size.type || 'Choose Size'}
           type={'Size'}
@@ -102,33 +109,47 @@ class CreatePizza extends React.Component {
           options={this.props.sauces}
           handleChange={this.handleChange}
         />
+        </div>
 
-                <table className="toppingTable">
-                    <tbody>
-                        <tr>
-                            <td><p>Additional Cheeses</p></td>
-                            <td><Toppings type={'Cheeses'} /></td>
-                        </tr>
-                        <tr>
-                            <td><p>Veggies</p></td>
-                            <td><Toppings type={'Veggies'} /></td>
-                        </tr>
-                        <tr>
-                            <td><p>Meats</p></td>
-                            <td><Toppings type={'Meats'} /></td>
-                        </tr>
-                    </tbody>
-                </table>
-                {/* <Button onClick={this.handleSubmit}>Add to Cart</Button> */}
-                <div style={{color: 'red'}}>{this.state.message}</div>
-                <StyledButton
-                    variant="basicButton"
-                    text="Add to Cart"
-                    onClick={this.handleSubmit}
-                />
-            </div>
-        );
-    }
+
+        <table className="toppingTable">
+          <tbody>
+            <tr>
+              <td>
+                <p>Additional Cheeses</p>
+              </td>
+              <td>
+                <Toppings type={'Cheeses'} />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>Veggies</p>
+              </td>
+              <td>
+                <Toppings type={'Veggies'} />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>Meats</p>
+              </td>
+              <td>
+                <Toppings type={'Meats'} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {/* <Button onClick={this.handleSubmit}>Add to Cart</Button> */}
+        <div style={{ color: 'red' }}>{this.state.message}</div>
+        <StyledButton
+          variant="basicButton"
+          text="Add to Cart"
+          onClick={this.handleSubmit}
+        />
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
