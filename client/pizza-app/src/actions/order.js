@@ -23,7 +23,7 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
   const pizzasRed = getState().pizzas;
   const pizzas = [];
   for (let pizza of pizzasRed) {
-    const { size, crust, sauce, toppings, qty } = pizza;
+    const { size, crust, sauce, toppings, quantity } = pizza;
 
     const sizeId = size.id;
     const crustId = crust.id;
@@ -42,7 +42,7 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
-      quantity: qty,
+      quantity,
     });
   }
 
@@ -107,7 +107,7 @@ export const createMemberOrder = (onSuccessEvent) => async (
   const pizzasRed = getState().pizzas;
   const pizzas = [];
   for (let pizza of pizzasRed) {
-    const { size, crust, sauce, toppings, qty } = pizza;
+    const { size, crust, sauce, toppings, quantity } = pizza;
 
     const sizeId = size.id;
     const crustId = crust.id;
@@ -126,7 +126,7 @@ export const createMemberOrder = (onSuccessEvent) => async (
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
-      quantity: qty,
+      quantity,
     });
   }
 
