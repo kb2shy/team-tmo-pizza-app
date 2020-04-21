@@ -2,18 +2,18 @@ const mutations = `
     type Mutation{
 
     createCrustOp(crust_type: String!): Crust!
-    
+
     createSauceOp(sauce_type: String!): Sauce!
 
     createCheeseOp(
       cheese_type: String!
       cheese_price: Float!
-    ): Cheese! 
-    
+    ): Cheese!
+
     createSizeOp(
       size_type: String!
       size_price: Float
-    ): Size! 
+    ): Size!
 
     createMeatOp(
       meat_type: String!
@@ -26,17 +26,17 @@ const mutations = `
     ): Veggie!
 
     setVeggieSelection(
-      veggie_id: Int! 
+      veggie_id: Int!
       pizza_id: Int!
     ): VeggieSelection
 
     setMeatSelection(
-      meat_id: Int! 
+      meat_id: Int!
       pizza_id: Int!
     ): MeatSelection
 
     setCheeseSelection(
-      cheese_id: Int! 
+      cheese_id: Int!
       pizza_id: Int!
     ): CheeseSelection
 
@@ -51,7 +51,7 @@ const mutations = `
       phone: String!
       email: String!
       password: String
-      isRegistered: Boolean 
+      registered: Boolean
     ): Customer
 
     createOrder(
@@ -67,7 +67,7 @@ const mutations = `
       quantity: Int
     ): Pizza
 
-    createAddress( 
+    createAddress(
       street: String
       city: String
       state: String

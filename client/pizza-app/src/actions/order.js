@@ -53,9 +53,8 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
       variables: { guest, pizzas },
     });
 
-    console.log(result);
-
     const order = result.data.createGuestOrder;
+    console.log('RESULT: ' + order);
 
     if (!order) {
       throw new Error('Failed to create a guest order.');

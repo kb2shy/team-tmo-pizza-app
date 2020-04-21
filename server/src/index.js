@@ -76,8 +76,8 @@ Address.hasMany(Order, { foreignKey: { name: 'address_id', allowNull: false }, o
 Order.belongsTo(Address, { foreignKey: 'address_id' })
 
 //creates fk on store table with address_id
-Address.hasMany(Store, { foreignKey: { name: 'address_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-Store.belongsTo(Address, { foreignKey: 'address_id' })
+Address.hasMany(Store, { foreignKey: { name: 'address_id', allowNull: true }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+Store.belongsTo(Address, { foreignKey: 'address_id', allowNull: true })
 
 //creates apollo server, passing db models as context 
 const server = new ApolloServer({
@@ -85,7 +85,7 @@ const server = new ApolloServer({
   resolvers,
   context: (integrationContext) => ({
     Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size,
-    MeatSelect: MeatSelection, VeggieSelect: VeggieSelection, OrderItem, CheeseSelect: CheeseSelection,
+    MeatSelection, VeggieSelection, OrderItem, CheeseSelection,
     Address, Store,
     ...authContext(integrationContext)
   }),

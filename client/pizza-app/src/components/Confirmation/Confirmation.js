@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_ALL_PIZZA_INFO_BY_ORDER } from '../../config/gqlDefines';
+import { GET_ALL_ORDER_INFO_BY_ORDER_ID } from '../../config/gqlDefines';
 import { setMenu } from '../../actions/menu';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 
@@ -24,10 +24,11 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 const Confirmation = (props) => {
 
   const order_id = props.order.order_id;
-  const { loading, error, data } = useQuery(GET_ALL_PIZZA_INFO_BY_ORDER, { variables: { order_id } });
+  const { loading, error, data } = useQuery(GET_ALL_ORDER_INFO_BY_ORDER_ID, { variables: { order_id } });
   if (error) return <p>{error.message}</p>;
   if (loading) return <AppSpinner />;
 
+ // console.log()
   const handleClickHome = (e) => {
     e.preventDefault();
     return props.setMenu(1);
@@ -70,7 +71,7 @@ const Confirmation = (props) => {
   const getPDFLink = () => (
     <PDFDownloadLink
       document={<Receipt user={props.auth.isAuthenticated ? props.auth.user : props.guest}
-      pizzas={data.getAllPizzaInfoByOrder}
+      pizzas={data.getAllOrderInfoByOrderId}
       order={props.order} />}
       fileName={`PizzaOrder-${props.order.order_id}.pdf`}
       style={{ textDecoration: "none", color: "black" }}
@@ -112,7 +113,7 @@ const Confirmation = (props) => {
           <PDFViewer style={{ width: "100%" }}>
             <Receipt
               user={props.auth.isAuthenticated ? props.auth.user : props.guest}
-              pizzas={data.getAllPizzaInfoByOrder}
+              pizzas={data.getAllOrderInfoByOrderId}
               order={props.order}
             />
           </PDFViewer>
