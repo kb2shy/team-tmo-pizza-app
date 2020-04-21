@@ -1,8 +1,10 @@
+const { AuthenticationError } = require('apollo-server');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op; //allows you to query using joins on sequelize
 const getTokenByCustomer = require('./queries/getTokenByCustomer');
 const getAllOrderInfoByOrderId = require('./queries/getAllOrderInfoByOrderId')
 const getToppingsCountByCustomerId = require('./queries/getToppingsCountByCustomerId.js')
+
 const errHandler = (err) => {
   console.error('Error: ', err);
 };
@@ -23,18 +25,14 @@ module.exports = {
             },
           });
         } catch (err) {
-          console.log(err);
-          return null;
+          throw new AuthenticationError('Invalid credentials');
         }
+      } else {
+        throw new AuthenticationError('Invalid credentials');
       }
-      return null;
     },
     //gets all basic pizza data (size, crust, sauce, cheese)
-    async getAllPizzas(
-      root,
-      args,
-      { Pizza, Size, Crust, Sauce}
-    ) {
+    async getAllPizzas(root, args, { Pizza, Size, Crust, Sauce }) {
       return await Pizza.findAll({
         include: [Size, Crust, Sauce],
       }).catch((err) => console.log(err));
@@ -46,7 +44,7 @@ module.exports = {
     async getAllPizzasByCustomer(
       root,
       { customer_id },
-      { OrderItem, Customer, Order, Pizza, Size, Crust, Sauce}
+      { OrderItem, Customer, Order, Pizza, Size, Crust, Sauce }
     ) {
       const res1 = await Order.findAll({
         attributes: ['order_id'],
@@ -93,7 +91,7 @@ module.exports = {
     async getAllPizzasByOrder(
       root,
       { order_id },
-      { Order, OrderItem, Pizza, Size, Crust, Sauce}
+      { Order, OrderItem, Pizza, Size, Crust, Sauce }
     ) {
       const res = await OrderItem.findAll({
         attributes: ['pizza_id'],

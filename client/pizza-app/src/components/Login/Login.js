@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classes from './Login.module.css';
@@ -11,6 +11,7 @@ import { clearPizza } from '../../actions/pizza';
 import { loginCustomer } from '../../actions/auth';
 import { setMenu } from '../../actions/menu';
 import { clearPizzas } from '../../actions/pizzas';
+import isEmail from 'validator/lib/isEmail';
 
 const Login = ({
   loginCustomer,
@@ -26,27 +27,23 @@ const Login = ({
     password: '',
   });
 
-  // useEffect(() => {
-  //   if (isAuthenticated && step === 1) {
-  //     setMenu(2);
-  //   }
-  // }, [step, isAuthenticated]);
-
-  const isValid = user.email.length !== 0 && user.password.length !== 0;
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
     clearPizzas();
-    const email = user.email.trim();
-    const password = user.password;
-    loginCustomer({ email, password });
+    loginCustomer({ email: user.email.trim(), password: user.password });
   };
+
+  const [touched, setTouched] = useState({
+    email: false,
+    password: false
+  });
+
 
   const handleGuestOrderClick = (evt) => {
     evt.preventDefault();
     clearPizza();
     clearPizzas();
-    setMenu(3, step);
+    setMenu(3);
   };
 
   const handleChange = (evt) => {
@@ -67,7 +64,14 @@ const Login = ({
             placeholder="Enter email"
             value={user.email}
             onChange={handleChange}
+            isInvalid={touched.email && !isEmail(user.email)}
+            isValid={isEmail(user.email)}
+            onBlur={() => { setTouched({ email: true }) }}
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please enter a valid email address.
+        </Form.Control.Feedback>
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
           </Form.Text>
@@ -81,7 +85,14 @@ const Login = ({
             placeholder="Password"
             value={user.password}
             onChange={handleChange}
+            isInvalid={touched.password && user.password === ''}
+            isValid={user.password !== ''}
+            onBlur={() => { setTouched({ password: true }) }}
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please enter a password.
+        </Form.Control.Feedback>
         </Form.Group>
         <div className={`d-flex align-items-center ${classes.spacingTop}`}>
           {/* <Button
@@ -95,7 +106,7 @@ const Login = ({
           <StyledButton
             variant="basicButton"
             type="submit"
-            disabled={loading || !isValid}
+            disabled={loading || !isEmail(user.email) || user.password === ''}
             //onClick={}
             text="Sign In"
           />

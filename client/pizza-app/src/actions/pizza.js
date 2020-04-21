@@ -11,21 +11,21 @@ import {
   export const addTopping = (type, item, price) => (dispatch) => {
     dispatch({
       type: ADD_TOPPING,
-      payload: {type, item, price}
+      payload: {type, item}
     });
   };
   
   export const removeTopping = (type, item, price) => (dispatch) => {
     dispatch({
       type: REMOVE_TOPPING,
-      payload: {type, item, price}
+      payload: {type, item}
     });
   };
 
-  export const setBase = (type, item, price) => (dispatch) => {
+  export const setBase = (type, item) => (dispatch) => {
     dispatch({
       type: SET_PIZZA_BASE,
-      payload: {type, item, price}
+      payload: {type, item}
     });
   };
 
@@ -48,3 +48,4 @@ import {
       type: CLEAR_PIZZA
     });
   };
+  

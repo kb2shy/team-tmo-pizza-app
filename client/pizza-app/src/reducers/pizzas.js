@@ -1,4 +1,9 @@
-import { ADD_PIZZA, REMOVE_PIZZA, CLEAR_PIZZAS } from '../config/actionTypes';
+import {
+  ADD_PIZZA,
+  REMOVE_PIZZA,
+  CLEAR_PIZZAS,
+  UPDATE_PIZZA_QTY,
+} from '../config/actionTypes';
 
 const initialState = [];
 
@@ -10,17 +15,27 @@ const initialState = [];
 const pizzasReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PIZZA:
-      /*
-      commenting out old line
-      this added the new pizza to the beginning of the list of pizzas
-      Changed to put new pizza at the end of the list of pizzas
-      */
-      // return [action.payload, ...state];
+      // console.log('pizzasReducer.js: case ADD_PIZZA: action: ', action);
       return [...state, action.payload];
+
     case REMOVE_PIZZA:
       return state.filter((pizza, index) => index !== action.payload);
+
     case CLEAR_PIZZAS:
       return [];
+
+    case UPDATE_PIZZA_QTY:
+      //      console.log('pizzasReducer: UPDATE_PIZZA_QTY: action: ', action);
+      return state.map((pizza, index) => {
+        if (index === action.payload.index) {
+          return Object.assign({}, pizza, {
+            qty: action.payload.qty,
+          });
+        }
+
+        return pizza;
+      });
+
     default:
       return state;
   }

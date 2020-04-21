@@ -6,14 +6,14 @@ const inputDefs = `
     email: String!
   }
   input ToppingsInput {
-    meats: [String!]
-    veggies: [String!]
-    cheeses: [String!]
+    meats: [Int!]
+    veggies: [Int!]
+    cheeses: [Int!]
   }
   input PizzaInput {
-    size: String
-    crust: String
-    sauce: String
+    size: Int
+    crust: Int
+    sauce: Int
     toppings: ToppingsInput
   }
 `;

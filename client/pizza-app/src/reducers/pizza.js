@@ -1,63 +1,75 @@
 import {
-    ADD_TOPPING,
-    REMOVE_TOPPING,
-    SET_PIZZA_BASE,
-    ADD_TOTAL_PRICE,
-    SET_PIZZA,
-    CLEAR_PIZZA
-  } from "../config/actionTypes";
-  
-  const initialState = {
-        size: {type: null},
-        crust: null,
-        sauce: null,
-        toppings: {
-            meats: [],
-            veggies: [],
-            cheeses: []
-        },
-        totalPrice: 0
-  };
-  
-  const pizzaReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case ADD_TOPPING:
-            const addTopping = { ...state.toppings };
-            addTopping[action.payload.type][addTopping[action.payload.type].length] = { type: action.payload.item, price : action.payload.price };
+  ADD_TOPPING,
+  REMOVE_TOPPING,
+  SET_PIZZA_BASE,
+  ADD_TOTAL_PRICE,
+  SET_PIZZA,
+  CLEAR_PIZZA,
+  //SET_PIZZA_QTY,
+} from '../config/actionTypes';
 
-            return { ...state, toppings: addTopping };
-  
-        case REMOVE_TOPPING:
-            const removeTopping = {...state.toppings};
-            removeTopping[action.payload.type] = state.toppings[action.payload.type].filter(topping => {
-                return topping.type !== action.payload.item;
-            });
+const initialState = {
+  size: { type: null },
+  crust: { type: null },
+  sauce: { type: null },
+  toppings: {
+    meats: [],
+    veggies: [],
+    cheeses: [],
+  },
+  qty: 0,
+  totalPrice: 0,
+};
 
-            return { ...state, toppings: removeTopping };
+const pizzaReducer = (state = initialState, action) => {
 
-        case SET_PIZZA_BASE:
-            let {price, item, type} = action.payload;
-            const newBase = { ...state }
-            newBase[type] = (type === 'size') ? { type: item, price } : item;
+  switch (action.type) {
+    case ADD_TOPPING:
+      const addTopping = { ...state.toppings };
+      addTopping[action.payload.type][addTopping[action.payload.type].length] =
+        action.payload.item;
 
-            return newBase;
+      return { ...state, toppings: addTopping };
 
-        case SET_PIZZA:
-            return action.payload;
+    case REMOVE_TOPPING:
+      const removeTopping = { ...state.toppings };
+      removeTopping[action.payload.type] = state.toppings[
+        action.payload.type
+      ].filter((topping) => {
+        return topping.type !== action.payload.item.type;
+      });
 
-        case CLEAR_PIZZA:
-            initialState.toppings.meats = [];
-            initialState.toppings.veggies = [];
-            initialState.toppings.cheeses = [];
-            return initialState;
+      return { ...state, toppings: removeTopping };
 
-        case ADD_TOTAL_PRICE:
-            return { ...state, totalPrice: action.payload };
+    case SET_PIZZA_BASE:
+      let { item, type } = action.payload;
+      const newBase = { ...state };
+      newBase[type] = item;
 
-        default:
-            return state;
-        }
-    };
-  
-  export default pizzaReducer;
-  
+      return newBase;
+
+    case SET_PIZZA:
+      return action.payload;
+
+    case CLEAR_PIZZA:
+      initialState.toppings.meats = [];
+      initialState.toppings.veggies = [];
+      initialState.toppings.cheeses = [];
+      return initialState;
+
+    case ADD_TOTAL_PRICE:
+      return { ...state, totalPrice: action.payload };
+
+      // not used
+    // case SET_PIZZA_QTY:
+    //   // using obj to print out info and check it came in correctly
+    //   const obj = { ...state, qty: action.payload };
+    //   console.log('in reducers/pizza.js: case SET_PIZZA_QTY: returning: ', obj);
+    //   return { ...state, qty: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export default pizzaReducer;

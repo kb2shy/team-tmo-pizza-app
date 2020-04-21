@@ -53,6 +53,7 @@ export const UPDATE_OR_CREATE_CUSTOMER = gql`
 export const GET_MEAT_OPTIONS = gql`
   query {
     getMeatOptions {
+      meat_id
       meat_type
       meat_price
     }
@@ -63,6 +64,7 @@ export const GET_MEAT_OPTIONS = gql`
 export const GET_VEGGIE_OPTIONS = gql`
   query {
     getVeggieOptions {
+      veggie_id
       veggie_type
       veggie_price
     }
@@ -73,6 +75,7 @@ export const GET_VEGGIE_OPTIONS = gql`
 export const GET_CHEESE_OPTIONS = gql`
   query {
     getCheeseOptions {
+      cheese_id
       cheese_type
       cheese_price
     }
@@ -83,6 +86,7 @@ export const GET_CHEESE_OPTIONS = gql`
 export const GET_CRUST_OPTIONS = gql`
   query {
     getCrustOptions {
+      crust_id
       crust_type
     }
   }
@@ -92,6 +96,7 @@ export const GET_CRUST_OPTIONS = gql`
 export const GET_SAUCE_OPTIONS = gql`
   query {
     getSauceOptions {
+      sauce_id
       sauce_type
     }
   }
@@ -101,6 +106,7 @@ export const GET_SAUCE_OPTIONS = gql`
 export const GET_SIZE_OPTIONS = gql`
   query {
     getSizeOptions {
+      size_id
       size_type
       size_price
     }
@@ -175,6 +181,7 @@ export const CREATE_MEMBER_ORDER = gql`
     $pizzas: [PizzaInput!]!){
       createMemberOrder(pizzas: $pizzas) {
         order_id
+        createdAt
       }
     }
 `;

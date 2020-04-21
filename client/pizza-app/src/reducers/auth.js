@@ -19,6 +19,7 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
+  console.log(action)
   const { type, payload } = action;
   switch (type) {
     case AUTH_PROGRESS:

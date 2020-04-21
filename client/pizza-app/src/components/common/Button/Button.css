@@ -8,7 +8,8 @@
   background-color: #fbffda;
   opacity: 1;
   font-family: 'Adamina', serif;
-  margin: 5px;
+  margin: 15px 26px 35px 26px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
 }
 
 .basicButton:hover {
@@ -16,7 +17,13 @@
   border: 5px solid #ce6067;
   color: #f0a9ae;
 }
-
+.btn-basicButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+  box-shadow: none;
+  transform: translateY(2px);
+}
 /* back Button Styling --------------------------------- */
 .btn-backButton {
   color: #eb6d76;
@@ -26,12 +33,21 @@
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
-}
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
 
+}
 .backButton:hover {
   background-color: #d8dbba;
   border: 5px solid #ce6067;
   color: #f0a9ae;
+}
+
+.btn-backButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+  box-shadow: none;
+  transform: translateY(1px);
 }
 
 /* navbar Button Styling --------------------------------- */
@@ -42,13 +58,21 @@
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
+  margin-right: 2em;
+  box-shadow: 0 3px 6px rgb(48, 32, 32);
 }
 .navbarButton:hover {
   background-color: #d8dbba;
   border: 5px solid #ce6067;
   color: #f0a9ae;
 }
-
+.btn-navbarButton:hover {
+  background-color: #d8dbba;
+  color: #f19383;
+  border: 3px solid #fbffda;
+  box-shadow: none;
+  transform: translateY(1px);
+}
 /* Order Choice Button Styling --------------------------------- */
 .btn-orderChoiceButton {
   color: #eb6d76;
@@ -58,6 +82,8 @@
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
+
 }
 
 .orderChoiceButton:hover {
@@ -66,6 +92,13 @@
   color: #f0a9ae;
 }
 
+.btn-orderChoiceButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+  box-shadow: none;
+  transform: translateY(1px);
+}
 /* Create Account Button Styling --------------------------------- */
 .btn-createAccountButton {
   color: #fff;
@@ -75,10 +108,31 @@
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
+
 }
 
 .createAccountButton:hover {
   background-color: #3fecd0;
   border: 5px solid #1c9d87;
+  color: #f0a9ae;
+}
+
+/* Pop-Out Cart Button Styling --------------------------------- */
+.btn-popCartButton {
+  position: 'absolute';
+  left: '10px';
+  color: #eb6d76;
+  border: 5px solid #eb6d76;
+  border-radius: 0px;
+  background-color: #fbffda;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  margin: 5px;
+}
+
+.popCartButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
   color: #f0a9ae;
 }

@@ -9,7 +9,7 @@ import StyledTitle from '../common/Title/StyledTitle'
 import { Navbar, Nav } from 'react-bootstrap';
 import Logout from '../Logout/Logout';
 
-import { setMenu } from '../../actions/menu';
+import { setMenu, setPopCart } from '../../actions/menu';
 
 import logo from '../../assets/logo.svg';
 
@@ -17,15 +17,24 @@ import logo from '../../assets/logo.svg';
 // - Logo
 // - Home button - CR
 // - Log out button - CR
-const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
+const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
   const handleHomeClick = (evt) => {
     evt.preventDefault();
-    setMenu(1, step);
+    setMenu(1);
   };
 
   const handleHomeCart = (evt) => {
     evt.preventDefault();
-    setMenu(4, step);
+    if(step === 3) {
+      setPopCart(true);
+    } else {
+      setMenu(4);
+    }
+  };
+
+  const handleHomeRegister = (evt) => {
+    evt.preventDefault();
+    setMenu(6);
   };
 
   return (
@@ -49,6 +58,15 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto d-flex align-items-center">
+          {step !== 6 && !isAuthenticated && (
+            <StyledButton
+            variant="navbarButton"
+            type="button"
+            onClick={handleHomeRegister}
+            text="Register"
+
+          />
+          )}
           {step !== 1 && (
             <StyledButton
               variant="navbarButton"
@@ -60,16 +78,13 @@ const AppNavbar = ({ isAuthenticated, step, setMenu }) => {
             //   Home
             // </Button>
           )}
-          {isAuthenticated && (
+          {(step !== 1 && step !== 4) && (
             <StyledButton
               variant="navbarButton"
               type="button"
               onClick={handleHomeCart}
               text="Cart"
             />
-            // <Button variant="primary" type="button" onClick={handleHomeCart}>
-            //   Cart
-            // </Button>
           )}
           {isAuthenticated && (
             <div className="ml-1">
@@ -93,4 +108,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { setMenu })(AppNavbar);
+export default connect(mapStateToProps, { setMenu, setPopCart })(AppNavbar);

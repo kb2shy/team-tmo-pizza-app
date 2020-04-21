@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import Title from '../Title/Title';
-import BackButton from '../BackButton/BackButton';
 import { connect } from 'react-redux';
 // import { Button } from 'react-bootstrap';
 
@@ -31,33 +30,33 @@ const OrderChoice = (props) => {
 
   const handleOrderHistory = (e) => {
     e.preventDefault();
-    return props.setMenu(2, props.step);
+    return props.setMenu(2);
   };
 
   const handleCreateOrder = (e) => {
     e.preventDefault();
     props.clearPizza();
-    return props.setMenu(3, props.step);
+    return props.setMenu(3);
   };
 
   return (
     <div className={classes.Body}>
       {/* <br></br> */}
       {/* <div className={classes.Title}> title </div> */}
-      <div>
+      <div className={classes.orderChoiceTitleContainer}>
         <StyledTitle
           divClassName="titleBox"
-          text="Welcome back, "
+          text="WELCOME BACK, "
           className="orderChoiceTitle"
         />
         <StyledTitle
           divClassName="titleBox"
-          text="first last"
+          text="First Last"
           className="cursiveTitle"
         />
       </div>
       <div className={classes.OrderChoice}>
-        <h1>What would you like to do today?</h1>
+        <StyledTitle className='orderChoiceSubtitle ' text='What would you like to do today?'></StyledTitle>
         <div className={classes.ButtonGroup}>
           {/* <br></br> */}
           {/* <Button onClick={handleOrderHistory}>See my order History</Button> */}

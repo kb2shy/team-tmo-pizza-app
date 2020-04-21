@@ -1,5 +1,8 @@
 .centerDiv {
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
 }
 
 .createPizzaTitle {
@@ -24,4 +27,22 @@ td {
 
 label {
     padding-left: 10px;
+}
+.dropdown-mystyle{
+  color: #eb6d76;
+  border: 5px solid #eb6d76;
+  border-radius: 0px;
+  background-color: #fbffda;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  margin: 5px;
+}
+
+.baseDropdownContainer{
+    width: 70%;
+    justify-content: center;
+    justify-content: space-evenly;
+    margin:3.3em auto;
+    display: flex;
+    flex-wrap: wrap;
 }

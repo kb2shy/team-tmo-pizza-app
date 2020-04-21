@@ -13,12 +13,12 @@ import {
   } from "../config/actionTypes";
   
   const initialState = {
-    meats: [{type: '', price: 0, count: 0}], //list from db
-    veggies: [{type: '', price: 0, count: 0}],
-    cheeses: [{type: '', price: 0, count: 0}],
-    sizes: [{type:'', price: 0}],
-    sauces: [],
-    crusts: [],
+    meats: [{id: '', type: '', price: 0, count: 0}], //list from db
+    veggies: [{id: '', type: '', price: 0, count: 0}],
+    cheeses: [{id: '', type: '', price: 0, count: 0}],
+    sizes: [{id: '', type:'', price: 0}],
+    sauces: [{id: '', type:''}],
+    crusts: [{id: '', type:''}],
     pastOrderIds: [],
     pastPizzaIds: []
   };
@@ -82,15 +82,15 @@ import {
 
         case CLEAR_USER_HISTORY:
             const resetMeats = state.meats.map(item => {
-                return {meats: item.meats, count: 0};
+                return { ...item, count: 0};
             })
 
             const resetVeggies = state.veggies.map(item => {
-                return {veggies: item.veggies, count: 0};
+                return { ...item, count: 0};
             })
 
             const resetCheeses = state.cheeses.map(item => {
-                return {cheeses: item.cheeses, count: 0};
+                return { ...item, count: 0};
             })
             return {
                 ...state,

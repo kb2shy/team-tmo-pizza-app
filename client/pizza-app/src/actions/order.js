@@ -25,17 +25,19 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
   for (let pizza of pizzasRed) {
     const { size, crust, sauce, toppings } = pizza;
 
-    const sizeType = size.type;
-    const meatsType = toppings.meats.map(item => item.type);
-    const cheesesType = toppings.cheeses.map(item => item.type);
-    const veggiesType = toppings.veggies.map(item => item.type);
-    const toppingsType = {meats: meatsType, veggies: veggiesType, cheeses: cheesesType};
+    const sizeId = size.id;
+    const crustId = crust.id;
+    const sauceId = sauce.id;
+    const meatsIds = toppings.meats.map(item => item.id);
+    const cheesesIds = toppings.cheeses.map(item => item.id);
+    const veggiesIds = toppings.veggies.map(item => item.id);
+    const toppingsId = {meats: meatsIds, veggies: veggiesIds, cheeses: cheesesIds};
 
     pizzas.push({
-      size: sizeType,
-      crust,
-      sauce,
-      toppings: toppingsType,
+      size: sizeId,
+      crust: crustId,
+      sauce: sauceId,
+      toppings: toppingsId,
     });
   }
 
@@ -45,8 +47,6 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
   });
 
   try {
-    console.log(JSON.stringify(guest, null, 2));
-    console.log(JSON.stringify(pizzas, null, 2));
     // trigger the create guest order resolver
     const result = await apolloClient.mutate({
       mutation: CREATE_GUEST_ORDER,
@@ -60,8 +60,6 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
     if (!order) {
       throw new Error('Failed to create a guest order.');
     }
-
-    console.log(order);
 
     dispatch({
       type: ORDER_SUCCESS,
@@ -107,17 +105,19 @@ export const createMemberOrder = (onSuccessEvent) => async (
   for (let pizza of pizzasRed) {
     const { size, crust, sauce, toppings } = pizza;
 
-    const sizeType = size.type;
-    const meatsType = toppings.meats.map(item => item.type);
-    const cheesesType = toppings.cheeses.map(item => item.type);
-    const veggiesType = toppings.veggies.map(item => item.type);
-    const toppingsType = {meats: meatsType, veggies: veggiesType, cheeses: cheesesType};
+    const sizeId = size.id;
+    const crustId = crust.id;
+    const sauceId = sauce.id;
+    const meatsIds = toppings.meats.map(item => item.id);
+    const cheesesIds = toppings.cheeses.map(item => item.id);
+    const veggiesIds = toppings.veggies.map(item => item.id);
+    const toppingsId = {meats: meatsIds, veggies: veggiesIds, cheeses: cheesesIds};
 
     pizzas.push({
-      size: sizeType,
-      crust,
-      sauce,
-      toppings: toppingsType,
+      size: sizeId,
+      crust: crustId,
+      sauce: sauceId,
+      toppings: toppingsId,
     });
   }
 
@@ -127,6 +127,7 @@ export const createMemberOrder = (onSuccessEvent) => async (
   });
 
   try {
+    console.log(JSON.stringify(pizzas, null, 2));
     // trigger the create member order resolver
     const result = await apolloClient.mutate({
       mutation: CREATE_MEMBER_ORDER,
@@ -143,8 +144,6 @@ export const createMemberOrder = (onSuccessEvent) => async (
     if (!order) {
       throw new Error('Failed to create a member order.');
     }
-
-    console.log(order);
 
     dispatch({
       type: ORDER_SUCCESS,
