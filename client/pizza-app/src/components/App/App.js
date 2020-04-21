@@ -11,6 +11,7 @@ import CreatePizza from '../CreatePizza/CreatePizza';
 import Cart from '../Cart/Cart';
 import Confirmation from '../Confirmation/Confirmation';
 import Register from '../Register/Register';
+import SpecialtyPizzas from '../SpecialtyPizzas/SpecialtyPizzas';
 
 import { loadCustomer } from '../../actions/auth';
 import { getAllToppings } from '../../actions/database';
@@ -48,6 +49,8 @@ class App extends Component {
         return <Confirmation />;
       case 6:
         return <Register />;
+      case 7: 
+        return <SpecialtyPizzas/>;
       default:
         return null;
     }

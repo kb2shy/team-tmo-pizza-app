@@ -60,7 +60,6 @@ class ToppingCard extends React.Component {
     //Renders card with topping name and percentage bar chart
     render() {
         const total = this.props.pastPizzaIds.length;
-
         return (
             <Card
                 id={this.props.item.type}

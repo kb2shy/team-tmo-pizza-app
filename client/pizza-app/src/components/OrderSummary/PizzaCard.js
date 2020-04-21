@@ -67,7 +67,6 @@ const PizzaCard = (props) => {
           </tbody>
         </table>
         {/* <Button onClick={() => editPizza(props.index)}>Edit Pizza</Button> */}
-      <StyledButton text="Edit Pizza" type="Button" variant="basicButton" onClick={()=>editPizza(props.index)}/>
       </div>
     );
   };
@@ -76,6 +75,8 @@ const PizzaCard = (props) => {
     <Card style={style}>
       <Card.Body>
         <Card.Text as={renderOrderInTable} />
+        {console.log(props.name)}
+        {props.name !== null ? null : <StyledButton text="Edit Pizza" type="Button" variant="basicButton" onClick={()=>editPizza(props.index)}/>}
       </Card.Body>
     </Card>
   );
