@@ -58,7 +58,7 @@ const pizzaReducer = (state = initialState, action) => {
 
     case ADD_TOTAL_PRICE:
       return { ...state, totalPrice: action.payload };
-      
+
     default:
       return state;
   }

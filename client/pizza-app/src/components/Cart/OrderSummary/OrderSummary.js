@@ -42,13 +42,8 @@ class OrderSummary extends React.Component {
 
   handleQuantityChange = (e, index) => {
     e.preventDefault();
-    let value = parseInt(e.target.value);
-    if (isNaN(value) || value < 1) {
-      value = 1;
-    } else if (value > 1000) {
-      value = 1000;
-    }
-    this.setState({ quantity: value.toString() });
+    const value = e.target.value;
+    this.setState({ quantity: value });
     this.props.updatePizzaQuantity(index, value);
 
     const newTotalPrice = (parseInt(value) * this.props.pizzas[index].totalPrice).toFixed(2);
@@ -57,6 +52,7 @@ class OrderSummary extends React.Component {
     //this.props.updatePizzaTotalPrice(index, newTotalPrice);
    
     //this.setState({ quantity: '' });
+    this.setState({ quantity: '' });
   };
 
   render() {
