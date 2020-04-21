@@ -1,5 +1,8 @@
 .centerDiv {
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
 }
 
 .createPizzaTitle {
@@ -33,4 +36,13 @@ label {
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
+}
+
+.baseDropdownContainer{
+    width: 70%;
+    justify-content: center;
+    justify-content: space-evenly;
+    margin:3.3em auto;
+    display: flex;
+    flex-wrap: wrap;
 }

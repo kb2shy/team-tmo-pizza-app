@@ -30,9 +30,13 @@ export const SET_GUEST = 'SET_GUEST';
 // pizza actions
 export const ADD_TOPPING = 'ADD_TOPPING';
 export const REMOVE_TOPPING = 'REMOVE_TOPPING';
+export const SET_PIZZA_BASE = 'SET_PIZZA_BASE';
 export const ADD_TOTAL_PRICE = 'ADD_TOTAL_PRICE';
 export const SET_PIZZA = 'SET_PIZZA';
 export const CLEAR_PIZZA = 'CLEAR_PIZZA';
+export const SET_PIZZA_QTY = 'SET_PIZZA_QTY';
+export const INCREMENT_PIZZA_QTY = 'INCREMENT_PIZZA_QTY';
+export const DECREMENT_PIZZA_QTY = 'DECREMENT_PIZZA_QTY';
 
 // Database actions
 export const LOAD_TOPPINGS = 'LOAD_TOPPINGS';
@@ -51,8 +55,8 @@ export const CLEAR_USER_HISTORY = 'CLEAR_USER_HISTORY';
 // Array of Pizzas
 export const ADD_PIZZA = 'ADD_PIZZA';
 export const REMOVE_PIZZA = 'REMOVE_PIZZA';
-export const SET_PIZZA_BASE = 'SET_PIZZA_BASE';
 export const CLEAR_PIZZAS = 'CLEAR_PIZZAS';
+export const UPDATE_PIZZA_QTY = 'UPDATE_PIZZA_QTY';
 
 // Order actions
 export const ORDER_PROCESS = 'ORDER_PROCESS';

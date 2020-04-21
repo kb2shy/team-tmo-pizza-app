@@ -24,6 +24,15 @@ Pizza.init({
         type: DataTypes.INTEGER,
         allowNull: true,
         defaultValue: 1
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: true, 
+        defaultValue: 1
+    },
+    price: {
+        type: DataTypes.FLOAT,
+        allowNull: true
     }
 }, {sequelize, modelName: 'pizza', timestamps: false})
 
