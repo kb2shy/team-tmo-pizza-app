@@ -10,7 +10,7 @@ import StyledTitle from '../common/Title/StyledTitle';
 // actions
 import { setMenu, previousMenu } from '../../actions/menu';
 import { setGuest } from '../../actions/guest';
-import { clearPizza, setPizzaQty } from '../../actions/pizza';
+import { clearPizza } from '../../actions/pizza';
 import { clearPizzas } from '../../actions/pizzas';
 import { createGuestOrder, createMemberOrder } from '../../actions/order';
 
@@ -44,7 +44,6 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
-//  setPizzaQty
 }) => {
 
   const [guestData, setGuestData] = useState({
