@@ -42,10 +42,15 @@ class OrderSummary extends React.Component {
 
   handleChange = (e, index) => {
     e.preventDefault();
-    const value = e.target.value;
-    this.setState({ quantity: value });
+    let value = parseInt(e.target.value);
+    if (isNaN(value) || value < 1) {
+      value = 1;
+    } else if (value > 1000) {
+      value = 1000;
+    }
+    this.setState({ quantity: value.toString() });
     this.props.updatePizzaQuantity(index, value);
-    this.setState({ quantity: '' });
+    // this.setState({ quantity: '' });
   };
 
   render() {
