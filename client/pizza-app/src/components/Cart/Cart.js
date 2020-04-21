@@ -44,11 +44,7 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
-<<<<<<< HEAD
   step
-=======
-//  setPizzaQty
->>>>>>> e5f746aeb7a2425207a91488740966ed0bfb4900
 }) => {
 
   const [guestData, setGuestData] = useState({

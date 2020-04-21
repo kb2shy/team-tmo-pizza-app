@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { setPizza } from '../../actions/pizza';
 import { removePizza } from '../../actions/pizzas';
 import { setMenu } from '../../actions/menu';
@@ -66,7 +66,6 @@ const PizzaCard = (props) => {
             </tr>
           </tbody>
         </table>
-        {/* <Button onClick={() => editPizza(props.index)}>Edit Pizza</Button> */}
       </div>
     );
   };
@@ -75,7 +74,6 @@ const PizzaCard = (props) => {
     <Card style={style}>
       <Card.Body>
         <Card.Text as={renderOrderInTable} />
-        {console.log(props.name)}
         {props.name !== null ? null : <StyledButton text="Edit Pizza" type="Button" variant="basicButton" onClick={()=>editPizza(props.index)}/>}
       </Card.Body>
     </Card>
