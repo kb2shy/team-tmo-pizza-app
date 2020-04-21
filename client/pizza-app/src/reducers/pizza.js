@@ -5,7 +5,6 @@ import {
   ADD_TOTAL_PRICE,
   SET_PIZZA,
   CLEAR_PIZZA,
-  //SET_PIZZA_QTY,
 } from '../config/actionTypes';
 
 const initialState = {
@@ -17,7 +16,7 @@ const initialState = {
     veggies: [],
     cheeses: [],
   },
-  qty: 0,
+  quantity: 0,
   totalPrice: 0,
 };
 
@@ -59,14 +58,7 @@ const pizzaReducer = (state = initialState, action) => {
 
     case ADD_TOTAL_PRICE:
       return { ...state, totalPrice: action.payload };
-
-      // not used
-    // case SET_PIZZA_QTY:
-    //   // using obj to print out info and check it came in correctly
-    //   const obj = { ...state, qty: action.payload };
-    //   console.log('in reducers/pizza.js: case SET_PIZZA_QTY: returning: ', obj);
-    //   return { ...state, qty: action.payload };
-
+      
     default:
       return state;
   }

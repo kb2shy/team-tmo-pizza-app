@@ -21,7 +21,7 @@ async function updateOrCreateCustomer(
   email = email.trim().toLowerCase();
 
   // override registered if password is falsy (null, undefined, '')
-  let isRegistered2 = registered && password ? true : false;
+  let registered2 = registered && password ? true : false;
 
   // query a customer by the given email
   let existingCustomer = null;
@@ -54,7 +54,7 @@ async function updateOrCreateCustomer(
         last_name,
         phone,
         password: passHash,
-        registered: isRegistered2,
+        registered: registered2,
       }); // errHandler not necessary here; see the catch statement below
     } else {
       return await Customer.create({
@@ -63,7 +63,7 @@ async function updateOrCreateCustomer(
         phone,
         email,
         password: passHash,
-        registered: isRegistered2,
+        registered: registered2,
       }); // errHandler not necessary here; see the catch statement below
     }
   } catch (err) {

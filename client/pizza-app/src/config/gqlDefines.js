@@ -22,7 +22,7 @@ export const GET_CUSTOMER_BY_TOKEN = gql`
 `;
 
 // Used for creating a new customer or getting and updating an existing
-// customer if `isRegistered` flag (for query and existing) is false.
+// customer if `registered` flag (for query and existing) is false.
 export const UPDATE_OR_CREATE_CUSTOMER = gql`
   mutation UpdateOrCreateCustomer(
     $first_name: String!
@@ -122,7 +122,7 @@ export const GET_CUST_ORDERS = gql`
   }
 `;
 
-//returns array of all pizza 
+//returns array of all pizza
 export const GET_PIZZAS_BY_ORDER = gql`
   query GetAllPizzasByOrder($order_id: Int!) {
     getAllPizzasByOrder(order_id: $order_id) {
@@ -181,7 +181,7 @@ export const CREATE_MEMBER_ORDER = gql`
     $pizzas: [PizzaInput!]!){
       createMemberOrder(pizzas: $pizzas) {
         order_id
-        createdAt
+        created_at
       }
     }
 `;

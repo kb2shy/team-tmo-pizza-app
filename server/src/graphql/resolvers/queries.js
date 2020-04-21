@@ -167,7 +167,7 @@ module.exports = {
     async getRegisteredUsers(root, args, { Customer }) {
       return await Customer.findAll({
         where: {
-          isRegistered: true,
+          registered: true,
         },
       }).catch(errHandler);
     },
@@ -175,7 +175,7 @@ module.exports = {
     async getGuests(root, args, { Customer }) {
       return await Customer.findAll({
         where: {
-          isRegistered: null,
+          registered: null,
         },
       }).catch(errHandler);
     },

@@ -2,7 +2,7 @@ import {
   ADD_PIZZA,
   REMOVE_PIZZA,
   CLEAR_PIZZAS,
-  UPDATE_PIZZA_QTY,
+  UPDATE_PIZZA_QUANTITY,
 } from '../config/actionTypes';
 
 const initialState = [];
@@ -24,12 +24,11 @@ const pizzasReducer = (state = initialState, action) => {
     case CLEAR_PIZZAS:
       return [];
 
-    case UPDATE_PIZZA_QTY:
-      //      console.log('pizzasReducer: UPDATE_PIZZA_QTY: action: ', action);
+    case UPDATE_PIZZA_QUANTITY:
       return state.map((pizza, index) => {
         if (index === action.payload.index) {
           return Object.assign({}, pizza, {
-            qty: action.payload.qty,
+            quantity: action.payload.quantity,
           });
         }
 

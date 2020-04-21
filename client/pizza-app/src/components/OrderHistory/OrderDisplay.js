@@ -16,7 +16,7 @@ const OrderDisplay = (props) => {
             <Row key={'key1_'+order_id}><h5 >Order # {order_id}</h5></Row>
             <Row key={'key2_'+order_id}>
                 {
-                    data.getAllPizzaInfoByOrder.map((pizza, index) => {
+                    data.getAllOrderInfoByOrderId.pizzas.map((pizza, index) => {
                         return (
                             <Col key={'key_col_'+order_id+index}>
                                 <Card style={{ width: '18rem' }} key={'key_card_'+order_id + index}>
