@@ -1,7 +1,8 @@
 .main {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  background:radial-gradient(closest-side, #f5f5c1, #f3ddc1, #f8bc7c);
+  min-height: 100vh; /* Added by Anton to allow the background to fill entire screen */
 }
 
 .header {

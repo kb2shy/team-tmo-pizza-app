@@ -2,7 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Diplomata+SC&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Diplomata&display=swap');
 /* different className styling --------------------------------- */
 .homeTitleTop {
   font-family: 'Diplomata SC', cursive;
@@ -16,17 +17,27 @@
   font-family: 'Dancing Script', cursive;
   font-size: 2.5em;
   display: block;
+  text-transform: capitalize;
+  color: #f7ddaf;
+  font-size: 3.3em;
   /* color: #fbffda; */
 }
 
 .orderChoiceTitle {
-  font-family: 'Playfair Display SC', serif;
-  font-size: 2.5em;
+font-family: 'Diplomata', cursive;  font-size: 2.5em;
   display: block;
   /* padding-top: 10%; */
   /* color: #fbffda; */
 }
 
+.orderChoiceSubtitle {
+font-family: 'Courgette', cursive;  font-size: 2.5em;
+  display: block;
+  color: #000;
+  margin-bottom: 2.5em;
+  margin-top: 6.5em;
+
+}
 .basicTitle {
   font-family: 'Playfair Display', serif;
   font-size: 2.5em;
@@ -46,15 +57,17 @@
 .titleBox {
   background-color: #a44939;
   color: white;
-  width: 40%;
+  width: 100%;
   /* border: 1px solid black; */
   /* margin: 20px; */
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin:  auto;
   padding-top: 25px;
+  padding-bottom: 25px;
+  position: relative;
 }
 
 /* default heading styling --------------------------------- */

@@ -3,6 +3,8 @@ export const NEXT_MENU = 'NEXT_MENU';
 export const PREVIOUS_MENU = 'PREVIOUS_MENU';
 export const SET_MENU = 'SET_MENU';
 export const RESET_MENU = 'RESET_MENU';
+export const CLEAR_PREVIOUS_MENU = 'CLEAR_PREVIOUS_MENU';
+export const SET_POP_CART = 'SET_POP_CART';
 
 // Authentication
 export const AUTH_PROGRESS = 'AUTH_PROGRESS';

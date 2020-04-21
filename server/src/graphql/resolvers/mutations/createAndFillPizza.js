@@ -136,7 +136,7 @@ async function createAndFillPizza(
   }
 
   // return the pizza id
-  return pizzaRecord;
+  return { pizzaRecord, meat_ids, cheese_ids, veggie_ids };
 }
 
 module.exports = createAndFillPizza;

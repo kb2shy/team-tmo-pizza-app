@@ -18,6 +18,9 @@ import './Cart.css';
 import OrderSummary from './OrderSummary/OrderSummary';
 import AppSpinner from '../AppSpinner/AppSpinner';
 
+import isAlpha from 'validator/lib/isAlpha';
+import isEmail from 'validator/lib/isEmail';
+
 /**
  * Cart page component
  * - displays a cart with user or guest information, and pizza information
@@ -43,12 +46,29 @@ const Cart = ({
   pizzas,
 //  setPizzaQty
 }) => {
+
   const [guestData, setGuestData] = useState({
     first_name: '',
     last_name: '',
     email: '',
     phone: '',
   });
+
+  const [touched, setTouched] = useState({
+    first_name: false,
+    last_name: false,
+    email: false,
+    phone: false
+  });
+
+  function isValidPhoneNumber(phone) {
+    const test1 = /^\d{10}$/;
+    const test2 = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if (phone.match(test1) || phone.match(test2)) {
+      return true;
+    }
+    return false;
+  }
 
   const userDoesNotExist = !isAuthenticated || user === null;
 
@@ -130,8 +150,17 @@ const Cart = ({
               placeholder="first name"
               value={guestData.first_name}
               onChange={handleChange}
+              isInvalid={touched.first_name && !isAlpha(guestData.first_name)}
+              isValid={isAlpha(guestData.first_name)}
+              onBlur={() => { setTouched({ first_name: true }) }}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter a valid first name.
+        </Form.Control.Feedback>
+            <Form.Control.Feedback>
+              Looks good!
+        </Form.Control.Feedback>
           </Col>
           <Col>
             <Form.Control
@@ -140,8 +169,17 @@ const Cart = ({
               placeholder="last name"
               value={guestData.last_name}
               onChange={handleChange}
+              isInvalid={touched.last_name && !isAlpha(guestData.last_name)}
+              isValid={isAlpha(guestData.last_name)}
+              onBlur={() => { setTouched({ last_name: true }) }}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter a valid last name.
+        </Form.Control.Feedback>
+            <Form.Control.Feedback>
+              Looks good!
+        </Form.Control.Feedback>
           </Col>
         </Form.Group>
 
@@ -156,8 +194,18 @@ const Cart = ({
               placeholder="email"
               value={guestData.email}
               onChange={handleChange}
+              onChange={handleChange}
+              isInvalid={touched.email && !isEmail(guestData.email)}
+              isValid={isEmail(guestData.email)}
+              onBlur={() => { setTouched({ email: true }) }}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter a valid email address.
+        </Form.Control.Feedback>
+            <Form.Control.Feedback>
+              Looks good!
+        </Form.Control.Feedback>
           </Col>
         </Form.Group>
 
@@ -172,8 +220,17 @@ const Cart = ({
               placeholder="phone"
               value={guestData.phone}
               onChange={handleChange}
+              isInvalid={touched.phone && !isValidPhoneNumber(guestData.phone)}
+              isValid={isValidPhoneNumber(guestData.phone)}
+              onBlur={() => { setTouched({ phone: true }) }}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter a valid phone number.
+        </Form.Control.Feedback>
+            <Form.Control.Feedback>
+              Looks good!
+        </Form.Control.Feedback>
           </Col>
         </Form.Group>
       </Form>
@@ -239,7 +296,13 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
-          disabled={!isValid}
+          disabled={
+            !isAuthenticated &&
+            (!isEmail(guestData.email) ||
+              !isAlpha(guestData.last_name) ||
+              !isAlpha(guestData.first_name) ||
+              !isValidPhoneNumber(guestData.phone))
+          }
           text="Submit"
         />
         {order.processing && <AppSpinner />}
