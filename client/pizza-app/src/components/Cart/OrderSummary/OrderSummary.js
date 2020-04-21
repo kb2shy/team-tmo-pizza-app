@@ -1,11 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PizzaCard from './PizzaCard';
-import StyledButton from '../../common/Button/StyledButton';
-import { Form, Row, Col, Card } from 'react-bootstrap';
-import { setPizza, clearPizza } from '../../../actions/pizza';
-import { removePizza, updatePizzaQuantity } from '../../../actions/pizzas';
-import { previousMenu } from '../../../actions/menu';
+import PizzaWrapper from './PizzaWrapper';
+
 import './OrderSummary.css';
 
 /* TODO: quantity
@@ -26,95 +22,13 @@ import './OrderSummary.css';
 class OrderSummary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      quantity: '1',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.editPizza = this.editPizza.bind(this);
   }
-
-  editPizza = (index) => {
-    const pizza = this.props.pizzas[index];
-    this.props.setPizza(pizza);
-    this.props.removePizza(index);
-    this.props.previousMenu();
-  };
-
-  handleChange = (e, index) => {
-    e.preventDefault();
-    let num = parseInt(e.target.value.trim());
-    this.setState({ quantity: isNaN(num) ? '' : num.toString() });
-  };
-
-  handleBlur = (e, index) => {
-    e.preventDefault();
-    let num = parseInt(e.target.value.trim());
-    if (isNaN(num) || num < 1) {
-      num = 1;
-    } else if (num > 1000) {
-      num = 1000;
-    }
-    this.props.updatePizzaQuantity(index, num);
-    this.setState({ quantity: num.toString() });
-  };
 
   render() {
     return (
       <div>
-        {this.props.pizzas.map((pz, index) => {
-          return (
-            <div id={index} key={index}>
-              <Card>
-                <Card.Body>
-                  <PizzaCard
-                    size={pz.size}
-                    crust={pz.crust}
-                    sauce={pz.sauce}
-                    cheese={pz.cheese}
-                    toppings={pz.toppings}
-                    quantity={pz.quantity}
-                    price={pz.totalPrice}
-                    index={index}
-                  />
-                  <hr />
-                  <div className="footerStyle">
-                    <Form>
-                      <Form.Group as={Row}>
-                        <Form.Label column>quantity:</Form.Label>
-                        <Col>
-                          <Form.Control
-                            name="quantity"
-                            type="text"
-                            // placeholder={pz.quantity}
-                            value={this.state.quantity}
-                            onChange={(e) => this.handleChange(e, index)}
-                            onBlur={(e) => this.handleBlur(e, index)}
-                          />
-                        </Col>
-                      </Form.Group>
-                    </Form>
-
-                    <StyledButton
-                      text="Edit Pizza"
-                      type="Button"
-                      variant="basicButton"
-                      onClick={() => this.editPizza(index)}
-                      size="sm"
-                    />
-
-                    <StyledButton
-                      text="Remove Pizza*"
-                      type="Button"
-                      variant="basicButton"
-                      onClick={() => removePizza(index)}
-                      size="sm"
-                    />
-                  </div>
-                </Card.Body>
-              </Card>
-            </div>
-          );
+        {this.props.pizzas.map((pizza, index) => {
+          return <PizzaWrapper key={index} index={index} pizza={pizza} />;
         })}
       </div>
     );
@@ -127,10 +41,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  setPizza,
-  removePizza,
-  clearPizza,
-  previousMenu,
-  updatePizzaQuantity,
-})(OrderSummary);
+export default connect(mapStateToProps)(OrderSummary);
