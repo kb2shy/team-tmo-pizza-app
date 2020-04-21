@@ -4,11 +4,9 @@ import PizzaCard from './PizzaCard';
 import StyledButton from '../../common/Button/StyledButton';
 import { Form, Row, Col, Card } from 'react-bootstrap';
 import { setPizza, clearPizza } from '../../../actions/pizza';
-import {
-  removePizza,
-  updatePizzaQty,
-} from '../../../actions/pizzas';
+import { removePizza, updatePizzaQty } from '../../../actions/pizzas';
 import { previousMenu } from '../../../actions/menu';
+import './OrderSummary.css';
 
 /* TODO: qty
   - change the form input for that pizza ONLY
@@ -24,7 +22,6 @@ import { previousMenu } from '../../../actions/menu';
  * 1. iterates through all pizzas associated with this user
  * 2. renders a card displaying each pizza's info via PizzaCard subcomponent
  */
-const footerStyle = { display: 'flex', flexDirection: 'row' };
 
 class OrderSummary extends React.Component {
   constructor(props) {
@@ -48,8 +45,8 @@ class OrderSummary extends React.Component {
     e.preventDefault();
     const value = e.target.value;
     this.setState({ qty: value });
-    console.log(`OrderSummary.js/ handleChange(): updating qty: ${value} on pizzas[index ${index}]`);
     this.props.updatePizzaQty(index, value);
+    this.setState({ qty: '' });
   };
 
   render() {
@@ -57,7 +54,7 @@ class OrderSummary extends React.Component {
       <div>
         {this.props.pizzas.map((pz, index) => {
           return (
-            <div id = {index} key={index}>
+            <div id={index} key={index}>
               <Card>
                 <Card.Body>
                   <PizzaCard
@@ -70,7 +67,8 @@ class OrderSummary extends React.Component {
                     price={pz.totalPrice}
                     index={index}
                   />
-                  <div style={footerStyle}>
+                  <hr />
+                  <div className="footerStyle">
                     <Form>
                       <Form.Group as={Row}>
                         <Form.Label column>Qty:</Form.Label>
@@ -91,6 +89,7 @@ class OrderSummary extends React.Component {
                       type="Button"
                       variant="basicButton"
                       onClick={() => this.editPizza(index)}
+                      size="sm"
                     />
 
                     <StyledButton
@@ -98,6 +97,7 @@ class OrderSummary extends React.Component {
                       type="Button"
                       variant="basicButton"
                       onClick={() => removePizza(index)}
+                      size="sm"
                     />
                   </div>
                 </Card.Body>
