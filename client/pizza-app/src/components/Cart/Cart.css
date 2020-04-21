@@ -3,3 +3,14 @@
   align-items: center;
   justify-content: center;
 }
+
+.cardStyle {
+  width: 100%;
+  display: inline-block;
+  margin: 5px;
+}
+
+.footerStyle {
+  display: flex;
+  flex-direction: row;
+}

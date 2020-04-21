@@ -10,12 +10,12 @@ import StyledTitle from '../common/Title/StyledTitle';
 // actions
 import { setMenu, previousMenu } from '../../actions/menu';
 import { setGuest } from '../../actions/guest';
-import { clearPizza } from '../../actions/pizza';
+import { clearPizza, setPizzaQty } from '../../actions/pizza';
 import { clearPizzas } from '../../actions/pizzas';
 import { createGuestOrder, createMemberOrder } from '../../actions/order';
 
 import './Cart.css';
-import OrderSummary from '../OrderSummary/OrderSummary';
+import OrderSummary from './OrderSummary/OrderSummary';
 import AppSpinner from '../AppSpinner/AppSpinner';
 
 /**
@@ -41,6 +41,7 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
+  setPizzaQty
 }) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
@@ -72,22 +73,24 @@ const Cart = ({
     const guest = { first_name, last_name, email, phone };
     setGuest(guest);
 
-    if (isAuthenticated) {
-      createMemberOrder(() => {
-        clearPizzas();
-        setMenu(5);
-      });
-    } else {
-      createGuestOrder(guest, () => {
-        clearPizzas();
-        setMenu(5);
-      });
-    }
+    // commenting out for now
+    // if (isAuthenticated) {
+    //   createMemberOrder(() => {
+    //     clearPizzas();
+    //     setMenu(5);
+    //   });
+    // } else {
+    //   createGuestOrder(guest, () => {
+    //     clearPizzas();
+    //     setMenu(5);
+    //   });
+    // }
   };
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    console.log(`Cart.js: handleChange: [name]:value = ${name}:${value}`)
     setGuestData((d) => ({ ...d, [name]: value }));
   };
 
@@ -199,7 +202,6 @@ const Cart = ({
 
   const handleAddAnotherPizza = (e) => {
     e.preventDefault();
-    // alert("let's add another");
     clearPizza();
     previousMenu();
   };
@@ -239,17 +241,9 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
-          disabled={!isValid}
+          // disabled={!isValid}
           text="Submit"
         />
-
-        {/* <Button
-          variant="primary"
-          onClick={handleClickSubmit}
-          disabled={!isValid}
-        >
-          Submit
-        </Button> */}
         {order.processing && <AppSpinner />}
       </div>
     </div>
