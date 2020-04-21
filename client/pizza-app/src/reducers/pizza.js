@@ -18,7 +18,7 @@ const initialState = {
     veggies: [],
     cheeses: [],
   },
-  qty: 0,
+  qty: 1,
   totalPrice: 0,
 };
 

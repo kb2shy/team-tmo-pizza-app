@@ -27,15 +27,6 @@ import { previousMenu } from '../../../actions/menu';
 const footerStyle = { display: 'flex', flexDirection: 'row' };
 
 class OrderSummary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      qty: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.editPizza = this.editPizza.bind(this);
-  }
-
   editPizza = (index) => {
     const pizza = this.props.pizzas[index];
     this.props.setPizza(pizza);
@@ -47,12 +38,12 @@ class OrderSummary extends React.Component {
   handleChange = (e, index) => {
     e.preventDefault();
     const value = e.target.value;
-    this.setState({ qty: value });
     console.log(`OrderSummary.js/ handleChange(): updating qty: ${value} on pizzas[index ${index}]`);
     this.props.updatePizzaQty(index, value);
   };
 
   render() {
+    console.log(this.props.pizzas);
     return (
       <div>
         {this.props.pizzas.map((pz, index) => {
@@ -71,33 +62,38 @@ class OrderSummary extends React.Component {
                     index={index}
                   />
                   <div style={footerStyle}>
-                    <Form>
+                    <input 
+                      type='number' 
+                      name='qty' 
+                      value={pz.qty} 
+                      onChange={(e) => this.handleChange(e, index)}
+                    />
+                    {/* <Form>
                       <Form.Group as={Row}>
                         <Form.Label column>Qty:</Form.Label>
                         <Col>
                           <Form.Control
                             name="qty"
-                            type="text"
-                            placeholder={pz.qty}
-                            value={this.state.qty}
+                            type="number"
+                            value={pz.qty}
                             onChange={(e) => this.handleChange(e, index)}
                           />
                         </Col>
                       </Form.Group>
-                    </Form>
+                    </Form> */}
 
                     <StyledButton
-                      text="Edit Pizza"
+                      text="Edit"
                       type="Button"
                       variant="basicButton"
                       onClick={() => this.editPizza(index)}
                     />
 
                     <StyledButton
-                      text="Remove Pizza*"
+                      text="Remove*"
                       type="Button"
                       variant="basicButton"
-                      onClick={() => removePizza(index)}
+                      onClick={() => this.props.removePizza(index)}
                     />
                   </div>
                 </Card.Body>

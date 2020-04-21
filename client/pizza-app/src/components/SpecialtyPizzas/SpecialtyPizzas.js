@@ -6,6 +6,7 @@ import { addPizza } from '../../actions/pizzas';
 import { setMenu, setPopCart } from '../../actions/menu';
 
 import SizePrompt from './SizePrompt';
+import PopCart from '../Cart/PopCart';
 
 import StyledButton from '../common/Button/StyledButton';
 
@@ -85,8 +86,12 @@ class SpecialtyPizzas extends React.Component {
         }
     }
 
+    componentDidMount = () => {
+        this.props.setPopCart(false);
+    }
+
     handleSubmit = (pizza, size) => {
-        this.props.addPizza({...pizza, size, totalPrice: pizza.totalPrice + size.price});
+        this.props.addPizza({...pizza, size, totalPrice: pizza.totalPrice + size.price, qty: 1});
         this.props.clearPizza();
         this.setState({showSizePrompt: false});
         this.props.setMenu(4, this.props.step);
@@ -106,6 +111,7 @@ class SpecialtyPizzas extends React.Component {
     };
 
     render() {
+        console.log(this.props.step)
         const style = {
             margin: 'auto auto',
             padding: '100px',
@@ -116,12 +122,14 @@ class SpecialtyPizzas extends React.Component {
         if (this.state.showSizePrompt) {
             return (
                 <div style={{textAlign: 'center'}}>
+                    {this.props.popCart ? <PopCart/> : null}
                     <SizePrompt style={style} handleSubmit={this.handleSubmit} pizza={this.state.currentPizza}/>
                 </div>
             )
         } else {
             return (
-                <div>
+                <div>   
+                    {this.props.popCart ? <PopCart/> : null}
                     <div style={{textAlign: 'center'}}>
                         <StyledButton
                             type="button"
