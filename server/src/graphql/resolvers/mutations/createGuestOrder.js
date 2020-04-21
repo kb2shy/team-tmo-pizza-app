@@ -7,7 +7,7 @@ async function createGuestOrder(root, { guest, ...attrs }, context) {
   try {
     customer = await updateOrCreateCustomer(
       root,
-      { ...guest, isRegistered: false },
+      { ...guest, registered: false },
       context
     );
   } catch (err) {

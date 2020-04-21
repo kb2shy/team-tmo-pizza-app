@@ -80,8 +80,13 @@ async function createOrder(
 
   // create order
   let orderRecord = null;
+  //hardcoded address and delivery is temporary variable until we implement selecting a store location
   try {
-    orderRecord = await Order.create({ customer_id: customer.customer_id });
+    orderRecord = await Order.create({ 
+      customer_id: customer.customer_id, 
+      delivery: false,
+      address_id: 1
+    });
   } catch (err) {
     throw `Error with Order.create: ${err}`;
   }
@@ -92,7 +97,7 @@ async function createOrder(
     try {
       await OrderItem.create({
         order_id: orderRecord.order_id,
-        pizza_id: pizzaDetails.pizzaRecord.pizza_id,
+        pizza_id: pizzaDetails.pizzaRecord.pizza_id
       });
     } catch (err) {
       throw `Error with OrderItem.create: ${err}`;
@@ -116,7 +121,7 @@ async function createOrder(
 
   // create a formatted email
   let html = null;
-  if (customer.isRegistered) {
+  if (customer.registered) {
     html = memberConfirmOrderTemplate({
       customer: customer.toJSON(),
       order: orderRecord.toJSON(),
