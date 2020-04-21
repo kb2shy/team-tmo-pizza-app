@@ -1,13 +1,13 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks'
 import { Card, Row, Col } from 'react-bootstrap';
-import { GET_ALL_PIZZA_INFO_BY_ORDER } from '../../config/gqlDefines'
+import { GET_ALL_ORDER_INFO_BY_ORDER_ID } from '../../config/gqlDefines'
 import OrderDetails from './OrderDetails'
 
 const OrderDisplay = (props) => {
 
     const order_id = props.orderId
-    const { loading, error, data } = useQuery(GET_ALL_PIZZA_INFO_BY_ORDER, { variables: { order_id } })
+    const { loading, error, data } = useQuery(GET_ALL_ORDER_INFO_BY_ORDER_ID, { variables: { order_id } })
     if (error) return <p>{error.message}</p>
     if (loading) return <p>Loading...</p>
 

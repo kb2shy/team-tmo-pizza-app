@@ -60,7 +60,10 @@ const pizzaToppings = (cheeses, veggies, meats) => {
 }
 
 const pizzaCard = (pizzas) => {
-    return pizzas.map((pizza, index) => {
+     console.log(pizzas.pizzas)
+     let allPizzas = pizzas.pizzas
+    return allPizzas.map((pizza, index) => {
+        console.log(pizza)
         if ((index + 1) % 3 === 0) {
             return (
                 <View style={styles.box2}>

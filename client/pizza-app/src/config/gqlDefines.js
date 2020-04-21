@@ -30,7 +30,7 @@ export const UPDATE_OR_CREATE_CUSTOMER = gql`
     $phone: String!
     $email: String!
     $password: String
-    $isRegistered: Boolean
+    $registered: Boolean
   ) {
     updateOrCreateCustomer(
       first_name: $first_name
@@ -38,7 +38,7 @@ export const UPDATE_OR_CREATE_CUSTOMER = gql`
       phone: $phone
       email: $email
       password: $password
-      isRegistered: $isRegistered
+      registered: $registered
     ) {
       customer_id
       first_name
@@ -187,29 +187,45 @@ export const CREATE_MEMBER_ORDER = gql`
 `;
 
 //returns an array of pizzas with all basic info (size, crust, sauce, cheese)
-export const GET_ALL_PIZZA_INFO_BY_ORDER = gql`
+export const GET_ALL_ORDER_INFO_BY_ORDER_ID = gql`
 query
-    getAllPizzaInfoByOrder($order_id: Int){
-        getAllPizzaInfoByOrder(order_id: $order_id){
-            pizza_id
+    getAllOrderInfoByOrderId($order_id: Int){
+        getAllOrderInfoByOrderId(order_id: $order_id){
+          order_id
+          customer{
+            first_name
+            last_name
+            phone
+            email
+            registered
+          }
+          created_at
+          delivery
+          address{
+            street
+            city
+            zip
+          }
+          pizzas{
             size{
-                size_type
+              size_type
             }
             crust{
-                crust_type
+              crust_type
             }
             sauce{
-                sauce_type
-            }
-            cheeses{
-              cheese_type
-            }
-            veggies{
-              veggie_type
+              sauce_type
             }
             meats{
               meat_type
             }
+            veggies{
+              veggie_type
+            }
+            cheeses{
+              cheese_type
+            }
+         }
         }
     }
 `

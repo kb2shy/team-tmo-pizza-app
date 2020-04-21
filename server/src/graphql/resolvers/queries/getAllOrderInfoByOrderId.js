@@ -11,7 +11,7 @@ async function getAllOrderInfoByOrderId(
     { Order, Pizza, Size, Crust, Sauce, Cheese, Meat, Veggie, Address, Customer }
 ) {
 
-    return await Order.findAll({
+    let res =  await Order.findOne({
         where: {
             order_id: order_id,
         },
@@ -35,36 +35,7 @@ async function getAllOrderInfoByOrderId(
             }
         ]
     }).catch(errHandler);
-
-    // return await Pizza.findAll({
-    //     where: {
-    //         pizza_id: {
-    //             [Op.in]: ids,
-    //         }          
-    //     },
-    //     attributes: ['pizza_id'],
-    //     include: [Size, Crust, Sauce,
-    //         {
-    //             model: Cheese,
-    //             attributes: ['cheese_type', 'cheese_price']
-    //         },
-    //         {
-    //             model: Meat, 
-    //             attributes: ['meat_type', 'meat_price']
-    //         },
-    //         {
-    //             model: Veggie, 
-    //             attributes: ['veggie_type', 'veggie_price']
-    //         },
-    //         {
-    //             model: Order,
-    //             attributes: ['order_id', 'created_at'],
-    //             where: {
-    //                 order_id: order_id
-    //             }
-    //         }
-    //     ]
-    // }).catch(errHandler)
+    return res
 }
 
 module.exports = getAllOrderInfoByOrderId

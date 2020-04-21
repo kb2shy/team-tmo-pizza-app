@@ -27,7 +27,8 @@ Pizza.init({
     },
     quantity: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true, 
+        defaultValue: 1
     },
     price: {
         type: DataTypes.FLOAT,

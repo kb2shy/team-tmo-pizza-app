@@ -125,7 +125,7 @@ export const registerCustomer = ({
         email,
         phone,
         password,
-        isRegistered: true,
+        registered: true,
       },
     });
 
