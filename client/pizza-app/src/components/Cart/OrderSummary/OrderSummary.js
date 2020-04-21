@@ -4,16 +4,16 @@ import PizzaCard from './PizzaCard';
 import StyledButton from '../../common/Button/StyledButton';
 import { Form, Row, Col, Card } from 'react-bootstrap';
 import { setPizza, clearPizza } from '../../../actions/pizza';
-import { removePizza, updatePizzaQty } from '../../../actions/pizzas';
+import { removePizza, updatePizzaQuantity } from '../../../actions/pizzas';
 import { previousMenu } from '../../../actions/menu';
 import './OrderSummary.css';
 
-/* TODO: qty
+/* TODO: quantity
   - change the form input for that pizza ONLY
   - update the pizza's total price based on the quantity inputted    - update the total order price
    - set a limit on the pizza input-- say, 25 max
-   - implement +/- or up/down buttons as another way to change qty
-          - the action types for this: INCREMENT_PIZZA_QTY, DECREMENT_PIZZA_QTY
+   - implement +/- or up/down buttons as another way to change quantity
+          - the action types for this: INCREMENT_PIZZA_quantity, DECREMENT_PIZZA_quantity
 */
 
 /**
@@ -27,7 +27,7 @@ class OrderSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      qty: '',
+      quantity: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.editPizza = this.editPizza.bind(this);
@@ -40,13 +40,12 @@ class OrderSummary extends React.Component {
     this.props.previousMenu();
   };
 
-  // bug here!!!!!!!!!!!!!!!!!!!!!!!!
   handleChange = (e, index) => {
     e.preventDefault();
     const value = e.target.value;
-    this.setState({ qty: value });
-    this.props.updatePizzaQty(index, value);
-    this.setState({ qty: '' });
+    this.setState({ quantity: value });
+    this.props.updatePizzaQuantity(index, value);
+    this.setState({ quantity: '' });
   };
 
   render() {
@@ -63,7 +62,7 @@ class OrderSummary extends React.Component {
                     sauce={pz.sauce}
                     cheese={pz.cheese}
                     toppings={pz.toppings}
-                    qty={pz.qty}
+                    quantity={pz.quantity}
                     price={pz.totalPrice}
                     index={index}
                   />
@@ -71,13 +70,13 @@ class OrderSummary extends React.Component {
                   <div className="footerStyle">
                     <Form>
                       <Form.Group as={Row}>
-                        <Form.Label column>Qty:</Form.Label>
+                        <Form.Label column>quantity:</Form.Label>
                         <Col>
                           <Form.Control
-                            name="qty"
+                            name="quantity"
                             type="text"
-                            placeholder={pz.qty}
-                            value={this.state.qty}
+                            placeholder={pz.quantity}
+                            value={this.state.quantity}
                             onChange={(e) => this.handleChange(e, index)}
                           />
                         </Col>
@@ -121,5 +120,5 @@ export default connect(mapStateToProps, {
   removePizza,
   clearPizza,
   previousMenu,
-  updatePizzaQty,
+  updatePizzaQuantity,
 })(OrderSummary);
