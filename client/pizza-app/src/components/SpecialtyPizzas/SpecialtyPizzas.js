@@ -91,7 +91,18 @@ class SpecialtyPizzas extends React.Component {
     }
 
     handleSubmit = (pizza, size) => {
-        this.props.addPizza({...pizza, size, totalPrice: pizza.totalPrice + size.price, qty: 1});
+        const currentPizza = {...this.props.pizza};
+        this.props.addPizza(
+            {
+                ...currentPizza, 
+                name: pizza.name,
+                toppings: pizza.toppings, 
+                size,
+                crust: pizza.crust,
+                sauce: pizza.sauce,
+                totalPrice: pizza.totalPrice + size.price
+            }
+        );
         this.props.clearPizza();
         this.setState({showSizePrompt: false});
         this.props.setMenu(4, this.props.step);
@@ -111,7 +122,6 @@ class SpecialtyPizzas extends React.Component {
     };
 
     render() {
-        console.log(this.props.step)
         const style = {
             margin: 'auto auto',
             padding: '100px',
@@ -172,13 +182,14 @@ const mapStateToProps = (state) => ({
     size : state.pizza.size,
     sizes: state.database.sizes,
     popCart: state.menu.popCart,
-    step: state.menu.step
+    step: state.menu.step,
+    pizza: state.pizza
 });
   
 export default connect(mapStateToProps, {
     setMenu,
     addPizza,
     clearPizza,
+    setPopCart,
     setBase,
-    setPopCart
 })(SpecialtyPizzas);
