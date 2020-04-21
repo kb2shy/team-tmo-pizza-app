@@ -16,7 +16,7 @@ const initialState = {
     veggies: [],
     cheeses: [],
   },
-  quantity: 0,
+  quantity: 1,
   totalPrice: 0,
 };
 
@@ -58,7 +58,7 @@ const pizzaReducer = (state = initialState, action) => {
 
     case ADD_TOTAL_PRICE:
       return { ...state, totalPrice: action.payload };
-      
+
     default:
       return state;
   }
