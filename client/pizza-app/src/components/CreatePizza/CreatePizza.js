@@ -95,24 +95,24 @@ class CreatePizza extends React.Component {
         {this.props.popCart ? <PopCart/> : null}
         <StyledTitle text="Create Your Pizza" className="basicTitle" />
         <div className='baseDropdownContainer'>
-        <BaseDropDown
-          value={this.props.pizza.size.type || 'Choose Size'}
-          type={'Size'}
-          options={this.props.sizes}
-          handleChange={this.handleChange}
-        />
-        <BaseDropDown
-          value={this.props.pizza.crust.type || 'Choose Crust Type'}
-          type={'Crust'}
-          options={this.props.crusts}
-          handleChange={this.handleChange}
-        />
-        <BaseDropDown
-          value={this.props.pizza.sauce.type || 'Choose Sauce'}
-          type={'Sauce'}
-          options={this.props.sauces}
-          handleChange={this.handleChange}
-        />
+          <BaseDropDown
+            value={this.props.pizza.size.type || 'Choose Size'}
+            type={'Size'}
+            options={this.props.sizes}
+            handleChange={this.handleChange}
+          />
+          <BaseDropDown
+            value={this.props.pizza.crust.type || 'Choose Crust Type'}
+            type={'Crust'}
+            options={this.props.crusts}
+            handleChange={this.handleChange}
+          />
+          <BaseDropDown
+            value={this.props.pizza.sauce.type || 'Choose Sauce'}
+            type={'Sauce'}
+            options={this.props.sauces}
+            handleChange={this.handleChange}
+          />
         </div>
 
 
