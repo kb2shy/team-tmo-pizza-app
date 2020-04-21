@@ -1,8 +1,5 @@
 import React from 'react'
-import { GET_VEGGIES_BY_PIZZA } from '../../config/gqlDefines'
-import { GET_MEATS_BY_PIZZA } from '../../config/gqlDefines'
 import { Card, Accordion, Button } from 'react-bootstrap';
-import { useQuery } from '@apollo/react-hooks'
 
 const OrderDetails = (props) => {
     const pizza_id = props.pizzaId

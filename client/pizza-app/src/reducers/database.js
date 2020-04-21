@@ -51,6 +51,7 @@ import {
 
         case SET_VEGGIE_COUNT:
             const newVeggieList = state.veggies.map(item => {
+                //edit the count to just be returned from query
                 return action.payload === item.type ? {...item, count: item.count + 1} : item;
             })
 

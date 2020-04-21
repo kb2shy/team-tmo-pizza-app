@@ -29,9 +29,12 @@ const gqlModels = `
   }
   type Order {
     order_id: Int
-    customer_id: Int
-    isCompleted: Int
-    createdAt: String
+    customer: Customer
+    completed: Int
+    created_at: String
+    delivery: Boolean
+    address: Address
+    pizzas: [Pizza]
   }
   type Customer {
     customer_id: Int
@@ -40,19 +43,19 @@ const gqlModels = `
     phone: String
     email: String
     password: String
-    isRegistered: Boolean
+    registered: Boolean
   }
   type Pizza {
     pizza_id: Int
-    size_id: Int
-    crust_id: Int
-    sauce_id: Int
     size: Size
     crust: Crust
     sauce: Sauce
     meats: [Meat] 
     veggies: [Veggie]
     cheeses: [Cheese]
+    orders: [Order]
+    quantity: Int
+    price: Float
   }
   type MeatSelection {
     meat_id: Int
@@ -77,6 +80,12 @@ const gqlModels = `
     order_id: Int
     pizza: [Pizza]
     order: Order
+  }
+  type Address{
+    street: String
+    city: String
+    state: String
+    zip: String 
   }
 `;
 

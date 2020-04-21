@@ -9,11 +9,19 @@ Order.init({
         primaryKey: true,
         autoIncrement: true
     },
-    isCompleted:{
+    completed:{
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+    delivery: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    created_at: {
+        type: DataTypes.DATE, 
+        field: 'created_at'
     }
     //timestamp created automatically
-}, {sequelize, modelName: 'order'})
+}, {sequelize, modelName: 'order', timestamps: true, underscored: true})
 
 module.exports = Order
