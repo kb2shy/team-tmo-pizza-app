@@ -111,6 +111,7 @@ class SpecialtyPizzas extends React.Component {
     }
 
     getSize = (pizza) => {
+        this.props.setPopCart(false);
         this.setState({showSizePrompt: true, currentPizza: pizza});
     }
 
