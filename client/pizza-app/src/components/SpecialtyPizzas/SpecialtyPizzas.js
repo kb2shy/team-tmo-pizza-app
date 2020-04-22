@@ -25,9 +25,9 @@ class SpecialtyPizzas extends React.Component {
                     toppings: {
                         cheeses: [],
                         veggies: [],
-                        meats: [{type: 'Ham', id: 1}, {type:'Beef', id: 2}, {type:'Sausage', id: 4}, {type:'Bacon', id: 6}]
+                        meats: [{type: 'Ham', id: 1, price: 2.5}, {type:'Beef', id: 2, price: 2}, {type:'Sausage', id: 4, price: 2.25}, {type:'Bacon', id: 6, price: 1.75}]
                     },
-                    totalPrice: 5.5,
+                    basePrice: 8.5,
                     id: 1
                 },
                 {
@@ -40,7 +40,7 @@ class SpecialtyPizzas extends React.Component {
                         veggies: [],
                         meats: []
                     },
-                    totalPrice: 0,
+                    basePrice: 0,
                     id: 2
                 },
                 {
@@ -50,10 +50,10 @@ class SpecialtyPizzas extends React.Component {
                     size: {type: null},
                     toppings: {
                         cheeses: [],
-                        veggies: [{type: 'Mushrooms', id: 4}, {type:'Spinach', id: 5}, {type:'Onions', id: 2}, {type:'Black Olives', id: 3}],
+                        veggies: [{type: 'Mushrooms', id: 4, price: 1}, {type:'Spinach', id: 5, price: 1.25}, {type:'Onions', id: 2, price: 0.75}, {type:'Black Olives', id: 3, price: 0.75}],
                         meats: []
                     },
-                    totalPrice: 4,
+                    basePrice: 3.75,
                     id: 2
                 },
                 {
@@ -63,10 +63,10 @@ class SpecialtyPizzas extends React.Component {
                     size: {type: null},
                     toppings: {
                         cheeses: [],
-                        veggies: [{type: 'Pineapple', id: 7}],
-                        meats: [{type: 'Ham', id: 1}]
+                        veggies: [{type: 'Pineapple', id: 7, price: 1}],
+                        meats: [{type: 'Ham', id: 1, price: 2.5}]
                     },
-                    totalPrice: 4.5,
+                    basePrice: 3.5,
                     id: 2
                 },
                 {
@@ -75,11 +75,11 @@ class SpecialtyPizzas extends React.Component {
                     sauce: {type: 'Tomato', id: 1},
                     size: {type: null},
                     toppings: {
-                        cheeses: [{type: 'Mozzarella', id: 1}],
-                        veggies: [{type: 'Spinach', id: 5}],
+                        cheeses: [{type: 'Mozzarella', id: 1, price: 2}],
+                        veggies: [{type: 'Spinach', id: 5, price: 1.25}],
                         meats: []
                     },
-                    totalPrice: 3.5,
+                    basePrice: 3.25,
                     id: 2
                 }
             ]
@@ -100,7 +100,8 @@ class SpecialtyPizzas extends React.Component {
                 size,
                 crust: pizza.crust,
                 sauce: pizza.sauce,
-                totalPrice: pizza.totalPrice + size.price,
+                basePrice: pizza.basePrice + size.price,
+                totalPrice: pizza.basePrice + size.price,
                 quantity: 1
             }
         );
@@ -160,7 +161,7 @@ class SpecialtyPizzas extends React.Component {
                                         <Card.Text>{item.toppings.cheeses.map((cheese, i) => i === 0 ? `Cheese(s): ${cheese.type}` : `, ${cheese.type}`)}</Card.Text>
                                         <Card.Text>{item.toppings.veggies.map((veggie, i) => i === 0 ? `Veggie(s): ${veggie.type}` : `, ${veggie.type}`)}</Card.Text>
                                         <Card.Text>{item.toppings.meats.map((meat, i) => i === 0 ? `Meat(s): ${meat.type}` : `, ${meat.type}`)}</Card.Text>
-                                        <Card.Text>Price of Toppings: ${item.totalPrice.toFixed(2)}</Card.Text>
+                                        <Card.Text>Price of Toppings: ${item.basePrice.toFixed(2)}</Card.Text>
                                         
                                         <StyledButton
                                             type="button"

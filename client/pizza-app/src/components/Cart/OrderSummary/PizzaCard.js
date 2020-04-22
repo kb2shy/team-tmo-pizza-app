@@ -56,7 +56,7 @@ const PizzaCard = (props) => {
           null}
           <tr id="Price">
             <td>Total: </td>
-            <td>${Number(props.price).toFixed(2)}</td>
+            <td>${props.price}</td>
           </tr>
         </tbody>
       </table>
