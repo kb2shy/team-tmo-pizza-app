@@ -10,7 +10,7 @@ import isEmail from 'validator/lib/isEmail';
 import isAlpha from 'validator/lib/isAlpha';
 
 import StyledTitle from '../common/Title/StyledTitle';
-
+import classes from './Register.module.css'
 // Register
 // - Title component
 // - Form: first, last, email, phone, password
@@ -76,16 +76,17 @@ const Register = ({
   return (
     <div>
       <StyledTitle
-        divClassName="titleBox"
-        text="Create An Account "
-        className="orderChoiceTitle"
+        divClassName="titleBoxRegister"
+        text="Create an Account "
+        className="registerTitle"
       />
 
-      <Container fluid="md">
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formFirstName">
+      <Container fluid="md" className={classes.registerFormContainer}>
+        <Form onSubmit={handleSubmit} className={classes.registerForm}>
+          <Form.Group controlId="formFirstName" >
             <Form.Label>First Name</Form.Label>
             <Form.Control
+              className={classes.registerFormInput}
               name="first_name"
               type="text"
               placeholder="First Name"
@@ -106,6 +107,7 @@ const Register = ({
           <Form.Group controlId="formLastName">
             <Form.Label>Last Name</Form.Label>
             <Form.Control
+              className={classes.registerFormInput}
               name="last_name"
               type="text"
               placeholder="Last Name"
@@ -126,6 +128,7 @@ const Register = ({
           <Form.Group controlId="formPhone">
             <Form.Label>Phone</Form.Label>
             <Form.Control
+              className={classes.registerFormInput}
               name="phone"
               type="text"
               placeholder="Phone"
@@ -146,6 +149,7 @@ const Register = ({
           <Form.Group controlId="formEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
+              className={classes.registerFormInput}
               name="email"
               type="email"
               placeholder="Enter email"
@@ -166,6 +170,7 @@ const Register = ({
           <Form.Group controlId="formPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
+              className={classes.registerFormInput}
               name="password"
               type="password"
               placeholder="Password"

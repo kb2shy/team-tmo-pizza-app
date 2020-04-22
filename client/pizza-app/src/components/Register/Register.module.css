@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Adamina&display=swap');
+
+.registerFormContainer{
+    width: 40vw;
+    background-color: rgb(250, 230, 142);
+    padding: 3em;
+    box-shadow: 3px 3px 5px  rgba(0, 0, 0, 0.514),-3px -3px 5px  rgba(0, 0, 0, 0.514);
+    margin-top: -50px;
+}
+.registerForm{
+    width: 80%;
+    margin: auto;
+}
+.registerFormInput{
+    border: 5px solid #eb6d76;
+    border-radius: 0px;
+    background-color: #fbffda;
+    font-family: 'Adamina', serif;
+    opacity: 1;
+    padding: .425em;
+
+
+
+}
