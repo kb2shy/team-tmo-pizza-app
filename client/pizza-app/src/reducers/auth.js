@@ -16,6 +16,7 @@ const initialState = {
   user: null,
   isAuthenticated: false,
   loading: true,
+  errors: ''
 };
 
 export default function (state = initialState, action) {
@@ -42,6 +43,11 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case REGISTER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        errors: payload.emailError
+      }
     case LOGIN_FAILURE:
     case AUTH_ERROR:
     case LOGOUT:
