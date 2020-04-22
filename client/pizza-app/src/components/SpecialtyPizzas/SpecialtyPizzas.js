@@ -100,8 +100,8 @@ class SpecialtyPizzas extends React.Component {
                 size,
                 crust: pizza.crust,
                 sauce: pizza.sauce,
-                basePrice: pizza.basePrice + size.price,
-                totalPrice: pizza.basePrice + size.price,
+                basePrice: (pizza.basePrice + size.price).toFixed(2),
+                totalPrice: (pizza.basePrice + size.price).toFixed(2),
                 quantity: 1
             }
         );
