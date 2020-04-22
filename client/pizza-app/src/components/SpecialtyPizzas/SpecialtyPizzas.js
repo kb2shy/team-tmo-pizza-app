@@ -16,7 +16,7 @@ class SpecialtyPizzas extends React.Component {
         this.state = {
             showSizePrompt: false,
             currentPizza: null,
-            data:  [
+            data:  [ //sample data
                 {
                     name: 'Meats Lovers',
                     crust: {type: 'Hand Tossed Garlic', id: 1},
@@ -90,6 +90,7 @@ class SpecialtyPizzas extends React.Component {
         this.props.setPopCart(false);
     }
 
+    //After user chooses size, adds pizza to pizzas store, clears current pizza and moves to cart
     handleSubmit = (pizza, size) => {
         const currentPizza = {...this.props.pizza};
         this.props.addPizza(
@@ -110,20 +111,24 @@ class SpecialtyPizzas extends React.Component {
         this.props.setMenu(4, this.props.step);
     }
 
+    //changes component to render size prompt
     getSize = (pizza) => {
         this.props.setPopCart(false);
         this.setState({showSizePrompt: true, currentPizza: pizza});
     }
 
+    //Changes pizza size in store
     handleChange = (name, item) => {
         this.props.setBase(name.toLowerCase(), item);
     }
 
+    //Change to custom order
     handleCustomOrder = (e) => {
         this.props.clearPizza();
         this.props.setMenu(3, this.props.step);
     };
 
+    //Renders cards of all possible specialty pizza, when one is selected, the sizing prompt is render
     render() {
         const style = {
             margin: 'auto auto',
