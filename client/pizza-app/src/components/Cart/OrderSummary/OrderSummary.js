@@ -47,15 +47,15 @@ class OrderSummary extends React.Component {
 
   handleQuantityChange = (e, index) => {
     e.preventDefault();
-    const value = e.target.value;
+    const value = parseInt(e.target.value);
     this.setState({ quantity: value });
     this.props.updatePizzaQuantity(index, value);
 
-    // console.log(`quantity value: ${typeof value} ${parseInt(value)}`)
+    // console.log(`quantity value: ${typeof value} ${value}`)
     // console.log(`price value: ${this.props.pizzas[index].basePrice}`)
     // console.log(`= ${(parseInt(value) * this.props.pizzas[index].basePrice)}`)
     const newTotalPrice = (
-      parseInt(value) * this.props.pizzas[index].basePrice
+      value * this.props.pizzas[index].basePrice
     ).toFixed(2);
 
     this.props.updatePizzaTotalPrice(index, newTotalPrice);
@@ -108,10 +108,10 @@ class OrderSummary extends React.Component {
                     />
 
                     <StyledButton
-                      text="Remove Pizza*"
+                      text="Remove Pizza"
                       type="Button"
                       variant="orderSummaryButton"
-                      onClick={() => removePizza(index)}
+                      onClick={() => this.props.removePizza(index)}
                       size="sm"
                     />
                   </div>
