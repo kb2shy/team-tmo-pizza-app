@@ -113,16 +113,18 @@ const Cart = ({
     setGuestData((d) => ({ ...d, [name]: value }));
   };
 
+
   // Guest view: displays a form for inputting information
   const renderGuestInput = () => {
     return (
-      <Form>
+      <Form className="cartOrderFormContainer">
         <Form.Group as={Row} controlId="formHorizontalName">
           <Form.Label column sm={2}>
-            Name :
+            Name:
           </Form.Label>
           <Col>
             <Form.Control
+              className="cartOrderFormInput"
               name="first_name"
               type="text"
               placeholder="first name"
@@ -142,6 +144,7 @@ const Cart = ({
           </Col>
           <Col>
             <Form.Control
+              className="cartOrderFormInput"
               name="last_name"
               type="text"
               placeholder="last name"
@@ -163,10 +166,11 @@ const Cart = ({
 
         <Form.Group as={Row} controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
-            Email :
+            Email:
           </Form.Label>
           <Col sm={10}>
             <Form.Control
+              className="cartOrderFormInput"
               name="email"
               type="email"
               placeholder="email"
@@ -189,10 +193,11 @@ const Cart = ({
 
         <Form.Group as={Row} controlId="formHorizontalPhone">
           <Form.Label column sm={2}>
-            Phone :
+            Phone:
           </Form.Label>
           <Col sm={10}>
             <Form.Control
+              className="cartOrderFormInput"
               name="phone"
               type="text"
               placeholder="phone"
@@ -258,7 +263,7 @@ const Cart = ({
 
   return (
     <div>
-      <StyledTitle text="Cart" className="basicTitle" />
+      <StyledTitle text="Cart" className="CartTitle" />
 
       <div className="centerStyle">
         <h2>Review your order below</h2>
@@ -268,14 +273,16 @@ const Cart = ({
       </div>
 
       <Container>
-        <Row>
-          <Col>
-            <h2>Order for:</h2>
+        <Row className="cartOrderFormContainerRow">
+          <Col className="cartOrderFormContainerWrapper">
+            <h2 className="cartSubTitle">Order for:</h2>
             {customerSummary()}
           </Col>
-          <Col>
-            <h2>Order Summary:</h2>
+
+          <Col className="cartOrderFormContainerWrapper">
+            <h2 className="cartSubTitle">Order Summary:</h2>
             <h6>Total: ${prevTotal}</h6>
+
 
             <OrderSummary />
             <StyledButton
