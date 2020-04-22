@@ -64,12 +64,12 @@ class OrderSummary extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
         {this.props.pizzas.map((pz, index) => {
           return (
             <div id={index} key={index}>
-              <Card>
-                <Card.Body>
+              <Card className="orderSummaryContainer">
+                <Card.Body className="orderSummaryCardBody">
                   <PizzaCard
                     size={pz.size}
                     crust={pz.crust}
@@ -102,7 +102,7 @@ class OrderSummary extends React.Component {
                     <StyledButton
                       text="Edit Pizza"
                       type="Button"
-                      variant="basicButton"
+                      variant="orderSummaryButton"
                       onClick={() => this.editPizza(index)}
                       size="sm"
                     />
@@ -110,7 +110,7 @@ class OrderSummary extends React.Component {
                     <StyledButton
                       text="Remove Pizza*"
                       type="Button"
-                      variant="basicButton"
+                      variant="orderSummaryButton"
                       onClick={() => removePizza(index)}
                       size="sm"
                     />
