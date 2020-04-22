@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   setBase,
   clearPizza,
-  //addTotalPrice,
   addBasePrice,
 } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
@@ -67,7 +66,6 @@ class CreatePizza extends React.Component {
     }
 
     totalPrice += this.props.pizza.size.price;
-    //addTotalPrice(totalPrice);
     addBasePrice(totalPrice)
     return totalPrice.toFixed(2);
   };
@@ -145,7 +143,6 @@ class CreatePizza extends React.Component {
             </tr>
           </tbody>
         </table>
-        {/* <Button onClick={this.handleSubmit}>Add to Cart</Button> */}
         <div style={{ color: 'red' }}>{this.state.message}</div>
         <StyledButton
           variant="basicButton"
@@ -173,7 +170,6 @@ export default connect(mapStateToProps, {
   setBase,
   clearPizza,
   addPizza,
-  //addTotalPrice,
   addBasePrice,
   setPopCart
 })(CreatePizza);

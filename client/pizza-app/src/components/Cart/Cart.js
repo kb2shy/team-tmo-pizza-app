@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Container, Form, Row, Col, Table } from 'react-bootstrap';
+import { Container, Form, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 // Custom Styling
@@ -46,7 +46,6 @@ const Cart = ({
   previousMenu,
   pizzas,
 }) => {
-
   const [guestData, setGuestData] = useState({
     first_name: '',
     last_name: '',
@@ -54,13 +53,13 @@ const Cart = ({
     phone: '',
   });
 
-  const [prevTotal, setPrevTotal] = useState(0)
+  const [prevTotal, setPrevTotal] = useState(0);
 
   const [touched, setTouched] = useState({
     first_name: false,
     last_name: false,
     email: false,
-    phone: false
+    phone: false,
   });
 
   function isValidPhoneNumber(phone) {
@@ -111,7 +110,6 @@ const Cart = ({
   const handleGuestDataChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    // console.log(`Cart.js: handleGuestDataChange: [name]:value = ${name}:${value}`)
     setGuestData((d) => ({ ...d, [name]: value }));
   };
 
@@ -132,15 +130,15 @@ const Cart = ({
               onChange={handleGuestDataChange}
               isInvalid={touched.first_name && !isAlpha(guestData.first_name)}
               isValid={isAlpha(guestData.first_name)}
-              onBlur={() => { setTouched({ first_name: true }) }}
+              onBlur={() => {
+                setTouched({ first_name: true });
+              }}
               required
             />
             <Form.Control.Feedback type="invalid">
               Please enter a valid first name.
-        </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Looks good!
-        </Form.Control.Feedback>
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Col>
           <Col>
             <Form.Control
@@ -151,15 +149,15 @@ const Cart = ({
               onChange={handleGuestDataChange}
               isInvalid={touched.last_name && !isAlpha(guestData.last_name)}
               isValid={isAlpha(guestData.last_name)}
-              onBlur={() => { setTouched({ last_name: true }) }}
+              onBlur={() => {
+                setTouched({ last_name: true });
+              }}
               required
             />
             <Form.Control.Feedback type="invalid">
               Please enter a valid last name.
-        </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Looks good!
-        </Form.Control.Feedback>
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Col>
         </Form.Group>
 
@@ -177,15 +175,15 @@ const Cart = ({
               onChange={handleGuestDataChange}
               isInvalid={touched.email && !isEmail(guestData.email)}
               isValid={isEmail(guestData.email)}
-              onBlur={() => { setTouched({ email: true }) }}
+              onBlur={() => {
+                setTouched({ email: true });
+              }}
               required
             />
             <Form.Control.Feedback type="invalid">
               Please enter a valid email address.
-        </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Looks good!
-        </Form.Control.Feedback>
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Col>
         </Form.Group>
 
@@ -202,15 +200,15 @@ const Cart = ({
               onChange={handleGuestDataChange}
               isInvalid={touched.phone && !isValidPhoneNumber(guestData.phone)}
               isValid={isValidPhoneNumber(guestData.phone)}
-              onBlur={() => { setTouched({ phone: true }) }}
+              onBlur={() => {
+                setTouched({ phone: true });
+              }}
               required
             />
             <Form.Control.Feedback type="invalid">
               Please enter a valid phone number.
-        </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Looks good!
-        </Form.Control.Feedback>
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Col>
         </Form.Group>
       </Form>
@@ -224,51 +222,33 @@ const Cart = ({
     } else {
       // isValid = true;
       // return renderUserDisplay();
-      return(
+      return (
         <UserDetails
           first_name={user.first_name}
           last_name={user.last_name}
           email={user.email}
-          phone={user.phone}        
+          phone={user.phone}
         />
-      )
+      );
     }
   };
 
   useEffect(() => {
-    calcTotalPrice()
-  }, [pizzas])
-
-  // similar to componentdidmount, update
-  //useEffect(() => {
-    //console.log("something changed, in useEffect. prevTotal: ", prevTotal)
-   const calcTotalPrice = () => {
-      console.log("in calcTotalPrice, pizzas: ", pizzas)
-      let total = 0;
-     for (let pizza of pizzas) {
-      //pizzas.map((pizza) => {
-        console.log(`looking at pizza with ${pizza.size.type}, quantity: ${pizza.quantity}, totalPrice: ${parseFloat(pizza.totalPrice)}, old total: ${total}`)
-        //total += pizza.totalPrice
-      
-        total = total + parseFloat(pizza.totalPrice)
-        //total = parseFloat(total).toFixed(2)
-        console.log(`total after addition: ${total}`)
-      }//)
-        // parseFloat().toFixed(2) avoids the ".toFixed() is not a function" error
-        total = parseFloat(total).toFixed(2)
-        setPrevTotal(total)
-      console.log(`new total: ${total} | new prevTotal: ${prevTotal}`)
-      
-      //return setPrevTotal(total.toFixed(2))
-      //return () =>  total.toFixed(2)
-      //setPrevTotal(total.toFixed(2))
-   };
-//  }, [pizzas])
-  
- 
+    calcTotalPrice();
+  }, [pizzas]);
 
   // Calculates the total price of all orders in the cart
- 
+  const calcTotalPrice = () => {
+    // console.log('in calcTotalPrice, pizzas: ', pizzas);
+    let total = 0;
+    for (let pizza of pizzas) {
+      total += parseFloat(pizza.totalPrice);
+    }
+
+    // parseFloat().toFixed(2) avoids the ".toFixed() is not a function" error
+    total = parseFloat(total).toFixed(2);
+    setPrevTotal(total);
+  };
 
   const handleAddAnotherPizza = (e) => {
     e.preventDefault();
@@ -295,7 +275,6 @@ const Cart = ({
           </Col>
           <Col>
             <h2>Order Summary:</h2>
-            {/* <h6>Total: ${calcTotalPrice()}</h6> */}
             <h6>Total: ${prevTotal}</h6>
 
             <OrderSummary />

@@ -40,7 +40,7 @@ import {
   */
 
   export const addBasePrice = (price) => (dispatch) => {
-    console.log(`actions/pizza: dispatching addBasePrice(${price})`)
+    // console.log(`actions/pizza: dispatching addBasePrice(${price})`)
     dispatch({
       type: ADD_BASE_PRICE,
       payload: price

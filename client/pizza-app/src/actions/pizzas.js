@@ -22,7 +22,6 @@ export const clearPizzas = () => (dispatch) => {
 
 // gets a pizza and updates its quantity value
 export const updatePizzaQuantity = (index, quantity) => (dispatch) => {  
-  console.log( `actions/pizzas: updatePizzaQuantity: {${index}, ${quantity}}`)
   dispatch({
     type: UPDATE_PIZZA_QUANTITY,
     payload: {index, quantity}

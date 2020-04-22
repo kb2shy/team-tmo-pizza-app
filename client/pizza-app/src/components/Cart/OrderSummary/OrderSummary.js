@@ -4,13 +4,18 @@ import PizzaCard from './PizzaCard';
 import StyledButton from '../../common/Button/StyledButton';
 import { Form, Row, Col, Card } from 'react-bootstrap';
 import { setPizza, clearPizza } from '../../../actions/pizza';
-import { removePizza, updatePizzaQuantity, updatePizzaTotalPrice } from '../../../actions/pizzas';
+import {
+  removePizza,
+  updatePizzaQuantity,
+  updatePizzaTotalPrice,
+} from '../../../actions/pizzas';
 import { previousMenu } from '../../../actions/menu';
 import './OrderSummary.css';
 
 /* TODO: quantity
-  - change the form input for that pizza ONLY
-  - update the pizza's total price based on the quantity inputted    - update the total order price
+  - change the form input for that pizza ONLY -> done!
+  - update the pizza's total price based on the quantity inputted -> done!
+  - update the total order price -> done!
    - set a limit on the pizza input-- say, 25 max
    - implement +/- or up/down buttons as another way to change quantity
           - the action types for this: INCREMENT_PIZZA_quantity, DECREMENT_PIZZA_quantity
@@ -46,12 +51,13 @@ class OrderSummary extends React.Component {
     this.setState({ quantity: value });
     this.props.updatePizzaQuantity(index, value);
 
-    console.log(`quantity value: ${typeof value} ${parseInt(value)}`)
-    console.log(`price value: ${this.props.pizzas[index].basePrice}`)
-    console.log(`= ${(parseInt(value) * this.props.pizzas[index].basePrice)}`)
-    const newTotalPrice = (parseInt(value) * this.props.pizzas[index].basePrice).toFixed(2);
-    
-    // this works, taking out for now to modularize cart.js
+    // console.log(`quantity value: ${typeof value} ${parseInt(value)}`)
+    // console.log(`price value: ${this.props.pizzas[index].basePrice}`)
+    // console.log(`= ${(parseInt(value) * this.props.pizzas[index].basePrice)}`)
+    const newTotalPrice = (
+      parseInt(value) * this.props.pizzas[index].basePrice
+    ).toFixed(2);
+
     this.props.updatePizzaTotalPrice(index, newTotalPrice);
     this.setState({ quantity: '' });
   };
@@ -85,7 +91,9 @@ class OrderSummary extends React.Component {
                             type="text"
                             placeholder={pz.quantity}
                             value={this.state.quantity}
-                            onChange={(e) => this.handleQuantityChange(e, index)}
+                            onChange={(e) =>
+                              this.handleQuantityChange(e, index)
+                            }
                           />
                         </Col>
                       </Form.Group>
@@ -129,5 +137,5 @@ export default connect(mapStateToProps, {
   clearPizza,
   previousMenu,
   updatePizzaQuantity,
-  updatePizzaTotalPrice
+  updatePizzaTotalPrice,
 })(OrderSummary);
