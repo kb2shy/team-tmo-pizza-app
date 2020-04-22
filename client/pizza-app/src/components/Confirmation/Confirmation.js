@@ -120,8 +120,7 @@ const Confirmation = ({ order, setMenu }) => {
         <Col className="col-email-message">
           <Alert variant="success">Success!</Alert>
           <p>Thank you, {customer.first_name} {customer.last_name}, for placing an order with us!</p>
-          <p>An email has been sent to:</p>
-          <p>{customer.email}</p>
+          <p>An email has been sent to: {customer.email}</p>
         </Col>
       </Row>
       <Row>
