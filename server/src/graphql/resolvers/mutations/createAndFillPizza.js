@@ -113,7 +113,6 @@ async function createAndFillPizza(
   const cheese_ids = toppings && toppings.cheeses ? toppings.cheeses : [];
 
   //temp value
-  const quantity = 1
   const price = 12.99
   
   // create pizza
