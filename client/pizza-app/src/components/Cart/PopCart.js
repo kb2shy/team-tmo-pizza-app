@@ -9,7 +9,7 @@ import OrderSummary from './OrderSummary/OrderSummary';
 class PopCart extends React.Component {
     render() {
       return (
-        <div style={{position: 'absolute', right: '0px', width: '400px', zIndex: 3, border: '1px solid gray', backgroundColor: 'white', padding: '20px'}}>
+        <div style={{position: 'absolute', right: '0px', width: '500px', zIndex: 3, border: '1px solid gray', backgroundColor: 'white', padding: '20px'}}>
           {/* <StyledButton
             variant="popCartButton"
             type="button"
