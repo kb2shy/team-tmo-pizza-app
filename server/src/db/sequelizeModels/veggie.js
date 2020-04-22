@@ -20,6 +20,6 @@ Veggie.init({
             notEmpty: true
         }
     }
-}, {sequelize, modelName: 'veggie', timestamps: false})
+}, {sequelize, modelName: 'veggie', timestamps: true, underscored: true})
 
 module.exports = Veggie

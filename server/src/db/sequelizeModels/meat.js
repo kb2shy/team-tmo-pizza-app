@@ -25,6 +25,6 @@ Meat.init({
             notEmpty: true
         }
     }
-}, { sequelize, modelName: 'meat', timestamps: false })
+}, { sequelize, modelName: 'meat', timestamps: true, underscored: true})
 
 module.exports = Meat
