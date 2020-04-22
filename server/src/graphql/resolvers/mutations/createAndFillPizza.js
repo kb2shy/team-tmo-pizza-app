@@ -116,7 +116,8 @@ async function createAndFillPizza(
     size_id,
     crust_id,
     sauce_id,
-    quantity
+    quantity,
+    price: 0.0 // this is updated later in an efficient way
   });
   const pizza_id = pizzaRecord.pizza_id;
 

@@ -6,7 +6,7 @@ const config = require('config');
 const JsBarcode = require('jsbarcode');
 const { createCanvas } = require('canvas');
 const createAndFillPizza = require('./createAndFillPizza');
-const computePizzasPrice = require('../helpers/computePizzasPrice');
+const updatePizzasPrices = require('../helpers/updatePizzasPrices');
 const { encryptId, decryptId } = require('../helpers/cryptId');
 
 sgMail.setApiKey(config.get('sendGridAPI'));
@@ -53,15 +53,20 @@ async function createOrder(
 
   // create pizzas
   const pizzasDetails = [];
+  let totalPizzas = 0;
   for (let pizza of pizzas) {
     try {
       const pizzaDetails = await createAndFillPizza(root, { pizza }, context);
       pizzasDetails.push(pizzaDetails);
+      totalPizzas += pizzaDetails.quantity;
     } catch (err) {
       // @todo delete all other created pizzas
       throw `An error ocurred with creating a pizza: ${err}`;
     }
   }
+
+  // compute and update pizzas prices; get overall price
+  const overallPrice = await updatePizzasPrices(pizzasDetails, context);
 
   // create order
   let orderRecord = null;
@@ -70,7 +75,7 @@ async function createOrder(
     orderRecord = await Order.create({
       customer_id: customer.customer_id,
       delivery: false,
-      address_id: 1
+      address_id: 1,
     });
   } catch (err) {
     throw `Error with Order.create: ${err}`;
@@ -82,15 +87,12 @@ async function createOrder(
     try {
       await OrderItem.create({
         order_id: orderRecord.order_id,
-        pizza_id: pizzaDetails.pizzaRecord.pizza_id
+        pizza_id: pizzaDetails.pizzaRecord.pizza_id,
       });
     } catch (err) {
       throw `Error with OrderItem.create: ${err}`;
     }
   }
-
-  // compute price for all pizzas
-  const totalPrice = await computePizzasPrice(pizzasDetails, context);
 
   // draw bar-code based on order id (we may need to hash that id @todo)
   const canvasInst = createCanvas();
@@ -111,8 +113,8 @@ async function createOrder(
       customer: customer.toJSON(),
       order: orderRecord.toJSON(),
       stats: {
-        quantity: pizzasDetails.length,
-        price: totalPrice.toFixed(2),
+        quantity: totalPizzas,
+        price: overallPrice.toFixed(2),
       },
     });
   } else {
@@ -120,8 +122,8 @@ async function createOrder(
       customer: customer.toJSON(),
       order: orderRecord.toJSON(),
       stats: {
-        quantity: pizzasDetails.length,
-        price: totalPrice.toFixed(2),
+        quantity: totalPizzas,
+        price: overallPrice.toFixed(2),
       },
     });
   }
@@ -140,8 +142,8 @@ async function createOrder(
     html: html,
     attachments: [
       {
-        filename: `tmopizza-order-${orderRecord.order_id}.png`,
-        type: 'image/png',
+        filename: `tmopizza-order-${orderRecord.order_id}.jpeg`,
+        type: 'image/jpeg',
         content_id: 'barcode',
         content: imgData2,
         disposition: 'inline',

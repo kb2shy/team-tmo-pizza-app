@@ -78,8 +78,8 @@ async function sendTestEmail(root, attrs, context) {
     html: html,
     attachments: [
       {
-        filename: `tmopizza-order-${order_id}.png`,
-        type: 'image/png',
+        filename: `tmopizza-order-${order_id}.jpeg`,
+        type: 'image/jpeg',
         content_id: 'barcode',
         content: imgData2,
         disposition: 'inline',
