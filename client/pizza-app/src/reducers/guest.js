@@ -13,8 +13,8 @@ const guestReducer = (state = initialState, action) => {
       const { firstName, lastName, email, phone } = action.payload;
 
       return {
-        first_name: firstName || state.firstName,
-        last_name: lastName || state.lastName,
+        first_name: firstName || state.first_name,
+        last_name: lastName || state.last_name,
         email: email || state.email,
         phone: phone || state.phone,
       };

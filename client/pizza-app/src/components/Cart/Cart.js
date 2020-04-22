@@ -84,6 +84,7 @@ const Cart = ({
   // Directs user to the Confirmation page
   const handleClickSubmit = (e) => {
     e.preventDefault();
+    console.log('hi');
     const firstName = guestData.firstName.trim();
     const lastName = guestData.lastName.trim();
     const email = guestData.email.trim();
