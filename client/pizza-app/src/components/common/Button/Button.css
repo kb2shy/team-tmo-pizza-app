@@ -49,6 +49,24 @@
   box-shadow: none;
   transform: translateY(1px);
 }
+.btn-orderSummaryButton{
+  color: #eb6d76;
+  border: 5px solid #eb6d76;
+  border-radius: 0px;
+  background-color: #fbffda;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
+  width: 10em;
+  margin-left: 15px;
+}
+.btn-orderSummaryButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+  box-shadow: none;
+  transform: translateY(1px);
+}
 
 /* navbar Button Styling --------------------------------- */
 .btn-navbarButton {

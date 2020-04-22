@@ -236,6 +236,8 @@ export const getCrusts = () => async (dispatch) => {
       return {id: item.crust_id, type: item.crust_type};
     })
 
+    console.log(crusts)
+
     dispatch({
       type: LOAD_CRUSTS,
       payload: crusts

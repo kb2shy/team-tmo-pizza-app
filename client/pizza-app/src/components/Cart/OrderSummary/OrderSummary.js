@@ -4,13 +4,18 @@ import PizzaCard from './PizzaCard';
 import StyledButton from '../../common/Button/StyledButton';
 import { Form, Row, Col, Card } from 'react-bootstrap';
 import { setPizza, clearPizza } from '../../../actions/pizza';
-import { removePizza, updatePizzaQuantity } from '../../../actions/pizzas';
+import {
+  removePizza,
+  updatePizzaQuantity,
+  updatePizzaTotalPrice,
+} from '../../../actions/pizzas';
 import { previousMenu } from '../../../actions/menu';
 import './OrderSummary.css';
 
 /* TODO: quantity
-  - change the form input for that pizza ONLY
-  - update the pizza's total price based on the quantity inputted    - update the total order price
+  - change the form input for that pizza ONLY -> done!
+  - update the pizza's total price based on the quantity inputted -> done!
+  - update the total order price -> done!
    - set a limit on the pizza input-- say, 25 max
    - implement +/- or up/down buttons as another way to change quantity
           - the action types for this: INCREMENT_PIZZA_quantity, DECREMENT_PIZZA_quantity
@@ -29,7 +34,7 @@ class OrderSummary extends React.Component {
     this.state = {
       quantity: '',
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleQuantityChange = this.handleQuantityChange.bind(this);
     this.editPizza = this.editPizza.bind(this);
   }
 
@@ -40,23 +45,32 @@ class OrderSummary extends React.Component {
     this.props.previousMenu();
   };
 
-  handleChange = (e, index) => {
+  handleQuantityChange = (e, index) => {
     e.preventDefault();
     const value = e.target.value;
     this.setState({ quantity: value });
     this.props.updatePizzaQuantity(index, value);
+
+    // console.log(`quantity value: ${typeof value} ${parseInt(value)}`)
+    // console.log(`price value: ${this.props.pizzas[index].basePrice}`)
+    // console.log(`= ${(parseInt(value) * this.props.pizzas[index].basePrice)}`)
+    const newTotalPrice = (
+      parseInt(value) * this.props.pizzas[index].basePrice
+    ).toFixed(2);
+
+    this.props.updatePizzaTotalPrice(index, newTotalPrice);
     this.setState({ quantity: '' });
   };
 
   render() {
     console.log(this.props.pizzas);
     return (
-      <div>
+      <div >
         {this.props.pizzas.map((pz, index) => {
           return (
             <div id={index} key={index}>
-              <Card>
-                <Card.Body>
+              <Card className="orderSummaryContainer">
+                <Card.Body className="orderSummaryCardBody">
                   <PizzaCard
                     size={pz.size}
                     crust={pz.crust}
@@ -71,14 +85,16 @@ class OrderSummary extends React.Component {
                   <div className="footerStyle">
                     <Form>
                       <Form.Group as={Row}>
-                        <Form.Label column>quantity:</Form.Label>
+                        <Form.Label column>Quantity:</Form.Label>
                         <Col>
                           <Form.Control
                             name="quantity"
                             type="text"
                             placeholder={pz.quantity}
                             value={this.state.quantity}
-                            onChange={(e) => this.handleChange(e, index)}
+                            onChange={(e) =>
+                              this.handleQuantityChange(e, index)
+                            }
                           />
                         </Col>
                       </Form.Group>
@@ -87,7 +103,7 @@ class OrderSummary extends React.Component {
                     <StyledButton
                       text="Edit"
                       type="Button"
-                      variant="basicButton"
+                      variant="orderSummaryButton"
                       onClick={() => this.editPizza(index)}
                       size="sm"
                     />
@@ -95,8 +111,8 @@ class OrderSummary extends React.Component {
                     <StyledButton
                       text="Remove*"
                       type="Button"
-                      variant="basicButton"
-                      onClick={() => this.props.removePizza(index)}
+                      variant="orderSummaryButton"
+                      onClick={() => removePizza(index)}
                       size="sm"
                     />
                   </div>
@@ -122,4 +138,5 @@ export default connect(mapStateToProps, {
   clearPizza,
   previousMenu,
   updatePizzaQuantity,
+  updatePizzaTotalPrice,
 })(OrderSummary);

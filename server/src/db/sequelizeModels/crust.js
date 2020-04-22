@@ -18,6 +18,6 @@ Crust.init({
             notEmpty: true,
         }
     }
-}, {sequelize, modelName: 'crust', timestamps: false})
+}, {sequelize, modelName: 'crust', timestamps: true, underscored: true})
 
 module.exports = Crust

@@ -4,6 +4,6 @@ const sequelize = require('../dbConfig')
 class CheeseSelection extends Model{}
 
 CheeseSelection.init({
-}, {sequelize, modelName: 'cheeseSelection', timestamps: false})
+}, {sequelize, modelName: 'cheeseSelection', timestamps: true, underscored: true})
 
 module.exports = CheeseSelection

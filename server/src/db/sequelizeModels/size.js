@@ -25,6 +25,6 @@ Size.init({
             notEmpty: true
         }
     }
-}, {sequelize, modelName: 'size', timestamps: false})
+}, {sequelize, modelName: 'size', timestamps: true, underscored: true})
 
 module.exports = Size

@@ -17,7 +17,7 @@ const VeggieSelection = require('./db/sequelizeModels/veggieSelection')
 
 const Customer = require('./db/sequelizeModels/customer')
 const Address = require('./db/sequelizeModels/address')
-const Store = require('./db/sequelizeModels/store')
+const AddressType = require('./db/sequelizeModels/addressType')
 const Order = require('./db/sequelizeModels/order')
 const Pizza = require('./db/sequelizeModels/pizza')
 const OrderItem = require('./db/sequelizeModels/orderItem')
@@ -76,8 +76,8 @@ Address.hasMany(Order, { foreignKey: { name: 'address_id', allowNull: false }, o
 Order.belongsTo(Address, { foreignKey: 'address_id' })
 
 //creates fk on store table with address_id
-Address.hasMany(Store, { foreignKey: { name: 'address_id', allowNull: true }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-Store.belongsTo(Address, { foreignKey: 'address_id', allowNull: true })
+AddressType.hasMany(Address, { foreignKey: { name: 'address_type_id', allowNull: true }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+Address.belongsTo(AddressType, { foreignKey: 'address_type_id', allowNull: true })
 
 //creates apollo server, passing db models as context 
 const server = new ApolloServer({
@@ -86,7 +86,7 @@ const server = new ApolloServer({
   context: (integrationContext) => ({
     Customer, Cheese, Crust, Order, Pizza, Sauce, Meat, Veggie, Size,
     MeatSelection, VeggieSelection, OrderItem, CheeseSelection,
-    Address, Store,
+    Address, AddressType,
     ...authContext(integrationContext)
   }),
 });

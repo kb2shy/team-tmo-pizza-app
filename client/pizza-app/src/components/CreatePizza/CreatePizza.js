@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   setBase,
   clearPizza,
-  addTotalPrice,
+  addBasePrice,
 } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { nextMenu, setPopCart } from '../../actions/menu';
@@ -39,7 +39,7 @@ class CreatePizza extends React.Component {
         if (this.verifyUserInput()){
             const totalPrice = this.calcPrice();
             const currentPizza = this.props.pizza;
-            this.props.addPizza({ ...currentPizza, totalPrice, quantity: 1});
+            this.props.addPizza({ ...currentPizza, basePrice: totalPrice, totalPrice, quantity: 1});
             this.props.clearPizza()
             this.props.nextMenu(this.props.step);
         }
@@ -62,9 +62,8 @@ class CreatePizza extends React.Component {
     }
 
     totalPrice += this.props.pizza.size.price;
-    addTotalPrice(totalPrice);
-
-    return totalPrice;
+    addBasePrice(totalPrice)
+    return totalPrice.toFixed(2);
   };
 
     verifyUserInput = () => {
@@ -140,7 +139,6 @@ class CreatePizza extends React.Component {
             </tr>
           </tbody>
         </table>
-        {/* <Button onClick={this.handleSubmit}>Add to Cart</Button> */}
         <div style={{ color: 'red' }}>{this.state.message}</div>
         <StyledButton
           variant="basicButton"
@@ -168,6 +166,6 @@ export default connect(mapStateToProps, {
   setBase,
   clearPizza,
   addPizza,
-  addTotalPrice,
+  addBasePrice,
   setPopCart
 })(CreatePizza);
