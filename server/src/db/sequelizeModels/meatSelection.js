@@ -5,6 +5,6 @@ class MeatSelection extends Model{}
 
 MeatSelection.init({
 
-}, {sequelize, modelName: 'meatSelection', timestamps: false})
+}, {sequelize, modelName: 'meatSelection', timestamps: true, underscored: true})
 
 module.exports = MeatSelection

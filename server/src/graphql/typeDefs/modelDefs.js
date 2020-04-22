@@ -87,6 +87,9 @@ const gqlModels = `
     state: String
     zip: String 
   }
+  type AddressType{
+    address_type: String
+  }
 `;
 
 module.exports = gqlModels;

@@ -36,6 +36,7 @@ async function getAllOrderInfoByOrderId(
         ]
     }).catch(errHandler);
     return res
+
 }
 
 module.exports = getAllOrderInfoByOrderId
