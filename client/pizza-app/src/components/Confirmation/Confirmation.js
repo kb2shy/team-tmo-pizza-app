@@ -1,12 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_ALL_ORDER_INFO_BY_ORDER_ID } from '../../config/gqlDefines';
 import { setMenu } from '../../actions/menu';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
+
 import PropTypes from 'prop-types';
+
+// importing PDF features and components
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
+import Receipt from './Receipt/Receipt';
 
 // Custom Styling
 import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
+import AppSpinner from '../AppSpinner/AppSpinner';
 
 // Confirmation: the confirmation page
 // - Paragraph
@@ -14,6 +22,13 @@ import StyledTitle from '../common/Title/StyledTitle';
 // - Create Account (CR: display for guest)
 // - The Return to home button
 const Confirmation = (props) => {
+
+  const order_id = props.order.order_id;
+  const { loading, error, data } = useQuery(GET_ALL_ORDER_INFO_BY_ORDER_ID, { variables: { order_id } });
+  if (error) return <p>{error.message}</p>;
+  if (loading) return <AppSpinner />;
+
+ // console.log()
   const handleClickHome = (e) => {
     e.preventDefault();
     return props.setMenu(1);
@@ -28,7 +43,6 @@ const Confirmation = (props) => {
     let userEmail = props.auth.isAuthenticated
       ? props.auth.user.email
       : props.guest.email;
-    console.log(userEmail);
 
     if (!props.auth.isAuthenticated && userEmail) {
       return (
@@ -54,6 +68,29 @@ const Confirmation = (props) => {
     ? props.auth.user.email
     : props.guest.email;
 
+  const getPDFLink = () => (
+    <PDFDownloadLink
+      document={<Receipt user={props.auth.isAuthenticated ? props.auth.user : props.guest}
+      pizzas={data.getAllOrderInfoByOrderId}
+      order={props.order} />}
+      fileName={`PizzaOrder-${props.order.order_id}.pdf`}
+      style={{ textDecoration: "none", color: "black" }}
+    >
+      {({ blob, url, loading, error }) => (
+        loading ? 
+          'Loading document...' : 
+          <StyledButton
+            type="button"
+            text="Download receipt"
+            variant="basicButton"
+          >
+            
+          </StyledButton>
+        )
+      }
+    </PDFDownloadLink>
+  )
+
   return (
     <Container
       data-test="component-Confirmation"
@@ -69,15 +106,32 @@ const Confirmation = (props) => {
           <Alert variant="success">Success!</Alert>
           <p>An email has been sent to:</p>
           <p>{userEmail}</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <PDFViewer style={{ width: "100%" }}>
+            <Receipt
+              user={props.auth.isAuthenticated ? props.auth.user : props.guest}
+              pizzas={data.getAllOrderInfoByOrderId}
+              order={props.order}
+            />
+          </PDFViewer>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          {getPDFLink()}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           <StyledButton
             type="button"
             onClick={handleClickHome}
             text="Return to Home"
             variant="basicButton"
           />
-          {/* <button onClick={handleClickHome}>
-                        Return to Home
-                    </button> */}
         </Col>
       </Row>
       <br />
@@ -100,6 +154,7 @@ const mapStateToProps = (state) => ({
   // uncomment the next line below code and remove duplicate dummy code
   guest: state.guest,
   // guest: { email: "guest@email.com"},
+  order: state.order,
 });
 
 export default connect(mapStateToProps, { setMenu })(Confirmation);

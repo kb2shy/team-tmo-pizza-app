@@ -15,6 +15,7 @@ const inputDefs = `
     crust: Int
     sauce: Int
     toppings: ToppingsInput
+    quantity: Int
   }
 `;
 

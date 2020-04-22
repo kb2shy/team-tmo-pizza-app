@@ -14,7 +14,7 @@ const queries = `
     getCartInfo(cart_items: [Int]): [Pizza]
 
     getAllPizzasByOrder(order_id: Int): [Pizza]
-    getAllPizzaInfoByOrder(order_id: Int): [Pizza]
+    getAllOrderInfoByOrderId(order_id: Int): Order
 
     getMeatOptions: [Meat]
     getVeggieOptions: [Veggie]
@@ -32,6 +32,8 @@ const queries = `
     getTotalSelectedVeggie(veggie_id: Int): [Veggie]
     getTotalSelectedMeat(meat_id: Int): [Meat]
     getTotalSelectedCheese(cheese_id: Int): [Cheese]
+
+    getToppingsCountByCustomerId(customer_id: Int!): [Order]
   }
 `;
 

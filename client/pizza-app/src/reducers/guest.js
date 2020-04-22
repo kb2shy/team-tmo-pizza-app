@@ -10,11 +10,11 @@ const initialState = {
 const guestReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_GUEST:
-      const { firstName, lastName, email, phone } = action.payload;
+      const { first_name, last_name, email, phone } = action.payload;
 
       return {
-        first_name: firstName || state.first_name,
-        last_name: lastName || state.last_name,
+        first_name: first_name || state.first_name,
+        last_name: last_name || state.last_name,
         email: email || state.email,
         phone: phone || state.phone,
       };

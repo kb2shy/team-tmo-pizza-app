@@ -25,6 +25,7 @@ class Toppings extends React.Component {
                         />
                     )
                 })}
+                <hr/>
             </div>
         )
     }

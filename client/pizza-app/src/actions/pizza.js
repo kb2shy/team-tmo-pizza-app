@@ -2,7 +2,8 @@ import {
     ADD_TOPPING, 
     REMOVE_TOPPING,
     SET_PIZZA_BASE,
-    ADD_TOTAL_PRICE,
+    ADD_BASE_PRICE,
+   // ADD_TOTAL_PRICE,
     SET_PIZZA,
     CLEAR_PIZZA
   } from "../config/actionTypes";
@@ -29,11 +30,21 @@ import {
     });
   };
 
+  /*
   export const addTotalPrice = (price) => (dispatch) => {
     dispatch({
       type: ADD_TOTAL_PRICE,
       payload: price
     });
+  }
+  */
+
+  export const addBasePrice = (price) => (dispatch) => {
+    // console.log(`actions/pizza: dispatching addBasePrice(${price})`)
+    dispatch({
+      type: ADD_BASE_PRICE,
+      payload: price
+    })
   }
 
   export const setPizza = (pizza) => (dispatch) => {
@@ -48,3 +59,4 @@ import {
       type: CLEAR_PIZZA
     });
   };
+  

@@ -73,9 +73,7 @@ const Register = ({
     const value = evt.target.value;
     setUser((u) => ({ ...u, [name]: value }));
   };
-
   console.log(errors)
-
   return (
     <div>
       <StyledTitle
@@ -160,6 +158,7 @@ const Register = ({
               onChange={handleChange}
               isInvalid={touched.email && !isEmail(user.email) && errors !== ''}
               isValid={isEmail(user.email) && errors === ''}
+
               onBlur={() => {
                 setTouched({ email: true });
               }}

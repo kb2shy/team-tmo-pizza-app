@@ -9,7 +9,7 @@ async function getTokenByCustomer(root, { email, password }, { Customer }) {
     customer = await Customer.findOne({
       where: {
         email,
-        isRegistered: true, // ensure we're finding the user that is registered
+        registered: true, // ensure we're finding the user that is registered
       },
     });
   } catch (err) {

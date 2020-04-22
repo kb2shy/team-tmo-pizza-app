@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Adamina|Calligraffitti|Charm:700|La+Belle+Aurore|Montez&display=swap');
+
+.orderDisplayCard{
+font-family: 'Charm', cursive;
+font-size: 1.2rem;
+color: rgb(192, 116, 54);
+margin-bottom: 1em;
+}
+.orderViewDetail:hover{
+    box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.296), -3px -3px 6px 2px rgba(0, 0, 0, 0.296);
+transform: translateY(-3px);
+
+}

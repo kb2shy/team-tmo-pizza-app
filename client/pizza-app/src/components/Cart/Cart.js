@@ -317,7 +317,6 @@ const Cart = ({
               !isAlpha(guestData.last_name) ||
               !isAlpha(guestData.first_name) ||
               !isValidPhoneNumber(guestData.phone) || pizzas.length === 0)
-
           }
           text="Submit"
         />

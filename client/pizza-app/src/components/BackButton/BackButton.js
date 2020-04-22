@@ -7,7 +7,7 @@ import { Modal } from 'react-bootstrap';
 import StyledButton from '../common/Button/StyledButton';
 import './BackButton.css';
 
-const BackButton = ({ step, previousMenu, prevStep, setMenu, clearPizza }) => {
+const BackButton = ({ step, prevSteps, previousMenu, setMenu, clearPizza }) => {
   /*
     When the user clicks the "back" button on the create pizza page
     a modal pop-up appears with options to proceed or stay on the page
@@ -68,7 +68,7 @@ const BackButton = ({ step, previousMenu, prevStep, setMenu, clearPizza }) => {
       <StyledButton
         type="button"
         variant="backButton"
-        disabled={step === 1}
+        disabled={step === 1 || prevSteps.length === 0}
         onClick={handleClick}
         text="Back"
       />
@@ -81,13 +81,14 @@ const BackButton = ({ step, previousMenu, prevStep, setMenu, clearPizza }) => {
 
 BackButton.propTypes = {
   step: PropTypes.number.isRequired,
+  prevSteps: PropTypes.array.isRequired,
   previousMenu: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   step: state.menu.step,
+  prevSteps: state.menu.prevSteps,
   isAuthenticated: state.auth.isAuthenticated,
-  prevStep: state.menu.prevStep,
 });
 
 export default connect(mapStateToProps, { setMenu, previousMenu, clearPizza })(

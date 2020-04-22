@@ -23,21 +23,26 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
   const pizzasRed = getState().pizzas;
   const pizzas = [];
   for (let pizza of pizzasRed) {
-    const { size, crust, sauce, toppings } = pizza;
+    const { size, crust, sauce, toppings, quantity } = pizza;
 
     const sizeId = size.id;
     const crustId = crust.id;
     const sauceId = sauce.id;
-    const meatsIds = toppings.meats.map(item => item.id);
-    const cheesesIds = toppings.cheeses.map(item => item.id);
-    const veggiesIds = toppings.veggies.map(item => item.id);
-    const toppingsId = {meats: meatsIds, veggies: veggiesIds, cheeses: cheesesIds};
+    const meatsIds = toppings.meats.map((item) => item.id);
+    const cheesesIds = toppings.cheeses.map((item) => item.id);
+    const veggiesIds = toppings.veggies.map((item) => item.id);
+    const toppingsId = {
+      meats: meatsIds,
+      veggies: veggiesIds,
+      cheeses: cheesesIds,
+    };
 
     pizzas.push({
       size: sizeId,
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
+      quantity,
     });
   }
 
@@ -53,9 +58,8 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
       variables: { guest, pizzas },
     });
 
-    console.log(result);
-
     const order = result.data.createGuestOrder;
+    console.log('RESULT: ' + order);
 
     if (!order) {
       throw new Error('Failed to create a guest order.');
@@ -103,21 +107,26 @@ export const createMemberOrder = (onSuccessEvent) => async (
   const pizzasRed = getState().pizzas;
   const pizzas = [];
   for (let pizza of pizzasRed) {
-    const { size, crust, sauce, toppings } = pizza;
+    const { size, crust, sauce, toppings, quantity } = pizza;
 
     const sizeId = size.id;
     const crustId = crust.id;
     const sauceId = sauce.id;
-    const meatsIds = toppings.meats.map(item => item.id);
-    const cheesesIds = toppings.cheeses.map(item => item.id);
-    const veggiesIds = toppings.veggies.map(item => item.id);
-    const toppingsId = {meats: meatsIds, veggies: veggiesIds, cheeses: cheesesIds};
+    const meatsIds = toppings.meats.map((item) => item.id);
+    const cheesesIds = toppings.cheeses.map((item) => item.id);
+    const veggiesIds = toppings.veggies.map((item) => item.id);
+    const toppingsId = {
+      meats: meatsIds,
+      veggies: veggiesIds,
+      cheeses: cheesesIds,
+    };
 
     pizzas.push({
       size: sizeId,
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
+      quantity,
     });
   }
 

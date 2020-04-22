@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import BarChart from '../BarChart/BarChart';
 import { Card } from "react-bootstrap";
 import { addTopping, removeTopping } from '../../actions/pizza';
+import classes from './ToppingCard.module.css'
 
 class ToppingCard extends React.Component {
     constructor(props) {
@@ -42,7 +43,8 @@ class ToppingCard extends React.Component {
 
     handleClick = () => {
         //change card background
-        const newStyle = this.state.status ? { ...this.state.style, background: 'white' } : { ...this.state.style, background: '#ffcc99' };
+        const newStyle = this.state.status ? { ...this.state.style, background: 'rgba(19, 36, 30, 0)',  boxShadow: '2px 2px 0px 0px rgba(0, 0, 0, 0.637),  -2px -2px 0px 0px rgba(253, 238, 238, 0.692)' } : { ...this.state.style, background: '#ffcc99', boxShadow: "2px 2px 0px 0px rgba(253, 238, 238, 0.692),  -2px -2px 0px 0px  rgba(0, 0, 0, 0.637)" 
+ };
 
         //Update store
         if (this.state.status) {
@@ -66,9 +68,10 @@ class ToppingCard extends React.Component {
                 id={this.props.item.type}
                 style={this.state.style}
                 className="text-center"
-                onClick={(e) => this.handleClick()}>
-                <Card.Body>
-                    <Card.Title>{this.props.item.type}</Card.Title>
+                onClick={(e) => this.handleClick()}
+                className={classes.toppingCardWrapper}>
+                <Card.Body className={classes.toppingCardBody}>
+                    <Card.Title className={classes.toppingCardTitle}>{this.props.item.type} </Card.Title>
                     <Card.Text>{this.props.item.price!== undefined ? `$${this.props.item.price.toFixed(2)}` : null}</Card.Text>
                     {(this.props.isAuthenticated && total > 0) ? <BarChart count={this.props.item.count} total={total} item={this.props.item.type.replace(/\s+/g, '')} /> : null}
                 </Card.Body>

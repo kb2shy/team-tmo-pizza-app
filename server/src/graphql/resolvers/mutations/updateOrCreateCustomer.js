@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 // "Looks like you already have an account. Please sign to make an order"
 async function updateOrCreateCustomer(
   root,
-  { first_name, last_name, phone, email, password, isRegistered },
+  { first_name, last_name, phone, email, password, registered },
   { Customer }
 ) {
   // process input
@@ -21,7 +21,7 @@ async function updateOrCreateCustomer(
   email = email.trim().toLowerCase();
 
   // override registered if password is falsy (null, undefined, '')
-  let isRegistered2 = isRegistered && password ? true : false;
+  let registered2 = registered && password ? true : false;
 
   // query a customer by the given email
   let existingCustomer = null;
@@ -34,9 +34,10 @@ async function updateOrCreateCustomer(
 
   // In case an attempt is made to register/order pizza as guest
   //   using an email of an existing, registered account.
-  if (existingCustomer && existingCustomer.isRegistered) {
+  if (existingCustomer && existingCustomer.registered) {
     // @todo it is better to return an error (and not just for this case)
     //   and prompt user to sign in
+    console.log(existingCustomer + existingCustomer.registered)
     return null;
   }
 
@@ -53,7 +54,7 @@ async function updateOrCreateCustomer(
         last_name,
         phone,
         password: passHash,
-        isRegistered: isRegistered2,
+        registered: registered2,
       }); // errHandler not necessary here; see the catch statement below
     } else {
       return await Customer.create({
@@ -62,7 +63,7 @@ async function updateOrCreateCustomer(
         phone,
         email,
         password: passHash,
-        isRegistered: isRegistered2,
+        registered: registered2,
       }); // errHandler not necessary here; see the catch statement below
     }
   } catch (err) {
