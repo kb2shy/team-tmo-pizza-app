@@ -65,6 +65,7 @@ const mutations = `
       crust_id: Int
       sauce_id: Int
       quantity: Int
+      price: Float
     ): Pizza
 
     createAddress(

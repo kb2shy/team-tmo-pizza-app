@@ -44,14 +44,15 @@ module.exports = {
     //creates a pizza with basic info (size, sauce, crust)
     async createPizza(
       root,
-      { size_id, crust_id, sauce_id, quantity },
+      { size_id, crust_id, sauce_id, quantity, price },
       { Pizza }
     ) {
       return await Pizza.create({
         size_id,
         crust_id,
         sauce_id,
-        quantity
+        quantity,
+        price
       }).catch(errHandler);
     },
     //sets a veggie selection for a pizza
