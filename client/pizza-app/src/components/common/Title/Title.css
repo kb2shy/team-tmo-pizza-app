@@ -16,6 +16,7 @@
 
 .cursiveTitle {
   font-family: 'Dancing Script', cursive;
+
   text-shadow: 4px 2px 3px rgba(27, 6, 6, 0.973);
   font-size: 4.5em;
   display: block;
@@ -59,6 +60,7 @@
   display: block;
   color: #f7ddaf;
 }
+
 .CartTitle{
   font-family: 'Allura', cursive;
   font-size: 4.5em;
@@ -67,6 +69,7 @@
   text-shadow: 2px 2px 3px rgb(105, 39, 39);
 
 }
+
 /* divClassName styling --------------------------------- */
 .titleBox {
   background-color: #a44939;
