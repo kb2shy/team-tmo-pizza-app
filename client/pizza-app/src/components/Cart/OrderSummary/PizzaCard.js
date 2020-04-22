@@ -47,7 +47,8 @@ const PizzaCard = (props) => {
           </tr>
           <tr id="Price">
             <td>Total: </td>
-            <td>${props.price.toFixed(2)}</td>
+            <td>${props.price}</td>
+            {/* <td>${props.price.toFixed(2)}</td> */}
           </tr>
         </tbody>
       </table>
