@@ -82,6 +82,8 @@ const mutations = `
     createMemberOrder(
       pizzas: [PizzaInput!]!
     ): Order
+
+    sendTestEmail: Int
   }`;
 
 module.exports = mutations;

@@ -42,59 +42,16 @@ fs.readFile(memberEmailTemplateFile, 'utf8', function (err, data) {
 // This mutation is meant to be as a helper function for
 // `createGuestOrder` and `createMemberOrder` mutations.
 // Thus mutation must not be shared with the end client.
-async function createOrder(
-  root,
-  { customer, pizzas },
-  { Order, OrderItem, ...context }
-) {
+async function sendTestEmail(root, attrs, context) {
   if (!memberConfirmOrderTemplate || !guestConfirmOrderTemplate) {
     throw 'Email confirmation template(s) not loaded yet. Please try again later.';
   }
 
-  // create pizzas
-  const pizzasDetails = [];
-  for (let pizza of pizzas) {
-    try {
-      const pizzaDetails = await createAndFillPizza(root, { pizza }, context);
-      pizzasDetails.push(pizzaDetails);
-    } catch (err) {
-      // @todo delete all other created pizzas
-      throw `An error ocurred with creating a pizza: ${err}`;
-    }
-  }
-
-  // create order
-  let orderRecord = null;
-  //hardcoded address and delivery is temporary variable until we implement selecting a store location
-  try {
-    orderRecord = await Order.create({
-      customer_id: customer.customer_id,
-      delivery: false,
-      address_id: 1
-    });
-  } catch (err) {
-    throw `Error with Order.create: ${err}`;
-  }
-  // orderRecord is never null here
-
-  // tie pizzas to the order
-  for (let pizzaDetails of pizzasDetails) {
-    try {
-      await OrderItem.create({
-        order_id: orderRecord.order_id,
-        pizza_id: pizzaDetails.pizzaRecord.pizza_id
-      });
-    } catch (err) {
-      throw `Error with OrderItem.create: ${err}`;
-    }
-  }
-
-  // compute price for all pizzas
-  const totalPrice = await computePizzasPrice(pizzasDetails, context);
+  const order_id = 344534;
 
   // draw bar-code based on order id (we may need to hash that id @todo)
   const canvasInst = createCanvas();
-  const orderCode = encryptId(orderRecord.order_id);
+  const orderCode = encryptId(order_id);
   JsBarcode(canvasInst, orderCode, {
     format: 'CODE128',
     displayValue: false,
@@ -105,26 +62,7 @@ async function createOrder(
   const imgData2 = imgData1.replace('data:image/jpeg;base64,', '');
 
   // create a formatted email
-  let html = null;
-  if (customer.registered) {
-    html = memberConfirmOrderTemplate({
-      customer: customer.toJSON(),
-      order: orderRecord.toJSON(),
-      stats: {
-        quantity: pizzasDetails.length,
-        price: totalPrice.toFixed(2),
-      },
-    });
-  } else {
-    html = guestConfirmOrderTemplate({
-      customer: customer.toJSON(),
-      order: orderRecord.toJSON(),
-      stats: {
-        quantity: pizzasDetails.length,
-        price: totalPrice.toFixed(2),
-      },
-    });
-  }
+  let html = memberConfirmOrderTemplate({});
 
   // store the generated html for sampling purposes
   // fs.writeFile(emailSampleFile, html, (err) => {
@@ -134,13 +72,13 @@ async function createOrder(
 
   // send order confirmation email
   const msg = {
-    to: customer.email,
+    to: 'anton.synytsia@gmail.com',
     from: config.get('supportEmail'),
     subject: 'TMoPizza Order Confirmation',
     html: html,
     attachments: [
       {
-        filename: `tmopizza-order-${orderRecord.order_id}.png`,
+        filename: `tmopizza-order-${order_id}.png`,
         type: 'image/png',
         content_id: 'barcode',
         content: imgData2,
@@ -155,7 +93,7 @@ async function createOrder(
   }); // no need to await this request
 
   // return the order
-  return orderRecord;
+  return order_id;
 }
 
-module.exports = createOrder;
+module.exports = sendTestEmail;
