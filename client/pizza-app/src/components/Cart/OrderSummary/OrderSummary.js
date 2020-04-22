@@ -108,10 +108,10 @@ class OrderSummary extends React.Component {
                     />
 
                     <StyledButton
-                      text="Remove Pizza*"
+                      text="Remove Pizza"
                       type="Button"
                       variant="orderSummaryButton"
-                      onClick={() => removePizza(index)}
+                      onClick={() => this.props.removePizza(index)}
                       size="sm"
                     />
                   </div>
