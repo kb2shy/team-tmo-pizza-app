@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Container, Form, Row, Col, Table } from 'react-bootstrap';
+import { Container, Form, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 // Custom Styling
@@ -15,8 +15,9 @@ import { clearPizzas } from '../../actions/pizzas';
 import { createGuestOrder, createMemberOrder } from '../../actions/order';
 
 import './Cart.css';
-import OrderSummary from '../OrderSummary/OrderSummary';
+import OrderSummary from './OrderSummary/OrderSummary';
 import AppSpinner from '../AppSpinner/AppSpinner';
+import UserDetails from './UserDetails';
 
 import isAlpha from 'validator/lib/isAlpha';
 import isEmail from 'validator/lib/isEmail';
@@ -45,19 +46,20 @@ const Cart = ({
   previousMenu,
   pizzas,
 }) => {
-
   const [guestData, setGuestData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     phone: '',
   });
 
+  const [prevTotal, setPrevTotal] = useState(0);
+
   const [touched, setTouched] = useState({
-    firstName: false,
-    lastName: false,
+    first_name: false,
+    last_name: false,
     email: false,
-    phone: false
+    phone: false,
   });
 
   function isValidPhoneNumber(phone) {
@@ -74,23 +76,22 @@ const Cart = ({
   // Conditional check:
   // Guest view: ensures all input fields are entered
   // User view: true, all fields are pulled from store
-  let isValid =
-    guestData.firstName.length !== 0 &&
-    guestData.lastName.length !== 0 &&
-    guestData.email.length !== 0 &&
-    guestData.phone.length !== 0;
+  // let isValid =
+  //   guestData.first_name.length !== 0 &&
+  //   guestData.last_name.length !== 0 &&
+  //   guestData.email.length !== 0 &&
+  //   guestData.phone.length !== 0;
 
   // Adds guest and their information to the store's state
   // Directs user to the Confirmation page
   const handleClickSubmit = (e) => {
     e.preventDefault();
-    console.log('hi');
-    const firstName = guestData.firstName.trim();
-    const lastName = guestData.lastName.trim();
+    const first_name = guestData.first_name.trim();
+    const last_name = guestData.last_name.trim();
     const email = guestData.email.trim();
     const phone = guestData.phone.trim();
 
-    const guest = { firstName, lastName, email, phone };
+    const guest = { first_name, last_name, email, phone };
     setGuest(guest);
 
     if (isAuthenticated) {
@@ -106,130 +107,113 @@ const Cart = ({
     }
   };
 
-  const handleChange = (e) => {
+  const handleGuestDataChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setGuestData((d) => ({ ...d, [name]: value }));
   };
 
-  // User view: prints user information in a table
-  const renderUserDisplay = () => {
-    return (
-      <Table borderless>
-        <tbody>
-          <tr id="Name">
-            <td>Name : </td>
-            <td>{user.first_name + ' ' + user.last_name}</td>
-          </tr>
-          <tr id="Email">
-            <td>Email : </td>
-            <td>{user.email}</td>
-          </tr>
-          <tr id="Phone">
-            <td>Phone : </td>
-            <td>{user.phone}</td>
-          </tr>
-        </tbody>
-      </Table>
-    );
-  };
 
   // Guest view: displays a form for inputting information
   const renderGuestInput = () => {
     return (
-      <Form>
+      <Form className="cartOrderFormContainer">
         <Form.Group as={Row} controlId="formHorizontalName">
           <Form.Label column sm={2}>
-            Name :
+            Name:
           </Form.Label>
           <Col>
             <Form.Control
-              name="firstName"
+              className="cartOrderFormInput"
+              name="first_name"
               type="text"
               placeholder="first name"
-              value={guestData.firstName}
-              onChange={handleChange}
-              isInvalid={touched.firstName && !isAlpha(guestData.firstName)}
-              isValid={isAlpha(guestData.firstName)}
-              onBlur={() => { setTouched({ firstName: true }) }}
+              value={guestData.first_name}
+              onChange={handleGuestDataChange}
+              isInvalid={touched.first_name && !isAlpha(guestData.first_name)}
+              isValid={isAlpha(guestData.first_name)}
+              onBlur={() => {
+                setTouched({ first_name: true });
+              }}
               required
             />
             <Form.Control.Feedback type="invalid">
               Please enter a valid first name.
-        </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Looks good!
-        </Form.Control.Feedback>
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Col>
           <Col>
             <Form.Control
-              name="lastName"
+              className="cartOrderFormInput"
+              name="last_name"
               type="text"
               placeholder="last name"
-              value={guestData.lastName}
-              onChange={handleChange}
-              isInvalid={touched.lastName && !isAlpha(guestData.lastName)}
-              isValid={isAlpha(guestData.lastName)}
-              onBlur={() => { setTouched({ lastName: true }) }}
+              value={guestData.last_name}
+              onChange={handleGuestDataChange}
+              isInvalid={touched.last_name && !isAlpha(guestData.last_name)}
+              isValid={isAlpha(guestData.last_name)}
+              onBlur={() => {
+                setTouched({ last_name: true });
+              }}
               required
             />
             <Form.Control.Feedback type="invalid">
               Please enter a valid last name.
-        </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Looks good!
-        </Form.Control.Feedback>
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
-            Email :
+            Email:
           </Form.Label>
           <Col sm={10}>
             <Form.Control
+              className="cartOrderFormInput"
               name="email"
               type="email"
               placeholder="email"
               value={guestData.email}
-              onChange={handleChange}
-              onChange={handleChange}
+              onChange={handleGuestDataChange}
+              onChange={handleGuestDataChange}
               isInvalid={touched.email && !isEmail(guestData.email)}
               isValid={isEmail(guestData.email)}
-              onBlur={() => { setTouched({ email: true }) }}
+              onBlur={() => {
+                setTouched({ email: true });
+              }}
               required
             />
             <Form.Control.Feedback type="invalid">
               Please enter a valid email address.
-        </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Looks good!
-        </Form.Control.Feedback>
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} controlId="formHorizontalPhone">
           <Form.Label column sm={2}>
-            Phone :
+            Phone:
           </Form.Label>
           <Col sm={10}>
             <Form.Control
+              className="cartOrderFormInput"
               name="phone"
               type="text"
               placeholder="phone"
               value={guestData.phone}
-              onChange={handleChange}
+              onChange={handleGuestDataChange}
               isInvalid={touched.phone && !isValidPhoneNumber(guestData.phone)}
               isValid={isValidPhoneNumber(guestData.phone)}
-              onBlur={() => { setTouched({ phone: true }) }}
+              onBlur={() => {
+                setTouched({ phone: true });
+              }}
               required
             />
             <Form.Control.Feedback type="invalid">
               Please enter a valid phone number.
-        </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Looks good!
-        </Form.Control.Feedback>
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Col>
         </Form.Group>
       </Form>
@@ -241,30 +225,52 @@ const Cart = ({
     if (userDoesNotExist) {
       return renderGuestInput();
     } else {
-      isValid = true;
-      return renderUserDisplay();
+      // isValid = true;
+      // return renderUserDisplay();
+      return (
+        <UserDetails
+          first_name={user.first_name}
+          last_name={user.last_name}
+          email={user.email}
+          phone={user.phone}
+        />
+      );
     }
   };
 
+  useEffect(() => {
+    calcTotalPrice();
+  }, [pizzas]);
+
   // Calculates the total price of all orders in the cart
   const calcTotalPrice = () => {
+    // console.log('in calcTotalPrice, pizzas: ', pizzas);
     let total = 0;
     for (let pizza of pizzas) {
-      total += pizza.totalPrice;
+      total += parseFloat(pizza.totalPrice);
     }
-    return total.toFixed(2);
+
+    // parseFloat().toFixed(2) avoids the ".toFixed() is not a function" error
+    total = parseFloat(total).toFixed(2);
+    setPrevTotal(total);
   };
 
   const handleAddAnotherPizza = (e) => {
     e.preventDefault();
-    // alert("let's add another");
     clearPizza();
     previousMenu();
   };
 
+  const handleAddAPizza = (e) => {
+    e.preventDefault();
+    clearPizza();
+    setMenu(3)
+  };
+
+
   return (
     <div>
-      <StyledTitle text="Cart" className="basicTitle" />
+      <StyledTitle text="Cart" className="CartTitle" />
 
       <div className="centerStyle">
         <h2>Review your order below</h2>
@@ -274,22 +280,30 @@ const Cart = ({
       </div>
 
       <Container>
-        <Row>
-          <Col>
-            <h2>Order for:</h2>
+        <Row className="cartOrderFormContainerRow">
+          <Col className="cartOrderFormContainerWrapper">
+            <h2 className="cartSubTitle">Order for:</h2>
             {customerSummary()}
           </Col>
-          <Col>
-            <h2>Order Summary:</h2>
-            {/* <h6>Sub-Total: ${calcTotalPrice()}</h6> */}
-            <h6>Total: ${calcTotalPrice()}</h6>
+
+          <Col className="cartOrderFormContainerWrapper">
+            <h2 className="cartSubTitle">Order Summary:</h2>
+            <h6>Total: ${prevTotal}</h6>
+
 
             <OrderSummary />
-            <StyledButton
+            {pizzas === 0 ? <StyledButton
               onClick={handleAddAnotherPizza}
               variant="basicButton"
               text="Add another pizza"
-            />
+            /> :
+              <div><p>Pizza cart is currently empty.</p>
+                <StyledButton
+                  onClick={handleAddAPizza}
+                  variant="basicButton"
+                  text="Add a pizza"
+                /></div>}
+
           </Col>
         </Row>
       </Container>
@@ -297,17 +311,16 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
-          disabled={!isEmail(guestData.email) || !isAlpha(guestData.lastName) || !isAlpha(guestData.firstName) || !isValidPhoneNumber(guestData.phone)}
+          disabled={
+            !isAuthenticated &&
+            (!isEmail(guestData.email) ||
+              !isAlpha(guestData.last_name) ||
+              !isAlpha(guestData.first_name) ||
+              !isValidPhoneNumber(guestData.phone) || pizzas.length === 0)
+
+          }
           text="Submit"
         />
-
-        {/* <Button
-          variant="primary"
-          onClick={handleClickSubmit}
-          disabled={!isValid}
-        >
-          Submit
-        </Button> */}
         {order.processing && <AppSpinner />}
       </div>
     </div>
@@ -316,6 +329,7 @@ const Cart = ({
 
 const mapStateToProps = (state) => {
   return {
+    step: state.menu.step,
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
     guest: state.guest,
