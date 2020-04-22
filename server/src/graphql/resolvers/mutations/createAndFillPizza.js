@@ -111,12 +111,18 @@ async function createAndFillPizza(
   const meat_ids = toppings && toppings.meats ? toppings.meats : [];
   const veggie_ids = toppings && toppings.veggies ? toppings.veggies : [];
   const cheese_ids = toppings && toppings.cheeses ? toppings.cheeses : [];
+
+  //temp value
+  const quantity = 1
+  const price = 12.99
+  
   // create pizza
   const pizzaRecord = await Pizza.create({
     size_id,
     crust_id,
     sauce_id,
-    quantity
+    quantity,
+    price
   });
   const pizza_id = pizzaRecord.pizza_id;
 
