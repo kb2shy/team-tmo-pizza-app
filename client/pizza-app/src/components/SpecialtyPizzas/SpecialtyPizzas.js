@@ -100,7 +100,8 @@ class SpecialtyPizzas extends React.Component {
                 size,
                 crust: pizza.crust,
                 sauce: pizza.sauce,
-                totalPrice: pizza.totalPrice + size.price
+                totalPrice: pizza.totalPrice + size.price,
+                quantity: 1
             }
         );
         this.props.clearPizza();

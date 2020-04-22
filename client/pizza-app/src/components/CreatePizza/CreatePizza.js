@@ -36,13 +36,13 @@ class CreatePizza extends React.Component {
 
     //Adds current pizza to pizzas array and clears current pizza
     handleSubmit = () => {
-        if (this.verifyUserInput()){
+        // if (this.verifyUserInput()){
             const totalPrice = this.calcPrice();
             const currentPizza = this.props.pizza;
             this.props.addPizza({ ...currentPizza, basePrice: totalPrice, totalPrice, quantity: 1});
             this.props.clearPizza()
             this.props.nextMenu(this.props.step);
-        }
+        //}
     };
   
 
@@ -66,21 +66,21 @@ class CreatePizza extends React.Component {
     return totalPrice.toFixed(2);
   };
 
-    verifyUserInput = () => {
-        if(this.props.pizza.size.type === null) {
-            this.setState({message: 'Please select pizza size.'});
-            return false;
-        } else if (this.props.pizza.crust.type === null){
-            this.setState({message: 'Please select crust type.'});
-            return false;
-        } else if (this.props.pizza.sauce.type === null){
-            this.setState({message: 'Please select sauce type.'});
-            return false;
-        }
+    // verifyUserInput = () => {
+    //     if(this.props.pizza.size.type === null) {
+    //         this.setState({message: 'Please select pizza size.'});
+    //         return false;
+    //     } else if (this.props.pizza.crust.type === null){
+    //         this.setState({message: 'Please select crust type.'});
+    //         return false;
+    //     } else if (this.props.pizza.sauce.type === null){
+    //         this.setState({message: 'Please select sauce type.'});
+    //         return false;
+    //     }
 
-        this.setState({message: null});
-        return true;
-    };
+    //     this.setState({message: null});
+    //     return true;
+    // };
 
 
   //Renders topping sections
@@ -143,6 +143,7 @@ class CreatePizza extends React.Component {
         <StyledButton
           variant="basicButton"
           text="Add to Cart"
+          disabled={this.props.pizza.size.type === null || this.props.pizza.crust.type === null || this.props.pizza.sauce.type === null}
           onClick={this.handleSubmit}
         />
       </div>
