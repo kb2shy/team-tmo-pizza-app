@@ -5,7 +5,7 @@ import { setPopCart } from '../../actions/menu';
 
 import StyledButton from '../common/Button/StyledButton';
 
-import OrderSummary from '../OrderSummary/OrderSummary';
+import OrderSummary from './OrderSummary/OrderSummary';
 class PopCart extends React.Component {
     render() {
       return (

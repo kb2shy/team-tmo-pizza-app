@@ -1,13 +1,14 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks'
 import { Card, Row, Col } from 'react-bootstrap';
-import { GET_ALL_PIZZA_INFO_BY_ORDER } from '../../config/gqlDefines'
+import { GET_ALL_ORDER_INFO_BY_ORDER_ID } from '../../config/gqlDefines'
 import OrderDetails from './OrderDetails'
+import './OrderHistory.css'
 
 const OrderDisplay = (props) => {
 
     const order_id = props.orderId
-    const { loading, error, data } = useQuery(GET_ALL_PIZZA_INFO_BY_ORDER, { variables: { order_id } })
+    const { loading, error, data } = useQuery(GET_ALL_ORDER_INFO_BY_ORDER_ID, { variables: { order_id } })
     if (error) return <p>{error.message}</p>
     if (loading) return <p>Loading...</p>
 
@@ -16,10 +17,10 @@ const OrderDisplay = (props) => {
             <Row key={'key1_'+order_id}><h5 >Order # {order_id}</h5></Row>
             <Row key={'key2_'+order_id}>
                 {
-                    data.getAllPizzaInfoByOrder.map((pizza, index) => {
+                    data.getAllOrderInfoByOrderId.pizzas.map((pizza, index) => {
                         return (
                             <Col key={'key_col_'+order_id+index}>
-                                <Card style={{ width: '18rem' }} key={'key_card_'+order_id + index}>
+                                <Card style={{ width: '18rem' }} key={'key_card_'+order_id + index} className="orderDisplayCard">
                                     <Card.Body key={'key_body_'+order_id + index}>
                                         <Card.Title >Pizza {index + 1}</Card.Title>
                                         <Card.Text><b>Size: </b>{pizza.size.size_type}</Card.Text>

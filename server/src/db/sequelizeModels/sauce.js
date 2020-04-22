@@ -18,6 +18,6 @@ Sauce.init({
             notEmpty: true
         }
     }
-}, {sequelize, modelName: 'sauce', timestamps: false})
+}, {sequelize, modelName: 'sauce', timestamps: true, underscored: true})
 
 module.exports = Sauce

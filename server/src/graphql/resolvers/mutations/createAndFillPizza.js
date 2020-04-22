@@ -3,7 +3,7 @@
 // Thus mutation must not be shared with the end client.
 async function createAndFillPizza(
   root,
-  { pizza: { size, crust, sauce, toppings } },
+  { pizza: { size, crust, sauce, toppings, quantity } },
   {
     Pizza,
     // Cheese,
@@ -12,9 +12,9 @@ async function createAndFillPizza(
     // Meat,
     // Veggie,
     // Size,
-    MeatSelect,
-    VeggieSelect,
-    CheeseSelect,
+    MeatSelection,
+    VeggieSelection,
+    CheeseSelection,
   }
 ) {
   // find size id by type
@@ -111,31 +111,31 @@ async function createAndFillPizza(
   const meat_ids = toppings && toppings.meats ? toppings.meats : [];
   const veggie_ids = toppings && toppings.veggies ? toppings.veggies : [];
   const cheese_ids = toppings && toppings.cheeses ? toppings.cheeses : [];
-
   // create pizza
   const pizzaRecord = await Pizza.create({
     size_id,
     crust_id,
     sauce_id,
+    quantity
   });
   const pizza_id = pizzaRecord.pizza_id;
 
   // add meats to the pizza
   for (let meat_id of meat_ids) {
-    await MeatSelect.create({ meat_id, pizza_id });
+    await MeatSelection.create({ meat_id, pizza_id });
   }
 
   // add veggies to the pizza
   for (let veggie_id of veggie_ids) {
-    await VeggieSelect.create({ veggie_id, pizza_id });
+    await VeggieSelection.create({ veggie_id, pizza_id });
   }
 
   // add cheeses to the pizza
   for (let cheese_id of cheese_ids) {
-    await CheeseSelect.create({ cheese_id, pizza_id });
+    await CheeseSelection.create({ cheese_id, pizza_id });
   }
 
-  // return the pizza id
+  // return the pizza record along with meat ids, cheese ids, and veggie ids.
   return { pizzaRecord, meat_ids, cheese_ids, veggie_ids };
 }
 

@@ -1,7 +1,7 @@
 // use apollo-boost with all available utils
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";
 
-//doesn't cache queries
+// //doesn't cache queries
 const DefaultOptions = {
   watchQuery: {
     fetchPolicy: 'no-cache'
@@ -14,7 +14,8 @@ const DefaultOptions = {
 const client = new ApolloClient({
   link: new HttpLink({ uri: "http://localhost:4000/graphql" }),
   cache: new InMemoryCache(),
-  defaultOptions: DefaultOptions
+  defaultOptions: DefaultOptions,
+
 });
 
 export default client;

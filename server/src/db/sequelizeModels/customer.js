@@ -50,14 +50,16 @@ Customer.init({
             notEmpty: true
         }
     },
-    isRegistered: {
+    registered: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
-        defaultValue: false,
-        validate: {
-        }
+        defaultValue: false
+    },
+    createdAt: {
+        type: DataTypes.DATE, 
+        field: 'created_at'
     }
-}, { sequelize, modelName: 'customer'})
+}, { sequelize, modelName: 'customer', timestamps: true, underscored: true})
 
 
 module.exports = Customer 

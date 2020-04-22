@@ -13,7 +13,6 @@ Address.init({
         type: DataTypes.STRING,
         allowNull: false,
         validate:{
-            isAlphanumeric: true,
             notNull: true, 
             notEmpty: true,
         }
@@ -22,7 +21,6 @@ Address.init({
         type: DataTypes.STRING,
         allowNull: false,
         validate:{
-            isAlpha: true, 
             notNull: true, 
             notEmpty: true,
         }
@@ -31,18 +29,17 @@ Address.init({
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            isAlpha: true, 
             notNull: true, 
             notEmpty: true,
         }
     },
     zip: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
             isNumeric: true
         }
     }
-}, {sequelize, modelName: 'address', timestamps: false})
+}, {sequelize, modelName: 'address', timestamps: true, underscored: true})
 
 module.exports = Address

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_ALL_PIZZA_INFO_BY_ORDER } from '../../config/gqlDefines';
+import { GET_ALL_ORDER_INFO_BY_ORDER_ID } from '../../config/gqlDefines';
 import { setMenu } from '../../actions/menu';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 
@@ -21,36 +21,53 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 // - Conditionally - text: want to save order
 // - Create Account (CR: display for guest)
 // - The Return to home button
-const Confirmation = (props) => {
+const Confirmation = ({ order, setMenu }) => {
 
-  const order_id = props.order.order_id || 2;
-  const { loading, error, data } = useQuery(GET_ALL_PIZZA_INFO_BY_ORDER, { variables: { order_id } });
+  const order_id = order.order_id || 1;
+  const { loading, error, data } = useQuery(GET_ALL_ORDER_INFO_BY_ORDER_ID, { variables: { order_id } });
+
   if (error) return <p>{error.message}</p>;
   if (loading) return <AppSpinner />;
 
+  const {
+    customer,
+    address,
+    created_at,
+    delivery,
+    pizzas
+  } = data.getAllOrderInfoByOrderId;
+
+  /**
+   * Function to return user to home page
+   * @param {event} e 
+   * @returns {Function} setMenu
+   */
   const handleClickHome = (e) => {
     e.preventDefault();
-    return props.setMenu(1);
+    return setMenu(1);
   };
 
+  /**
+   * Function to route user to Register page
+   * @param {event} e 
+   * @returns {Function} setMenu
+   */
   const handleClickCreateAccount = (e) => {
     e.preventDefault();
-    return props.setMenu(6);
+    return setMenu(6);
   };
 
+  /**
+   * Function that returns conditional JSX if ordering pizza as a guest
+   * @returns {object} Option to register component
+   */
   const saveOrder = () => {
-    let userEmail = props.auth.isAuthenticated
-      ? props.auth.user.email
-      : props.guest.email;
-
-    if (!props.auth.isAuthenticated && userEmail) {
+    if (!customer.registered) {
       return (
         <Row>
           <Col>
             <p>Want to save your order?</p>
             <p>Create an account today!</p>
-            {/* <button onClick={handleClickCreateAccount}>Create Account</button> */}
-
             <StyledButton
               type="button"
               onClick={handleClickCreateAccount}
@@ -63,16 +80,17 @@ const Confirmation = (props) => {
     }
   };
 
-  const userEmail = props.auth.isAuthenticated
-    ? props.auth.user.email
-    : props.guest.email;
-
+  /**
+   * Function that displays either loading message or download button for PDF document
+   * @returns {object} PDF link displayed as styled button
+   */
   const getPDFLink = () => (
     <PDFDownloadLink
-      document={<Receipt user={props.auth.isAuthenticated ? props.auth.user : props.guest}
-      pizzas={data.getAllPizzaInfoByOrder}
-      order={props.order} />}
-      fileName={`PizzaOrder-${props.order.order_id}.pdf`}
+      document={<Receipt user={customer}
+      pizzas={pizzas}
+      order={order_id} />}
+      delivery={delivery}
+      fileName={`PizzaOrder-${order_id}.pdf`}
       style={{ textDecoration: "none", color: "black" }}
     >
       {({ blob, url, loading, error }) => (
@@ -82,9 +100,7 @@ const Confirmation = (props) => {
             type="button"
             text="Download receipt"
             variant="basicButton"
-          >
-            
-          </StyledButton>
+          />
         )
       }
     </PDFDownloadLink>
@@ -103,17 +119,20 @@ const Confirmation = (props) => {
       <Row>
         <Col className="col-email-message">
           <Alert variant="success">Success!</Alert>
+          <p>Thank you, {customer.first_name} {customer.last_name}, for placing an order with us!</p>
           <p>An email has been sent to:</p>
-          <p>{userEmail}</p>
+          <p>{customer.email}</p>
         </Col>
       </Row>
       <Row>
         <Col>
           <PDFViewer style={{ width: "100%" }}>
             <Receipt
-              user={props.auth.isAuthenticated ? props.auth.user : props.guest}
-              pizzas={data.getAllPizzaInfoByOrder}
-              order={props.order}
+              user={customer}
+              pizzas={pizzas}
+              orderId={order_id}
+              orderDate={created_at}
+              delivery={delivery}
             />
           </PDFViewer>
           {getPDFLink()}
@@ -138,17 +157,6 @@ const Confirmation = (props) => {
 Confirmation.propTypes = {};
 
 const mapStateToProps = (state) => ({
-  // uncomment the below line and remove the dummy auth object
-  auth: state.auth,
-  // auth: {
-  //     user: {
-  //         email: `blahblahblah@email.com`,
-  //     },
-  //     isAuthenticated: false,
-  // },
-  // uncomment the next line below code and remove duplicate dummy code
-  guest: state.guest,
-  // guest: { email: "guest@email.com"},
   order: state.order,
 });
 

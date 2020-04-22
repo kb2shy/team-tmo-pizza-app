@@ -1,9 +1,6 @@
 import React from 'react'
-import { GET_VEGGIES_BY_PIZZA } from '../../config/gqlDefines'
-import { GET_MEATS_BY_PIZZA } from '../../config/gqlDefines'
 import { Card, Accordion, Button } from 'react-bootstrap';
-import { useQuery } from '@apollo/react-hooks'
-
+import './OrderHistory.css'
 const OrderDetails = (props) => {
     const pizza_id = props.pizzaId
     const meats = props.meats
@@ -13,9 +10,9 @@ const OrderDetails = (props) => {
     return (
         <Accordion>
             <Card key={'key_'+pizza_id}>
-                <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                        view details
+                <Card.Header >
+                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="orderViewDetail">
+                        View Details
                     </Accordion.Toggle>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">

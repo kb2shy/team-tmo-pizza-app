@@ -10,6 +10,7 @@ import './Button.css';
  * @param {string} disabled !isValid or other validation criterias
  * @param {string} onClick respective click handler
  * @param {string} text button text
+ * @param {string} size button size. Options: size="lg", size="sm"
  */
 const StyledButton = (props) => {
   return (
@@ -19,6 +20,7 @@ const StyledButton = (props) => {
         type={props.type}
         disabled={props.disabled}
         onClick={props.onClick}
+        size={props.size}
       >
         {props.text}
       </Button>

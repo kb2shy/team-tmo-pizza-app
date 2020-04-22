@@ -38,11 +38,11 @@ const styles = StyleSheet.create({
     },
 });
 
-const Receipt = ({ order, user, pizzas }) => {
+const Receipt = ({ orderId, user, pizzas, orderDate, delivery }) => {
 
     // Collect date from the order and parse it into date string
     const dateParser = () => {
-        const date = new Date(order.createdAt);
+        const date = new Date(Number(orderDate));
         const month = date.getMonth();
         const day = date.getDate();
         const year = date.getFullYear();
@@ -76,8 +76,8 @@ const Receipt = ({ order, user, pizzas }) => {
     return (
         <Document>
             <Page size="LETTER" style={styles.page}>
-                {console.log(user, order, pizzas)}
-                <HeaderReceipt order={order} user={user} date={dateParser()}/>
+                {console.log(new Date(Number(orderDate)))}
+                <HeaderReceipt orderId={orderId} user={user} date={dateParser()} delivery={delivery}/>
                 <Text style={styles.text}>Pizza(s): {countAllPizzas()}</Text>
                 <PizzasReceipt pizzas={pizzas}/>
                 <CostReceipt total={`15.00`}/>
