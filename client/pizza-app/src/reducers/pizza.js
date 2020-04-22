@@ -3,6 +3,7 @@ import {
   REMOVE_TOPPING,
   SET_PIZZA_BASE,
   ADD_BASE_PRICE,
+  ADD_TOTAL_PRICE,
   SET_PIZZA,
   CLEAR_PIZZA,
 } from '../config/actionTypes';
@@ -16,7 +17,7 @@ const initialState = {
     veggies: [],
     cheeses: [],
   },
-  quantity: 0,
+  quantity: 1,
   totalPrice: 0,
   basePrice: 0,
 };
@@ -47,6 +48,14 @@ const pizzaReducer = (state = initialState, action) => {
 
       return newBase;
 
+    // price of pizza size + toppings
+    case ADD_BASE_PRICE:
+      return { ...state, basePrice: action.payload };
+
+    // price of pizza quantity * base price
+    case ADD_TOTAL_PRICE:
+      return { ...state, totalPrice: action.payload };
+
     case SET_PIZZA:
       return action.payload;
 
@@ -55,12 +64,6 @@ const pizzaReducer = (state = initialState, action) => {
       initialState.toppings.veggies = [];
       initialState.toppings.cheeses = [];
       return initialState;
-
-   // case ADD_TOTAL_PRICE:
-    //  return { ...state, totalPrice: action.payload };
-
-    case ADD_BASE_PRICE:
-      return { ...state, basePrice: action.payload };
 
     default:
       return state;
