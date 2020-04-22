@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { Card, Row, Col } from 'react-bootstrap';
 import { GET_ALL_ORDER_INFO_BY_ORDER_ID } from '../../config/gqlDefines'
 import OrderDetails from './OrderDetails'
+import './OrderHistory.css'
 
 const OrderDisplay = (props) => {
 
@@ -19,7 +20,7 @@ const OrderDisplay = (props) => {
                     data.getAllOrderInfoByOrderId.pizzas.map((pizza, index) => {
                         return (
                             <Col key={'key_col_'+order_id+index}>
-                                <Card style={{ width: '18rem' }} key={'key_card_'+order_id + index}>
+                                <Card style={{ width: '18rem' }} key={'key_card_'+order_id + index} className="orderDisplayCard">
                                     <Card.Body key={'key_body_'+order_id + index}>
                                         <Card.Title >Pizza {index + 1}</Card.Title>
                                         <Card.Text><b>Size: </b>{pizza.size.size_type}</Card.Text>
