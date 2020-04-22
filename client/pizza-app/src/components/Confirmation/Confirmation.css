@@ -34,3 +34,11 @@
     font-family: 'Great Vibes', cursive;
     text-shadow: none;
 }
+.col-create-account{   
+
+    border-style: double;
+    border: 1em double rgb(145, 89, 15);
+    padding: 1em;
+    margin-bottom: 2em;
+    height: 40vh;
+}

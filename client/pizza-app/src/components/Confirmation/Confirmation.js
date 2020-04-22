@@ -94,7 +94,7 @@ const Confirmation = (props) => {
   return (
     <Container
       data-test="component-Confirmation"
-      style={{ textAlign: 'center' }}
+      style={{ textAlign: 'center', flexWrap:'wrap' }}
     >
       <Row className="col-header">
         <Col>
@@ -116,25 +116,27 @@ const Confirmation = (props) => {
               pizzas={data.getAllOrderInfoByOrderId}
               order={props.order}
             />
-          </PDFViewer>
-        </Col>
-      </Row>
-      <Row>
+          </PDFViewer> <Row>
         <Col>
           {getPDFLink()}
         </Col>
       </Row>
-      <Row>
+    
+        </Col>
         <Col>
-          <StyledButton
-            type="button"
-            onClick={handleClickHome}
-            text="Return to Home"
-            variant="basicButton"
-          />
+          {saveOrder()}
+          <Row>
+            <Col>
+              <StyledButton
+                type="button"
+                onClick={handleClickHome}
+                text="Return to Home"
+                variant="returnHome"
+              />
+            </Col>
+          </Row>
         </Col>
       </Row>
-      {saveOrder()}
     </Container>
   );
 };
