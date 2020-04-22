@@ -72,7 +72,12 @@ const mutations = `
       city: String
       state: String
       zip: String
+      address_type_id: Int
     ): Address
+
+    createAddressType(
+      address_type: String
+    ): AddressType
 
     createGuestOrder(
       guest: GuestInput!

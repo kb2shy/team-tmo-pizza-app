@@ -34,6 +34,6 @@ Pizza.init({
         type: DataTypes.FLOAT,
         allowNull: true
     }
-}, {sequelize, modelName: 'pizza', timestamps: false})
+}, {sequelize, modelName: 'pizza', timestamps: true, underscored: true})
 
 module.exports = Pizza

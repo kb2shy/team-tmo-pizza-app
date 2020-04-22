@@ -40,6 +40,6 @@ Address.init({
             isNumeric: true
         }
     }
-}, {sequelize, modelName: 'address', timestamps: false})
+}, {sequelize, modelName: 'address', timestamps: true, underscored: true})
 
 module.exports = Address

@@ -77,9 +77,15 @@ module.exports = {
       return await Order.create({ customer_id, delivery, address_id}).catch(errHandler);
     },
 
-    async createAddress(root, { street, city, state, zip }, { Address }) {
+    async createAddress(root, { street, city, state, zip, address_type_id }, { Address }) {
       return await Address.create({
-        street, city, state, zip
+        street, city, state, zip, address_type_id
+      }).catch(errHandler)
+    },
+
+    async createAddressType(root, { address_type }, {AddressType}){
+      return await AddressType.create({
+        address_type
       }).catch(errHandler)
     }
   },
