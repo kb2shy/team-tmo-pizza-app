@@ -63,7 +63,6 @@ class OrderSummary extends React.Component {
   };
 
   render() {
-    console.log(this.props.pizzas)
     return (
       <div >
         {this.props.pizzas.map((pz, index) => {

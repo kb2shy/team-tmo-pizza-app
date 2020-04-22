@@ -122,7 +122,6 @@ export const getMeatsCount = (pizza_id) => async (dispatch) => {
     });
     
     const meats = result.data.getSelectedMeats.map(item => item.meat.meat_type);
-
     for(let topping of meats) {
       dispatch({
         type: SET_MEATS_COUNT,
