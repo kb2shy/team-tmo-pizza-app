@@ -2,7 +2,7 @@ import {
   ADD_TOPPING,
   REMOVE_TOPPING,
   SET_PIZZA_BASE,
-  ADD_TOTAL_PRICE,
+  ADD_BASE_PRICE,
   SET_PIZZA,
   CLEAR_PIZZA,
 } from '../config/actionTypes';
@@ -18,10 +18,10 @@ const initialState = {
   },
   quantity: 0,
   totalPrice: 0,
+  basePrice: 0,
 };
 
 const pizzaReducer = (state = initialState, action) => {
-
   switch (action.type) {
     case ADD_TOPPING:
       const addTopping = { ...state.toppings };
@@ -56,8 +56,11 @@ const pizzaReducer = (state = initialState, action) => {
       initialState.toppings.cheeses = [];
       return initialState;
 
-    case ADD_TOTAL_PRICE:
-      return { ...state, totalPrice: action.payload };
+   // case ADD_TOTAL_PRICE:
+    //  return { ...state, totalPrice: action.payload };
+
+    case ADD_BASE_PRICE:
+      return { ...state, basePrice: action.payload };
 
     default:
       return state;

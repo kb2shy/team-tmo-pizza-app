@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {
   setBase,
   clearPizza,
-  addTotalPrice,
+  //addTotalPrice,
+  addBasePrice,
 } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { nextMenu, setPopCart } from '../../actions/menu';
@@ -43,7 +44,7 @@ class CreatePizza extends React.Component {
         if (this.verifyUserInput()){
             const totalPrice = this.calcPrice();
             const currentPizza = this.props.pizza;
-            this.props.addPizza({ ...currentPizza, totalPrice, quantity: 1});
+            this.props.addPizza({ ...currentPizza, basePrice: totalPrice, totalPrice, quantity: 1});
             this.props.clearPizza()
             this.props.nextMenu(this.props.step);
         }
@@ -66,8 +67,8 @@ class CreatePizza extends React.Component {
     }
 
     totalPrice += this.props.pizza.size.price;
-    addTotalPrice(totalPrice);
-
+    //addTotalPrice(totalPrice);
+    addBasePrice(totalPrice)
     return totalPrice.toFixed(2);
   };
 
@@ -172,6 +173,7 @@ export default connect(mapStateToProps, {
   setBase,
   clearPizza,
   addPizza,
-  addTotalPrice,
+  //addTotalPrice,
+  addBasePrice,
   setPopCart
 })(CreatePizza);

@@ -47,9 +47,9 @@ class OrderSummary extends React.Component {
     this.props.updatePizzaQuantity(index, value);
 
     console.log(`quantity value: ${typeof value} ${parseInt(value)}`)
-    console.log(`price value: ${this.props.pizzas[index].totalPrice}`)
-    console.log(`= ${(parseInt(value) * this.props.pizzas[index].totalPrice)}`)
-    const newTotalPrice = (parseInt(value) * this.props.pizzas[index].totalPrice).toFixed(2);
+    console.log(`price value: ${this.props.pizzas[index].basePrice}`)
+    console.log(`= ${(parseInt(value) * this.props.pizzas[index].basePrice)}`)
+    const newTotalPrice = (parseInt(value) * this.props.pizzas[index].basePrice).toFixed(2);
     
     // this works, taking out for now to modularize cart.js
     this.props.updatePizzaTotalPrice(index, newTotalPrice);
