@@ -126,6 +126,7 @@
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
+  margin-bottom: 4em;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
 
 }
@@ -135,7 +136,13 @@
   border: 5px solid #1c9d87;
   color: #f0a9ae;
 }
-
+.btn-createAccountButton:hover {
+  background-color: #3fecd0;
+  border: 5px solid #1c9d87;
+  color: #f0a9ae;
+  box-shadow: none;
+  transform: translateY(1px);
+}
 /* Pop-Out Cart Button Styling --------------------------------- */
 .btn-popCartButton {
   position: 'absolute';

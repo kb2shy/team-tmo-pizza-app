@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_ALL_ORDER_INFO_BY_ORDER_ID } from '../../config/gqlDefines';
 import { setMenu } from '../../actions/menu';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
-
+import './Confirmation.css'
 import PropTypes from 'prop-types';
 
 // importing PDF features and components
@@ -47,7 +47,7 @@ const Confirmation = (props) => {
     if (!props.auth.isAuthenticated && userEmail) {
       return (
         <Row>
-          <Col>
+          <Col className='col-create-account'>
             <p>Want to save your order?</p>
             <p>Create an account today!</p>
             {/* <button onClick={handleClickCreateAccount}>Create Account</button> */}
@@ -109,8 +109,8 @@ const Confirmation = (props) => {
         </Col>
       </Row>
       <Row>
-        <Col>
-          <PDFViewer style={{ width: "100%" }}>
+        <Col className='receiptCol'>
+          <PDFViewer style={{ width: "100%", height:"100%"}}>
             <Receipt
               user={props.auth.isAuthenticated ? props.auth.user : props.guest}
               pizzas={data.getAllOrderInfoByOrderId}
@@ -134,7 +134,6 @@ const Confirmation = (props) => {
           />
         </Col>
       </Row>
-      <br />
       {saveOrder()}
     </Container>
   );
