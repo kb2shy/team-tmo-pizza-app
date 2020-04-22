@@ -6,16 +6,19 @@ import { Form, Row, Col, Card } from 'react-bootstrap';
 import { setPizza, clearPizza } from '../../../actions/pizza';
 import {
   removePizza,
-  updatePizzaQty,
+  updatePizzaQuantity,
+  updatePizzaTotalPrice,
 } from '../../../actions/pizzas';
 import { previousMenu } from '../../../actions/menu';
+import './OrderSummary.css';
 
-/* TODO: qty
-  - change the form input for that pizza ONLY
-  - update the pizza's total price based on the quantity inputted    - update the total order price
+/* TODO: quantity
+  - change the form input for that pizza ONLY -> done!
+  - update the pizza's total price based on the quantity inputted -> done!
+  - update the total order price -> done!
    - set a limit on the pizza input-- say, 25 max
-   - implement +/- or up/down buttons as another way to change qty
-          - the action types for this: INCREMENT_PIZZA_QTY, DECREMENT_PIZZA_QTY
+   - implement +/- or up/down buttons as another way to change quantity
+          - the action types for this: INCREMENT_PIZZA_quantity, DECREMENT_PIZZA_quantity
 */
 
 /**
@@ -24,15 +27,14 @@ import { previousMenu } from '../../../actions/menu';
  * 1. iterates through all pizzas associated with this user
  * 2. renders a card displaying each pizza's info via PizzaCard subcomponent
  */
-const footerStyle = { display: 'flex', flexDirection: 'row' };
 
 class OrderSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      qty: '',
+      quantity: '',
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleQuantityChange = this.handleQuantityChange.bind(this);
     this.editPizza = this.editPizza.bind(this);
   }
 
@@ -43,44 +45,55 @@ class OrderSummary extends React.Component {
     this.props.previousMenu();
   };
 
-  // bug here!!!!!!!!!!!!!!!!!!!!!!!!
-  handleChange = (e, index) => {
+  handleQuantityChange = (e, index) => {
     e.preventDefault();
-    const value = e.target.value;
-    this.setState({ qty: value });
-    console.log(`OrderSummary.js/ handleChange(): updating qty: ${value} on pizzas[index ${index}]`);
-    this.props.updatePizzaQty(index, value);
+    const value = parseInt(e.target.value);
+    this.setState({ quantity: value });
+    this.props.updatePizzaQuantity(index, value);
+
+    // console.log(`quantity value: ${typeof value} ${value}`)
+    // console.log(`price value: ${this.props.pizzas[index].basePrice}`)
+    // console.log(`= ${(parseInt(value) * this.props.pizzas[index].basePrice)}`)
+    const newTotalPrice = (
+      value * this.props.pizzas[index].basePrice
+    ).toFixed(2);
+
+    this.props.updatePizzaTotalPrice(index, newTotalPrice);
+    this.setState({ quantity: '' });
   };
 
   render() {
     return (
-      <div>
+      <div >
         {this.props.pizzas.map((pz, index) => {
           return (
-            <div id = {index} key={index}>
-              <Card>
-                <Card.Body>
+            <div id={index} key={index}>
+              <Card className="orderSummaryContainer">
+                <Card.Body className="orderSummaryCardBody">
                   <PizzaCard
                     size={pz.size}
                     crust={pz.crust}
                     sauce={pz.sauce}
                     cheese={pz.cheese}
                     toppings={pz.toppings}
-                    qty={pz.qty}
+                    quantity={pz.quantity}
                     price={pz.totalPrice}
                     index={index}
                   />
-                  <div style={footerStyle}>
+                  <hr />
+                  <div className="footerStyle">
                     <Form>
                       <Form.Group as={Row}>
-                        <Form.Label column>Qty:</Form.Label>
+                        <Form.Label column>Quantity:</Form.Label>
                         <Col>
                           <Form.Control
-                            name="qty"
+                            name="quantity"
                             type="text"
-                            placeholder={pz.qty}
-                            value={this.state.qty}
-                            onChange={(e) => this.handleChange(e, index)}
+                            placeholder={pz.quantity}
+                            value={this.state.quantity}
+                            onChange={(e) =>
+                              this.handleQuantityChange(e, index)
+                            }
                           />
                         </Col>
                       </Form.Group>
@@ -89,15 +102,17 @@ class OrderSummary extends React.Component {
                     <StyledButton
                       text="Edit Pizza"
                       type="Button"
-                      variant="basicButton"
+                      variant="orderSummaryButton"
                       onClick={() => this.editPizza(index)}
+                      size="sm"
                     />
 
                     <StyledButton
-                      text="Remove Pizza*"
+                      text="Remove Pizza"
                       type="Button"
-                      variant="basicButton"
-                      onClick={() => removePizza(index)}
+                      variant="orderSummaryButton"
+                      onClick={() => this.props.removePizza(index)}
+                      size="sm"
                     />
                   </div>
                 </Card.Body>
@@ -121,5 +136,6 @@ export default connect(mapStateToProps, {
   removePizza,
   clearPizza,
   previousMenu,
-  updatePizzaQty,
+  updatePizzaQuantity,
+  updatePizzaTotalPrice,
 })(OrderSummary);

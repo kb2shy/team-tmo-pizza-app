@@ -2,10 +2,9 @@ import {
   ADD_TOPPING,
   REMOVE_TOPPING,
   SET_PIZZA_BASE,
-  ADD_TOTAL_PRICE,
+  ADD_BASE_PRICE,
   SET_PIZZA,
   CLEAR_PIZZA,
-  //SET_PIZZA_QTY,
 } from '../config/actionTypes';
 
 const initialState = {
@@ -17,12 +16,12 @@ const initialState = {
     veggies: [],
     cheeses: [],
   },
-  qty: 0,
+  quantity: 0,
   totalPrice: 0,
+  basePrice: 0,
 };
 
 const pizzaReducer = (state = initialState, action) => {
-
   switch (action.type) {
     case ADD_TOPPING:
       const addTopping = { ...state.toppings };
@@ -57,15 +56,11 @@ const pizzaReducer = (state = initialState, action) => {
       initialState.toppings.cheeses = [];
       return initialState;
 
-    case ADD_TOTAL_PRICE:
-      return { ...state, totalPrice: action.payload };
+   // case ADD_TOTAL_PRICE:
+    //  return { ...state, totalPrice: action.payload };
 
-      // not used
-    // case SET_PIZZA_QTY:
-    //   // using obj to print out info and check it came in correctly
-    //   const obj = { ...state, qty: action.payload };
-    //   console.log('in reducers/pizza.js: case SET_PIZZA_QTY: returning: ', obj);
-    //   return { ...state, qty: action.payload };
+    case ADD_BASE_PRICE:
+      return { ...state, basePrice: action.payload };
 
     default:
       return state;

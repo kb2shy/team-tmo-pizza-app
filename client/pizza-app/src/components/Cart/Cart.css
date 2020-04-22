@@ -1,7 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Adamina|Allura|Courgette|Lobster+Two|Yellowtail&display=swap');
+
+
 .centerStyle {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.centerStyle h2{
+font-family: 'Yellowtail', cursive;
+color: rgb(87, 69, 41);
+font-size: 2.4rem;
+}
+.centerStyle p{
+  font-family: 'Lobster Two', cursive;
+  color: rgb(151, 151, 72);
+  font-size: 1.3rem;
 }
 /* 
 .cardStyle {
@@ -13,4 +26,40 @@
 .footerStyle {
   display: flex;
   flex-direction: row;
+}
+
+.cartSubTitle{
+  font-family: 'Lobster Two', cursive;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.432);
+  color: rgb(134, 76, 1);
+  margin: auto;
+}
+
+.cartOrderFormInput{
+    border: 5px solid #eb6d76;
+    border-radius: 0px;
+    background-color: #fbffda;
+    font-family: 'Adamina', serif;
+    opacity: 1;
+    padding: .425em;
+}
+.cartOrderFormContainer{
+  width: 100%;
+  margin-top: 2.5em;
+}
+.cartOrderFormContainerWrapper{
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.486);
+  width: 50vw;
+  margin: 1.5em;
+}
+.cartOrderFormContainerWrapper h6{
+  text-align: right;
+  color: rgb(248, 48, 48);
+  font-family: 'Adamina', serif;
+  font-weight: 900;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.521);
+}
+.cartOrderFormContainerRow{
+  display: flex;
+  flex-wrap: wrap;
 }
