@@ -23,7 +23,7 @@ import AppSpinner from '../AppSpinner/AppSpinner';
 // - The Return to home button
 const Confirmation = (props) => {
 
-  const order_id = props.order.order_id;
+  const order_id = props.order.order_id || 2;
   const { loading, error, data } = useQuery(GET_ALL_PIZZA_INFO_BY_ORDER, { variables: { order_id } });
   if (error) return <p>{error.message}</p>;
   if (loading) return <AppSpinner />;
@@ -116,10 +116,6 @@ const Confirmation = (props) => {
               order={props.order}
             />
           </PDFViewer>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
           {getPDFLink()}
         </Col>
       </Row>
