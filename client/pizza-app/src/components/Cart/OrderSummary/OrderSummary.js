@@ -97,7 +97,7 @@ class OrderSummary extends React.Component {
                           />
                         </Col>
                       </Form.Group>
-                    </Form> */}
+                    </Form>
 
                     <StyledButton
                       text="Edit"
