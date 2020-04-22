@@ -46,12 +46,13 @@ class OrderSummary extends React.Component {
     this.setState({ quantity: value });
     this.props.updatePizzaQuantity(index, value);
 
+    console.log(`quantity value: ${typeof value} ${parseInt(value)}`)
+    console.log(`price value: ${this.props.pizzas[index].totalPrice}`)
+    console.log(`= ${(parseInt(value) * this.props.pizzas[index].totalPrice)}`)
     const newTotalPrice = (parseInt(value) * this.props.pizzas[index].totalPrice).toFixed(2);
     
     // this works, taking out for now to modularize cart.js
-    //this.props.updatePizzaTotalPrice(index, newTotalPrice);
-   
-    //this.setState({ quantity: '' });
+    this.props.updatePizzaTotalPrice(index, newTotalPrice);
     this.setState({ quantity: '' });
   };
 
@@ -77,7 +78,7 @@ class OrderSummary extends React.Component {
                   <div className="footerStyle">
                     <Form>
                       <Form.Group as={Row}>
-                        <Form.Label column>quantity:</Form.Label>
+                        <Form.Label column>Quantity:</Form.Label>
                         <Col>
                           <Form.Control
                             name="quantity"

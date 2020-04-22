@@ -26,6 +26,7 @@ const pizzasReducer = (state = initialState, action) => {
       return [];
 
     case UPDATE_PIZZA_QUANTITY:
+      console.log(`reducers/pizzas: UPDATE_PIZZA_QUANTITY: ${action.payload.quantity}`)
       return state.map((pizza, index) => {
         if (index === action.payload.index) {
           return Object.assign({}, pizza, {
@@ -37,6 +38,7 @@ const pizzasReducer = (state = initialState, action) => {
       });
 
       case UPDATE_PIZZA_TOTAL_PRICE:
+        console.log(`reducers/pizzas: UPDATE_PIZZA_TOTAL_PRICE: ${action.payload.totalPrice}`)
         return state.map((pizza, index) => {
           if (index === action.payload.index) {
             return Object.assign({}, pizza, {

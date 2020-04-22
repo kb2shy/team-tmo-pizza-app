@@ -68,7 +68,7 @@ class CreatePizza extends React.Component {
     totalPrice += this.props.pizza.size.price;
     addTotalPrice(totalPrice);
 
-    return totalPrice;
+    return totalPrice.toFixed(2);
   };
 
     verifyUserInput = () => {

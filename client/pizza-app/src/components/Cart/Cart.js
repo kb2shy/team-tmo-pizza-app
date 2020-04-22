@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Container, Form, Row, Col, Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -17,6 +17,7 @@ import { createGuestOrder, createMemberOrder } from '../../actions/order';
 import './Cart.css';
 import OrderSummary from './OrderSummary/OrderSummary';
 import AppSpinner from '../AppSpinner/AppSpinner';
+import UserDetails from './UserDetails';
 
 import isAlpha from 'validator/lib/isAlpha';
 import isEmail from 'validator/lib/isEmail';
@@ -53,6 +54,8 @@ const Cart = ({
     phone: '',
   });
 
+  const [prevTotal, setPrevTotal] = useState(0)
+
   const [touched, setTouched] = useState({
     first_name: false,
     last_name: false,
@@ -74,11 +77,11 @@ const Cart = ({
   // Conditional check:
   // Guest view: ensures all input fields are entered
   // User view: true, all fields are pulled from store
-  let isValid =
-    guestData.first_name.length !== 0 &&
-    guestData.last_name.length !== 0 &&
-    guestData.email.length !== 0 &&
-    guestData.phone.length !== 0;
+  // let isValid =
+  //   guestData.first_name.length !== 0 &&
+  //   guestData.last_name.length !== 0 &&
+  //   guestData.email.length !== 0 &&
+  //   guestData.phone.length !== 0;
 
   // Adds guest and their information to the store's state
   // Directs user to the Confirmation page
@@ -105,33 +108,11 @@ const Cart = ({
     }
   };
 
-  const handleChange = (e) => {
+  const handleGuestDataChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(`Cart.js: handleChange: [name]:value = ${name}:${value}`)
+    // console.log(`Cart.js: handleGuestDataChange: [name]:value = ${name}:${value}`)
     setGuestData((d) => ({ ...d, [name]: value }));
-  };
-
-  // User view: prints user information in a table
-  const renderUserDisplay = () => {
-    return (
-      <Table borderless>
-        <tbody>
-          <tr id="Name">
-            <td>Name : </td>
-            <td>{user.first_name + ' ' + user.last_name}</td>
-          </tr>
-          <tr id="Email">
-            <td>Email : </td>
-            <td>{user.email}</td>
-          </tr>
-          <tr id="Phone">
-            <td>Phone : </td>
-            <td>{user.phone}</td>
-          </tr>
-        </tbody>
-      </Table>
-    );
   };
 
   // Guest view: displays a form for inputting information
@@ -148,7 +129,7 @@ const Cart = ({
               type="text"
               placeholder="first name"
               value={guestData.first_name}
-              onChange={handleChange}
+              onChange={handleGuestDataChange}
               isInvalid={touched.first_name && !isAlpha(guestData.first_name)}
               isValid={isAlpha(guestData.first_name)}
               onBlur={() => { setTouched({ first_name: true }) }}
@@ -167,7 +148,7 @@ const Cart = ({
               type="text"
               placeholder="last name"
               value={guestData.last_name}
-              onChange={handleChange}
+              onChange={handleGuestDataChange}
               isInvalid={touched.last_name && !isAlpha(guestData.last_name)}
               isValid={isAlpha(guestData.last_name)}
               onBlur={() => { setTouched({ last_name: true }) }}
@@ -192,8 +173,8 @@ const Cart = ({
               type="email"
               placeholder="email"
               value={guestData.email}
-              onChange={handleChange}
-              onChange={handleChange}
+              onChange={handleGuestDataChange}
+              onChange={handleGuestDataChange}
               isInvalid={touched.email && !isEmail(guestData.email)}
               isValid={isEmail(guestData.email)}
               onBlur={() => { setTouched({ email: true }) }}
@@ -218,7 +199,7 @@ const Cart = ({
               type="text"
               placeholder="phone"
               value={guestData.phone}
-              onChange={handleChange}
+              onChange={handleGuestDataChange}
               isInvalid={touched.phone && !isValidPhoneNumber(guestData.phone)}
               isValid={isValidPhoneNumber(guestData.phone)}
               onBlur={() => { setTouched({ phone: true }) }}
@@ -241,19 +222,53 @@ const Cart = ({
     if (userDoesNotExist) {
       return renderGuestInput();
     } else {
-      isValid = true;
-      return renderUserDisplay();
+      // isValid = true;
+      // return renderUserDisplay();
+      return(
+        <UserDetails
+          first_name={user.first_name}
+          last_name={user.last_name}
+          email={user.email}
+          phone={user.phone}        
+        />
+      )
     }
   };
 
+  useEffect(() => {
+    calcTotalPrice()
+  }, [pizzas])
+
+  // similar to componentdidmount, update
+  //useEffect(() => {
+    //console.log("something changed, in useEffect. prevTotal: ", prevTotal)
+   const calcTotalPrice = () => {
+      console.log("in calcTotalPrice, pizzas: ", pizzas)
+      let total = 0;
+     for (let pizza of pizzas) {
+      //pizzas.map((pizza) => {
+        console.log(`looking at pizza with ${pizza.size.type}, quantity: ${pizza.quantity}, totalPrice: ${parseFloat(pizza.totalPrice)}, old total: ${total}`)
+        //total += pizza.totalPrice
+      
+        total = total + parseFloat(pizza.totalPrice)
+        //total = parseFloat(total).toFixed(2)
+        console.log(`total after addition: ${total}`)
+      }//)
+        // parseFloat().toFixed(2) avoids the ".toFixed() is not a function" error
+        total = parseFloat(total).toFixed(2)
+        setPrevTotal(total)
+      console.log(`new total: ${total} | new prevTotal: ${prevTotal}`)
+      
+      //return setPrevTotal(total.toFixed(2))
+      //return () =>  total.toFixed(2)
+      //setPrevTotal(total.toFixed(2))
+   };
+//  }, [pizzas])
+  
+ 
+
   // Calculates the total price of all orders in the cart
-  const calcTotalPrice = () => {
-    let total = 0;
-    for (let pizza of pizzas) {
-      total += pizza.totalPrice;
-    }
-    return total.toFixed(2);
-  };
+ 
 
   const handleAddAnotherPizza = (e) => {
     e.preventDefault();
@@ -280,7 +295,8 @@ const Cart = ({
           </Col>
           <Col>
             <h2>Order Summary:</h2>
-            <h6>Total: ${calcTotalPrice()}</h6>
+            {/* <h6>Total: ${calcTotalPrice()}</h6> */}
+            <h6>Total: ${prevTotal}</h6>
 
             <OrderSummary />
             <StyledButton
