@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_ALL_ORDER_INFO_BY_ORDER_ID } from '../../config/gqlDefines';
 import { setMenu } from '../../actions/menu';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
-
+import './Confirmation.css'
 import PropTypes from 'prop-types';
 
 // importing PDF features and components
@@ -65,7 +65,7 @@ const Confirmation = ({ order, setMenu }) => {
     if (!customer.registered) {
       return (
         <Row>
-          <Col>
+          <Col className='col-create-account'>
             <p>Want to save your order?</p>
             <p>Create an account today!</p>
             <StyledButton
@@ -109,7 +109,7 @@ const Confirmation = ({ order, setMenu }) => {
   return (
     <Container
       data-test="component-Confirmation"
-      style={{ textAlign: 'center' }}
+      style={{ textAlign: 'center', flexWrap:'wrap' }}
     >
       <Row className="col-header">
         <Col>
@@ -124,8 +124,8 @@ const Confirmation = ({ order, setMenu }) => {
         </Col>
       </Row>
       <Row>
-        <Col>
-          <PDFViewer style={{ width: "100%" }}>
+        <Col className='receiptCol'>
+          <PDFViewer style={{ width: "100%", height:"100%"}}>
             <Receipt
               user={customer}
               pizzas={pizzas}
@@ -133,22 +133,28 @@ const Confirmation = ({ order, setMenu }) => {
               orderDate={created_at}
               delivery={delivery}
             />
-          </PDFViewer>
+          </PDFViewer> <Row>
+        <Col>
+
           {getPDFLink()}
         </Col>
       </Row>
-      <Row>
+    
+        </Col>
         <Col>
-          <StyledButton
-            type="button"
-            onClick={handleClickHome}
-            text="Return to Home"
-            variant="basicButton"
-          />
+          {saveOrder()}
+          <Row>
+            <Col>
+              <StyledButton
+                type="button"
+                onClick={handleClickHome}
+                text="Return to Home"
+                variant="returnHome"
+              />
+            </Col>
+          </Row>
         </Col>
       </Row>
-      <br />
-      {saveOrder()}
     </Container>
   );
 };
