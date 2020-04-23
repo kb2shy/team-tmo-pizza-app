@@ -20,7 +20,16 @@ async function createGuestOrder(root, { guest, ...attrs }, context) {
     return null; // @todo return an error object instead
   }
 
-  const orderRecord = await createOrder(root, { customer, ...attrs }, context);
+  try {
+    const orderRecord = await createOrder(
+      root,
+      { customer, ...attrs },
+      context
+    );
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 
   return orderRecord;
 }

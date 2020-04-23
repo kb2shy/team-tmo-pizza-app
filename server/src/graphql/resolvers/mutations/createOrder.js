@@ -117,8 +117,9 @@ async function createOrder(
 
   // create an array of pizzas order details, represented in user-friendly way
   const formattedPizzas = [];
+  let count = 0;
   for (let {
-    pizzaRecord: { sauce_id, size_id, crust_id },
+    pizzaRecord: { sauce_id, size_id, crust_id, quantity },
     meat_ids,
     veggie_ids,
     cheese_ids,
@@ -166,7 +167,19 @@ async function createOrder(
       meats,
       cheeses_price,
       cheeses,
+      veggies_price,
+      veggies,
+      total:
+        size_dat.price +
+        sauce_dat.price +
+        crust_dat.price +
+        meats_price +
+        cheeses_price +
+        veggies_price,
+      quantity,
+      number: count,
     });
+    ++count;
   }
 
   // create a formatted email

@@ -14,7 +14,16 @@ async function createMemberOrder(root, attrs, { user, Customer, ...context }) {
   }
 
   // create order
-  const orderRecord = await createOrder(root, { customer, ...attrs }, context);
+  try {
+    const orderRecord = await createOrder(
+      root,
+      { customer, ...attrs },
+      context
+    );
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 
   return orderRecord;
 }

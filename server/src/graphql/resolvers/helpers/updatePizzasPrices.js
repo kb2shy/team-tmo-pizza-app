@@ -18,7 +18,7 @@ const { Op } = require('sequelize');
  */
 async function updatePizzasPrices(
   pizzasDetails,
-  { Sauce, Size, Crust, Meat, Veggie, Cheese }
+  { Sauce, Size, Crust, Meat, Veggie, Cheese, Pizza }
 ) {
   // a map of all selections for all pizza and their prices.
   const selections = {
@@ -49,7 +49,7 @@ async function updatePizzasPrices(
     }
     // veggies
     for (let veggie_id of veggie_ids) {
-      selections.meats.set(veggie_id, 0);
+      selections.veggies.set(veggie_id, 0);
     }
     // cheeses
     for (let cheese_id of cheese_ids) {
@@ -175,9 +175,12 @@ async function updatePizzasPrices(
     }
     overallQuantity += pizzaRecord.quantity;
     overallPrice += price * pizzaRecord.quantity;
-    promises.push(pizzaRecord.update({ price }));
+    await pizzaRecord.update({
+      price: price,
+    });
+    // promises.push(pizzaRecord.update({ price }));
   }
-  await Promise.all(promises);
+  // await Promise.all(promises);
 
   // return useful info
   return { overallPrice, overallQuantity, selections };
