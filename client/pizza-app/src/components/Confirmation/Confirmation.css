@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Cutive+Mono|Special+Elite|Vidaloka&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Arizonia|Dancing+Script:700|Great+Vibes|Marck+Script&display=swap');
+@import url('https://fonts.googleapis.com/css?family=IM+Fell+French+Canon+SC&display=swap');
+
+.receiptCol{
+    height: 40vh;
+    width: 60vw;
+}
+
+.col-email-message p{
+    color: rgb(52, 110, 29);
+    text-shadow: 2px 2px 3px rgb(20, 156, 20);
+    font-family: 'Cutive Mono', monospace;
+    font-size: 2rem;
+
+}
+.col-email-message p:first-of-type{
+    color: rgb(158, 37, 37);
+    font-family: 'Special Elite', cursive;
+    text-shadow: none;
+    font-size: 1.6rem;
+
+}
+.col-create-account p{
+    color: rgb(165, 23, 165);
+    font-size: 2.7rem;
+    font-family: 'IM Fell French Canon SC', serif;
+    text-shadow: 2px 1px 4px rgba(0, 0, 0, 0.651);
+
+}
+.col-create-account p:first-of-type{
+    color: rgb(158, 37, 37);
+    font-size: 2.7rem;
+    font-family: 'Great Vibes', cursive;
+    text-shadow: none;
+}
+.col-create-account{   
+
+    border-style: double;
+    border: 1em double rgb(145, 89, 15);
+    padding: 1em;
+    margin-bottom: 2em;
+    height: 40vh;
+}

@@ -43,30 +43,26 @@ class CreatePizza extends React.Component {
   };
 
   //changes store to user input
-  handleChange = (name, item, price = -1) => {
+  handleChange = (name, item) => {
     this.props.setBase(name.toLowerCase(), item);
-  };
+}
+
+    //Adds current pizza to pizzas array and clears current pizza
+    handleSubmit = () => {
+        // if (this.verifyUserInput()){
+            const basePrice = this.calcBasePrice()
+            const totalPrice = this.calcTotalPrice(basePrice);
+            const currentPizza = this.props.pizza;
+            this.props.addPizza({ ...currentPizza, basePrice: basePrice, totalPrice, quantity: this.props.pizza.quantity});
+            this.props.clearPizza()
+            this.props.nextMenu(this.props.step);
+        //}
+    };
+  
 
   toggleShowCart = () => {};
 
-  //Adds current pizza to pizzas array and clears current pizza
-  handleSubmit = (e) => {
-    e.preventDefault();
-    if (this.verifyUserInput(e)) {
-      const basePrice = this.calcBasePrice();
-      const totalPrice = this.calcTotalPrice(basePrice);
-      const currentPizza = this.props.pizza;
-
-      this.props.addPizza({
-        ...currentPizza,
-        basePrice: basePrice,
-        totalPrice,
-        quantity: this.props.pizza.quantity,
-      });
-      this.props.clearPizza();
-      this.props.nextMenu(this.props.step);
-    }
-  };
+ 
 
   // Calculates base price of pizza (size + toppings price)
   calcBasePrice = () => {
@@ -115,22 +111,23 @@ class CreatePizza extends React.Component {
     this.setState({ quantity: value });
   };
 
-  // ensures user has selected a size, crust, and sauce
-  verifyUserInput = () => {
-    if (this.props.pizza.size.type === null) {
-      this.setState({ message: 'Please select pizza size.' });
-      return false;
-    } else if (this.props.pizza.crust.type === null) {
-      this.setState({ message: 'Please select crust type.' });
-      return false;
-    } else if (this.props.pizza.sauce.type === null) {
-      this.setState({ message: 'Please select sauce type.' });
-      return false;
-    }
+  
+    // verifyUserInput = () => {
+    //     if(this.props.pizza.size.type === null) {
+    //         this.setState({message: 'Please select pizza size.'});
+    //         return false;
+    //     } else if (this.props.pizza.crust.type === null){
+    //         this.setState({message: 'Please select crust type.'});
+    //         return false;
+    //     } else if (this.props.pizza.sauce.type === null){
+    //         this.setState({message: 'Please select sauce type.'});
+    //         return false;
+    //     }
 
-    this.setState({ message: null });
-    return true;
-  };
+    //     this.setState({message: null});
+    //     return true;
+    // };
+
 
   //Renders topping sections and quantity input
   render() {
@@ -212,6 +209,8 @@ class CreatePizza extends React.Component {
               text="Add to Cart"
               type="submit"
               // onClick={this.handleSubmit}
+              disabled={this.props.pizza.size.type === null || this.props.pizza.crust.type === null || this.props.pizza.sauce.type === null}
+
             />
           </Form>
         </div>

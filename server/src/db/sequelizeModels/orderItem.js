@@ -5,6 +5,6 @@ class OrderItem extends Model{}
 
 OrderItem.init({
 
-}, {sequelize, modelName: 'orderItem', timestamps: true, underscored: true})
+}, {sequelize, modelName: 'order_item', timestamps: true, underscored: true})
 
 module.exports = OrderItem

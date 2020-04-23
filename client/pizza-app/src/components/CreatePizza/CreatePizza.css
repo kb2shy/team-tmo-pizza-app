@@ -36,6 +36,7 @@ label {
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
+  width: max-content;
 }
 
 .baseDropdownContainer{

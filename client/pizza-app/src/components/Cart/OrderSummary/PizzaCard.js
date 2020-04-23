@@ -18,15 +18,40 @@ const PizzaCard = (props) => {
 
   return (
     <>
-      <p>
-        {props.size.type} {props.crust.type} crust with {props.sauce.type} sauce
-        <br />
-        Cheeses: {printMultipleToppings(props.toppings.cheeses)}
-        <br />
-        Veggies: {printMultipleToppings(props.toppings.veggies)}
-        <br />
-        Meats: {printMultipleToppings(props.toppings.meats)}
-      </p>
+      <table>
+        <tbody>
+          <tr id="Size">
+            <td>Size</td>
+            <td>{props.size.type}</td>
+          </tr>
+          <tr id="crust">
+            <td>Crust</td>
+            <td>{props.crust.type}</td>
+          </tr>
+          <tr id="Sauce">
+            <td>Sauce</td>
+            <td>{props.sauce.type}</td>
+          </tr>
+          {props.toppings.cheeses.length > 0 ? (
+            <tr id="Cheese">
+              <td>Cheese</td>
+              <td>{printMultipleToppings(props.toppings.cheeses)}</td>
+            </tr>
+          ) : null}
+          {props.toppings.veggies.length > 0 ? (
+            <tr id="Veggies">
+              <td>Veggies</td>
+              <td>{printMultipleToppings(props.toppings.veggies)}</td>
+            </tr>
+          ) : null}
+          {props.toppings.meats.length > 0 ? (
+            <tr id="Meats">
+              <td>Meats</td>
+              <td>{printMultipleToppings(props.toppings.meats)}</td>
+            </tr>
+          ) : null}
+        </tbody>
+      </table>
       <h5>${props.price}</h5>
     </>
   );

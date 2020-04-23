@@ -8,8 +8,9 @@ import StyledButton from '../../common/Button/StyledButton';
 
 // Actions
 import { setPizza, clearPizza } from '../../../actions/pizza';
+
 import { removePizza } from '../../../actions/pizzas';
-import { previousMenu } from '../../../actions/menu';
+import { setMenu } from '../../../actions/menu';
 
 import './OrderSummary.css';
 
@@ -29,7 +30,7 @@ class OrderSummary extends React.Component {
     const pizza = this.props.pizzas[index];
     this.props.setPizza(pizza);
     this.props.removePizza(index);
-    this.props.previousMenu();
+    this.props.setMenu(3, 4);
   };
 
   render() {
@@ -55,7 +56,7 @@ class OrderSummary extends React.Component {
                     <p>Quantity: {pz.quantity}</p>
 
                     <StyledButton
-                      text="Edit Pizza"
+                      text="Edit"
                       type="Button"
                       variant="orderSummaryButton"
                       onClick={() => this.editPizza(index)}
@@ -90,5 +91,5 @@ export default connect(mapStateToProps, {
   setPizza,
   removePizza,
   clearPizza,
-  previousMenu,
+  setMenu,
 })(OrderSummary);
