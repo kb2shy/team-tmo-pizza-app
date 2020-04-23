@@ -30,6 +30,7 @@ class SizeQuantityPrompt extends React.Component {
   handleQuantityChange = (e) => {
     e.preventDefault();
     let value = parseInt(e.target.value);
+    if (isNaN(value)) value = '';
     this.setState({ quantity: value });
     this.props.setQuantity(value);
   };

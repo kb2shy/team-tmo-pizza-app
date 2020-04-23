@@ -36,8 +36,6 @@ export const ADD_BASE_PRICE = 'ADD_BASE_PRICE';
 export const ADD_TOTAL_PRICE = 'ADD_TOTAL_PRICE';
 export const SET_PIZZA = 'SET_PIZZA';
 export const CLEAR_PIZZA = 'CLEAR_PIZZA';
-export const INCREMENT_PIZZA_QTY = 'INCREMENT_PIZZA_QTY';
-export const DECREMENT_PIZZA_QTY = 'DECREMENT_PIZZA_QTY';
 
 // Database actions
 export const LOAD_TOPPINGS = 'LOAD_TOPPINGS';

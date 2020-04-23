@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Row, Col, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 // Helper Components
 import Toppings from '../Toppings/Toppings';
@@ -12,7 +12,6 @@ import {
   setBase,
   clearPizza,
   addBasePrice,
-  addTotalPrice,
   setPizza,
 } from '../../actions/pizza';
 import { setMenu, setPopCart } from '../../actions/menu';
@@ -29,14 +28,8 @@ class CreatePizza extends React.Component {
     this.state = {
       message: null,
       showCart: false,
-      quantity: '',
     };
-
-    this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
-
-  MAX_PIZZA_QUANTITY = 100;
-  MIN_PIZZA_QUANTITY = 1;
 
   componentDidMount = () => {
     this.props.setPopCart(false);
@@ -45,22 +38,6 @@ class CreatePizza extends React.Component {
   //changes store to user input
   handleChange = (name, item) => {
     this.props.setBase(name.toLowerCase(), item);
-  };
-
-  //Adds current pizza to pizzas array and clears current pizza
-  handleSubmit = () => {
-    const basePrice = this.calcBasePrice();
-    const totalPrice = this.calcTotalPrice(basePrice);
-    const currentPizza = this.props.pizza;
-    this.props.setPizza({
-      ...currentPizza,
-      basePrice,
-      totalPrice: basePrice,
-      quantity: this.props.pizza.quantity,
-    });
-
-    //   this.props.setPizza({ ...currentPizza, basePrice, totalPrice: basePrice, quantity: this.props.pizza.quantity});
-    this.props.setMenu(8);
   };
 
   // Calculates base price of pizza (size + toppings price)
@@ -82,30 +59,18 @@ class CreatePizza extends React.Component {
     return basePrice.toFixed(2);
   };
 
-  // Calculates total price of pizza (quantity * base price)
-  calcTotalPrice = (basePrice) => {
-    let totalPrice = basePrice;
+  //Adds current pizza to pizzas array and clears current pizza
+  handleSubmit = () => {
+    const basePrice = this.calcBasePrice();
+    const currentPizza = this.props.pizza;
 
-    // state.quantity has been changed from default to a new number
-    if (Number.isInteger(this.state.quantity)) {
-      this.props.pizza.quantity = this.state.quantity;
-    }
-
-    totalPrice *= this.props.pizza.quantity;
-    addTotalPrice(totalPrice);
-    return totalPrice.toFixed(2);
-  };
-
-  // handler for user-inputted quantities between [1 ... 100]
-  handleQuantityChange = (e) => {
-    e.preventDefault();
-    let value = parseInt(e.target.value);
-    // if (isNaN(value) || value < this.MIN_PIZZA_QUANTITY) {
-    //   value = this.MIN_PIZZA_QUANTITY;
-    // } else if (value > this.MAX_PIZZA_QUANTITY) {
-    //   value = this.MAX_PIZZA_QUANTITY;
-    // }
-    this.setState({ quantity: value });
+    this.props.setPizza({
+      ...currentPizza,
+      name: 'Custom Pizza',
+      basePrice,
+      totalPrice: basePrice,
+    });
+    this.props.setMenu(8);
   };
 
   //Renders topping sections and quantity input
@@ -161,40 +126,15 @@ class CreatePizza extends React.Component {
           </table>
 
           <StyledButton
-            type="button"
-            onClick={(e) => this.handleSubmit}
-            disabled={this.props.pizza.crust.type === null || this.props.pizza.sauce.type === null}
+            variant="basicButton"
             text="Add to Cart"
-            variant="orderChoiceButton"
+            type="button"
+            onClick={this.handleSubmit}
+            disabled={
+              this.props.pizza.crust.type === null ||
+              this.props.pizza.sauce.type === null
+            }
           />
-          {/* <Form onSubmit={this.handleSubmit}>
-            <Form.Group as={Row}>
-              //  centers the quantity form in the center //
-              <Col md={{ span: 2, offset: 5 }}>
-                <div className="quantityForm">
-                  <Form.Label>Quantity: </Form.Label>
-                  <Form.Control
-                    name="quantity"
-                    type="number"
-                    min={this.MIN_PIZZA_QUANTITY}
-                    max={this.MAX_PIZZA_QUANTITY}
-                    placeholder={this.props.pizza.quantity}
-                    value={this.state.quantity}
-                    onChange={this.handleQuantityChange}
-                  />
-                </div>
-              </Col>
-            </Form.Group>
-            <div style={{ color: 'red' }}>{this.state.message}</div>
-            <StyledButton
-              variant="basicButton"
-              text="Add to Cart"
-              type="submit"
-              // onClick={this.handleSubmit}
-              disabled={this.props.pizza.crust.type === null || this.props.pizza.sauce.type === null}
-
-            />
-          </Form> */}
         </div>
       </Container>
     );
@@ -219,5 +159,4 @@ export default connect(mapStateToProps, {
   clearPizza,
   addBasePrice,
   setPopCart,
-  addTotalPrice,
 })(CreatePizza);
