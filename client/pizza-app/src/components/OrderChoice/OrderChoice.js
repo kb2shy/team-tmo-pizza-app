@@ -36,7 +36,7 @@ const OrderChoice = (props) => {
   const handleCreateOrder = (e) => {
     e.preventDefault();
     props.clearPizza();
-    return props.setMenu(7, props.step);
+    return props.setMenu(9, props.step);
   };
 
   return (

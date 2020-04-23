@@ -16,6 +16,7 @@ import Confirmation from '../Confirmation/Confirmation';
 import Register from '../Register/Register';
 import SpecialtyPizzas from '../SpecialtyPizzas/SpecialtyPizzas';
 import SizeQuantityPrompt from '../SpecialtyPizzas/SizeQuantityPrompt';
+import MenuChoice from '../MenuChoice/MenuChoice'
 
 import { loadCustomer } from '../../actions/auth';
 import { getAllToppings } from '../../actions/database';
@@ -57,6 +58,8 @@ class App extends Component {
         return <SpecialtyPizzas/>;
       case 8:
         return <SizeQuantityPrompt/>;
+      case 9: 
+        return <MenuChoice />;
       default:
         return null;
     }
