@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
  * displays pizza order information in a table in a card
  */
 const PizzaCard = (props) => {
-
   // helper method for printing multiple toppings
   const printMultipleToppings = (arr) => {
     let text = '';
@@ -33,33 +32,27 @@ const PizzaCard = (props) => {
             <td>Sauce</td>
             <td>{props.sauce.type}</td>
           </tr>
-          {props.toppings.cheeses.length>0 ? 
-          <tr id="Cheese">
-            <td>Cheese</td>
-            <td>{printMultipleToppings(props.toppings.cheeses)}</td>
-          </tr>
-          : 
-          null}
-          {props.toppings.veggies.length>0 ?
-          <tr id="Veggies">
-            <td>Veggies</td>
-            <td>{printMultipleToppings(props.toppings.veggies)}</td>
-          </tr>
-          : 
-          null}
-          {props.toppings.meats.length>0 ? 
-          <tr id="Meats">
-            <td>Meats</td>
-            <td>{printMultipleToppings(props.toppings.meats)}</td>
-          </tr>
-          : 
-          null}
-          <tr id="Price">
-            <td>Total: </td>
-            <td>${props.price}</td>
-          </tr>
+          {props.toppings.cheeses.length > 0 ? (
+            <tr id="Cheese">
+              <td>Cheese</td>
+              <td>{printMultipleToppings(props.toppings.cheeses)}</td>
+            </tr>
+          ) : null}
+          {props.toppings.veggies.length > 0 ? (
+            <tr id="Veggies">
+              <td>Veggies</td>
+              <td>{printMultipleToppings(props.toppings.veggies)}</td>
+            </tr>
+          ) : null}
+          {props.toppings.meats.length > 0 ? (
+            <tr id="Meats">
+              <td>Meats</td>
+              <td>{printMultipleToppings(props.toppings.meats)}</td>
+            </tr>
+          ) : null}
         </tbody>
       </table>
+      <h5>${props.price}</h5>
     </>
   );
 };
