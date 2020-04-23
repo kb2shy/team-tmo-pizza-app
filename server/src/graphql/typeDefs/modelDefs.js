@@ -90,7 +90,7 @@ const gqlModels = `
   type AddressType{
     address_type: String
   }
-  type OrderSubmitData {
+  type CreatedOrderInfo {
     order: Order!
     code: String!
   }

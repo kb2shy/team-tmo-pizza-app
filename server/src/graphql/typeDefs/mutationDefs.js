@@ -83,11 +83,11 @@ const mutations = `
     createGuestOrder(
       guest: GuestInput!
       pizzas: [PizzaInput!]!
-    ): OrderSubmitData
+    ): CreatedOrderInfo
 
     createMemberOrder(
       pizzas: [PizzaInput!]!
-    ): OrderSubmitData
+    ): CreatedOrderInfo
   }`;
 
 module.exports = mutations;
