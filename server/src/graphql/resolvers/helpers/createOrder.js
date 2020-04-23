@@ -249,7 +249,7 @@ async function createOrder(
     }); // no need to await this request
 
     // return the order
-    return orderRecord;
+    return { order: orderRecord, code: orderCode };
   });
 }
 

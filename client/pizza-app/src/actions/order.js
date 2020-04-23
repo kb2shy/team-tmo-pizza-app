@@ -67,7 +67,7 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
 
     dispatch({
       type: ORDER_SUCCESS,
-      payload: order.order_id,
+      payload: order,
     });
 
     // trigger the user-defined callback
@@ -157,7 +157,7 @@ export const createMemberOrder = (onSuccessEvent) => async (
 
     dispatch({
       type: ORDER_SUCCESS,
-      payload: order.order_id,
+      payload: order,
     });
 
     // trigger the user-defined callback
