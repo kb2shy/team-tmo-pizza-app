@@ -35,7 +35,8 @@ class SizeQuantityPrompt extends React.Component {
     this.props.setQuantity(value);
   };
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     const currentPizza = { ...this.props.pizza };
     const basePrice = (
       Number(currentPizza.basePrice) + currentPizza.size.price

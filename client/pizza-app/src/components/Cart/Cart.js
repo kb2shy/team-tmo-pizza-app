@@ -291,6 +291,7 @@ const Cart = ({
               onClick={handleAddAnotherPizza}
               variant="basicButton"
               text="Add another pizza"
+              type="button"
             />
           </Col>
         </Row>
