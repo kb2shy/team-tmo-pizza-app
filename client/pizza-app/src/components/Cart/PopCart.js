@@ -2,23 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from "react-bootstrap";
 import { setPopCart } from '../../actions/menu';
-
+import './PopCart.css'
 import StyledButton from '../common/Button/StyledButton';
 
 import OrderSummary from './OrderSummary/OrderSummary';
 class PopCart extends React.Component {
     render() {
       return (
-        <div style={{position: 'absolute', right: '0px', width: '400px', zIndex: 3, border: '1px solid gray', backgroundColor: 'white', padding: '20px'}}>
+        <div className="popCartModal">
           {/* <StyledButton
             variant="popCartButton"
             type="button"
             onClick={() => this.props.setPopCart(!this.props.popCart)}
             text='<<< Close Cart'
           /> */}
-          <Button style={{position: 'absolute', left: '10px'}} onClick={() => this.props.setPopCart(!this.props.popCart)}> {'<<< Close Cart'}</Button>
           <h3>Cart</h3>
-          {this.props.pizzas.length > 0 ? <OrderSummary/> : <p style={{padding: '20px 0px'}}>There is nothing in your cart.</p>}
+          {this.props.pizzas.length > 0 ? <OrderSummary /> : <p style={{ padding: '20px 0px' }}>There is nothing in your cart.</p>}
+          <Button variant="closeCartButton" onClick={() => this.props.setPopCart(!this.props.popCart)}> {'<<< Close Cart'}</Button>
         </div>
       )
     }

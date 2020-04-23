@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
-
 const styles = StyleSheet.create({
+    
     container: {
         flexDirection: "row",
         flexWrap: "wrap",
         marginTop: 15,
-        textAlign: "center"
+        textAlign: "center",
+        alignItems:"center"
     },
     box1: {
         padding: 10,
