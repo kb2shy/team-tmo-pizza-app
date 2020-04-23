@@ -16,7 +16,6 @@
 }
 .col-email-message p:first-of-type{
     color: rgb(158, 37, 37);
-    font-family: 'Special Elite', cursive;
     text-shadow: none;
     font-size: 1.6rem;
 
@@ -31,7 +30,6 @@
 .col-create-account p:first-of-type{
     color: rgb(158, 37, 37);
     font-size: 2.7rem;
-    font-family: 'Great Vibes', cursive;
     text-shadow: none;
 }
 .col-create-account{   

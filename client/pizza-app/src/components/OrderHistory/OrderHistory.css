@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Adamina|Calligraffitti|Charm:700|La+Belle+Aurore|Montez&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Enriqueta&display=swap');
 
 .orderDisplayCard{
-font-family: 'Charm', cursive;
+font-family: 'Enriqueta', serif;
 font-size: 1.2rem;
 color: rgb(192, 116, 54);
 margin-bottom: 1em;
