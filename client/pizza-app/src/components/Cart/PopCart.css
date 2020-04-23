@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+
+.popCartModal{
+    position: absolute;
+    top: 120px;
+    right: 20px;
+    width: 400px;
+    padding: 20px;
+    z-index: 3;
+    border: 5px solid #fd0b1b;
+    border-radius: 0px;
+    background-color: #fbffda;
+    opacity: 1;
+    font-family: 'Adamina', serif;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 6px 3px rgba(0, 0, 0, 0.473), -3px -3px 6px 3px rgba(0, 0, 0, 0.473);
+}

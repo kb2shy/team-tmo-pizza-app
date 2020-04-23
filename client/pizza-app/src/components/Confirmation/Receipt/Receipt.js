@@ -38,11 +38,11 @@ const styles = StyleSheet.create({
     },
 });
 
-const Receipt = ({ order, user, pizzas }) => {
+const Receipt = ({ orderId, user, pizzas, orderDate, delivery }) => {
 
     // Collect date from the order and parse it into date string
     const dateParser = () => {
-        const date = new Date(order.createdAt);
+        const date = new Date(Number(orderDate));
         const month = date.getMonth();
         const day = date.getDate();
         const year = date.getFullYear();
@@ -59,9 +59,9 @@ const Receipt = ({ order, user, pizzas }) => {
      * Calculate total cost of pizzas when cost field updated with pizza data
      */
     // Un-comment below statement when cost field added to pizza object
-    // const calculateTotal = () => {
-    //     return order.pizzas.reduce((total, pizza) => total + pizza.cost, 0);
-    // }
+    const calculateTotal = () => {
+        return pizzas.reduce((total, pizza) => total + pizza.price, 0);
+    }
 
     /**
       * TODO
@@ -69,15 +69,17 @@ const Receipt = ({ order, user, pizzas }) => {
       */
     // Delete 1st return statement and un-comment 2nd return statement when quantity field added to pizza object
     const countAllPizzas = () => {
-        return pizzas.length;
-        // return order.pizzas.reduce((total, pizza) => total + pizza.quantity, 0);
+        // return pizzas.length;
+        return pizzas.reduce((total, pizza) => {
+            if (!pizza.quantity) return total + 1;
+            return total + pizza.quantity;
+        }, 0);
     }
 
     return (
         <Document>
             <Page size="LETTER" style={styles.page}>
-                {console.log(user, order, pizzas)}
-                <HeaderReceipt order={order} user={user} date={dateParser()}/>
+                <HeaderReceipt orderId={orderId} user={user} date={dateParser()} delivery={delivery}/>
                 <Text style={styles.text}>Pizza(s): {countAllPizzas()}</Text>
                 <PizzasReceipt pizzas={pizzas}/>
                 <CostReceipt total={`15.00`}/>

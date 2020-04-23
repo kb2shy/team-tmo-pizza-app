@@ -18,7 +18,7 @@ async function getAllOrderInfoByOrderId(
         include: [Address, Customer,
             {
                 model: Pizza,
-                attributes: ['pizza_id', 'price'],
+                attributes: ['pizza_id', 'price', 'quantity'],
                 include: [Size, Crust, Sauce,
                     {
                         model: Cheese,

@@ -7,7 +7,6 @@ export default class BaseDropDown extends React.Component {
     render() {
         return (
         <div>
-            <h5>{this.props.type}</h5>
             <DropdownButton id="dropdown-basic-button" title={this.props.value}
             variant="basicButton">
                 {this.props.options.map((item) => {

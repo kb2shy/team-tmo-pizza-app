@@ -68,6 +68,50 @@
   transform: translateY(1px);
 }
 
+.btn-returnHome {
+  color: #eb6d76;
+  border: 5px solid #eb6d76;
+  border-radius: 0px;
+  background-color: #fbffda;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+  margin-top: -20px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-returnHome:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+.btn-closeCartButton{
+    color: #eb6d76;
+  border: 5px solid #eb6d76;
+  border-radius: 0px;
+  background-color: #fbffda;
+  opacity: 1;
+  font-family: 'Adamina', serif;
+display: block;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-closeCartButton:hover {
+  background-color: #d8dbba;
+  border: 5px solid #ce6067;
+  color: #f0a9ae;
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
 /* navbar Button Styling --------------------------------- */
 .btn-navbarButton {
   color: #fbffda;
@@ -126,6 +170,7 @@
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
+  margin-bottom: 4em;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.651);
 
 }
@@ -135,7 +180,13 @@
   border: 5px solid #1c9d87;
   color: #f0a9ae;
 }
-
+.btn-createAccountButton:hover {
+  background-color: #3fecd0;
+  border: 5px solid #1c9d87;
+  color: #f0a9ae;
+  box-shadow: none;
+  transform: translateY(1px);
+}
 /* Pop-Out Cart Button Styling --------------------------------- */
 .btn-popCartButton {
   position: 'absolute';

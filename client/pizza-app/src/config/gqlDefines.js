@@ -230,3 +230,21 @@ query
         }
     }
 `
+export const GET_TOPPINGS_COUNT = gql`
+query
+  getToppingsCountByCustomerId($order_id: Int){
+    getToppingsCountByCustomerId(order_id: $order_id){
+            pizza_id
+            cheeses{
+              cheese_type
+            }
+            veggies{
+              veggie_type
+            }
+            meats{
+              meat_type
+            }
+        }
+    }
+`
+

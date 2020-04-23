@@ -45,6 +45,8 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
+//  setPizzaQty
+  step
 }) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
@@ -258,7 +260,7 @@ const Cart = ({
   const handleAddAnotherPizza = (e) => {
     e.preventDefault();
     clearPizza();
-    previousMenu();
+    setMenu(7, step);
   };
 
   return (
@@ -297,6 +299,7 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
+          type="button"
           disabled={
             !isAuthenticated &&
             (!isEmail(guestData.email) ||
@@ -319,6 +322,7 @@ const mapStateToProps = (state) => {
     guest: state.guest,
     order: state.order,
     pizzas: state.pizzas,
+    step: state.menu.step
   };
 };
 

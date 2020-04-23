@@ -36,7 +36,7 @@ const OrderChoice = (props) => {
   const handleCreateOrder = (e) => {
     e.preventDefault();
     props.clearPizza();
-    return props.setMenu(3);
+    return props.setMenu(7, props.step);
   };
 
   return (
@@ -66,6 +66,7 @@ const OrderChoice = (props) => {
             text="See My Order History"
             variant="orderChoiceButton"
           />
+
           <StyledButton
             type="button"
             onClick={handleCreateOrder}
