@@ -42,7 +42,7 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
-      quantity,
+      quantity
     });
   }
 
@@ -121,12 +121,13 @@ export const createMemberOrder = (onSuccessEvent) => async (
       cheeses: cheesesIds,
     };
 
+    //price hardcoded, should get added later
     pizzas.push({
       size: sizeId,
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
-      quantity,
+      quantity
     });
   }
 
