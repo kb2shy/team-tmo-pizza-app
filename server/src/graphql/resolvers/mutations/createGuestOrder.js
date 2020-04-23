@@ -1,5 +1,5 @@
 const updateOrCreateCustomer = require('./updateOrCreateCustomer');
-const createOrder = require('./createOrder');
+const createOrder = require('../helpers/createOrder');
 
 async function createGuestOrder(root, { guest, ...attrs }, context) {
   // update or create guest customer
@@ -20,9 +20,15 @@ async function createGuestOrder(root, { guest, ...attrs }, context) {
     return null; // @todo return an error object instead
   }
 
-  const orderRecord = await createOrder(root, { customer, ...attrs }, context);
-
-  return orderRecord;
+  try {
+    return await createOrder(
+      { customer, ...attrs },
+      context
+    );
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 module.exports = createGuestOrder;

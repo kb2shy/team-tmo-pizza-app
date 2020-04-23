@@ -25,7 +25,7 @@ const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
 
   const handleHomeCart = (evt) => {
     evt.preventDefault();
-    if(step === 3) {
+    if(step === 3 || step === 7) {
       setPopCart(true);
     } else {
       setMenu(4);
