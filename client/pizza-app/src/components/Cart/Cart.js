@@ -299,6 +299,7 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
+          type="button"
           disabled={
             !isAuthenticated &&
             (!isEmail(guestData.email) ||
