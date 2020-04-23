@@ -1,7 +1,14 @@
+// Anton (4/22/2020): This utility is no longer used but I left it here just in case.
+
 const { Op } = require('sequelize');
 
 /**
- * A helper function for computing pizzas price efficiently
+ * A helper function for computing the overall pizzas price efficiently (with quantity).
+ * Efficiency comes from querying the used selections only once even if multiple
+ * pizzas in the order share a common selection. That said, I believe this is far
+ * from being optimized but (I believe) is faster than computing price for each
+ * pizza individually (unless the price for each pizza is computed with a single
+ * call to db).
  * @param {[object]} pizzasDetails [{pizzaRecord, meat_ids, cheese_ids, veggie_ids }, ...]
  * @param {object} context {Sauce, Size, Crust, Meat, Veggie, Cheese}
  * @return {number} Total price
@@ -22,34 +29,34 @@ async function computePizzasPrice(
 
   // store the quantities of each pizza selection and topping occurrence in the associated maps
   for (let {
-    pizzaRecord: { sauce_id, size_id, crust_id },
+    pizzaRecord: { sauce_id, size_id, crust_id, quantity },
     meat_ids,
     veggie_ids,
     cheese_ids,
   } of pizzasDetails) {
     // sauces
     let c = counts.sauces.get(sauce_id);
-    counts.sauces.set(sauce_id, c === undefined ? 1 : c + 1);
+    counts.sauces.set(sauce_id, c === undefined ? quantity : c + quantity);
     // sizes
     c = counts.sizes.get(size_id);
-    counts.sizes.set(size_id, c === undefined ? 1 : c + 1);
+    counts.sizes.set(size_id, c === undefined ? quantity : c + quantity);
     // crusts
     c = counts.crusts.get(crust_id);
-    counts.crusts.set(crust_id, c === undefined ? 1 : c + 1);
+    counts.crusts.set(crust_id, c === undefined ? quantity : c + quantity);
     // meats
     for (let meat_id of meat_ids) {
       c = counts.meats.get(meat_id);
-      counts.meats.set(meat_id, c === undefined ? 1 : c + 1);
+      counts.meats.set(meat_id, c === undefined ? quantity : c + quantity);
     }
     // veggies
     for (let veggie_id of veggie_ids) {
       c = counts.veggies.get(veggie_id);
-      counts.veggies.set(veggie_id, c === undefined ? 1 : c + 1);
+      counts.veggies.set(veggie_id, c === undefined ? quantity : c + quantity);
     }
     // cheeses
     for (let cheese_id of cheese_ids) {
       c = counts.cheeses.get(cheese_id);
-      counts.cheeses.set(cheese_id, c === undefined ? 1 : c + 1);
+      counts.cheeses.set(cheese_id, c === undefined ? quantity : c + quantity);
     }
   }
 
