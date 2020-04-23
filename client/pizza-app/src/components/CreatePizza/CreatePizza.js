@@ -103,11 +103,11 @@ class CreatePizza extends React.Component {
   handleQuantityChange = (e) => {
     e.preventDefault();
     let value = parseInt(e.target.value);
-    if (isNaN(value) || value < this.MIN_PIZZA_QUANTITY) {
-      value = this.MIN_PIZZA_QUANTITY;
-    } else if (value > this.MAX_PIZZA_QUANTITY) {
-      value = this.MAX_PIZZA_QUANTITY;
-    }
+    // if (isNaN(value) || value < this.MIN_PIZZA_QUANTITY) {
+    //   value = this.MIN_PIZZA_QUANTITY;
+    // } else if (value > this.MAX_PIZZA_QUANTITY) {
+    //   value = this.MAX_PIZZA_QUANTITY;
+    // }
     this.setState({ quantity: value });
   };
 
@@ -195,7 +195,9 @@ class CreatePizza extends React.Component {
                   <Form.Label>Quantity: </Form.Label>
                   <Form.Control
                     name="quantity"
-                    type="text"
+                    type="number"
+                    min={this.MIN_PIZZA_QUANTITY}
+                    max={this.MAX_PIZZA_QUANTITY}
                     placeholder={this.props.pizza.quantity}
                     value={this.state.quantity}
                     onChange={this.handleQuantityChange}
