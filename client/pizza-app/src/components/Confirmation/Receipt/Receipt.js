@@ -61,10 +61,8 @@ const Receipt = ({ orderId, user, pizzas, orderDate, delivery }) => {
     // Un-comment below statement when cost field added to pizza object
     const calculateTotal = () => {
         let pizzaTotal = pizzas.reduce((total, pizza) => {
-            console.log(pizza);
             return total + (pizza.price * pizza.quantity)
         }, 0);
-        // console.log(pizzaTotal);
         return pizzaTotal.toFixed(2);
     }
 
@@ -83,7 +81,6 @@ const Receipt = ({ orderId, user, pizzas, orderDate, delivery }) => {
 
     return (
         <Document>
-            {console.log(pizzas)}
             <Page size="LETTER" style={styles.page}>
                 <HeaderReceipt orderId={orderId} user={user} date={dateParser()} delivery={delivery}/>
                 <Text style={styles.text}>Pizza(s): {countAllPizzas()}</Text>

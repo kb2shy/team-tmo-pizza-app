@@ -84,7 +84,8 @@ const Confirmation = ({ order, setMenu }) => {
    * Function that displays either loading message or download button for PDF document
    * @returns {object} PDF link displayed as styled button
    */
-  const getPDFLink = () => (
+  const getPDFLink = () => {
+     return (
     <PDFDownloadLink
       document={<Receipt user={customer}
       pizzas={pizzas}
@@ -104,7 +105,7 @@ const Confirmation = ({ order, setMenu }) => {
         )
       }
     </PDFDownloadLink>
-  )
+  )}
 
   return (
     <Container
@@ -116,6 +117,7 @@ const Confirmation = ({ order, setMenu }) => {
           <StyledTitle text="Confirmation" className="basicTitle" />
         </Col>
       </Row>
+
       <Row>
         <Col className="col-email-message">
           <Alert variant="success">Success!</Alert>
@@ -123,6 +125,7 @@ const Confirmation = ({ order, setMenu }) => {
           <p>An email has been sent to: {customer.email}</p>
         </Col>
       </Row>
+
       <Row>
         <Col className='receiptCol'>
           <PDFViewer style={{ width: "100%", height:"100%"}}>
@@ -133,13 +136,8 @@ const Confirmation = ({ order, setMenu }) => {
               orderDate={created_at}
               delivery={delivery}
             />
-          </PDFViewer> <Row>
-        <Col>
-
+          </PDFViewer>
           {getPDFLink()}
-        </Col>
-      </Row>
-    
         </Col>
         <Col>
           {saveOrder()}
