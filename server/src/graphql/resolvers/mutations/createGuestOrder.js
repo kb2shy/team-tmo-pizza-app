@@ -21,7 +21,7 @@ async function createGuestOrder(root, { guest, ...attrs }, context) {
   }
 
   try {
-    const orderRecord = await createOrder(
+    return await createOrder(
       root,
       { customer, ...attrs },
       context
@@ -30,8 +30,6 @@ async function createGuestOrder(root, { guest, ...attrs }, context) {
     console.log(err);
     throw err;
   }
-
-  return orderRecord;
 }
 
 module.exports = createGuestOrder;

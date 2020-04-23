@@ -1,7 +1,14 @@
+// Anton: This utility is no longer used but I left it here just in case.
+
 const { Op } = require('sequelize');
 
 /**
- * A helper function for computing pizzas price efficiently
+ * A helper function for computing the overall pizzas price efficiently (with quantity).
+ * Efficiency comes from querying the used selections only once even if multiple
+ * pizza in the order share a common selection. That said, I believe this is far
+ * from being optimized but (I believe) is faster than computing price for each
+ * pizza individually (unless the price for each pizza is computed with a single
+ * call to db).
  * @param {[object]} pizzasDetails [{pizzaRecord, meat_ids, cheese_ids, veggie_ids }, ...]
  * @param {object} context {Sauce, Size, Crust, Meat, Veggie, Cheese}
  * @return {number} Total price

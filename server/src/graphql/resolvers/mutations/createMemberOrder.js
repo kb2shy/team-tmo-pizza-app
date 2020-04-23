@@ -15,7 +15,7 @@ async function createMemberOrder(root, attrs, { user, Customer, ...context }) {
 
   // create order
   try {
-    const orderRecord = await createOrder(
+    return await createOrder(
       root,
       { customer, ...attrs },
       context
@@ -24,8 +24,6 @@ async function createMemberOrder(root, attrs, { user, Customer, ...context }) {
     console.log(err);
     throw err;
   }
-
-  return orderRecord;
 }
 
 module.exports = createMemberOrder;

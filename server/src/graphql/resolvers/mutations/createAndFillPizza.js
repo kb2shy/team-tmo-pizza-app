@@ -118,7 +118,13 @@ async function createAndFillPizza(
     crust_id,
     sauce_id,
     quantity,
-    price: 0.0 // this is updated later in an efficient way
+    price: 0.0 // price is updated in `updatePizzasPrices`.
+    // Anton's explanation:
+    // We don't compute price upon creation because if an attribute is null,
+    // like `size_id`, we won't know the default selections until after the
+    // pizza is created. I believe we can still ask sequelize to give us the
+    // defaults beforehand, so that we are able to compute price prior to
+    // creating the Pizza; therefore, marking this as @todo for optimization.
   });
   const pizza_id = pizzaRecord.pizza_id;
 
