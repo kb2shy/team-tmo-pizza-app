@@ -144,7 +144,7 @@ const Confirmation = ({ order, setMenu }) => {
         <Col>
           {saveOrder()}
           <Row>
-            <Col>
+            <Col className='returnHomeCol'>
               <StyledButton
                 type="button"
                 onClick={handleClickHome}

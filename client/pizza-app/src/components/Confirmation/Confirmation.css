@@ -42,3 +42,10 @@
     margin-bottom: 2em;
     height: 40vh;
 }
+
+.returnHomeCol div {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
