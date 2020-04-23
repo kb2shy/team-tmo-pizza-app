@@ -65,8 +65,11 @@ async function createOrder(
     }
   }
 
-  // compute and update pizzas prices; get overall price
-  const overallPrice = await updatePizzasPrices(pizzasDetails, context);
+  // compute and update pizzas prices; get overall price and used selection prices and names
+  const { overallPrice, selections } = await updatePizzasPrices(
+    pizzasDetails,
+    context
+  );
 
   // create order
   let orderRecord = null;
