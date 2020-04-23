@@ -1,11 +1,10 @@
 import React from 'react';
 import { Card, CardGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { setBase, clearPizza } from '../../actions/pizza';
+import { setBase, setPizza,  clearPizza } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { setMenu, setPopCart } from '../../actions/menu';
 
-import SizePrompt from './SizePrompt';
 import PopCart from '../Cart/PopCart';
 
 import StyledButton from '../common/Button/StyledButton';
@@ -90,36 +89,22 @@ class SpecialtyPizzas extends React.Component {
         this.props.setPopCart(false);
     }
 
-    //After user chooses size, adds pizza to pizzas store, clears current pizza and moves to cart
-    handleSubmit = (pizza, size) => {
+    //adds pizza to pizzas store
+    handleSubmit = (pizza) => {
         const currentPizza = {...this.props.pizza};
-        this.props.addPizza(
+        this.props.setPizza(
             {
                 ...currentPizza, 
                 name: pizza.name,
                 toppings: pizza.toppings, 
-                size,
                 crust: pizza.crust,
                 sauce: pizza.sauce,
-                basePrice: (pizza.basePrice + size.price).toFixed(2),
-                totalPrice: (pizza.basePrice + size.price).toFixed(2),
+                basePrice: pizza.basePrice.toFixed(2),
+                totalPrice: pizza.basePrice.toFixed(2),
                 quantity: 1
             }
         );
-        this.props.clearPizza();
-        this.setState({showSizePrompt: false});
-        this.props.setMenu(4, this.props.step);
-    }
-
-    //changes component to render size prompt
-    getSize = (pizza) => {
-        this.props.setPopCart(false);
-        this.setState({showSizePrompt: true, currentPizza: pizza});
-    }
-
-    //Changes pizza size in store
-    handleChange = (name, item) => {
-        this.props.setBase(name.toLowerCase(), item);
+        this.props.setMenu(8);
     }
 
     //Change to custom order
@@ -130,59 +115,43 @@ class SpecialtyPizzas extends React.Component {
 
     //Renders cards of all possible specialty pizza, when one is selected, the sizing prompt is render
     render() {
-        const style = {
-            margin: 'auto auto',
-            padding: '100px',
-            width: '200px',
-            height: '100px'
-
-        }
-        if (this.state.showSizePrompt) {
-            return (
+        return (
+            <div>   
+                {this.props.popCart ? <PopCart/> : null}
                 <div style={{textAlign: 'center'}}>
-                    {this.props.popCart ? <PopCart/> : null}
-                    <SizePrompt style={style} handleSubmit={this.handleSubmit} pizza={this.state.currentPizza}/>
+                    <StyledButton
+                        type="button"
+                        onClick={(e) => this.handleCustomOrder()}
+                        text="Make a Custom Pizza"
+                        variant="basicButton"
+                    />
                 </div>
-            )
-        } else {
-            return (
-                <div>   
-                    {this.props.popCart ? <PopCart/> : null}
-                    <div style={{textAlign: 'center'}}>
-                        <StyledButton
-                            type="button"
-                            onClick={(e) => this.handleCustomOrder()}
-                            text="Make a Custom Pizza"
-                            variant="basicButton"
-                        />
-                    </div>
-                    <CardGroup>
-                        {this.state.data.map(item => {
-                            return (
-                                <Card key={item.name} style={{width: '300px'}}>
-                                    <Card.Body>
-                                        <Card.Title>{item.name}</Card.Title>
-                                        <Card.Text>Crust: {item.crust.type}</Card.Text>
-                                        <Card.Text>Sauce: {item.sauce.type}</Card.Text>
-                                        <Card.Text>{item.toppings.cheeses.map((cheese, i) => i === 0 ? `Cheese(s): ${cheese.type}` : `, ${cheese.type}`)}</Card.Text>
-                                        <Card.Text>{item.toppings.veggies.map((veggie, i) => i === 0 ? `Veggie(s): ${veggie.type}` : `, ${veggie.type}`)}</Card.Text>
-                                        <Card.Text>{item.toppings.meats.map((meat, i) => i === 0 ? `Meat(s): ${meat.type}` : `, ${meat.type}`)}</Card.Text>
-                                        <Card.Text>Price of Toppings: ${item.basePrice.toFixed(2)}</Card.Text>
-                                        
-                                        <StyledButton
-                                            type="button"
-                                            onClick={(e) => this.getSize(item)}
-                                            text="Add to Cart"
-                                            variant="orderChoiceButton"
-                                        />
-                                    </Card.Body>
-                                </Card>
-                            )
-                        })}
-                    </CardGroup>
-                </div>
-            )
-        }
+                <CardGroup>
+                    {this.state.data.map(item => {
+                        return (
+                            <Card key={item.name} style={{width: '300px'}}>
+                                <Card.Body>
+                                    <Card.Title>{item.name}</Card.Title>
+                                    <Card.Text>Crust: {item.crust.type}</Card.Text>
+                                    <Card.Text>Sauce: {item.sauce.type}</Card.Text>
+                                    <Card.Text>{item.toppings.cheeses.map((cheese, i) => i === 0 ? `Cheese(s): ${cheese.type}` : `, ${cheese.type}`)}</Card.Text>
+                                    <Card.Text>{item.toppings.veggies.map((veggie, i) => i === 0 ? `Veggie(s): ${veggie.type}` : `, ${veggie.type}`)}</Card.Text>
+                                    <Card.Text>{item.toppings.meats.map((meat, i) => i === 0 ? `Meat(s): ${meat.type}` : `, ${meat.type}`)}</Card.Text>
+                                    <Card.Text>Price of Toppings: ${item.basePrice.toFixed(2)}</Card.Text>
+                                    
+                                    <StyledButton
+                                        type="button"
+                                        onClick={(e) => this.handleSubmit(item)}
+                                        text="Add to Cart"
+                                        variant="orderChoiceButton"
+                                    />
+                                </Card.Body>
+                            </Card>
+                        )
+                    })}
+                </CardGroup>
+            </div>
+        )
     }
 }
 
@@ -197,6 +166,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
     setMenu,
     addPizza,
+    setPizza,
     clearPizza,
     setPopCart,
     setBase,

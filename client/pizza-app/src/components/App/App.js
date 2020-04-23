@@ -12,6 +12,7 @@ import Cart from '../Cart/Cart';
 import Confirmation from '../Confirmation/Confirmation';
 import Register from '../Register/Register';
 import SpecialtyPizzas from '../SpecialtyPizzas/SpecialtyPizzas';
+import SizePrompt from '../SpecialtyPizzas/SizePrompt';
 
 import { loadCustomer } from '../../actions/auth';
 import { getAllToppings } from '../../actions/database';
@@ -51,6 +52,8 @@ class App extends Component {
         return <Register />;
       case 7: 
         return <SpecialtyPizzas/>;
+      case 8:
+        return <SizePrompt/>;
       default:
         return null;
     }
@@ -68,11 +71,6 @@ class App extends Component {
           {/* <Example></Example> */}
           {/* Render Home, Main, or a preferred component based on the step of the menu */}
           {this.getViewState()}
-          {/* <Register></Register> */}
-          {/* <Login></Login> */}
-          {/* <Logout></Logout> */}
-          {/* <CreatePizza /> */}
-          {/* <Cart /> */}
         </div>
       </div>
     );
