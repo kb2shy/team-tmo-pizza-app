@@ -1,5 +1,5 @@
 const updateOrCreateCustomer = require('./updateOrCreateCustomer');
-const createOrder = require('./createOrder');
+const createOrder = require('../helpers/createOrder');
 
 async function createGuestOrder(root, { guest, ...attrs }, context) {
   // update or create guest customer
@@ -22,7 +22,6 @@ async function createGuestOrder(root, { guest, ...attrs }, context) {
 
   try {
     return await createOrder(
-      root,
       { customer, ...attrs },
       context
     );

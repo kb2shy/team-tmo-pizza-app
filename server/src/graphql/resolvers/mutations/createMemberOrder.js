@@ -1,4 +1,4 @@
-const createOrder = require('./createOrder');
+const createOrder = require('../helpers/createOrder');
 
 async function createMemberOrder(root, attrs, { user, Customer, ...context }) {
   // get member from token
@@ -16,7 +16,6 @@ async function createMemberOrder(root, attrs, { user, Customer, ...context }) {
   // create order
   try {
     return await createOrder(
-      root,
       { customer, ...attrs },
       context
     );

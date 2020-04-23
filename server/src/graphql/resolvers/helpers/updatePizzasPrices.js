@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 /**
  * A helper function for computing and updating pizzas prices efficiently.
  * Efficiency comes from querying the used selections only once even if multiple
- * pizza in the order share a common selection. That said, I believe this is far
+ * pizzas in the order share a common selection. That said, I believe this is far
  * from being optimized but (I believe) is faster than computing price for each
  * pizza individually (unless the price for each pizza is computed with a single
  * call to db or via a stored procedure).
@@ -11,17 +11,19 @@ const { Op } = require('sequelize');
  *  make it easier fro updating the price if quantity changes.
  * @param {[object]} pizzasDetails `[{pizzaRecord, meat_ids, cheese_ids, veggie_ids }, ...]`
  * @param {object} context `{Sauce, Size, Crust, Meat, Veggie, Cheese}`
+ * @param {object} transaction
  * @return {object} An objet with 3 properties.
  *  Just because we query the database for the used selection prices, we also
  *  gather all the used selection type names and for further use.
  *  The returned object has 3 values:
  *  `{overallPrice: number, overallQuantity: number, selections: object}`.
  *  `selections`: `{ sizes: Map, crusts: Map, sauces: Map, meats: Map, cheeses: Map, veggies: Map }`
- *  Each `Map` is `{ id => { price: number, name: string } }
+ *  Each `Map` is `{ id => { price: number, name: string } }`
  */
 async function updatePizzasPrices(
   pizzasDetails,
-  { Sauce, Size, Crust, Meat, Veggie, Cheese, Pizza }
+  { Sauce, Size, Crust, Meat, Veggie, Cheese },
+  transaction,
 ) {
   // a map of all selections for all pizza and their prices.
   const selections = {
@@ -178,8 +180,9 @@ async function updatePizzasPrices(
     }
     overallQuantity += pizzaRecord.quantity;
     overallPrice += price * pizzaRecord.quantity;
-    // await pizzaRecord.update({ price });
-    promises.push(pizzaRecord.update({ price }));
+    const pr = pizzaRecord.update({ price }, { transaction });
+    // await pr;
+    promises.push(pr);
   }
   await Promise.all(promises);
 

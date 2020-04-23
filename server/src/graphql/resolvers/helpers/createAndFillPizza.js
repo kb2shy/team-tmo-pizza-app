@@ -1,9 +1,13 @@
-// This mutation is meant to be as a helper function for
-// `createGuestOrder` and `createMemberOrder` mutations.
-// Thus mutation must not be shared with the end client.
+/**
+ * This is a helper function for the createOrder function, used by
+ * `createGuestOrder` and `createMemberOrder` mutations.
+ * @param {object} pizza
+ * @param {object} context
+ * @param {*} transaction
+ * @return {object} `{ pizzaRecord: Pizza, meat_ids: [Int], cheese_ids: [Int], veggie_ids: [Int] }`
+ */
 async function createAndFillPizza(
-  root,
-  { pizza: { size, crust, sauce, toppings, quantity } },
+  { size, crust, sauce, toppings, quantity },
   {
     Pizza,
     // Cheese,
@@ -15,7 +19,8 @@ async function createAndFillPizza(
     MeatSelection,
     VeggieSelection,
     CheeseSelection,
-  }
+  },
+  transaction
 ) {
   // find size id by type
   // let size_id = null;
@@ -113,34 +118,37 @@ async function createAndFillPizza(
   const cheese_ids = toppings && toppings.cheeses ? toppings.cheeses : [];
 
   // create pizza
-  const pizzaRecord = await Pizza.create({
-    size_id,
-    crust_id,
-    sauce_id,
-    quantity,
-    price: 0.0 // price is updated in `updatePizzasPrices`.
-    // Anton's explanation:
-    // We don't compute price upon creation because if an attribute is null,
-    // like `size_id`, we won't know the default selections until after the
-    // pizza is created. I believe we can still ask sequelize to give us the
-    // defaults beforehand, so that we are able to compute price prior to
-    // creating the Pizza; therefore, marking this as @todo for optimization.
-  });
+  const pizzaRecord = await Pizza.create(
+    {
+      size_id,
+      crust_id,
+      sauce_id,
+      quantity,
+      price: 0.0, // price is updated in `updatePizzasPrices`.
+      // Anton's explanation:
+      // We don't compute price upon creation because if an attribute is null,
+      // like `size_id`, we won't know the default selections until after the
+      // pizza is created. Although, I believe we can still ask sequelize to give
+      // us the defaults beforehand, so that we are able to compute price prior to
+      // creating the Pizza; therefore, marking this as @todo for optimization.
+    },
+    { transaction }
+  );
   const pizza_id = pizzaRecord.pizza_id;
 
   // add meats to the pizza
   for (let meat_id of meat_ids) {
-    await MeatSelection.create({ meat_id, pizza_id });
+    await MeatSelection.create({ meat_id, pizza_id }, { transaction });
   }
 
   // add veggies to the pizza
   for (let veggie_id of veggie_ids) {
-    await VeggieSelection.create({ veggie_id, pizza_id });
+    await VeggieSelection.create({ veggie_id, pizza_id }, { transaction });
   }
 
   // add cheeses to the pizza
   for (let cheese_id of cheese_ids) {
-    await CheeseSelection.create({ cheese_id, pizza_id });
+    await CheeseSelection.create({ cheese_id, pizza_id }, { transaction });
   }
 
   // return the pizza record along with meat ids, cheese ids, and veggie ids.
