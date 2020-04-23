@@ -13,9 +13,9 @@ import {
   clearPizza,
   addBasePrice,
   addTotalPrice,
+  setPizza
 } from '../../actions/pizza';
-import { addPizza } from '../../actions/pizzas';
-import { nextMenu, setPopCart } from '../../actions/menu';
+import { setMenu, setPopCart } from '../../actions/menu';
 
 // Custom Styling
 import StyledButton from '../common/Button/StyledButton';
@@ -45,24 +45,16 @@ class CreatePizza extends React.Component {
   //changes store to user input
   handleChange = (name, item) => {
     this.props.setBase(name.toLowerCase(), item);
-}
+  }
 
     //Adds current pizza to pizzas array and clears current pizza
-    handleSubmit = () => {
-        // if (this.verifyUserInput()){
-            const basePrice = this.calcBasePrice()
-            const totalPrice = this.calcTotalPrice(basePrice);
-            const currentPizza = this.props.pizza;
-            this.props.addPizza({ ...currentPizza, basePrice: basePrice, totalPrice, quantity: this.props.pizza.quantity});
-            this.props.clearPizza()
-            this.props.nextMenu(this.props.step);
-        //}
-    };
-  
-
-  toggleShowCart = () => {};
-
- 
+  handleSubmit = () => {
+    const basePrice = this.calcBasePrice()
+    const totalPrice = this.calcTotalPrice(basePrice);
+    const currentPizza = this.props.pizza;
+    this.props.setPizza({ ...currentPizza, basePrice, totalPrice: basePrice, quantity: this.props.pizza.quantity});
+    this.props.setMenu(8);
+  };
 
   // Calculates base price of pizza (size + toppings price)
   calcBasePrice = () => {
@@ -70,18 +62,16 @@ class CreatePizza extends React.Component {
     for (let meat of this.props.pizza.toppings.meats) {
       basePrice += meat.price;
     }
-
+    
     for (let veggie of this.props.pizza.toppings.veggies) {
       basePrice += veggie.price;
     }
-
+    
     for (let cheese of this.props.pizza.toppings.cheeses) {
       basePrice += cheese.price;
     }
-
-    basePrice += this.props.pizza.size.price;
+    
     addBasePrice(basePrice);
-
     return basePrice.toFixed(2);
   };
 
@@ -111,24 +101,6 @@ class CreatePizza extends React.Component {
     this.setState({ quantity: value });
   };
 
-  
-    // verifyUserInput = () => {
-    //     if(this.props.pizza.size.type === null) {
-    //         this.setState({message: 'Please select pizza size.'});
-    //         return false;
-    //     } else if (this.props.pizza.crust.type === null){
-    //         this.setState({message: 'Please select crust type.'});
-    //         return false;
-    //     } else if (this.props.pizza.sauce.type === null){
-    //         this.setState({message: 'Please select sauce type.'});
-    //         return false;
-    //     }
-
-    //     this.setState({message: null});
-    //     return true;
-    // };
-
-
   //Renders topping sections and quantity input
   render() {
     return (
@@ -138,12 +110,6 @@ class CreatePizza extends React.Component {
           <StyledTitle text="Create Your Pizza" className="basicTitle" />
 
           <div className="baseDropdownContainer">
-            <BaseDropDown
-              value={this.props.pizza.size.type || 'Choose Size'}
-              type={'Size'}
-              options={this.props.sizes}
-              handleChange={this.handleChange}
-            />
             <BaseDropDown
               value={this.props.pizza.crust.type || 'Choose Crust Type'}
               type={'Crust'}
@@ -209,7 +175,7 @@ class CreatePizza extends React.Component {
               text="Add to Cart"
               type="submit"
               // onClick={this.handleSubmit}
-              disabled={this.props.pizza.size.type === null || this.props.pizza.crust.type === null || this.props.pizza.sauce.type === null}
+              disabled={this.props.pizza.crust.type === null || this.props.pizza.sauce.type === null}
 
             />
           </Form>
@@ -231,10 +197,10 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  nextMenu,
+  setMenu,
   setBase,
+  setPizza,
   clearPizza,
-  addPizza,
   addBasePrice,
   setPopCart,
   addTotalPrice,
