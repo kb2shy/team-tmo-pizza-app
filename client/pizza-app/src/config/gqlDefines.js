@@ -225,6 +225,8 @@ query
             cheeses{
               cheese_type
             }
+            price
+            quantity
          }
         }
     }
