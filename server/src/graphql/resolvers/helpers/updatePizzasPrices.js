@@ -8,11 +8,11 @@ const { Op } = require('sequelize');
  *  make it easier updating the price if quantity changes.
  * @param {[object]} pizzasDetails [{pizzaRecord, meat_ids, cheese_ids, veggie_ids }, ...]
  * @param {object} context {Sauce, Size, Crust, Meat, Veggie, Cheese}
- * @return {[number, object]} An overall price with quantity included.
+ * @return {object} An overall price with quantity included.
  *  Just because we query the database for the used selections, we also
  *  gather all the used selection prices and names and return them for
- *  further use. The returned array has two values:
- *  [overallPrice: number, selections: object].
+ *  further use. The returned object has 3 values:
+ *  {overallPrice: number, overallQuantity: number, selections: object}.
  *  selections is { sizes: Map, crusts: Map, sauces: Map, meats: Map, cheeses: Map, veggies: Map }
  *  The Map is { id => { price: number, name: string } }
  */
@@ -36,7 +36,7 @@ async function updatePizzasPrices(
     meat_ids,
     veggie_ids,
     cheese_ids,
-  } of pizzaInputs) {
+  } of pizzasDetails) {
     // sauces
     selections.sauces.set(sauce_id, 0);
     // crusts
@@ -157,6 +157,7 @@ async function updatePizzasPrices(
 
   // compute and update price for each pizza
   let overallPrice = 0;
+  let overallQuantity = 0;
   const promises = [];
   for (let { pizzaRecord, meat_ids, veggie_ids, cheese_ids } of pizzasDetails) {
     let price = 0;
@@ -172,13 +173,14 @@ async function updatePizzasPrices(
     for (let cheese_id of cheese_ids) {
       price += selections.cheeses.get(cheese_id).price;
     }
+    overallQuantity += pizzaRecord.quantity;
     overallPrice += price * pizzaRecord.quantity;
     promises.push(pizzaRecord.update({ price }));
   }
   await Promise.all(promises);
 
-  // return the overall price
-  return [overallPrice, selections];
+  // return useful info
+  return { overallPrice, overallQuantity, selections };
 }
 
 module.exports = updatePizzasPrices;

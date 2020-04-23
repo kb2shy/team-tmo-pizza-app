@@ -1,103 +1,209 @@
-<div
-  style="
-    margin: auto;
-    max-width: 600px;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-  "
->
-  <p
-    style="padding: 24px 0 0 0; margin: 0; text-align: center; font-size: 24px;"
-  >
-    TMoPizza Order Confirmation
-  </p>
-  <hr
-    style="
-      padding: 0;
-      margin: 12px 0 0 0;
-      border: 0;
-      height: 1px;
-      background: #ccc;
-      background-image: linear-gradient(to right, #ddd, #ccc, #ddd);
-    "
-  />
-  <!-- <p
-    style="text-align: center; font-size: 16px; padding: 24px 0 0 0; margin: 0;"
-  >
-    Thank you for your order, {{customer.first_name}} {{customer.last_name}}!
-  </p> -->
-  <p style="font-size: 14px; text-align: center;">
-    Thank you for your order, {{customer.first_name}} {{customer.last_name}}!
-  </p>
-  <div style="margin: 0; padding: 0; font-size: 14px; text-align: center;">
-    <img
-      style="margin: 0; padding: 0;"
-      alt="tmopizza-order-{{oder.order_id}}"
-      src="cid:barcode"
-    />
-  </div>
-  <p>
-    Your order is being readied for your pickup at the store! When picking up
-    your order, please scan the attached bar-code. You can scan using your
-    phone/tablet device or by printing this receipt onto a paper. If using a
-    device, please save a screenshot of your bar-code, as the internet can be
-    unstable in some areas.
-  </p>
-  <p style="font-size: 14px;">Your order summary:</p>
-  <table
-    style="
-      width: 100%;
-      table-layout: fixed;
-      border: none;
-      margin: 0;
-      padding: 0;
-    "
-  >
-    <colgroup>
-      <col style="width: 120px;" />
-      <col style="width: auto;" />
-    </colgroup>
-    <tbody>
-      <tr>
-        <td style="font-size: 14px;">Order ID</td>
-        <td style="font-size: 14px; font-weight: bold;">
-          {{order.order_id}}
-        </td>
-      </tr>
-      <tr>
-        <td style="font-size: 14px;">Customer Email</td>
-        <td style="font-size: 14px;">{{customer.email}}</td>
-      </tr>
-      <tr>
-        <td style="font-size: 14px;">Number of Pizzas</td>
-        <td style="font-size: 14px;">{{stats.quantity}}</td>
-      </tr>
-      <tr>
-        <td style="font-size: 14px;">Total Price</td>
-        <td style="font-size: 14px;">${{stats.price}} + TAX</td>
-      </tr>
-    </tbody>
-  </table>
-  <p style="font-size: 14px;">Your order details:</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TMoPizza Order Confirmation</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-size: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      div,
+      img {
+        margin: 0;
+        padding: 0;
+      }
+      #main {
+        margin: auto;
+        max-width: 600px;
+      }
+      .title {
+        padding: 24px 0 0 0;
+        margin: 0;
+        text-align: center;
+        font-size: 24px;
+      }
+      .text {
+        font-size: 14px;
+      }
+      .text-center {
+        text-align: center; /* This doesn't work with Outlook; inline styling does, however */
+      }
+      hr {
+        padding: 0;
+        margin: 12px 0 0 0;
+        border: 0;
+        height: 1px;
+        background: #ccc;
+        background-image: linear-gradient(to right, #ddd, #ccc, #ddd);
+      }
+      .footer {
+        background-color: #fafafa;
+        padding: 14px;
+      }
+      .footer-text {
+        font-size: 13px;
+      }
+      .summary {
+        width: 100%;
+        table-layout: fixed;
+        border: none;
+      }
+      .summary td,
+      .summary th {
+        font-size: 14px;
+        padding: 4px 0;
+        margin: 0;
+      }
+      .summary tr {
+        margin: 0;
+        padding: 0;
+      }
 
-  <p style="font-size: 14px;">
-    Thank you for doing business with us!
-  </p>
-  <hr
-    style="
-      padding: 0;
-      margin: 12px 0 0 0;
-      border: 0;
-      height: 1px;
-      background: #ccc;
-      background-image: linear-gradient(to right, #ddd, #ccc, #ddd);
-    "
-  />
-  <div style="background-color: #fafafa; text-align: center; padding: 14px;">
-    <p style="font-size: 13px;">
-      You are receiving this email because an order was made with
-      {{customer.email}} email address. If you have not made the order, please
-      kindly disregard the message.
-    </p>
-  </div>
-</div>
+      .details {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      .details td,
+      .details th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        font-size: 14px;
+      }
+      .details tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      .details tr:hover {
+        background-color: #ddd;
+      }
+      .details th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4caf50;
+        color: white;
+        font-weight: normal;
+      }
+      .details .overall {
+        background-color: orangered;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <p class="title">
+        TMoPizza Order Confirmation
+      </p>
+      <hr />
+      <p class="text" style="text-align: center;">
+        Thank you for your order, {{customer.first_name}}
+        {{customer.last_name}}!
+      </p>
+      <div class="text" style="text-align: center;">
+        <img alt="tmopizza-order-{{oder.order_id}}" src="cid:barcode" />
+      </div>
+      <p class="text">
+        Your order is being readied for your pickup at the store! When picking
+        up your order, please scan the attached bar-code. You can scan using
+        your phone/tablet device or by printing this receipt onto a paper. If
+        using a device, please save a screenshot of your bar-code, as the
+        internet can be unstable in some areas.
+      </p>
+      <p class="text">Your order summary:</p>
+      <table class="summary">
+        <colgroup>
+          <col style="width: 130px;" />
+          <col style="width: auto;" />
+        </colgroup>
+        <tbody>
+          <tr>
+            <td>Order ID</td>
+            <td>
+              <b>{{order.order_id}}</b>
+            </td>
+          </tr>
+          <tr>
+            <td>Customer Email</td>
+            <td>{{customer.email}}</td>
+          </tr>
+          <tr>
+            <td>Number of Pizzas</td>
+            <td>{{stats.quantity}}</td>
+          </tr>
+          <tr>
+            <td>Total Price</td>
+            <td>{{format_price stats.price}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text">Your order details:</p>
+      <table class="details">
+        {{#each pizzas}}
+        <tr>
+          <th colspan="3">Pizza #{{index}}</th>
+        </tr>
+        <tr>
+          <td>Size</td>
+          <td>{{size}}</td>
+          <td style="text-align: right;">{{format_price size_price}}</td>
+        </tr>
+        <tr>
+          <td>Crust</td>
+          <td>{{crust}}</td>
+          <td style="text-align: right;">{{format_price crust_price}}</td>
+        </tr>
+        <tr>
+          <td>Sauce</td>
+          <td>{{sauce}}</td>
+          <td style="text-align: right;">{{format_price sauce_price}}</td>
+        </tr>
+        <tr>
+          <td>Cheeses</td>
+          <td>{{format_array cheeses}}</td>
+          <td style="text-align: right;">{{format_price cheeses_price}}</td>
+        </tr>
+        <tr>
+          <td>Veggies</td>
+          <td>{{format_array veggies}}</td>
+          <td style="text-align: right;">{{format_price veggies_price}}</td>
+        </tr>
+        <tr>
+          <td>Meats</td>
+          <td>{{format_array meats}}</td>
+          <td style="text-align: right;">{{format_price meats_price}}</td>
+        </tr>
+        <tr>
+          <td>Quantity</td>
+          <td colspan="2" style="text-align: right;">{{quantity}}</td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td colspan="2" style="text-align: right;">{{format_price total}}</td>
+        </tr>
+        {{/each}}
+        <!-- <tr>
+          <td>Tax</td>
+          <td colspan="2" style="text-align: right;">
+            {{stats.tax}}
+          </td>
+        </tr> -->
+        <tr>
+          <th class="overall">Overall Price</th>
+          <th class="overall" colspan="2" style="text-align: right;">
+            {{format_price stats.price}}
+          </th>
+        </tr>
+      </table>
+      <hr />
+      <div class="footer">
+        <p class="footer-text" style="text-align: center;">
+          You are receiving this email because an order was made with
+          {{customer.email}} email address. If you have not made the order,
+          please kindly disregard the email.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

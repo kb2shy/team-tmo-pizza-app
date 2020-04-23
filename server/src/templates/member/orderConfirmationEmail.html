@@ -134,7 +134,7 @@
           </tr>
           <tr>
             <td>Total Price</td>
-            <td>${{stats.price}}</td>
+            <td>{{format_price stats.price}}</td>
           </tr>
         </tbody>
       </table>
@@ -147,32 +147,32 @@
         <tr>
           <td>Size</td>
           <td>{{size}}</td>
-          <td style="text-align: right;">{{size_price}}</td>
+          <td style="text-align: right;">{{format_price size_price}}</td>
         </tr>
         <tr>
           <td>Crust</td>
           <td>{{crust}}</td>
-          <td style="text-align: right;">{{crust_price}}</td>
+          <td style="text-align: right;">{{format_price crust_price}}</td>
         </tr>
         <tr>
           <td>Sauce</td>
           <td>{{sauce}}</td>
-          <td style="text-align: right;">{{sauce_price}}</td>
+          <td style="text-align: right;">{{format_price sauce_price}}</td>
         </tr>
         <tr>
           <td>Cheeses</td>
-          <td>{{cheeses}}</td>
-          <td style="text-align: right;">{{cheeses_price}}</td>
+          <td>{{format_array cheeses}}</td>
+          <td style="text-align: right;">{{format_price cheeses_price}}</td>
         </tr>
         <tr>
           <td>Veggies</td>
-          <td>{{veggies}}</td>
-          <td style="text-align: right;">{{veggies_price}}</td>
+          <td>{{format_array veggies}}</td>
+          <td style="text-align: right;">{{format_price veggies_price}}</td>
         </tr>
         <tr>
           <td>Meats</td>
-          <td>{{meats}}</td>
-          <td style="text-align: right;">{{meats_price}}</td>
+          <td>{{format_array meats}}</td>
+          <td style="text-align: right;">{{format_price meats_price}}</td>
         </tr>
         <tr>
           <td>Quantity</td>
@@ -180,7 +180,7 @@
         </tr>
         <tr>
           <td>Total</td>
-          <td colspan="2" style="text-align: right;">{{total}}</td>
+          <td colspan="2" style="text-align: right;">{{format_price total}}</td>
         </tr>
         {{/each}}
         <!-- <tr>
@@ -192,7 +192,7 @@
         <tr>
           <th class="overall">Overall Price</th>
           <th class="overall" colspan="2" style="text-align: right;">
-            {{stats.price}}
+            {{format_price stats.price}}
           </th>
         </tr>
       </table>
