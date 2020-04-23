@@ -85,7 +85,7 @@ const pizzaDetails = (pizza, index) => (
         <Text style={styles.textDetails}>{pizza.size.size_type} {pizza.crust.crust_type} with {pizza.sauce.sauce_type} sauce</Text>
         <Text style={styles.title}>WITH</Text>
         <Text style={styles.textDetails}>{pizzaToppings(pizza.cheeses, pizza.veggies, pizza.meats)}</Text>
-        <Text style={styles.textDetails}>Price: ${pizza.price}</Text>
+        <Text style={styles.textDetails}>Price: ${pizza.price.toFixed(2)} {(pizza.quantity > 1) ? "each" : ""}</Text>
     </View>
 )
 

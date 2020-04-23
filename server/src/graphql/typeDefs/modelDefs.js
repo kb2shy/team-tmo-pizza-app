@@ -50,7 +50,7 @@ const gqlModels = `
     size: Size
     crust: Crust
     sauce: Sauce
-    meats: [Meat] 
+    meats: [Meat]
     veggies: [Veggie]
     cheeses: [Cheese]
     orders: [Order]
@@ -85,10 +85,14 @@ const gqlModels = `
     street: String
     city: String
     state: String
-    zip: String 
+    zip: String
   }
   type AddressType{
     address_type: String
+  }
+  type CreatedOrderInfo {
+    order: Order!
+    code: String!
   }
 `;
 

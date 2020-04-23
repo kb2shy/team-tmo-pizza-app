@@ -8,30 +8,30 @@ const initialState = {
   processing: false,
   error: null,
   order_id: null,
+  code: null,
+  created_at: null,
 };
 
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case ORDER_PROCESS:
       return {
-        ...initialState,
+        ...state,
         processing: true,
-        error: null,
-        order_id: null,
       };
     case ORDER_SUCCESS:
       return {
-        ...initialState,
+        ...state,
         processing: false,
         error: null,
-        order_id: action.payload,
+        order_id: action.payload.order.order_id,
+        code: action.payload.code,
+        created_at: action.payload.order.created_at,
       };
     case ORDER_FAILURE:
       return {
         ...initialState,
-        processing: false,
         error: action.payload,
-        order_id: null,
       };
     default:
       return state;
