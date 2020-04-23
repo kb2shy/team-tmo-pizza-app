@@ -248,7 +248,7 @@ async function createOrder(
       console.log('Failed to send an email with SendGrid:', err);
     }); // no need to await this request
 
-    // // Fix created_at bug
+    // Fix created_at bug
     if (!orderRecord.created_at) {
       orderRecord.created_at = orderRecord.createdAt;
     }
