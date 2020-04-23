@@ -13,7 +13,7 @@ import {
   clearPizza,
   addBasePrice,
   addTotalPrice,
-  setPizza
+  setPizza,
 } from '../../actions/pizza';
 import { setMenu, setPopCart } from '../../actions/menu';
 
@@ -45,14 +45,21 @@ class CreatePizza extends React.Component {
   //changes store to user input
   handleChange = (name, item) => {
     this.props.setBase(name.toLowerCase(), item);
-  }
+  };
 
-    //Adds current pizza to pizzas array and clears current pizza
+  //Adds current pizza to pizzas array and clears current pizza
   handleSubmit = () => {
-    const basePrice = this.calcBasePrice()
+    const basePrice = this.calcBasePrice();
     const totalPrice = this.calcTotalPrice(basePrice);
     const currentPizza = this.props.pizza;
-    this.props.setPizza({ ...currentPizza, basePrice, totalPrice: basePrice, quantity: this.props.pizza.quantity});
+    this.props.setPizza({
+      ...currentPizza,
+      basePrice,
+      totalPrice: basePrice,
+      quantity: this.props.pizza.quantity,
+    });
+
+    //   this.props.setPizza({ ...currentPizza, basePrice, totalPrice: basePrice, quantity: this.props.pizza.quantity});
     this.props.setMenu(8);
   };
 
@@ -62,15 +69,15 @@ class CreatePizza extends React.Component {
     for (let meat of this.props.pizza.toppings.meats) {
       basePrice += meat.price;
     }
-    
+
     for (let veggie of this.props.pizza.toppings.veggies) {
       basePrice += veggie.price;
     }
-    
+
     for (let cheese of this.props.pizza.toppings.cheeses) {
       basePrice += cheese.price;
     }
-    
+
     addBasePrice(basePrice);
     return basePrice.toFixed(2);
   };
@@ -153,9 +160,16 @@ class CreatePizza extends React.Component {
             </tbody>
           </table>
 
-          <Form onSubmit={this.handleSubmit}>
+          <StyledButton
+            type="button"
+            onClick={(e) => this.handleSubmit}
+            disabled={this.props.pizza.crust.type === null || this.props.pizza.sauce.type === null}
+            text="Add to Cart"
+            variant="orderChoiceButton"
+          />
+          {/* <Form onSubmit={this.handleSubmit}>
             <Form.Group as={Row}>
-              {/* centers the quantity form in the center */}
+              //  centers the quantity form in the center //
               <Col md={{ span: 2, offset: 5 }}>
                 <div className="quantityForm">
                   <Form.Label>Quantity: </Form.Label>
@@ -180,7 +194,7 @@ class CreatePizza extends React.Component {
               disabled={this.props.pizza.crust.type === null || this.props.pizza.sauce.type === null}
 
             />
-          </Form>
+          </Form> */}
         </div>
       </Container>
     );

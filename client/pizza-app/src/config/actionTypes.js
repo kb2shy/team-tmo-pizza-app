@@ -31,6 +31,7 @@ export const SET_GUEST = 'SET_GUEST';
 export const ADD_TOPPING = 'ADD_TOPPING';
 export const REMOVE_TOPPING = 'REMOVE_TOPPING';
 export const SET_PIZZA_BASE = 'SET_PIZZA_BASE';
+export const SET_QUANTITY = 'SET_QUANTITY';
 export const ADD_BASE_PRICE = 'ADD_BASE_PRICE';
 export const ADD_TOTAL_PRICE = 'ADD_TOTAL_PRICE';
 export const SET_PIZZA = 'SET_PIZZA';

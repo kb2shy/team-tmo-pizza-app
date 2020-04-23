@@ -13,7 +13,7 @@ class SpecialtyPizzas extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showSizePrompt: false,
+            showSizeQuantityPrompt: false,
             currentPizza: null,
             data:  [ //sample data
                 {

@@ -2,6 +2,7 @@ import {
   ADD_TOPPING,
   REMOVE_TOPPING,
   SET_PIZZA_BASE,
+  SET_QUANTITY,
   ADD_BASE_PRICE,
   ADD_TOTAL_PRICE,
   SET_PIZZA,
@@ -29,6 +30,15 @@ export const setBase = (type, item) => (dispatch) => {
     payload: { type, item },
   });
 };
+
+// Applicable for future menu expansions, not just pizzas
+export const setQuantity = (quantity) => (dispatch) => {
+  // console.log(`actions/pizza: dispatching setQuantity(${quantity})`)
+  dispatch({
+    type: SET_QUANTITY,
+    payload: quantity,
+  })
+}
 
 // price of pizza size + toppings
 export const addBasePrice = (price) => (dispatch) => {

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// Displayed Components across the app
 import AppNavbar from '../AppNavbar/AppNavbar';
 import BackButton from '../BackButton/BackButton';
+
+// Page Views
 import Home from '../Home/Home';
 import OrderChoice from '../OrderChoice/OrderChoice';
 import OrderHistory from '../OrderHistory/OrderHistory';
@@ -12,7 +15,7 @@ import Cart from '../Cart/Cart';
 import Confirmation from '../Confirmation/Confirmation';
 import Register from '../Register/Register';
 import SpecialtyPizzas from '../SpecialtyPizzas/SpecialtyPizzas';
-import SizePrompt from '../SpecialtyPizzas/SizePrompt';
+import SizeQuantityPrompt from '../SpecialtyPizzas/SizeQuantityPrompt';
 
 import { loadCustomer } from '../../actions/auth';
 import { getAllToppings } from '../../actions/database';
@@ -53,7 +56,7 @@ class App extends Component {
       case 7: 
         return <SpecialtyPizzas/>;
       case 8:
-        return <SizePrompt/>;
+        return <SizeQuantityPrompt/>;
       default:
         return null;
     }
