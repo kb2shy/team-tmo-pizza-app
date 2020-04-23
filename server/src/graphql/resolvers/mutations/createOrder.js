@@ -117,7 +117,7 @@ async function createOrder(
 
   // create an array of pizzas order details, represented in user-friendly way
   const formattedPizzas = [];
-  let count = 0;
+  let count = 1;
   for (let {
     pizzaRecord: { sauce_id, size_id, crust_id, quantity },
     meat_ids,
