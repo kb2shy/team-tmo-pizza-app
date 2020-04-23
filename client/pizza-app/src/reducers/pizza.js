@@ -2,6 +2,7 @@ import {
   ADD_TOPPING,
   REMOVE_TOPPING,
   SET_PIZZA_BASE,
+  SET_QUANTITY,
   ADD_BASE_PRICE,
   ADD_TOTAL_PRICE,
   SET_PIZZA,
@@ -45,6 +46,10 @@ const pizzaReducer = (state = initialState, action) => {
       newBase[type] = item;
 
       return newBase;
+
+    case SET_QUANTITY:
+      // console.log(`reducers/pizza: SET_QUANTITY: ${action.type} ${action.payload}`)
+      return { ...state, quantity: action.payload};
 
     // price of pizza size + toppings
     case ADD_BASE_PRICE:

@@ -43,7 +43,7 @@ const Login = ({
     evt.preventDefault();
     clearPizza();
     clearPizzas();
-    setMenu(7, step);
+    setMenu(9, step);
   };
 
   const handleChange = (evt) => {
