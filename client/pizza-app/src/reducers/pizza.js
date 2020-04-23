@@ -8,6 +8,7 @@ import {
 } from '../config/actionTypes';
 
 const initialState = {
+  name: null,
   size: { type: null },
   crust: { type: null },
   sauce: { type: null },
@@ -25,16 +26,13 @@ const pizzaReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TOPPING:
       const addTopping = { ...state.toppings };
-      addTopping[action.payload.type][addTopping[action.payload.type].length] =
-        action.payload.item;
+      addTopping[action.payload.type][addTopping[action.payload.type].length] = action.payload.item;
 
       return { ...state, toppings: addTopping };
 
     case REMOVE_TOPPING:
       const removeTopping = { ...state.toppings };
-      removeTopping[action.payload.type] = state.toppings[
-        action.payload.type
-      ].filter((topping) => {
+      removeTopping[action.payload.type] = state.toppings[action.payload.type].filter((topping) => {
         return topping.type !== action.payload.item.type;
       });
 
