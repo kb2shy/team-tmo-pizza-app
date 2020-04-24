@@ -105,7 +105,7 @@ class SpecialtyPizzas extends React.Component {
     // this.setState({
     //   data: results
     // })
-    console.log(results)
+    // console.log(results)
   };
 
   //adds pizza to pizzas store
