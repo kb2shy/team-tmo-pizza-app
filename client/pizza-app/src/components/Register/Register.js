@@ -156,15 +156,15 @@ const Register = ({
               placeholder="Enter email"
               value={user.email}
               onChange={handleChange}
-              isInvalid={touched.email && !isEmail(user.email) && errors !== ''}
-              isValid={isEmail(user.email) && errors === ''}
+              isInvalid={touched.email && (!isEmail(user.email) || errors !== null) }
+              isValid={isEmail(user.email) && errors === null}
 
               onBlur={() => {
                 setTouched({ email: true });
               }}
               required
             />
-            {errors !== '' ? <Form.Control.Feedback type="invalid">
+            {errors ? <Form.Control.Feedback type="invalid">
               {errors}
             </Form.Control.Feedback> :
               <Form.Control.Feedback type="invalid">

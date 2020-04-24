@@ -65,6 +65,7 @@ const mutations = `
       crust_id: Int
       sauce_id: Int
       quantity: Int
+      price: Float
     ): Pizza
 
     createAddress(
@@ -82,11 +83,11 @@ const mutations = `
     createGuestOrder(
       guest: GuestInput!
       pizzas: [PizzaInput!]!
-    ): Order
+    ): CreatedOrderInfo
 
     createMemberOrder(
       pizzas: [PizzaInput!]!
-    ): Order
+    ): CreatedOrderInfo
   }`;
 
 module.exports = mutations;

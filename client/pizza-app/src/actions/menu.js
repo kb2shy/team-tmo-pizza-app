@@ -5,6 +5,7 @@ import {
   RESET_MENU,
   CLEAR_PREVIOUS_MENU,
   SET_POP_CART,
+  SET_SIZE_QNTY_PROMPT
 } from '../config/actionTypes';
 
 export const nextMenu = () => (dispatch) => {
@@ -44,3 +45,4 @@ export const setPopCart = (state) => (dispatch) => {
     payload: state,
   });
 };
+

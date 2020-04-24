@@ -18,7 +18,7 @@ Order.init({
         defaultValue: false
     },
     created_at: {
-        type: DataTypes.DATE, 
+        type: DataTypes.DATE,
         field: 'created_at'
     }
     //timestamp created automatically

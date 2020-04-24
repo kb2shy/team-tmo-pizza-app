@@ -42,7 +42,7 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
-      quantity,
+      quantity
     });
   }
 
@@ -67,7 +67,7 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
 
     dispatch({
       type: ORDER_SUCCESS,
-      payload: order.order_id,
+      payload: order,
     });
 
     // trigger the user-defined callback
@@ -79,6 +79,7 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
 
     dispatch({
       type: ORDER_FAILURE,
+      payload: {emailError: `There's already a registered account that is associated with this email`},
     });
   }
 };
@@ -121,12 +122,13 @@ export const createMemberOrder = (onSuccessEvent) => async (
       cheeses: cheesesIds,
     };
 
+    //price hardcoded, should get added later
     pizzas.push({
       size: sizeId,
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
-      quantity,
+      quantity
     });
   }
 
@@ -156,7 +158,7 @@ export const createMemberOrder = (onSuccessEvent) => async (
 
     dispatch({
       type: ORDER_SUCCESS,
-      payload: order.order_id,
+      payload: order,
     });
 
     // trigger the user-defined callback

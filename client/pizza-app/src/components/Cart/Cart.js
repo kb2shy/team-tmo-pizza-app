@@ -45,6 +45,9 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
+  errors,
+  //  setPizzaQty
+  step
 }) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
@@ -114,6 +117,8 @@ const Cart = ({
   };
 
 
+  console.log(errors);
+
   // Guest view: displays a form for inputting information
   const renderGuestInput = () => {
     return (
@@ -177,16 +182,20 @@ const Cart = ({
               value={guestData.email}
               onChange={handleGuestDataChange}
               onChange={handleGuestDataChange}
-              isInvalid={touched.email && !isEmail(guestData.email)}
-              isValid={isEmail(guestData.email)}
+              isInvalid={touched.email && (!isEmail(guestData.email) || errors !== null)}
+              isValid={isEmail(guestData.email) && errors === null}
+
               onBlur={() => {
                 setTouched({ email: true });
               }}
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please enter a valid email address.
-            </Form.Control.Feedback>
+            {errors ? <Form.Control.Feedback type="invalid">
+              {errors}
+            </Form.Control.Feedback> :
+              <Form.Control.Feedback type="invalid">
+                Please enter a valid email address.
+            </Form.Control.Feedback>}
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Col>
         </Form.Group>
@@ -258,7 +267,7 @@ const Cart = ({
   const handleAddAnotherPizza = (e) => {
     e.preventDefault();
     clearPizza();
-    previousMenu();
+    setMenu(7, step);
   };
 
   const handleAddAPizza = (e) => {
@@ -311,6 +320,7 @@ const Cart = ({
         <StyledButton
           variant="basicButton"
           onClick={handleClickSubmit}
+          type="button"
           disabled={
             !isAuthenticated &&
             (!isEmail(guestData.email) ||
@@ -334,6 +344,8 @@ const mapStateToProps = (state) => {
     guest: state.guest,
     order: state.order,
     pizzas: state.pizzas,
+    step: state.menu.step,
+    errors: state.order.errors
   };
 };
 
