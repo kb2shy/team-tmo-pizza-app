@@ -236,7 +236,6 @@ const Cart = ({
   useEffect(() => {
     // Calculates the total price of all orders in the cart
     const calcTotalPrice = () => {
-      console.log('in calcTotalPrice, pizzas: ', pizzas);
       let total = 0;
       for (let pizza of pizzas) {
         total += parseFloat(pizza.totalPrice);

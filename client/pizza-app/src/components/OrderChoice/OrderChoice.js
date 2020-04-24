@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-// import Title from '../Title/Title';
 import { connect } from 'react-redux';
-// import { Button } from 'react-bootstrap';
 
 // Custom Styling
 import StyledButton from '../common/Button/StyledButton';
