@@ -11,22 +11,22 @@ async function getAllSpecialtyPizzaInfo(
 ) {
 
     return await Pizza.findAll({
-        attributes:['pizza_name'],
+        attributes:['pizza_name', 'price'],
         where:{
             specialty: true
         },
         include: [Crust, Sauce,
             {
                 model: Cheese,
-                attributes: ['cheese_type', 'cheese_price']
+                attributes: ['cheese_type', 'cheese_price', 'cheese_id']
             },
             {
                 model: Meat,
-                attributes: ['meat_type', 'meat_price']
+                attributes: ['meat_type', 'meat_price', 'meat_id']
             },
             {
                 model: Veggie,
-                attributes: ['veggie_type', 'veggie_price']
+                attributes: ['veggie_type', 'veggie_price', 'veggie_id']
             }
         ]
     }).catch(errHandler);

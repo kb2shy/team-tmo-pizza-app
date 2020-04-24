@@ -225,23 +225,29 @@ query
       getAllSpecialtyPizzaInfo{
         pizza_name
         crust{
+          crust_id
           crust_type
         }
         sauce{
+          sauce_id
           sauce_type
         }
         meats{
+          meat_id
           meat_type
           meat_price
         }
         veggies{
+          veggie_id
           veggie_type
           veggie_price
         }
         cheeses{
+          cheese_id
           cheese_type
           cheese_price
         }
+        price
       }
     }
 `
