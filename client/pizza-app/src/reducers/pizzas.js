@@ -1,7 +1,8 @@
 import {
   ADD_PIZZA,
   REMOVE_PIZZA,
-  CLEAR_PIZZAS
+  CLEAR_PIZZAS,
+  UPDATE_PIZZA_IN_PIZZAS,
 } from '../config/actionTypes';
 
 const initialState = [];
@@ -22,6 +23,20 @@ const pizzasReducer = (state = initialState, action) => {
 
     case CLEAR_PIZZAS:
       return [];
+
+    case UPDATE_PIZZA_IN_PIZZAS:
+      // console.log('pizzasReducer / UPDATE_PIZZA_IN_PIZZAS | ', action.payload);
+      return state.map((pizza, index) => {
+        if (index !== action.payload.index) {
+          // console.log('this pizza is not waht we want: ', pizza);
+          return pizza;
+        }
+
+        return {
+          ...pizza,
+          ...action.payload.pizza,
+        };
+      });
 
     default:
       return state;

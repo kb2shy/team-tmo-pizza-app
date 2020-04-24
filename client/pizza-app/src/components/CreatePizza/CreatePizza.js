@@ -8,12 +8,7 @@ import BaseDropDown from './BaseDropDown';
 import PopCart from '../Cart/PopCart';
 
 // Actions
-import {
-  setBase,
-  clearPizza,
-  addBasePrice,
-  setPizza,
-} from '../../actions/pizza';
+import { setBase, clearPizza, setPizza } from '../../actions/pizza';
 import { setMenu, setPopCart } from '../../actions/menu';
 
 // Custom Styling
@@ -54,7 +49,6 @@ class CreatePizza extends React.Component {
       basePrice += cheese.price;
     }
 
-    addBasePrice(basePrice);
     return basePrice.toFixed(2);
   };
 
@@ -142,7 +136,7 @@ class CreatePizza extends React.Component {
           <div className='verificationMsg'>{this.state.message}</div>
           <StyledButton
             variant="basicButton"
-            text="Add to Cart"
+            text="Continue"
             type="button"
             onClick={this.handleSubmit}
             // disabled={
@@ -171,6 +165,5 @@ export default connect(mapStateToProps, {
   setBase,
   setPizza,
   clearPizza,
-  addBasePrice,
   setPopCart,
 })(CreatePizza);

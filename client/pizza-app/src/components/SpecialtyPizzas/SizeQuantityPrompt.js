@@ -8,7 +8,7 @@ import BaseDropDown from '../CreatePizza/BaseDropDown';
 
 // Actions
 import { setBase, clearPizza, setQuantity } from '../../actions/pizza';
-import { addPizza } from '../../actions/pizzas';
+import { addPizza, updatePizzaInPizzas } from '../../actions/pizzas';
 import { setMenu } from '../../actions/menu';
 
 import './SizeQuantityPrompt.css'
@@ -16,7 +16,8 @@ class SizeQuantityPrompt extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantity: '',
+      quantity: this.props.pizza.quantity,
+      size: this.props.size.type,
     };
   }
 
@@ -24,6 +25,7 @@ class SizeQuantityPrompt extends React.Component {
   MIN_PIZZA_QUANTITY = 1;
 
   handleSizeChange = (type, item) => {
+    this.setState({ size: item });
     this.props.setBase('size', item);
   };
 
@@ -31,30 +33,8 @@ class SizeQuantityPrompt extends React.Component {
   handleQuantityChange = (e) => {
     e.preventDefault();
     let value = parseInt(e.target.value);
-    if (isNaN(value)) value = '';
     this.setState({ quantity: value });
     this.props.setQuantity(value);
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const currentPizza = { ...this.props.pizza };
-    const basePrice = (
-      Number(currentPizza.basePrice) + currentPizza.size.price
-    ).toFixed(2);
-    const totalPrice = this.calcTotalPrice(basePrice);
-
-    // for testing purposes
-    // console.log('handleSubmit(currentPizza) = ', currentPizza)
-    // console.log(`basePrice= ${basePrice} totalPrice=${totalPrice}`)
-
-    this.props.addPizza({
-      ...currentPizza,
-      basePrice,
-      totalPrice,
-    });
-    this.props.clearPizza();
-    this.props.setMenu(4);
   };
 
   // Calculates total price of pizza (quantity * base price)
@@ -67,6 +47,32 @@ class SizeQuantityPrompt extends React.Component {
 
     totalPrice *= this.props.pizza.quantity;
     return totalPrice.toFixed(2);
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const currentPizza = { ...this.props.pizza };
+
+    // // trying to implement editing a pizza at its real-time index in pizzas
+    if (currentPizza.editPizzaFlag) {
+      this.props.setQuantity(this.state.quantity);
+      this.props.setBase('size', this.state.size);
+      // update the whatever has changed in the pizza here
+      //  this.props.updatePizzaInPizzas(currentPizza.index, currentPizza)
+    }
+
+    const basePrice = (
+      Number(currentPizza.basePrice) + currentPizza.size.price
+    ).toFixed(2);
+    const totalPrice = this.calcTotalPrice(basePrice);
+    this.props.addPizza({
+      ...currentPizza,
+      basePrice,
+      totalPrice,
+      editPizzaFlag: false,
+    });
+    this.props.clearPizza();
+    this.props.setMenu(4);
   };
 
   render() {
@@ -89,15 +95,17 @@ class SizeQuantityPrompt extends React.Component {
                   type="number"
                   min={this.MIN_PIZZA_QUANTITY}
                   max={this.MAX_PIZZA_QUANTITY}
-                  placeholder={this.props.pizza.quantity}
-                  value={this.state.quantity}
+                  placeholder={String(this.state.quantity)}
+                  value={String(this.state.quantity)}
                   onChange={this.handleQuantityChange}
                 />
               </div>
             </Form.Group>
             <StyledButton
               variant="basicButton"
-              disabled={this.props.size.type === null}
+              disabled={
+                this.props.size.type === null || isNaN(this.state.quantity)
+              }
               text="Add to Cart"
               type="submit"
             />
@@ -119,5 +127,6 @@ export default connect(mapStateToProps, {
   setQuantity,
   clearPizza,
   addPizza,
+  updatePizzaInPizzas,
   setMenu,
 })(SizeQuantityPrompt);

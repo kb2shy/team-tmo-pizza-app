@@ -7,8 +7,7 @@ import PizzaCard from './PizzaCard';
 import StyledButton from '../../common/Button/StyledButton';
 
 // Actions
-import { setPizza, clearPizza } from '../../../actions/pizza';
-
+import { setPizza, clearPizza, setEditPizzaFlag, setIndex} from '../../../actions/pizza';
 import { removePizza } from '../../../actions/pizzas';
 import { setMenu } from '../../../actions/menu';
 
@@ -29,6 +28,9 @@ class OrderSummary extends React.Component {
   editPizza = (index) => {
     const pizza = this.props.pizzas[index];
     this.props.setPizza(pizza);
+    this.props.setEditPizzaFlag(!pizza.editPizzaFlag)
+    //this.props.setIndex(index)
+    //console.log('OrderSummary / going to edit a pizza, index = ', index)
     this.props.removePizza(index);
     this.props.setMenu(3, 4);
   };
@@ -42,6 +44,7 @@ class OrderSummary extends React.Component {
               <Card className="orderSummaryContainer">
                 <Card.Body className="orderSummaryCardBody">
                   <PizzaCard
+                    name={pz.name}
                     size={pz.size}
                     crust={pz.crust}
                     sauce={pz.sauce}
@@ -92,4 +95,6 @@ export default connect(mapStateToProps, {
   removePizza,
   clearPizza,
   setMenu,
+  setEditPizzaFlag,
+  setIndex
 })(OrderSummary);

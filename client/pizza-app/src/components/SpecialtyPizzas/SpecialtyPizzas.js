@@ -9,6 +9,7 @@ import { GET_ALL_SPECIALTY_PIZZA_INFO } from '../../config/gqlDefines';
 import './SpecialtyPizzas.css';
 import PopCart from '../Cart/PopCart';
 import StyledButton from '../common/Button/StyledButton';
+import StyledTitle from '../common/Title/StyledTitle';
 
 const SpecialtyPizzas = (props) => {
   useEffect(() => {
@@ -72,6 +73,7 @@ const SpecialtyPizzas = (props) => {
   return (
     <Container>
       {props.popCart ? <PopCart /> : null}
+      <StyledTitle text="Specialty Pizzas" className="basicTitle" />
 
       <CardGroup className="specialtyPizzaCardGroup">
         {data.getAllSpecialtyPizzaInfo.map((item, id) => {
