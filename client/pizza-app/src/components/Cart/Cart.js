@@ -113,6 +113,9 @@ const Cart = ({
     setGuestData((d) => ({ ...d, [name]: value }));
   };
 
+  console.log(isAuthenticated)
+  console.log(pizzas.length !== 0)
+
   // Guest view: displays a form for inputting information
   const renderGuestInput = () => {
     return (
@@ -271,6 +274,7 @@ const Cart = ({
   };
 
 
+
   return (
     <div>
       <StyledTitle text="Cart" className="CartTitle" />
@@ -315,12 +319,10 @@ const Cart = ({
           variant="basicButton"
           onClick={handleClickSubmit}
           type="button"
-          disabled={
-            !isAuthenticated &&
-            (!isEmail(guestData.email) ||
-              !isAlpha(guestData.last_name) ||
-              !isAlpha(guestData.first_name) ||
-              !isValidPhoneNumber(guestData.phone) || pizzas.length === 0)
+          disabled={ isAuthenticated? pizzas.length === 0 : !isEmail(guestData.email) ||
+            !isAlpha(guestData.last_name) ||
+            !isAlpha(guestData.first_name) ||
+            !isValidPhoneNumber(guestData.phone) || pizzas.length === 0
           }
           text="Submit"
         />
