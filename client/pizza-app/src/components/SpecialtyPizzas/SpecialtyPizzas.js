@@ -110,67 +110,78 @@ class SpecialtyPizzas extends React.Component {
 
   //adds pizza to pizzas store
   handleSubmit = (pizza) => {
-    const currentPizza = { ...this.props.pizza };
-    this.props.setPizza({
+    const currentPizza = { ...props.pizza };
+    const toppings = { cheeses: [...pizza.cheeses], veggies: [...pizza.veggies], meats: [...pizza.meats]};
+    console.log(toppings)
+    props.setPizza({
       ...currentPizza,
-      name: pizza.name,
-      toppings: pizza.toppings,
+      name: pizza.pizza_name,
+      toppings: toppings,
       crust: pizza.crust,
       sauce: pizza.sauce,
-      basePrice: pizza.basePrice.toFixed(2),
-      totalPrice: pizza.basePrice.toFixed(2),
+      basePrice: pizza.price.toFixed(2),
+      totalPrice: pizza.price.toFixed(2),
       quantity: 1,
     });
     this.props.setMenu(8);
   };
 
   //Change to custom order
-  handleCustomOrder = (e) => {
-    this.props.clearPizza();
-    this.props.setMenu(3);
-  };
+  // const handleCustomOrder = (e) => {
+  //   props.clearPizza();
+  //   props.setMenu(3);
+  // };
 
   //Renders cards of all possible specialty pizza, when one is selected, the sizing prompt is render
   render() {
+
     return (
       <div>
-        {this.props.popCart ? <PopCart /> : null}
-
+        {props.popCart ? <PopCart /> : null}
+  
         <CardGroup>
-          {this.state.data.map((item) => {
+          {data.getAllSpecialtyPizzaInfo.map((item, id) => {
+            console.log(item.pizza_name)
             return (
-              <Card key={item.name} className='specialtyPizzaCard'>
+              <Card key={item.pizza_name} className='specialtyPizzaCard'>
                 <Card.Body className="specialtyPizzaCardBody">
-                  <Card.Title>{item.name}</Card.Title>
-                  <Card.Text>Crust: {item.crust.type}</Card.Text>
-                  <Card.Text>Sauce: {item.sauce.type}</Card.Text>
-                  <Card.Text>
-                    {item.toppings.cheeses.map((cheese, i) =>
-                      i === 0 ? `Cheese(s): ${cheese.type}` : `, ${cheese.type}`
-                    )}
+                  <Card.Title>{item.pizza_name}</Card.Title>
+                  <Card.Text>Crust: {item.crust.crust_type}</Card.Text>
+                  <Card.Text>Sauce: {item.sauce.sauce_type}</Card.Text>
+                  <Card.Text key={`${item.cheeses.cheese}_cheeses${id}`}>
+                    Cheese(s):
+                    {item.cheeses.map((cheese, i) => {
+                    console.log(cheese)
+                    return i === 0 ? ` ${cheese.cheese_type}` : `, ${cheese.cheeese_type}`
+                  }
+                  )}
+                  </Card.Text>
+                  <Card.Text key={`${item.pizza_name}_veggies${id}`}>
+                    Veggie(s):
+                    {item.veggies.map((veggie, i) =>
+                    i === 0 ? ` ${veggie.veggie_type}` : `, ${veggie.veggie_type}`
+                  )}
+                  </Card.Text>
+                  <Card.Text key={`${item.pizza_name}_meats${id}`}>
+                    Meat(s):
+                    {item.meats.map((meat, i) =>
+  
+                    i === 0 ? ` ${meat.meat_type}` : `, ${meat.meat_type}`
+                  )}
                   </Card.Text>
                   <Card.Text>
-                    {item.toppings.veggies.map((veggie, i) =>
-                      i === 0 ? `Veggie(s): ${veggie.type}` : `, ${veggie.type}`
-                    )}
+                    Price of Toppings: ${item.price.toFixed(2)}
                   </Card.Text>
-                  <Card.Text>
-                    {item.toppings.meats.map((meat, i) =>
-                      i === 0 ? `Meat(s): ${meat.type}` : `, ${meat.type}`
-                    )}
-                  </Card.Text>
-                  <Card.Text>
-                    Price of Toppings: ${item.basePrice.toFixed(2)}
-                  </Card.Text>
-
-
+  
+  
                 </Card.Body>
-                <div className="addToCartButton">      <StyledButton
-                  type="button"
-                  onClick={(e) => this.handleSubmit(item)}
-                  text="Add to Cart"
-                  variant="orderChoiceButton"
-                />
+                <div className="addToCartButton">
+                  <StyledButton
+                    type="button"
+                    onClick={(e) => handleSubmit(item)}
+                    text="Add to Cart"
+                    variant="orderChoiceButton"
+                  />
                 </div>
               </Card>
             );

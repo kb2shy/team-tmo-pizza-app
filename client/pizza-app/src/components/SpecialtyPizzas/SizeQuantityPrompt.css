@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Adamina|Allura|Courgette|Lobster+Two|Yellowtail&display=swap');
+
+.sizeContainer{
+    position: absolute;
+    top: 40%;
+}
+.quantityForm{
+    text-align: center;
+    justify-content: space-between;
+    font-family: 'Adamina, serif';
+    font-size: 1.4rem;
+    color: rgb(107, 76, 29);
+}
