@@ -7,6 +7,7 @@ import {
   ADD_TOTAL_PRICE,
   SET_PIZZA,
   SET_EDIT_PIZZA_FLAG,
+  SET_INDEX,
   CLEAR_PIZZA,
 } from '../config/actionTypes';
 
@@ -24,6 +25,7 @@ const initialState = {
   totalPrice: 0,
   basePrice: 0,
   editPizzaFlag: false,
+  index: -1
 };
 
 const pizzaReducer = (state = initialState, action) => {
@@ -65,6 +67,9 @@ const pizzaReducer = (state = initialState, action) => {
 
       case SET_EDIT_PIZZA_FLAG:
         return { ...state, editPizzaFlag: action.payload };
+
+      case SET_INDEX:
+        return { ...state, index: action.payload };
 
     case CLEAR_PIZZA:
       initialState.toppings.meats = [];

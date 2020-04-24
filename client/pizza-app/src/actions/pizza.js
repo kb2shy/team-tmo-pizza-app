@@ -7,6 +7,7 @@ import {
   ADD_TOTAL_PRICE,
   SET_PIZZA,
   SET_EDIT_PIZZA_FLAG,
+  SET_INDEX,
   CLEAR_PIZZA,
 } from '../config/actionTypes';
 
@@ -71,6 +72,13 @@ export const setEditPizzaFlag = (flag) => (dispatch) => {
   dispatch({
     type: SET_EDIT_PIZZA_FLAG,
     payload: flag
+  })
+}
+
+export const setIndex = (index) => (dispatch) => {
+  dispatch({
+    type: SET_INDEX,
+    payload: index
   })
 }
 

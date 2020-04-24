@@ -36,6 +36,7 @@ export const ADD_BASE_PRICE = 'ADD_BASE_PRICE';
 export const ADD_TOTAL_PRICE = 'ADD_TOTAL_PRICE';
 export const SET_PIZZA = 'SET_PIZZA';
 export const SET_EDIT_PIZZA_FLAG = 'SET_EDIT_PIZZA_FLAG';
+export const SET_INDEX = 'SET_INDEX'; // ?????????????
 export const CLEAR_PIZZA = 'CLEAR_PIZZA';
 
 // Database actions
@@ -56,6 +57,7 @@ export const CLEAR_USER_HISTORY = 'CLEAR_USER_HISTORY';
 export const ADD_PIZZA = 'ADD_PIZZA';
 export const REMOVE_PIZZA = 'REMOVE_PIZZA';
 export const CLEAR_PIZZAS = 'CLEAR_PIZZAS';
+export const UPDATE_PIZZA_IN_PIZZAS = 'UPDATE_PIZZA_IN_PIZZAS';
 
 // Order actions
 export const ORDER_PROCESS = 'ORDER_PROCESS';

@@ -50,12 +50,19 @@ const BackButton = ({
 
       // editing a pizza, no changes made, no pop-up
       else if (currentPizza.editPizzaFlag) {
+        // console.log('editing a pizza, clicked cancel. Adding pizza: ', currentPizza)
         addPizza(currentPizza);
         clearPizza();
         currentPizza.editPizzaFlag = !currentPizza.editPizzaFlag;
         previousMenu();
       }
-    } else {
+    }
+    else if (step === 8 && currentPizza.editPizzaFlag){
+      // console.log('editing a pizza on size quantity, clicked back')
+      previousMenu()
+    }
+    
+    else {
       previousMenu();
     }
   };
