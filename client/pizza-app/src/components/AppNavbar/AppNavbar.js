@@ -17,7 +17,7 @@ import logo from '../../assets/logo.svg';
 // - Logo
 // - Home button - CR
 // - Log out button - CR
-const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
+const AppNavbar = ({ isAuthenticated, step, pizzas, setMenu, setPopCart }) => {
   const handleHomeClick = (evt) => {
     evt.preventDefault();
     setMenu(1);
@@ -25,7 +25,8 @@ const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
 
   const handleHomeCart = (evt) => {
     evt.preventDefault();
-    if(step === 3 || step === 7) {
+    console.log(`${step} ${pizzas.length}`)
+    if(step === 3 || step === 7 || step === 1) {
       setPopCart(true);
     } else {
       setMenu(4);
@@ -67,7 +68,7 @@ const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
 
           />
           )}
-          {step !== 1 && (
+          {(step !== 1 ) && (
             <StyledButton
               variant="navbarButton"
               onClick={handleHomeClick}
@@ -78,7 +79,7 @@ const AppNavbar = ({ isAuthenticated, step, setMenu, setPopCart }) => {
             //   Home
             // </Button>
           )}
-          {(step !== 1 && step !== 4) && (
+          {((step !== 1 && step !== 4 && step !== 5 && step !== 6) || (step === 1 && pizzas.length > 0)) && (
             <StyledButton
               variant="navbarButton"
               type="button"
@@ -105,6 +106,7 @@ AppNavbar.propTypes = {
 
 const mapStateToProps = (state) => ({
   step: state.menu.step,
+  pizzas: state.pizzas,
   isAuthenticated: state.auth.isAuthenticated,
 });
 
