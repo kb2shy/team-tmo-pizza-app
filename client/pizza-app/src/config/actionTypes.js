@@ -52,7 +52,6 @@ export const SET_MEATS_COUNT = 'SET_MEATS_COUNT';
 export const SET_CHEESE_COUNT = 'SET_CHEESE_COUNT';
 export const CLEAR_USER_HISTORY = 'CLEAR_USER_HISTORY';
 
-
 // Array of Pizzas
 export const ADD_PIZZA = 'ADD_PIZZA';
 export const REMOVE_PIZZA = 'REMOVE_PIZZA';
@@ -63,5 +62,6 @@ export const UPDATE_PIZZA_IN_PIZZAS = 'UPDATE_PIZZA_IN_PIZZAS';
 export const ORDER_PROCESS = 'ORDER_PROCESS';
 export const ORDER_SUCCESS = 'ORDER_SUCCESS';
 export const ORDER_FAILURE = 'ORDER_FAILURE';
+export const CLEAR_ORDER = 'CLEAR_ORDER';
 
 // Other action defines here...

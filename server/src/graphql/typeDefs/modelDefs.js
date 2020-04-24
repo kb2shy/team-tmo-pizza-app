@@ -95,6 +95,7 @@ const gqlModels = `
   type CreatedOrderInfo {
     order: Order!
     code: String!
+    codeBuffer: String
   }
 `;
 
