@@ -43,7 +43,7 @@ class ToppingCard extends React.Component {
 
     handleClick = () => {
         //change card background
-        const newStyle = this.state.status ? { ...this.state.style, background: 'rgba(19, 36, 30, 0)',  boxShadow: '2px 2px 0px 0px rgba(0, 0, 0, 0.637),  -2px -2px 0px 0px rgba(253, 238, 238, 0.692)' } : { ...this.state.style, background: '#ffcc99', boxShadow: "2px 2px 0px 0px rgba(253, 238, 238, 0.692),  -2px -2px 0px 0px  rgba(0, 0, 0, 0.637)" 
+        const newStyle = this.state.status ? { ...this.state.style, background: '#f7b052',  boxShadow: '2px 2px 0px 0px rgba(0, 0, 0, 0.637),  -2px -2px 0px 0px rgba(253, 238, 238, 0.692)' } : { ...this.state.style, background: '#a87838', boxShadow: "2px 2px 0px 0px rgba(253, 238, 238, 0.692),  -2px -2px 0px 0px  rgba(0, 0, 0, 0.637)" 
  };
 
         //Update store
