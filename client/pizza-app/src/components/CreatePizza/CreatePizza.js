@@ -61,17 +61,33 @@ class CreatePizza extends React.Component {
 
   //Adds current pizza to pizzas array and clears current pizza
   handleSubmit = () => {
-    const basePrice = this.calcBasePrice();
-    const currentPizza = this.props.pizza;
+    if (this.verifyUserChoice()) {
+      const basePrice = this.calcBasePrice();
+      const currentPizza = this.props.pizza;
 
-    this.props.setPizza({
-      ...currentPizza,
-      name: 'Custom Pizza',
-      basePrice,
-      totalPrice: basePrice,
-    });
-    this.props.setMenu(8);
-  };
+      this.props.setPizza({
+        ...currentPizza,
+        name: 'Custom Pizza',
+        basePrice,
+        totalPrice: basePrice,
+      });
+      this.props.setMenu(8);
+    }
+  }
+ 
+//Adds verification message to users when forgetting to choose crust type/pizza sauce
+  verifyUserChoice = () => {
+      if(this.props.pizza.crust.type === null ){
+          this.setState({message: 'Please select crust type!'});
+          return false;
+      } else if (this.props.pizza.sauce.type === null){
+          this.setState({message: 'Please select sauce type!'});
+          return false;
+      }
+
+      this.setState({message: null});
+      return true;
+  }
 
   //Renders topping sections and quantity input
   render() {
@@ -124,16 +140,16 @@ class CreatePizza extends React.Component {
               </tr>
             </tbody>
           </table>
-
+          <div className='verificationMsg'>{this.state.message}</div>
           <StyledButton
             variant="basicButton"
             text="Add to Cart"
             type="button"
             onClick={this.handleSubmit}
-            disabled={
-              this.props.pizza.crust.type === null ||
-              this.props.pizza.sauce.type === null
-            }
+            // disabled={
+            //   this.props.pizza.crust.type === null ||
+            //   this.props.pizza.sauce.type === null
+            // }
           />
         </div>
       </Container>
