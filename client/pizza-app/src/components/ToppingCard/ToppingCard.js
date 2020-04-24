@@ -19,7 +19,7 @@ class ToppingCard extends React.Component {
        if (this.props.type === 'meats') {
             for (let meat of this.props.meats) {
                 if (meat.type === this.props.item.type) {
-                    this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
+                    this.setState({ style: { ...this.state.style, background: '#ffcc99', boxShadow: "2px 2px 0px 0px rgba(253, 238, 238, 0.692),  -2px -2px 0px 0px  rgba(0, 0, 0, 0.637)"  }, status: true });
                     break;
                 }
             }
@@ -27,14 +27,14 @@ class ToppingCard extends React.Component {
         else if (this.props.type === 'veggies'){
             for (let veggies of this.props.veggies) {
                 if (veggies.type === this.props.item.type) {
-                    this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
+                    this.setState({ style: { ...this.state.style, background: '#ffcc99', boxShadow: "2px 2px 0px 0px rgba(253, 238, 238, 0.692),  -2px -2px 0px 0px  rgba(0, 0, 0, 0.637)" }, status: true });
                     break;
                 }
             }
         } else {
             for (let cheeses of this.props.cheeses) {
                 if (cheeses.type === this.props.item.type) {
-                    this.setState({ style: { ...this.state.style, background: '#ffcc99' }, status: true });
+                    this.setState({ style: { ...this.state.style, background: '#ffcc99', boxShadow: "2px 2px 0px 0px rgba(253, 238, 238, 0.692),  -2px -2px 0px 0px  rgba(0, 0, 0, 0.637)" }, status: true });
                     break;
                 }
             }
