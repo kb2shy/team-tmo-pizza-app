@@ -24,6 +24,7 @@ const Register = ({
   step,
   isAuthenticated,
   setMenu,
+  errors
 }) => {
   useEffect(() => {
     if (isAuthenticated && step === 6) {
@@ -58,7 +59,6 @@ const Register = ({
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log('hi');
     registerCustomer({
       first_name: user.first_name.trim(),
       last_name: user.last_name.trim(),
@@ -155,16 +155,20 @@ const Register = ({
               placeholder="Enter email"
               value={user.email}
               onChange={handleChange}
-              isInvalid={touched.email && !isEmail(user.email)}
-              isValid={isEmail(user.email)}
+              isInvalid={touched.email && (!isEmail(user.email) || errors !== null) }
+              isValid={isEmail(user.email) && errors === null}
+
               onBlur={() => {
                 setTouched({ email: true });
               }}
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please enter a valid email address.
-            </Form.Control.Feedback>
+            {errors ? <Form.Control.Feedback type="invalid">
+              {errors}
+            </Form.Control.Feedback> :
+              <Form.Control.Feedback type="invalid">
+                Please enter a valid email address.
+            </Form.Control.Feedback>}
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="formPassword">
@@ -226,6 +230,7 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   guest: state.guest,
   step: state.menu.step,
+  errors: state.auth.errors
 });
 
 export default connect(mapStateToProps, {

@@ -36,7 +36,7 @@ const OrderChoice = (props) => {
   const handleCreateOrder = (e) => {
     e.preventDefault();
     props.clearPizza();
-    return props.setMenu(9, props.step);
+    return props.setMenu(9);
   };
 
   return (
@@ -52,7 +52,7 @@ const OrderChoice = (props) => {
         {props.user !== null && (
           <StyledTitle
             divClassName="titleBox"
-            text={`${props.user.first_name} ${props.user.last_name}`}
+            text={`${props.user.first_name[0].toUpperCase() + props.user.first_name.slice(1)} ${props.user.last_name[0].toUpperCase() + props.user.last_name.slice(1)}`}
             className="cursiveTitle"
           />
         )}
@@ -90,8 +90,7 @@ OrderChoice.propTypes = {};
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-  isAuthenticated: state.auth.isAuthenticated,
-  step: state.menu.step,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, {

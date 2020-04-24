@@ -56,6 +56,8 @@ const gqlModels = `
     orders: [Order]
     quantity: Int
     price: Float
+    pizza_name: String
+    specialty: Boolean
   }
   type MeatSelection {
     meat_id: Int

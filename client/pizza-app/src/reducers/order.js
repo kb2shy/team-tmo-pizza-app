@@ -31,7 +31,11 @@ const orderReducer = (state = initialState, action) => {
     case ORDER_FAILURE:
       return {
         ...initialState,
+<<<<<<< HEAD
         errors: action.payload,
+=======
+        errors: action.payload.emailError,
+>>>>>>> 6d9cea2b8eafcc8b2a5b71c5e7642695d9f0b5c2
       };
     default:
       return state;

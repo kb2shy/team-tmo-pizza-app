@@ -1,9 +1,5 @@
 const bcrypt = require('bcrypt');
-const {
-  ApolloServer,
-  UserInputError,
-  gql,
-} = require('apollo-server');
+const { UserInputError } = require('apollo-server');
 
 // In addition to creating customers, this is used for updating an
 // already-created, non-registered customer. Updating already-created customers
@@ -26,49 +22,42 @@ async function updateOrCreateCustomer(
   email = email.trim().toLowerCase();
 
   // override registered if password is falsy (null, undefined, '')
-  let registered2 = registered && password ? true : false;
+  registered = registered && password ? true : false;
 
   // query a customer by the given email
-  let existingCustomer = null;
-    existingCustomer = await Customer.findOne({ where: { email } });
+  let existingCustomer = await Customer.findOne({ where: { email } });
 
   // In case an attempt is made to register/order pizza as guest
-  //   using an email of an existing, registered account.
+  // using email of an existing, registered customer.
   if (existingCustomer && existingCustomer.registered) {
-    // @todo it is better to return an error (and not just for this case)
-    //   and prompt user to sign in
-    console.log(existingCustomer + existingCustomer.registered)
-    return null;
+    throw new UserInputError('Email already taken', {
+      invalidArgs: ['email'],
+    });
   }
 
-  try {
-    // generate hash from password
-    let passHash = null;
-    if (password) {
-      passHash = await bcrypt.hash(password, 10);
-    }
+  // generate hash from password
+  let passHash = null;
+  if (password) {
+    passHash = await bcrypt.hash(password, 10);
+  }
 
-    if (existingCustomer) {
-      return await existingCustomer.update({
-        first_name,
-        last_name,
-        phone,
-        password: passHash,
-        registered: registered2,
-      }); // errHandler not necessary here; see the catch statement below
-    } else {
-      return await Customer.create({
-        first_name,
-        last_name,
-        phone,
-        email,
-        password: passHash,
-        registered: registered2,
-      }); // errHandler not necessary here; see the catch statement below
-    }
-  } catch (err) {
-    console.log(err);
-    return null;
+  if (existingCustomer) {
+    return await existingCustomer.update({
+      first_name,
+      last_name,
+      phone,
+      password: passHash,
+      registered
+    });
+  } else {
+    return await Customer.create({
+      first_name,
+      last_name,
+      phone,
+      email,
+      password: passHash,
+      registered
+    });
   }
 }
 

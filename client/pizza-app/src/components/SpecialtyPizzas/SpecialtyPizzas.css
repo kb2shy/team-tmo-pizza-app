@@ -1,0 +1,17 @@
+.addToCartButton{
+    margin: 20px auto;
+}
+
+.specialtyPizzaCard{
+    margin: auto 20px;
+    margin-top: 90px;
+    flex-wrap: wrap;
+    min-width: 300px;
+    max-width: 400px;
+    justify-content: center;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.438);
+}
+.specialtyPizzaCardBody{
+    margin: auto;
+    max-width: 300px;
+}

@@ -13,7 +13,6 @@ class Toppings extends React.Component {
     //Needs type (i.e. 'Meats') from parent components
     //Renders specific Topping section with cards for each topping
     render() {
-        console.log(this.props[this.props.type.toLowerCase()])
         return (
             <div>
                 {/* Map correct array (cheeses, veggies or meats) */}

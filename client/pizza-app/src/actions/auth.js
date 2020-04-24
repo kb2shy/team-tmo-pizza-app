@@ -127,9 +127,11 @@ export const registerCustomer = ({
         password,
         registered: true,
       },
-    });
+    })
 
     const customer = result.data.updateOrCreateCustomer;
+
+    console.log(customer);
     if (customer) {
       // dispatch success
       dispatch({
@@ -146,13 +148,14 @@ export const registerCustomer = ({
     } else {
       dispatch({
         type: REGISTER_FAILURE,
+        payload: {emailError: `There's already a registered account that is associated with this email`},
       });
     }
   } catch (err) {
     console.log('Error in registerCustomer:', err);
-
     dispatch({
       type: REGISTER_FAILURE,
+      payload: {emailError: `There's already a registered account that is associated with this email`},
     });
   }
 };

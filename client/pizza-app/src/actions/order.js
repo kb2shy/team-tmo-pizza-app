@@ -79,7 +79,11 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
 
     dispatch({
       type: ORDER_FAILURE,
+<<<<<<< HEAD
       errors: {emailError: 'Email is already in use.' }
+=======
+      payload: {emailError: `There's already a registered account that is associated with this email`},
+>>>>>>> 6d9cea2b8eafcc8b2a5b71c5e7642695d9f0b5c2
     });
   }
 };

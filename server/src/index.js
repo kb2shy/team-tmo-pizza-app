@@ -79,7 +79,7 @@ Order.belongsTo(Address, { foreignKey: 'address_id' })
 AddressType.hasMany(Address, { foreignKey: { name: 'address_type_id', allowNull: true }, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
 Address.belongsTo(AddressType, { foreignKey: 'address_type_id', allowNull: true })
 
-//creates apollo server, passing db models as context 
+//creates apollo server, passing db models as context
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -89,6 +89,10 @@ const server = new ApolloServer({
     Address, AddressType,
     ...authContext(integrationContext)
   }),
+  formatError: (err) => {
+    console.log(err);
+    return err;
+  },
 });
 
 //connects to sql server and starts apollo server
