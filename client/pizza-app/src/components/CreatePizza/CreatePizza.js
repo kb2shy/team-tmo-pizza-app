@@ -61,7 +61,7 @@ class CreatePizza extends React.Component {
 
   //Adds current pizza to pizzas array and clears current pizza
   handleSubmit = () => {
-    if (this.verifyUserChoice()) {
+    if (this.userValidationMsg()) {
       const basePrice = this.calcBasePrice();
       const currentPizza = this.props.pizza;
 
@@ -76,7 +76,7 @@ class CreatePizza extends React.Component {
   }
  
 //Adds verification message to users when forgetting to choose crust type/pizza sauce
-  verifyUserChoice = () => {
+  userValidationMsg = () => {
       if(this.props.pizza.crust.type === null ){
           this.setState({message: 'Please select crust type!'});
           return false;
