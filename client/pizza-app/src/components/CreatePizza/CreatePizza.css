@@ -36,6 +36,7 @@ label {
   opacity: 1;
   font-family: 'Adamina', serif;
   margin: 5px;
+  width: max-content;
 }
 
 .baseDropdownContainer{
@@ -45,4 +46,9 @@ label {
     margin:3.3em auto;
     display: flex;
     flex-wrap: wrap;
+}
+
+.quantityForm{
+    display: flex;
+    flex-direction: row;
 }

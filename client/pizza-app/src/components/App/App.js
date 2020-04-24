@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// Displayed Components across the app
 import AppNavbar from '../AppNavbar/AppNavbar';
 import BackButton from '../BackButton/BackButton';
+
+// Page Views
 import Home from '../Home/Home';
 import OrderChoice from '../OrderChoice/OrderChoice';
 import OrderHistory from '../OrderHistory/OrderHistory';
@@ -11,6 +14,9 @@ import CreatePizza from '../CreatePizza/CreatePizza';
 import Cart from '../Cart/Cart';
 import Confirmation from '../Confirmation/Confirmation';
 import Register from '../Register/Register';
+import SpecialtyPizzas from '../SpecialtyPizzas/SpecialtyPizzas';
+import SizeQuantityPrompt from '../SpecialtyPizzas/SizeQuantityPrompt';
+import MenuChoice from '../MenuChoice/MenuChoice'
 
 import { loadCustomer } from '../../actions/auth';
 import { getAllToppings } from '../../actions/database';
@@ -48,6 +54,12 @@ class App extends Component {
         return <Confirmation />;
       case 6:
         return <Register />;
+      case 7: 
+        return <SpecialtyPizzas/>;
+      case 8:
+        return <SizeQuantityPrompt/>;
+      case 9: 
+        return <MenuChoice />;
       default:
         return null;
     }
@@ -65,11 +77,6 @@ class App extends Component {
           {/* <Example></Example> */}
           {/* Render Home, Main, or a preferred component based on the step of the menu */}
           {this.getViewState()}
-          {/* <Register></Register> */}
-          {/* <Login></Login> */}
-          {/* <Logout></Logout> */}
-          {/* <CreatePizza /> */}
-          {/* <Cart /> */}
         </div>
       </div>
     );

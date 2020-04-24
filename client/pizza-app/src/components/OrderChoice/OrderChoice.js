@@ -36,7 +36,7 @@ const OrderChoice = (props) => {
   const handleCreateOrder = (e) => {
     e.preventDefault();
     props.clearPizza();
-    return props.setMenu(3);
+    return props.setMenu(9, props.step);
   };
 
   return (
@@ -46,17 +46,22 @@ const OrderChoice = (props) => {
       <div className={classes.orderChoiceTitleContainer}>
         <StyledTitle
           divClassName="titleBox"
-          text="WELCOME BACK, "
+          text={`WELCOME BACK${props.user ? ',' : ''}`}
           className="orderChoiceTitle"
         />
-        <StyledTitle
-          divClassName="titleBox"
-          text="First Last"
-          className="cursiveTitle"
-        />
+        {props.user !== null && (
+          <StyledTitle
+            divClassName="titleBox"
+            text={`${props.user.first_name} ${props.user.last_name}`}
+            className="cursiveTitle"
+          />
+        )}
       </div>
       <div className={classes.OrderChoice}>
-        <StyledTitle className='orderChoiceSubtitle ' text='What would you like to do today?'></StyledTitle>
+        <StyledTitle
+          className="orderChoiceSubtitle "
+          text="What would you like to do today?"
+        ></StyledTitle>
         <div className={classes.ButtonGroup}>
           {/* <br></br> */}
           {/* <Button onClick={handleOrderHistory}>See my order History</Button> */}
@@ -66,6 +71,7 @@ const OrderChoice = (props) => {
             text="See My Order History"
             variant="orderChoiceButton"
           />
+
           <StyledButton
             type="button"
             onClick={handleCreateOrder}
