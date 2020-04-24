@@ -10,6 +10,7 @@ import PopCart from '../Cart/PopCart';
 
 import StyledButton from '../common/Button/StyledButton';
 
+<<<<<<< HEAD
 class SpecialtyPizzas extends React.Component {
   constructor(props) {
     super(props);
@@ -107,6 +108,21 @@ class SpecialtyPizzas extends React.Component {
     // })
     // console.log(results)
   };
+=======
+const SpecialtyPizzas = (props) => {
+
+  const [showSizeQuantityPrompt, setSizePrompt] = useState(false)
+  const [currentPizza, setCurrentPizza] = useState()
+  //const [data, setData] = useState()
+
+  useEffect(() => {
+    props.setPopCart(false);
+  })
+
+  const { loading, error, data } = useQuery(GET_ALL_SPECIALTY_PIZZA_INFO)
+  if (error) return <p>{error.message}</p>
+  if (loading) return <p>Loading...</p>
+>>>>>>> e5a34e3043b866c80248a17de69ebc7e41a573c6
 
   //adds pizza to pizzas store
   handleSubmit = (pizza) => {
