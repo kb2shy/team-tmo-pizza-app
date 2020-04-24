@@ -10,7 +10,7 @@ font-weight: 300;
 /* Styling for the toppin cards */
 .toppingCardWrapper{
     border-radius: 16px;
-    background-color: rgba(4, 124, 230, 0);
+    background-color: #f7b052;
     box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.637),  -2px -2px 0px 0px rgba(253, 238, 238, 0.692);
     padding: 3px;
     text-align: center;
