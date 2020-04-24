@@ -1,14 +1,15 @@
 import React from 'react';
-import { Card, CardGroup } from 'react-bootstrap';
+import { Card, CardGroup, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { setBase, setPizza, clearPizza } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { setMenu, setPopCart } from '../../actions/menu';
-import { GET_ALL_SPECIALTY_PIZZA_INFO } from '../../config/gqlDefines'
-import './SpecialtyPizzas.css'
+import { GET_ALL_SPECIALTY_PIZZA_INFO } from '../../config/gqlDefines';
+import './SpecialtyPizzas.css';
 import PopCart from '../Cart/PopCart';
 
 import StyledButton from '../common/Button/StyledButton';
+import StyledTitle from '../common/Title/StyledTitle';
 
 class SpecialtyPizzas extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class SpecialtyPizzas extends React.Component {
     this.state = {
       showSizeQuantityPrompt: false,
       currentPizza: null,
-     // data: null
+      // data: null
       data: [
         //sample data
         {
@@ -105,7 +106,7 @@ class SpecialtyPizzas extends React.Component {
     // this.setState({
     //   data: results
     // })
-  //console.log(results)
+    //console.log(results)
   };
 
   //adds pizza to pizzas store
@@ -133,13 +134,14 @@ class SpecialtyPizzas extends React.Component {
   //Renders cards of all possible specialty pizza, when one is selected, the sizing prompt is render
   render() {
     return (
-      <div>
+      <Container fluid>
         {this.props.popCart ? <PopCart /> : null}
+        <StyledTitle text="Specialty Pizzas" className="basicTitle" />
 
         <CardGroup>
           {this.state.data.map((item) => {
             return (
-              <Card key={item.name} className='specialtyPizzaCard'>
+              <Card key={item.name} className="specialtyPizzaCard">
                 <Card.Body className="specialtyPizzaCardBody">
                   <Card.Title>{item.name}</Card.Title>
                   <Card.Text>Crust: {item.crust.type}</Card.Text>
@@ -162,21 +164,21 @@ class SpecialtyPizzas extends React.Component {
                   <Card.Text>
                     Price of Toppings: ${item.basePrice.toFixed(2)}
                   </Card.Text>
-
-
                 </Card.Body>
-                <div className="addToCartButton">      <StyledButton
-                  type="button"
-                  onClick={(e) => this.handleSubmit(item)}
-                  text="Select Pizza"
-                  variant="orderChoiceButton"
-                />
+                <div className="addToCartButton">
+                  {' '}
+                  <StyledButton
+                    type="button"
+                    onClick={(e) => this.handleSubmit(item)}
+                    text="Select Pizza"
+                    variant="orderChoiceButton"
+                  />
                 </div>
               </Card>
             );
           })}
         </CardGroup>
-      </div>
+      </Container>
     );
   }
 }
@@ -185,7 +187,7 @@ const mapStateToProps = (state) => ({
   size: state.pizza.size,
   sizes: state.database.sizes,
   popCart: state.menu.popCart,
-  pizza: state.pizza
+  pizza: state.pizza,
 });
 
 export default connect(mapStateToProps, {

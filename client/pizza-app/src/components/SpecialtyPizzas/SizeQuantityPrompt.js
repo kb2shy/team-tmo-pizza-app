@@ -15,7 +15,7 @@ class SizeQuantityPrompt extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantity: '',
+      quantity: this.props.pizza.quantity,
     };
   }
 
@@ -30,9 +30,20 @@ class SizeQuantityPrompt extends React.Component {
   handleQuantityChange = (e) => {
     e.preventDefault();
     let value = parseInt(e.target.value);
-    if (isNaN(value)) value = '';
     this.setState({ quantity: value });
     this.props.setQuantity(value);
+  };
+
+  // Calculates total price of pizza (quantity * base price)
+  calcTotalPrice = (basePrice) => {
+    let totalPrice = basePrice;
+
+    // state.quantity has been changed from default to a new number
+    if (Number.isInteger(this.state.quantity))
+      this.props.pizza.quantity = this.state.quantity;
+
+    totalPrice *= this.props.pizza.quantity;
+    return totalPrice.toFixed(2);
   };
 
   handleSubmit = (e) => {
@@ -51,22 +62,10 @@ class SizeQuantityPrompt extends React.Component {
       ...currentPizza,
       basePrice,
       totalPrice,
-      editPizzaFlag: false
+      editPizzaFlag: false,
     });
     this.props.clearPizza();
     this.props.setMenu(4);
-  };
-
-  // Calculates total price of pizza (quantity * base price)
-  calcTotalPrice = (basePrice) => {
-    let totalPrice = basePrice;
-
-    // state.quantity has been changed from default to a new number
-    if (Number.isInteger(this.state.quantity))
-      this.props.pizza.quantity = this.state.quantity;
-
-    totalPrice *= this.props.pizza.quantity;
-    return totalPrice.toFixed(2);
   };
 
   render() {
@@ -89,15 +88,17 @@ class SizeQuantityPrompt extends React.Component {
                   type="number"
                   min={this.MIN_PIZZA_QUANTITY}
                   max={this.MAX_PIZZA_QUANTITY}
-                  placeholder={this.props.pizza.quantity}
-                  value={this.state.quantity}
+                  placeholder={String(this.state.quantity)}
+                  value={String(this.state.quantity)}
                   onChange={this.handleQuantityChange}
                 />
               </div>
             </Form.Group>
             <StyledButton
               variant="basicButton"
-              disabled={this.props.size.type === null}
+              disabled={
+                this.props.size.type === null || isNaN(this.state.quantity)
+              }
               text="Add to Cart"
               type="submit"
             />

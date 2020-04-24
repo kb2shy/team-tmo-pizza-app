@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Modal } from 'react-bootstrap';
 
 // Actions
 import { previousMenu, setMenu } from '../../actions/menu';

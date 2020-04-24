@@ -8,12 +8,7 @@ import BaseDropDown from './BaseDropDown';
 import PopCart from '../Cart/PopCart';
 
 // Actions
-import {
-  setBase,
-  clearPizza,
-  addBasePrice,
-  setPizza,
-} from '../../actions/pizza';
+import { setBase, clearPizza, setPizza } from '../../actions/pizza';
 import { setMenu, setPopCart } from '../../actions/menu';
 
 // Custom Styling
@@ -55,7 +50,6 @@ class CreatePizza extends React.Component {
       basePrice += cheese.price;
     }
 
-    addBasePrice(basePrice);
     return basePrice.toFixed(2);
   };
 
@@ -156,6 +150,5 @@ export default connect(mapStateToProps, {
   setBase,
   setPizza,
   clearPizza,
-  addBasePrice,
   setPopCart,
 })(CreatePizza);
