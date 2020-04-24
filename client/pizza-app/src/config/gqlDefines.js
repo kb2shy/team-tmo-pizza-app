@@ -138,7 +138,8 @@ export const CREATE_GUEST_ORDER = gql`
     $pizzas: [PizzaInput!]!){
       createGuestOrder(guest: $guest, pizzas: $pizzas) {
         order { order_id, created_at },
-        code
+        code,
+        codeBuffer
       }
     }
 `;
@@ -149,7 +150,8 @@ export const CREATE_MEMBER_ORDER = gql`
     $pizzas: [PizzaInput!]!){
       createMemberOrder(pizzas: $pizzas) {
         order { order_id, created_at },
-        code
+        code,
+        codeBuffer
       }
     }
 `;
@@ -218,7 +220,7 @@ query
 `
 
 export const GET_ALL_SPECIALTY_PIZZA_INFO = gql`
-query 
+query
     getAllSpecialtyPizzaInfo{
       getAllSpecialtyPizzaInfo{
         pizza_name

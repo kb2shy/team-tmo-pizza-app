@@ -4,6 +4,7 @@ import { Document, Page, Text, StyleSheet } from '@react-pdf/renderer';
 import HeaderReceipt from './HeaderReceipt';
 import PizzasReceipt from './PizzasReceipt';
 import CostReceipt from './CostReceipt';
+import Barcode from './Barcode';
 
 // Months variable to convert numerical month to string representation
 const MONTHS = [
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Receipt = ({ orderId, user, pizzas, orderDate, delivery }) => {
+const Receipt = ({ orderId, codeBuffer, code, user, pizzas, orderDate, delivery }) => {
 
     // Collect date from the order and parse it into date string
     const dateParser = () => {
@@ -83,6 +84,7 @@ const Receipt = ({ orderId, user, pizzas, orderDate, delivery }) => {
         <Document>
             <Page size="LETTER" style={styles.page}>
                 <HeaderReceipt orderId={orderId} user={user} date={dateParser()} delivery={delivery}/>
+                <Barcode code={code} codeBuffer={codeBuffer} />
                 <Text style={styles.text}>Pizza(s): {countAllPizzas()}</Text>
                 <PizzasReceipt pizzas={pizzas}/>
                 <CostReceipt total={calculateTotal()}/>
