@@ -21,7 +21,7 @@ export const clearPizzas = () => (dispatch) => {
 };
 
 export const updatePizzaInPizzas = (index, pizza) => (dispatch) => {
-  console.log('dispatching updatePizza(',index,'), ', pizza)
+  // console.log('dispatching updatePizza(',index,'), ', pizza)
   dispatch({
     type: UPDATE_PIZZA_IN_PIZZAS,
     payload: {

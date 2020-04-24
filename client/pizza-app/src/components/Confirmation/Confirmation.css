@@ -9,15 +9,17 @@
 
 .col-email-message p{
     color: rgb(52, 110, 29);
-    text-shadow: 2px 2px 3px rgb(20, 156, 20);
     font-family: 'Cutive Mono', monospace;
     font-size: 2rem;
+    margin-bottom: 3em;
 
 }
 .col-email-message p:first-of-type{
     color: rgb(158, 37, 37);
     text-shadow: none;
-    font-size: 1.6rem;
+    font-size: 1.9rem;
+    margin-bottom: 0em;
+
 
 }
 .col-create-account p{

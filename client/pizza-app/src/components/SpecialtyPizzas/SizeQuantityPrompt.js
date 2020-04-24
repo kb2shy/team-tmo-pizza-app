@@ -11,6 +11,7 @@ import { setBase, clearPizza, setQuantity } from '../../actions/pizza';
 import { addPizza, updatePizzaInPizzas } from '../../actions/pizzas';
 import { setMenu } from '../../actions/menu';
 
+import './SizeQuantityPrompt.css'
 class SizeQuantityPrompt extends React.Component {
   constructor(props) {
     super(props);
@@ -76,7 +77,7 @@ class SizeQuantityPrompt extends React.Component {
 
   render() {
     return (
-      <Container fluid>
+      <Container fluid className='sizeContainer'>
         <Col md={{ span: 2, offset: 5 }}>
           <Form onSubmit={this.handleSubmit}>
             <Form.Group as={Row}>
