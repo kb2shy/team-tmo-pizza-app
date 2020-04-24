@@ -10,6 +10,7 @@ const initialState = {
   errors: null,
   order_id: null,
   code: null,
+  codeBuffer: null,
   created_at: null,
 };
 
@@ -27,6 +28,7 @@ const orderReducer = (state = initialState, action) => {
         errors: null,
         order_id: action.payload.order.order_id,
         code: action.payload.code,
+        codeBuffer: new Buffer(action.payload.codeBuffer, 'base64'),
         created_at: action.payload.order.created_at,
       };
     case ORDER_FAILURE:

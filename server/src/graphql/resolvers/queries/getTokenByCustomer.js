@@ -14,14 +14,14 @@ async function getTokenByCustomer(root, { email, password }, { Customer }) {
 
   // throw if no user found
   if (!customer) {
-    throw AuthenticationError('Invalid email or password.');
+    throw new AuthenticationError('Invalid email or password.');
   }
 
   // validate password
   const match = await bcrypt.compare(password, customer.password);
   // return null if passwords do not match
   if (!match) {
-    throw AuthenticationError('Invalid email or password.');
+    throw new AuthenticationError('Invalid email or password.');
   }
 
   // create token based on customer_id
