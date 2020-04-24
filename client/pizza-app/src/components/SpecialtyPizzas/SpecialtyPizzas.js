@@ -52,7 +52,7 @@ const SpecialtyPizzas = (props) => {
   //Renders cards of all possible specialty pizza, when one is selected, the sizing prompt is render
   return (
       <Container fluid>
-        {this.props.popCart ? <PopCart /> : null}
+        {props.popCart ? <PopCart /> : null}
         <StyledTitle text="Specialty Pizzas" className="basicTitle" />
 
 
