@@ -217,3 +217,29 @@ query
     }
 `
 
+export const GET_ALL_SPECIALTY_PIZZA_INFO = gql`
+query 
+    getAllSpecialtyPizzaInfo{
+      getAllSpecialtyPizzaInfo{
+        crust{
+          crust_type
+        }
+        sauce{
+          sauce_type
+        }
+        meats{
+          meat_type
+          meat_price
+        }
+        veggies{
+          veggie_type
+          veggie_price
+        }
+        cheeses{
+          cheese_type
+          cheese_price
+        }
+      }
+    }
+`
+

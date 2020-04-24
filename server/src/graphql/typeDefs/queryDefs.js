@@ -23,6 +23,7 @@ const queries = `
     getSizeOptions: [Size]
 
     getToppingsByPizzaId(pizza_id: Int): Pizza
+    getAllSpecialtyPizzaInfo: [Pizza]
   }
 `;
 

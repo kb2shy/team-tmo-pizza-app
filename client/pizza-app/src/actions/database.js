@@ -107,7 +107,7 @@ export const getPizzasByOrder = (order_id) => async (dispatch) => {
     });
 
     const pizzas = result.data.getAllPizzasByOrder.map(item => item.pizza_id);
-
+    console.log(pizzas)
     for (let pizza_id of pizzas) {
       dispatch(setPastPizzas(pizza_id));
       dispatch(getToppingsByPizzaId(pizza_id))
