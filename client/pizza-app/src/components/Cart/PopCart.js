@@ -23,7 +23,7 @@ class PopCart extends React.Component {
           <StyledButton
             variant="closeCartButton"
             type="button"
-            onClick={() => this.props.setMenu(4, this.props.step)}
+            onClick={() => this.props.setMenu(4)}
             text='Submit Order'
           />
         </div>
@@ -33,8 +33,7 @@ class PopCart extends React.Component {
 
   const mapStateToProps = (state) => ({
     pizzas: state.pizzas,
-    popCart: state.menu.popCart,
-    step: state.menu.step
+    popCart: state.menu.popCart
   });
   
   export default connect(mapStateToProps, { setPopCart, setMenu })(PopCart);

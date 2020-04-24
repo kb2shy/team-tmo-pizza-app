@@ -120,7 +120,7 @@ class SpecialtyPizzas extends React.Component {
   //Change to custom order
   handleCustomOrder = (e) => {
     this.props.clearPizza();
-    this.props.setMenu(3, this.props.step);
+    this.props.setMenu(3);
   };
 
   //Renders cards of all possible specialty pizza, when one is selected, the sizing prompt is render
@@ -178,8 +178,7 @@ const mapStateToProps = (state) => ({
   size: state.pizza.size,
   sizes: state.database.sizes,
   popCart: state.menu.popCart,
-  step: state.menu.step,
-  pizza: state.pizza,
+  pizza: state.pizza
 });
 
 export default connect(mapStateToProps, {
