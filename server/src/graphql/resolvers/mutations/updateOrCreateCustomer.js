@@ -29,7 +29,7 @@ async function updateOrCreateCustomer(
     existingCustomer = await Customer.findOne({ where: { email } });
   } catch (err) {
     console.log(err);
-    return null;
+    throw err;
   }
 
   // In case an attempt is made to register/order pizza as guest
@@ -38,7 +38,7 @@ async function updateOrCreateCustomer(
     // @todo it is better to return an error (and not just for this case)
     //   and prompt user to sign in
     console.log(existingCustomer + existingCustomer.registered)
-    return null;
+    throw 'email is already taken';
   }
 
   try {

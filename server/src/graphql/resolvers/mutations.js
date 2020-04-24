@@ -27,6 +27,7 @@ module.exports = {
       return await Sauce.create({ sauce_type }).catch(errHandler);
     },
     //creates veggie options in db
+
     async createVeggieOp(root, { veggie_type, veggie_price }, { Veggie }) {
       return await Veggie.create({ veggie_type, veggie_price }).catch(
         errHandler
@@ -51,6 +52,18 @@ module.exports = {
         sauce_id,
         quantity,
         price
+      }).catch(errHandler);
+    },
+    async createSpecialtyPizza(
+      root,
+      { crust_id, sauce_id, pizza_name },
+      { Pizza }
+    ) {
+      return await Pizza.create({
+        crust_id,
+        sauce_id,
+        pizza_name,
+        specialty: true
       }).catch(errHandler);
     },
     //sets a veggie selection for a pizza

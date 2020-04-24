@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { setBase, setPizza, clearPizza } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { setMenu, setPopCart } from '../../actions/menu';
-
+import { GET_ALL_SPECIALTY_PIZZA_INFO } from '../../config/gqlDefines'
+import './SpecialtyPizzas.css'
 import PopCart from '../Cart/PopCart';
 
 import StyledButton from '../common/Button/StyledButton';
@@ -15,6 +16,7 @@ class SpecialtyPizzas extends React.Component {
     this.state = {
       showSizeQuantityPrompt: false,
       currentPizza: null,
+     // data: null
       data: [
         //sample data
         {
@@ -96,8 +98,14 @@ class SpecialtyPizzas extends React.Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     this.props.setPopCart(false);
+    const { client } = this.props;
+    //const results = await client.query({ query: GET_ALL_SPECIALTY_PIZZA_INFO})
+    // this.setState({
+    //   data: results
+    // })
+    console.log(results)
   };
 
   //adds pizza to pizzas store
@@ -119,7 +127,7 @@ class SpecialtyPizzas extends React.Component {
   //Change to custom order
   handleCustomOrder = (e) => {
     this.props.clearPizza();
-    this.props.setMenu(3, this.props.step);
+    this.props.setMenu(3);
   };
 
   //Renders cards of all possible specialty pizza, when one is selected, the sizing prompt is render
@@ -131,8 +139,8 @@ class SpecialtyPizzas extends React.Component {
         <CardGroup>
           {this.state.data.map((item) => {
             return (
-              <Card key={item.name} style={{ width: '300px' }}>
-                <Card.Body>
+              <Card key={item.name} className='specialtyPizzaCard'>
+                <Card.Body className="specialtyPizzaCardBody">
                   <Card.Title>{item.name}</Card.Title>
                   <Card.Text>Crust: {item.crust.type}</Card.Text>
                   <Card.Text>Sauce: {item.sauce.type}</Card.Text>
@@ -155,13 +163,15 @@ class SpecialtyPizzas extends React.Component {
                     Price of Toppings: ${item.basePrice.toFixed(2)}
                   </Card.Text>
 
-                  <StyledButton
-                    type="button"
-                    onClick={(e) => this.handleSubmit(item)}
-                    text="Add to Cart"
-                    variant="orderChoiceButton"
-                  />
+
                 </Card.Body>
+                <div className="addToCartButton">      <StyledButton
+                  type="button"
+                  onClick={(e) => this.handleSubmit(item)}
+                  text="Add to Cart"
+                  variant="orderChoiceButton"
+                />
+                </div>
               </Card>
             );
           })}
@@ -175,8 +185,7 @@ const mapStateToProps = (state) => ({
   size: state.pizza.size,
   sizes: state.database.sizes,
   popCart: state.menu.popCart,
-  step: state.menu.step,
-  pizza: state.pizza,
+  pizza: state.pizza
 });
 
 export default connect(mapStateToProps, {

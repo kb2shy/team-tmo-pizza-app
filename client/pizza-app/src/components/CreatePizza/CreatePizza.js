@@ -148,7 +148,6 @@ const mapStateToProps = (state) => ({
   crusts: state.database.crusts,
   pizza: state.pizza,
   pizzas: state.pizzas,
-  step: state.menu.step,
   popCart: state.menu.popCart,
 });
 
