@@ -221,6 +221,7 @@ export const GET_ALL_SPECIALTY_PIZZA_INFO = gql`
 query 
     getAllSpecialtyPizzaInfo{
       getAllSpecialtyPizzaInfo{
+        pizza_name
         crust{
           crust_type
         }
