@@ -301,7 +301,7 @@ const Cart = ({
 
 
             <OrderSummary />
-            {pizzas === 0 ? <StyledButton
+            {pizzas.length !== 0 ? <StyledButton
               onClick={handleAddAnotherPizza}
               variant="basicButton"
               text="Add another pizza"
