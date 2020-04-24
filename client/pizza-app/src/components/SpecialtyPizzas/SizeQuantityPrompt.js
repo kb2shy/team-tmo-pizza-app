@@ -51,6 +51,7 @@ class SizeQuantityPrompt extends React.Component {
       ...currentPizza,
       basePrice,
       totalPrice,
+      editPizzaFlag: false
     });
     this.props.clearPizza();
     this.props.setMenu(4);

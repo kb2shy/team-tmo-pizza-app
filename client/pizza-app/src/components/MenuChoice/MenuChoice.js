@@ -9,7 +9,6 @@ import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
 
 const MenuChoice = (props) => {
-    console.log('props: ', props)
     
     // Change to custom order
     const handleCustomOrder = (e) => {

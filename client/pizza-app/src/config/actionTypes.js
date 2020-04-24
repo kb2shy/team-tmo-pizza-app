@@ -35,6 +35,7 @@ export const SET_QUANTITY = 'SET_QUANTITY';
 export const ADD_BASE_PRICE = 'ADD_BASE_PRICE';
 export const ADD_TOTAL_PRICE = 'ADD_TOTAL_PRICE';
 export const SET_PIZZA = 'SET_PIZZA';
+export const SET_EDIT_PIZZA_FLAG = 'SET_EDIT_PIZZA_FLAG';
 export const CLEAR_PIZZA = 'CLEAR_PIZZA';
 
 // Database actions
