@@ -131,39 +131,6 @@ export const GET_PIZZAS_BY_ORDER = gql`
   }
 `;
 
-//returns an array of all selected veggies from pizza
-export const GET_VEGGIES_BY_PIZZA = gql`
-  query GetSelectedVeggies($pizza_id: Int!) {
-    getSelectedVeggies(pizza_id: $pizza_id) {
-      veggie {
-        veggie_type
-      }
-    }
-  }
-`;
-
-//returns an array of all selected meats from pizza
-export const GET_MEATS_BY_PIZZA = gql`
-  query GetSelectedMeats($pizza_id: Int!) {
-    getSelectedMeats(pizza_id: $pizza_id) {
-      meat {
-        meat_type
-      }
-    }
-  }
-`;
-
-//returns an array of all selected cheeses from pizza
-export const GET_CHEESES_BY_PIZZA = gql`
-  query GetSelectedCheeses($pizza_id: Int!) {
-    getSelectedCheeses(pizza_id: $pizza_id) {
-      cheese {
-        cheese_type
-      }
-    }
-  }
- `;
-
 //creates a guest order and returns an order_id
 export const CREATE_GUEST_ORDER = gql`
   mutation CreateGuestOrder(
@@ -232,21 +199,21 @@ query
         }
     }
 `
-export const GET_TOPPINGS_COUNT = gql`
+
+export const GET_TOPPINGS_BY_PIZZA_ID = gql`
 query
-  getToppingsCountByCustomerId($order_id: Int){
-    getToppingsCountByCustomerId(order_id: $order_id){
-            pizza_id
-            cheeses{
-              cheese_type
-            }
-            veggies{
-              veggie_type
-            }
-            meats{
-              meat_type
-            }
+    getToppingsByPizzaId($pizza_id: Int){
+      getToppingsByPizzaId(pizza_id: $pizza_id){
+        cheeses{
+          cheese_type
         }
+        meats{
+          meat_type
+        }
+        veggies{
+          veggie_type
+        }
+      }
     }
 `
 
