@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks'
-import { Card, CardGroup, Container} from 'react-bootstrap';
+import { Card, CardGroup, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { setBase, setPizza, clearPizza } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { setMenu, setPopCart } from '../../actions/menu';
-import { GET_ALL_SPECIALTY_PIZZA_INFO } from '../../config/gqlDefines';
-import './SpecialtyPizzas.css';
+import { GET_ALL_SPECIALTY_PIZZA_INFO } from '../../config/gqlDefines'
+import './SpecialtyPizzas.css'
 import PopCart from '../Cart/PopCart';
 
 import StyledButton from '../common/Button/StyledButton';
@@ -29,7 +29,7 @@ const SpecialtyPizzas = (props) => {
   console.log(data)
   //adds pizza to pizzas store
   const handleSubmit = (pizza) => {
-    const currentPizza = { ...this.props.pizza };
+    const currentPizza = { ...props.pizza };
     props.setPizza({
       ...currentPizza,
       name: pizza.name,
@@ -51,10 +51,9 @@ const SpecialtyPizzas = (props) => {
 
   //Renders cards of all possible specialty pizza, when one is selected, the sizing prompt is render
   return (
-      <Container fluid>
-        {props.popCart ? <PopCart /> : null}
-        <StyledTitle text="Specialty Pizzas" className="basicTitle" />
-
+    <Container fluid>
+      {props.popCart ? <PopCart /> : null}
+      <StyledTitle text="Specialty Pizzas" className="basicTitle" />
 
       <CardGroup>
         {data.getAllSpecialtyPizzaInfo.map((item) => {
@@ -110,7 +109,7 @@ const mapStateToProps = (state) => ({
   size: state.pizza.size,
   sizes: state.database.sizes,
   popCart: state.menu.popCart,
-  pizza: state.pizza,
+  pizza: state.pizza
 });
 
 export default connect(mapStateToProps, {
