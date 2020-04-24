@@ -1,37 +1,27 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const config = require('config');
+const { AuthenticationError } = require('apollo-server');
 
 // Used for login
 async function getTokenByCustomer(root, { email, password }, { Customer }) {
-  let customer;
-  try {
-    customer = await Customer.findOne({
-      where: {
-        email,
-        registered: true, // ensure we're finding the user that is registered
-      },
-    });
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
+  const customer = await Customer.findOne({
+    where: {
+      email,
+      registered: true, // ensure we're finding the user that is registered
+    },
+  });
 
-  // return null if no user found
+  // throw if no user found
   if (!customer) {
-    return null;
+    throw new AuthenticationError('Invalid email or password.');
   }
 
-  try {
-    // validate password
-    const match = await bcrypt.compare(password, customer.password);
-    // return null if passwords do not match
-    if (!match) {
-      return null;
-    }
-  } catch (err) {
-    console.log(err);
-    return null;
+  // validate password
+  const match = await bcrypt.compare(password, customer.password);
+  // return null if passwords do not match
+  if (!match) {
+    throw new AuthenticationError('Invalid email or password.');
   }
 
   // create token based on customer_id

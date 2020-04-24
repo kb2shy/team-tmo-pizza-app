@@ -253,7 +253,11 @@ async function createOrder(
       orderRecord.created_at = orderRecord.createdAt;
     }
     // return the order
-    return { order: orderRecord.toJSON(), code: orderCode };
+    return {
+      order: orderRecord.toJSON(),
+      code: orderCode,
+      codeBuffer: imgData2.toString('base64'),
+    };
   });
 }
 

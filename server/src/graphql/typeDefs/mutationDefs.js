@@ -88,6 +88,12 @@ const mutations = `
     createMemberOrder(
       pizzas: [PizzaInput!]!
     ): CreatedOrderInfo
+
+    createSpecialtyPizza(
+      crust_id: Int
+      sauce_id: Int
+      pizza_name: String
+    ): Pizza
   }`;
 
 module.exports = mutations;

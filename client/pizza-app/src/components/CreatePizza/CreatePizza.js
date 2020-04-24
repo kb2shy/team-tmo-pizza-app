@@ -8,18 +8,12 @@ import BaseDropDown from './BaseDropDown';
 import PopCart from '../Cart/PopCart';
 
 // Actions
-import {
-  setBase,
-  clearPizza,
-  addBasePrice,
-  setPizza,
-} from '../../actions/pizza';
+import { setBase, clearPizza, setPizza } from '../../actions/pizza';
 import { setMenu, setPopCart } from '../../actions/menu';
 
 // Custom Styling
 import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
-
 import './CreatePizza.css';
 
 class CreatePizza extends React.Component {
@@ -55,23 +49,38 @@ class CreatePizza extends React.Component {
       basePrice += cheese.price;
     }
 
-    addBasePrice(basePrice);
     return basePrice.toFixed(2);
   };
 
   //Adds current pizza to pizzas array and clears current pizza
   handleSubmit = () => {
-    const basePrice = this.calcBasePrice();
-    const currentPizza = this.props.pizza;
+    if (this.userValidationMsg()) {
+      const basePrice = this.calcBasePrice();
+      const currentPizza = this.props.pizza;
 
-    this.props.setPizza({
-      ...currentPizza,
-      name: 'Custom Pizza',
-      basePrice,
-      totalPrice: basePrice,
-    });
-    this.props.setMenu(8);
-  };
+      this.props.setPizza({
+        ...currentPizza,
+        name: 'Custom Pizza',
+        basePrice,
+        totalPrice: basePrice,
+      });
+      this.props.setMenu(8);
+    }
+  }
+ 
+//Adds verification message to users when forgetting to choose crust type/pizza sauce
+  userValidationMsg = () => {
+      if(this.props.pizza.crust.type === null ){
+          this.setState({message: 'Please select a crust type from above!'});
+          return false;
+      } else if (this.props.pizza.sauce.type === null){
+          this.setState({message: 'Please select a sauce from above!'});
+          return false;
+      }
+
+      this.setState({message: null});
+      return true;
+  }
 
   //Renders topping sections and quantity input
   render() {
@@ -124,16 +133,16 @@ class CreatePizza extends React.Component {
               </tr>
             </tbody>
           </table>
-
+          <div className='verificationMsg'>{this.state.message}</div>
           <StyledButton
             variant="basicButton"
-            text="Add to Cart"
+            text="Continue"
             type="button"
             onClick={this.handleSubmit}
-            disabled={
-              this.props.pizza.crust.type === null ||
-              this.props.pizza.sauce.type === null
-            }
+            // disabled={
+            //   this.props.pizza.crust.type === null ||
+            //   this.props.pizza.sauce.type === null
+            // }
           />
         </div>
       </Container>
@@ -156,6 +165,5 @@ export default connect(mapStateToProps, {
   setBase,
   setPizza,
   clearPizza,
-  addBasePrice,
   setPopCart,
 })(CreatePizza);

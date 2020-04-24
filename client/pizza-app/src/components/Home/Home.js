@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Login from '../Login/Login';
 import classes from './Home.module.css';
-// import Title from '../Title/Title';
 
 // Custom Styling
 import StyledTitle from '../common/Title/StyledTitle';

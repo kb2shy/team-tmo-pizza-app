@@ -1,4 +1,4 @@
-import { ADD_PIZZA, REMOVE_PIZZA, CLEAR_PIZZAS } from '../config/actionTypes';
+import { ADD_PIZZA, REMOVE_PIZZA, CLEAR_PIZZAS, UPDATE_PIZZA_IN_PIZZAS } from '../config/actionTypes';
 
 export const addPizza = (pizza) => (dispatch) => {
   dispatch({
@@ -19,3 +19,13 @@ export const clearPizzas = () => (dispatch) => {
     type: CLEAR_PIZZAS,
   });
 };
+
+export const updatePizzaInPizzas = (index, pizza) => (dispatch) => {
+  // console.log('dispatching updatePizza(',index,'), ', pizza)
+  dispatch({
+    type: UPDATE_PIZZA_IN_PIZZAS,
+    payload: {
+      index, pizza
+    }
+  })
+}

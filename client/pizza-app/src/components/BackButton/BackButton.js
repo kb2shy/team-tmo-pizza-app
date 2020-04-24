@@ -1,13 +1,27 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+// Actions
 import { previousMenu, setMenu } from '../../actions/menu';
-import { clearPizza } from '../../actions/pizza';
-import { Modal } from 'react-bootstrap';
+import { clearPizza, setEditPizzaFlag } from '../../actions/pizza';
+import { addPizza } from '../../actions/pizzas';
+
+// Helper Component, Styling
 import StyledButton from '../common/Button/StyledButton';
+import WarningModal from './WarningModal';
 import './BackButton.css';
 
-const BackButton = ({ step, prevSteps, previousMenu, setMenu, clearPizza }) => {
+const BackButton = ({
+  step,
+  prevSteps,
+  previousMenu,
+  setMenu,
+  clearPizza,
+  pizza,
+  pizzas,
+  addPizza,
+}) => {
   /*
     When the user clicks the "back" button on the create pizza page
     a modal pop-up appears with options to proceed or stay on the page
@@ -17,49 +31,40 @@ const BackButton = ({ step, prevSteps, previousMenu, setMenu, clearPizza }) => {
   const handleCloseAlert = () => setShowAlert(false);
   const handleShowAlert = () => setShowAlert(true);
 
-  const handleGoToHome = () => {
+  const handleGoToPreviousPage = () => {
     handleCloseAlert();
     clearPizza();
     previousMenu();
   };
 
-  const renderModal = (
-    <div className="alertStyle">
-      <Modal show={showAlert} onHide={handleCloseAlert}>
-        <Modal.Header closeButton>
-          <Modal.Title>Warning! Your order is incomplete</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>
-            Going to the home page will cause you to lose your pizza order. Do
-            you want to proceed?{' '}
-          </p>
-          <div className="alertStyle">
-            <StyledButton
-              variant="basicButton"
-              text="Proceed"
-              onClick={handleGoToHome}
-            />
-            <StyledButton
-              variant="basicButton"
-              text="Continue Order"
-              onClick={handleCloseAlert}
-            />
-          </div>
-        </Modal.Body>
-      </Modal>
-    </div>
-  );
-
   const handleClick = (evt) => {
     evt.preventDefault();
-    //clear current pizza
-    // clearPizza();
-    //when on create pizza, skip order history page
-    // (step === 3) ? setMenu(1) : previousMenu();
+    const currentPizza = pizza;
 
-    // Incomplete order on the create pizza page
-    step === 3 ? handleShowAlert() : previousMenu();
+    // on create pizza page
+    if (step === 3) {
+
+      // creating a pizza, user views a pop-up
+      if (!currentPizza.editPizzaFlag) 
+        handleShowAlert();
+
+      // editing a pizza, no changes made, no pop-up
+      else if (currentPizza.editPizzaFlag) {
+        // console.log('editing a pizza, clicked cancel. Adding pizza: ', currentPizza)
+        addPizza(currentPizza);
+        clearPizza();
+        currentPizza.editPizzaFlag = !currentPizza.editPizzaFlag;
+        previousMenu();
+      }
+    }
+    else if (step === 8 && currentPizza.editPizzaFlag){
+      // console.log('editing a pizza on size quantity, clicked back')
+      previousMenu()
+    }
+    
+    else {
+      previousMenu();
+    }
   };
 
   // don't display the buttons on home, cart, and confirmation pages
@@ -70,9 +75,14 @@ const BackButton = ({ step, prevSteps, previousMenu, setMenu, clearPizza }) => {
         variant="backButton"
         disabled={step === 1 || prevSteps.length === 0}
         onClick={handleClick}
-        text="Back"
+        text={pizza.editPizzaFlag  && step === 3 ? 'Cancel' : 'Back'}
       />
-      {renderModal}
+      {/* {renderModal} */}
+      <WarningModal
+        showAlert={showAlert}
+        handleGoToPreviousPage={handleGoToPreviousPage}
+        handleCloseAlert={handleCloseAlert}
+      />
     </div>
   ) : (
     <Fragment />
@@ -89,8 +99,14 @@ const mapStateToProps = (state) => ({
   step: state.menu.step,
   prevSteps: state.menu.prevSteps,
   isAuthenticated: state.auth.isAuthenticated,
+  pizzas: state.pizzas,
+  pizza: state.pizza,
 });
 
-export default connect(mapStateToProps, { setMenu, previousMenu, clearPizza })(
-  BackButton
-);
+export default connect(mapStateToProps, {
+  setMenu,
+  previousMenu,
+  clearPizza,
+  setEditPizzaFlag,
+  addPizza,
+})(BackButton);

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Adamina&display=swap');
 .centerDiv {
     text-align: center;
     align-items: center;
@@ -51,4 +52,10 @@ label {
 .quantityForm{
     display: flex;
     flex-direction: row;
+}
+
+.verificationMsg{
+    color: red;
+    font-family: 'Adamina', serif;
+    
 }

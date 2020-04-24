@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-// import Title from '../Title/Title';
 import { connect } from 'react-redux';
-// import { Button } from 'react-bootstrap';
 
 // Custom Styling
 import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
 
+import PopCart from '../Cart/PopCart';
+
 import classes from './OrderChoice.module.css';
-import { setMenu } from '../../actions/menu';
+import { setMenu, setPopCart } from '../../actions/menu';
 import { clearUserHistory, getUserHistory } from '../../actions/database';
 import { clearPizza } from '../../actions/pizza';
 
@@ -26,6 +25,7 @@ const OrderChoice = (props) => {
     if (props.user !== null) {
       props.getUserHistory(props.user.customer_id);
     }
+    props.setPopCart(false);
   }, [props.user]);
 
   const handleOrderHistory = (e) => {
@@ -41,6 +41,7 @@ const OrderChoice = (props) => {
 
   return (
     <div className={classes.Body}>
+      {props.popCart ? <PopCart /> : null}
       {/* <br></br> */}
       {/* <div className={classes.Title}> title </div> */}
       <div className={classes.orderChoiceTitleContainer}>
@@ -90,11 +91,13 @@ OrderChoice.propTypes = {};
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  popCart: state.menu.popCart
 });
 
 export default connect(mapStateToProps, {
   setMenu,
+  setPopCart,
   clearUserHistory,
   getUserHistory,
   clearPizza,

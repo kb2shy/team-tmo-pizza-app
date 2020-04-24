@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_ALL_ORDER_INFO_BY_ORDER_ID } from '../../config/gqlDefines';
 import { setMenu } from '../../actions/menu';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
-import './Confirmation.css'
+import './Confirmation.css';
 import PropTypes from 'prop-types';
 
 // importing PDF features and components
@@ -15,16 +15,25 @@ import Receipt from './Receipt/Receipt';
 import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
 import AppSpinner from '../AppSpinner/AppSpinner';
+import { clearOrder } from '../../actions/order';
 
 // Confirmation: the confirmation page
 // - Paragraph
 // - Conditionally - text: want to save order
 // - Create Account (CR: display for guest)
 // - The Return to home button
-const Confirmation = ({ order, setMenu }) => {
-
+const Confirmation = ({ order, setMenu, clearOrder }) => {
   const order_id = order.order_id || 1;
-  const { loading, error, data } = useQuery(GET_ALL_ORDER_INFO_BY_ORDER_ID, { variables: { order_id } });
+  const { loading, error, data } = useQuery(GET_ALL_ORDER_INFO_BY_ORDER_ID, {
+    variables: { order_id },
+  });
+
+  // Clear order when we navigate away from this page
+  useEffect(() => {
+    return () => {
+      clearOrder();
+    };
+  }, [clearOrder]);
 
   if (error) return <p>{error.message}</p>;
   if (loading) return <AppSpinner />;
@@ -34,12 +43,12 @@ const Confirmation = ({ order, setMenu }) => {
     address,
     created_at,
     delivery,
-    pizzas
+    pizzas,
   } = data.getAllOrderInfoByOrderId;
 
   /**
    * Function to return user to home page
-   * @param {event} e 
+   * @param {event} e
    * @returns {Function} setMenu
    */
   const handleClickHome = (e) => {
@@ -49,7 +58,7 @@ const Confirmation = ({ order, setMenu }) => {
 
   /**
    * Function to route user to Register page
-   * @param {event} e 
+   * @param {event} e
    * @returns {Function} setMenu
    */
   const handleClickCreateAccount = (e) => {
@@ -65,7 +74,7 @@ const Confirmation = ({ order, setMenu }) => {
     if (!customer.registered) {
       return (
         <Row>
-          <Col className='col-create-account'>
+          <Col className="col-create-account">
             <p>Want to save your order?</p>
             <p>Create an account today!</p>
             <StyledButton
@@ -85,32 +94,41 @@ const Confirmation = ({ order, setMenu }) => {
    * @returns {object} PDF link displayed as styled button
    */
   const getPDFLink = () => {
-     return (
-    <PDFDownloadLink
-      document={<Receipt user={customer}
-      pizzas={pizzas}
-      order={order_id} />}
-      delivery={delivery}
-      fileName={`PizzaOrder-${order_id}.pdf`}
-      style={{ textDecoration: "none", color: "black" }}
-    >
-      {({ blob, url, loading, error }) => (
-        loading ? 
-          'Loading document...' : 
-          <StyledButton
-            type="button"
-            text="Download receipt"
-            variant="basicButton"
+    return (
+      <PDFDownloadLink
+        document={
+          <Receipt
+            user={customer}
+            pizzas={pizzas}
+            order={order_id}
+            orderDate={created_at}
+            code={order.code}
+            codeBuffer={order.codeBuffer}
           />
-        )
-      }
-    </PDFDownloadLink>
-  )}
+        }
+        delivery={delivery}
+        fileName={`PizzaOrder-${order_id}.pdf`}
+        style={{ textDecoration: 'none', color: 'black' }}
+      >
+        {({ blob, url, loading, error }) =>
+          loading ? (
+            'Loading document...'
+          ) : (
+            <StyledButton
+              type="button"
+              text="Download receipt"
+              variant="basicButton"
+            />
+          )
+        }
+      </PDFDownloadLink>
+    );
+  };
 
   return (
     <Container
       data-test="component-Confirmation"
-      style={{ textAlign: 'center', flexWrap:'wrap' }}
+      style={{ textAlign: 'center', flexWrap: 'wrap' }}
     >
       <Row className="col-header">
         <Col>
@@ -121,20 +139,25 @@ const Confirmation = ({ order, setMenu }) => {
       <Row>
         <Col className="col-email-message">
           <Alert variant="success">Success!</Alert>
-          <p>Thank you, {customer.first_name} {customer.last_name}, for placing an order with us!</p>
+          <p>
+            Thank you, {customer.first_name} {customer.last_name}, for placing
+            an order with us!
+          </p>
           <p>An email has been sent to: {customer.email}</p>
         </Col>
       </Row>
 
       <Row>
-        <Col className='receiptCol'>
-          <PDFViewer style={{ width: "100%", height:"100%"}}>
+        <Col className="receiptCol">
+          <PDFViewer style={{ width: '100%', height: '100%' }}>
             <Receipt
               user={customer}
               pizzas={pizzas}
               orderId={order_id}
               orderDate={created_at}
               delivery={delivery}
+              code={order.code}
+              codeBuffer={order.codeBuffer}
             />
           </PDFViewer>
           {getPDFLink()}
@@ -142,7 +165,7 @@ const Confirmation = ({ order, setMenu }) => {
         <Col>
           {saveOrder()}
           <Row>
-            <Col className='returnHomeCol'>
+            <Col className="returnHomeCol">
               <StyledButton
                 type="button"
                 onClick={handleClickHome}
@@ -157,10 +180,14 @@ const Confirmation = ({ order, setMenu }) => {
   );
 };
 
-Confirmation.propTypes = {};
+Confirmation.propTypes = {
+  order: PropTypes.object.isRequired,
+  setMenu: PropTypes.func.isRequired,
+  clearOrder: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   order: state.order,
 });
 
-export default connect(mapStateToProps, { setMenu })(Confirmation);
+export default connect(mapStateToProps, { setMenu, clearOrder })(Confirmation);
