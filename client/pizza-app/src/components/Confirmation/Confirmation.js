@@ -15,13 +15,14 @@ import Receipt from './Receipt/Receipt';
 import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
 import AppSpinner from '../AppSpinner/AppSpinner';
+import { clearOrder } from '../../actions/order';
 
 // Confirmation: the confirmation page
 // - Paragraph
 // - Conditionally - text: want to save order
 // - Create Account (CR: display for guest)
 // - The Return to home button
-const Confirmation = ({ order, setMenu }) => {
+const Confirmation = ({ order, setMenu, clearOrder }) => {
 
   const order_id = order.order_id || 1;
   const { loading, error, data } = useQuery(GET_ALL_ORDER_INFO_BY_ORDER_ID, { variables: { order_id } });
@@ -34,22 +35,23 @@ const Confirmation = ({ order, setMenu }) => {
     address,
     created_at,
     delivery,
-    pizzas
+    pizzas,
   } = data.getAllOrderInfoByOrderId;
 
   /**
    * Function to return user to home page
-   * @param {event} e 
+   * @param {event} e
    * @returns {Function} setMenu
    */
   const handleClickHome = (e) => {
     e.preventDefault();
+    clearOrder();
     return setMenu(1);
   };
 
   /**
    * Function to route user to Register page
-   * @param {event} e 
+   * @param {event} e
    * @returns {Function} setMenu
    */
   const handleClickCreateAccount = (e) => {
@@ -95,8 +97,8 @@ const Confirmation = ({ order, setMenu }) => {
       style={{ textDecoration: "none", color: "black" }}
     >
       {({ blob, url, loading, error }) => (
-        loading ? 
-          'Loading document...' : 
+        loading ?
+          'Loading document...' :
           <StyledButton
             type="button"
             text="Download receipt"
@@ -157,10 +159,14 @@ const Confirmation = ({ order, setMenu }) => {
   );
 };
 
-Confirmation.propTypes = {};
+Confirmation.propTypes = {
+  order: PropTypes.object.isRequired,
+  setMenu: PropTypes.func.isRequired,
+  clearOrder: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   order: state.order,
 });
 
-export default connect(mapStateToProps, { setMenu })(Confirmation);
+export default connect(mapStateToProps, { setMenu, clearOrder })(Confirmation);
