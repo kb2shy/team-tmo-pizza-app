@@ -146,7 +146,7 @@ export default connect(mapStateToProps, {
 //     this.state = {
 //       showSizeQuantityPrompt: false,
 //       currentPizza: null,
-//      // data: null
+//      // data: nulls
 //       data: [
 //         //sample data
 //         {
