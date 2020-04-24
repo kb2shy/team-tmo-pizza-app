@@ -11,7 +11,7 @@ async function getAllSpecialtyPizzaInfo(
 ) {
 
     return await Pizza.findAll({
-        attributes:[],
+        attributes:['pizza_name'],
         where:{
             specialty: true
         },
