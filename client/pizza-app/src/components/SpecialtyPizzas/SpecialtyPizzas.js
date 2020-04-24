@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks'
-import { Card, CardGroup } from 'react-bootstrap';
+import { Card, CardGroup, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { setBase, setPizza, clearPizza } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
@@ -67,13 +67,14 @@ const SpecialtyPizzas = (props) => {
 
   //Renders cards of all possible specialty pizza, when one is selected, the sizing prompt is render
   return (
-    <div>
+    <Container>
       {props.popCart ? <PopCart /> : null}
 
-      <CardGroup>
+      <CardGroup className='specialtyPizzaCardGroup'>
         {data.getAllSpecialtyPizzaInfo.map((item, id) => {
           console.log(item.pizza_name)
           return (
+            <div className="specialtyPizzaCardWrapper">
             <Card key={item.pizza_name} className='specialtyPizzaCard'>
               <Card.Body className="specialtyPizzaCardBody">
                 <Card.Title>{item.pizza_name}</Card.Title>
@@ -115,10 +116,11 @@ const SpecialtyPizzas = (props) => {
                 />
               </div>
             </Card>
+            </div>
           );
         })}
       </CardGroup>
-    </div>
+    </Container>
   );
 }
 
