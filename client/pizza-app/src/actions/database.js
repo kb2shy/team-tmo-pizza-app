@@ -1,4 +1,4 @@
-import { 
+import {
   LOAD_TOPPINGS,
   LOAD_CHEESES,
   LOAD_CRUSTS,
@@ -21,9 +21,7 @@ import {
   GET_SIZE_OPTIONS,
   GET_CUST_ORDERS,
   GET_PIZZAS_BY_ORDER,
-  GET_VEGGIES_BY_PIZZA,
-  GET_CHEESES_BY_PIZZA,
-  GET_MEATS_BY_PIZZA
+  GET_TOPPINGS_BY_PIZZA_ID
 } from '../config/gqlDefines';
 
 import apolloClient from '../configureApolloClient';
@@ -40,10 +38,10 @@ export const getUserHistory = (customer_id) => async (dispatch) => {
 
 //Gets array or past order ids and sets the array in the store
 export const getOrderIds = (customer_id) => async (dispatch) => {
-  try{
+  try {
     const result = await apolloClient.query({
       query: GET_CUST_ORDERS,
-      variables: {customer_id},
+      variables: { customer_id },
     });
 
     const orders = result.data.getAllOrdersByCustomer.map(item => item.order_id);
@@ -53,7 +51,7 @@ export const getOrderIds = (customer_id) => async (dispatch) => {
       payload: orders
     });
 
-    for(let order_id of orders) {
+    for (let order_id of orders) {
       dispatch(getPizzasByOrder(order_id));
     }
 
@@ -64,21 +62,56 @@ export const getOrderIds = (customer_id) => async (dispatch) => {
   return 1;
 };
 
+//testing to get all count by order
+export const getToppingsByPizzaId = (pizza_id) => async (dispatch) => {
+  try {
+    const result = await apolloClient.query({
+      query: GET_TOPPINGS_BY_PIZZA_ID,
+      variables: { pizza_id },
+    });
+    console.log(result.data.getToppingsByPizzaId)
+
+    const veggies = result.data.getToppingsByPizzaId.veggies.map(item => item.veggie_type);
+    for (let topping of veggies) {
+      dispatch({
+        type: SET_VEGGIE_COUNT,
+        payload: topping
+      });
+    }
+
+    const meats = result.data.getToppingsByPizzaId.meats.map(item => item.meat_type);
+    for (let topping of meats) {
+      dispatch({
+        type: SET_MEATS_COUNT,
+        payload: topping
+      });
+    }
+
+    const cheeses = result.data.getToppingsByPizzaId.cheeses.map(item => item.cheese_type);
+    for (let topping of cheeses) {
+      dispatch({
+        type: SET_CHEESE_COUNT,
+        payload: topping
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 //Gets all pizza ids in an order
 export const getPizzasByOrder = (order_id) => async (dispatch) => {
-  try{
+  try {
     const result = await apolloClient.query({
       query: GET_PIZZAS_BY_ORDER,
-      variables: {order_id},
+      variables: { order_id },
     });
 
     const pizzas = result.data.getAllPizzasByOrder.map(item => item.pizza_id);
 
-    for(let pizza_id of pizzas) {
+    for (let pizza_id of pizzas) {
       dispatch(setPastPizzas(pizza_id));
-      dispatch(getVeggieCount(pizza_id));
-      dispatch(getMeatsCount(pizza_id));
-      dispatch(getCheeseCount(pizza_id));
+      dispatch(getToppingsByPizzaId(pizza_id))
     }
   } catch (err) {
     console.log(err);
@@ -93,69 +126,6 @@ export const setPastPizzas = (pizza_id) => (dispatch) => {
   });
 }
 
-export const getVeggieCount = (pizza_id) => async (dispatch) => {
-  try{
-    const result = await apolloClient.query({
-      query: GET_VEGGIES_BY_PIZZA,
-      variables: {pizza_id},
-    });
-
-    const veggies = result.data.getSelectedVeggies.map(item => item.veggie.veggie_type);
-    
-    for(let topping of veggies) {
-      dispatch({
-        type: SET_VEGGIE_COUNT,
-        payload: topping
-      });
-    }
-
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-export const getMeatsCount = (pizza_id) => async (dispatch) => {
-  try{
-    const result = await apolloClient.query({
-      query: GET_MEATS_BY_PIZZA,
-      variables: {pizza_id},
-    });
-    
-    const meats = result.data.getSelectedMeats.map(item => item.meat.meat_type);
-
-    for(let topping of meats) {
-      dispatch({
-        type: SET_MEATS_COUNT,
-        payload: topping
-      });
-    }
-
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-export const getCheeseCount = (pizza_id) => async (dispatch) => {
-  try{
-    const result = await apolloClient.query({
-      query: GET_CHEESES_BY_PIZZA,
-      variables: {pizza_id},
-    });
-    
-    const cheeses = result.data.getSelectedCheeses.map(item => item.cheese.cheese_type);
-
-    for(let topping of cheeses) {
-      dispatch({
-        type: SET_CHEESE_COUNT,
-        payload: topping
-      });
-    }
-
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 export const getAllToppings = () => async (dispatch) => {
   dispatch(getVeggies());
   dispatch(getMeats());
@@ -168,11 +138,11 @@ export const getAllToppings = () => async (dispatch) => {
 export const getMeats = () => async (dispatch) => {
   try {
     const result = await apolloClient.query({
-        query: GET_MEAT_OPTIONS
+      query: GET_MEAT_OPTIONS
     });
 
     const results = result.data.getMeatOptions.map(item => {
-      return { id: item.meat_id, type: item.meat_type, price: item.meat_price};
+      return { id: item.meat_id, type: item.meat_type, price: item.meat_price };
     })
 
     dispatch({
@@ -189,7 +159,7 @@ export const getMeats = () => async (dispatch) => {
 export const getVeggies = () => async (dispatch) => {
   try {
     const result = await apolloClient.query({
-        query: GET_VEGGIE_OPTIONS
+      query: GET_VEGGIE_OPTIONS
     });
 
     const results = result.data.getVeggieOptions.map(item => {
@@ -233,7 +203,7 @@ export const getCrusts = () => async (dispatch) => {
     });
 
     const crusts = result.data.getCrustOptions.map(item => {
-      return {id: item.crust_id, type: item.crust_type};
+      return { id: item.crust_id, type: item.crust_type };
     })
 
     dispatch({
@@ -253,7 +223,7 @@ export const getSauces = () => async (dispatch) => {
     });
 
     const sauces = result.data.getSauceOptions.map(item => {
-      return {id: item.sauce_id, type: item.sauce_type};
+      return { id: item.sauce_id, type: item.sauce_type };
     })
 
     dispatch({

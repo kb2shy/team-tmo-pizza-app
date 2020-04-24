@@ -11,7 +11,6 @@ const queries = `
     getGuests: [Customer]
 
     getAllOrdersByCustomer(customer_id: Int): [Order]
-    getCartInfo(cart_items: [Int]): [Pizza]
 
     getAllPizzasByOrder(order_id: Int): [Pizza]
     getAllOrderInfoByOrderId(order_id: Int): Order
@@ -23,17 +22,7 @@ const queries = `
     getSauceOptions: [Sauce]
     getSizeOptions: [Size]
 
-    getAllPizzas: [Pizza]
-    getAllPizzasByCustomer(customer_id: Int!): [Pizza]
-    getSelectedMeats(pizza_id: Int): [MeatSelection]
-    getSelectedVeggies(pizza_id: Int): [VeggieSelection]
-    getSelectedCheeses(pizza_id: Int): [CheeseSelection]
-
-    getTotalSelectedVeggie(veggie_id: Int): [Veggie]
-    getTotalSelectedMeat(meat_id: Int): [Meat]
-    getTotalSelectedCheese(cheese_id: Int): [Cheese]
-
-    getToppingsCountByCustomerId(customer_id: Int!): [Order]
+    getToppingsByPizzaId(pizza_id: Int): Pizza
   }
 `;
 
