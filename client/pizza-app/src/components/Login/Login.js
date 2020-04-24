@@ -17,10 +17,8 @@ const Login = ({
   loginCustomer,
   loading,
   setMenu,
-  step,
   clearPizza,
   clearPizzas,
-  isAuthenticated,
 }) => {
   const [user, setUser] = useState({
     email: '',
@@ -43,7 +41,7 @@ const Login = ({
     evt.preventDefault();
     clearPizza();
     clearPizzas();
-    setMenu(9, step);
+    setMenu(9);
   };
 
   const handleChange = (evt) => {
@@ -140,15 +138,13 @@ const Login = ({
 Login.propTypes = {
   loading: PropTypes.bool.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  step: PropTypes.number.isRequired,
   loginCustomer: PropTypes.func.isRequired,
   setMenu: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
-  isAuthenticated: state.auth.isAuthenticated,
-  step: state.menu.step,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, {

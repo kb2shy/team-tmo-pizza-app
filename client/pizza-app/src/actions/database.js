@@ -69,7 +69,6 @@ export const getToppingsByPizzaId = (pizza_id) => async (dispatch) => {
       query: GET_TOPPINGS_BY_PIZZA_ID,
       variables: { pizza_id },
     });
-    console.log(result.data.getToppingsByPizzaId)
 
     const veggies = result.data.getToppingsByPizzaId.veggies.map(item => item.veggie_type);
     for (let topping of veggies) {
