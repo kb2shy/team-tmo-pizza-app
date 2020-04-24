@@ -1,50 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks';
 import { Card, CardGroup, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { setBase, setPizza, clearPizza } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { setMenu, setPopCart } from '../../actions/menu';
-import { GET_ALL_SPECIALTY_PIZZA_INFO } from '../../config/gqlDefines'
-import './SpecialtyPizzas.css'
+import { GET_ALL_SPECIALTY_PIZZA_INFO } from '../../config/gqlDefines';
+import './SpecialtyPizzas.css';
 import PopCart from '../Cart/PopCart';
 import StyledButton from '../common/Button/StyledButton';
 
 const SpecialtyPizzas = (props) => {
-
   useEffect(() => {
     props.setPopCart(false);
-  })
+  });
 
-  const { loading, error, data } = useQuery(GET_ALL_SPECIALTY_PIZZA_INFO)
-  if (error) return <p>{error.message}</p>
-  if (loading) return <p>Loading...</p>
+  const { loading, error, data } = useQuery(GET_ALL_SPECIALTY_PIZZA_INFO);
+  if (error) return <p>{error.message}</p>;
+  if (loading) return <p>Loading...</p>;
 
   //adds pizza to pizzas store
   const handleSubmit = (pizza) => {
-
     const currentPizza = { ...props.pizza };
-    const cheeses =
-      pizza.cheeses.map(cheese => {
-        return { type: cheese.cheese_type, id: cheese.cheese_id, price: cheese.cheese_price }
-      })
-    const meats =
-      pizza.meats.map(meat => {
-        return { type: meat.meat_type, id: meat.meat_id, price: meat.meat_price }
-      })
+    const cheeses = pizza.cheeses.map((cheese) => {
+      return {
+        type: cheese.cheese_type,
+        id: cheese.cheese_id,
+        price: cheese.cheese_price,
+      };
+    });
+    const meats = pizza.meats.map((meat) => {
+      return { type: meat.meat_type, id: meat.meat_id, price: meat.meat_price };
+    });
 
-    const veggies =
-      pizza.veggies.map(veggie => {
-        return { type: veggie.veggie_type, id: veggie.veggie_id, price: veggie.veggie_price }
-      })
+    const veggies = pizza.veggies.map((veggie) => {
+      return {
+        type: veggie.veggie_type,
+        id: veggie.veggie_id,
+        price: veggie.veggie_price,
+      };
+    });
 
     const toppings = {
       cheeses: cheeses,
       veggies: veggies,
-      meats: meats
+      meats: meats,
     };
-    const crust = { type: pizza.crust.crust_type, id: pizza.crust.crust_id }
-    const sauce = { type: pizza.sauce.sauce_type, id: pizza.sauce.sauce_id }
+    const crust = { type: pizza.crust.crust_type, id: pizza.crust.crust_id };
+    const sauce = { type: pizza.sauce.sauce_type, id: pizza.sauce.sauce_id };
 
     props.setPizza({
       ...currentPizza,
@@ -70,65 +73,65 @@ const SpecialtyPizzas = (props) => {
     <Container>
       {props.popCart ? <PopCart /> : null}
 
-      <CardGroup className='specialtyPizzaCardGroup'>
+      <CardGroup className="specialtyPizzaCardGroup">
         {data.getAllSpecialtyPizzaInfo.map((item, id) => {
-          console.log(item.pizza_name)
+          // console.log(item.pizza_name);
           return (
-            <div className="specialtyPizzaCardWrapper">
-            <Card key={item.pizza_name} className='specialtyPizzaCard'>
-              <Card.Body className="specialtyPizzaCardBody">
-                <Card.Title>{item.pizza_name}</Card.Title>
-                <Card.Text>Crust: {item.crust.crust_type}</Card.Text>
-                <Card.Text>Sauce: {item.sauce.sauce_type}</Card.Text>
-                <Card.Text key={`${item.cheeses.cheese}_cheeses${id}`}>
-                  Cheese(s):
-                  {item.cheeses.map((cheese, i) => {
-                  console.log(cheese)
-                  return i === 0 ? ` ${cheese.cheese_type}` : `, ${cheese.cheese_type}`
-                }
-                )}
-                </Card.Text>
-                <Card.Text key={`${item.pizza_name}_veggies${id}`}>
-                  Veggie(s):
-                  {item.veggies.map((veggie, i) =>
-                  i === 0 ? ` ${veggie.veggie_type}` : `, ${veggie.veggie_type}`
-                )}
-                </Card.Text>
-                <Card.Text key={`${item.pizza_name}_meats${id}`}>
-                  Meat(s):
-                  {item.meats.map((meat, i) =>
-
-                  i === 0 ? ` ${meat.meat_type}` : `, ${meat.meat_type}`
-                )}
-                </Card.Text>
-                <Card.Text>
-                  Price of Toppings: ${item.price.toFixed(2)}
-                </Card.Text>
-
-
-              </Card.Body>
-              <div className="addToCartButton">
-                <StyledButton
-                  type="button"
-                  onClick={(e) => handleSubmit(item)}
-                  text="Add to Cart"
-                  variant="orderChoiceButton"
-                />
-              </div>
-            </Card>
+            <div key={item.pizza_name} className="specialtyPizzaCardWrapper">
+              <Card className="specialtyPizzaCard">
+                <Card.Body className="specialtyPizzaCardBody">
+                  <Card.Title>{item.pizza_name}</Card.Title>
+                  <Card.Text>Crust: {item.crust.crust_type}</Card.Text>
+                  <Card.Text>Sauce: {item.sauce.sauce_type}</Card.Text>
+                  <Card.Text key={`${item.cheeses.cheese}_cheeses${id}`}>
+                    Cheese(s):
+                    {item.cheeses.map((cheese, i) => {
+                      console.log(cheese);
+                      return i === 0
+                        ? ` ${cheese.cheese_type}`
+                        : `, ${cheese.cheese_type}`;
+                    })}
+                  </Card.Text>
+                  <Card.Text key={`${item.pizza_name}_veggies${id}`}>
+                    Veggie(s):
+                    {item.veggies.map((veggie, i) =>
+                      i === 0
+                        ? ` ${veggie.veggie_type}`
+                        : `, ${veggie.veggie_type}`
+                    )}
+                  </Card.Text>
+                  <Card.Text key={`${item.pizza_name}_meats${id}`}>
+                    Meat(s):
+                    {item.meats.map((meat, i) =>
+                      i === 0 ? ` ${meat.meat_type}` : `, ${meat.meat_type}`
+                    )}
+                  </Card.Text>
+                  <Card.Text>
+                    Price of Toppings: ${item.price.toFixed(2)}
+                  </Card.Text>
+                </Card.Body>
+                <div className="addToCartButton">
+                  <StyledButton
+                    type="button"
+                    onClick={(e) => handleSubmit(item)}
+                    text="Add to Cart"
+                    variant="orderChoiceButton"
+                  />
+                </div>
+              </Card>
             </div>
           );
         })}
       </CardGroup>
     </Container>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   size: state.pizza.size,
   sizes: state.database.sizes,
   popCart: state.menu.popCart,
-  pizza: state.pizza
+  pizza: state.pizza,
 });
 
 export default connect(mapStateToProps, {
@@ -139,7 +142,6 @@ export default connect(mapStateToProps, {
   setPopCart,
   setBase,
 })(SpecialtyPizzas);
-
 
 //same as above in class component instead and with hard coded values
 // class SpecialtyPizzas extends React.Component {
@@ -294,7 +296,6 @@ export default connect(mapStateToProps, {
 //                   <Card.Text>
 //                     Price of Toppings: ${item.basePrice.toFixed(2)}
 //                   </Card.Text>
-
 
 //                 </Card.Body>
 //                 <div className="addToCartButton">      <StyledButton

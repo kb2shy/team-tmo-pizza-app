@@ -101,6 +101,7 @@ const Confirmation = ({ order, setMenu, clearOrder }) => {
             user={customer}
             pizzas={pizzas}
             order={order_id}
+            orderDate={created_at}
             code={order.code}
             codeBuffer={order.codeBuffer}
           />
