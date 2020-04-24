@@ -23,13 +23,13 @@ const MenuChoice = (props) => {
     }
 
   return (
-    <Container fluid>
+    <Container fluid style={{ marginTop: '3em' }}>
       <StyledTitle
         text="Menu"
         className="basicTitle"
       />
       <div style={{ textAlign: 'center' }}>
-      <h3>What would you like to order today?</h3>
+      <h3 style={{ marginBottom: '5em' }}>What would you like to order today?</h3>
 
         <StyledButton
           type="button"
