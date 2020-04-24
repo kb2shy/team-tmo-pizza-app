@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   processing: false,
-  error: null,
+  errors: null,
   order_id: null,
   code: null,
   created_at: null,
@@ -31,7 +31,7 @@ const orderReducer = (state = initialState, action) => {
     case ORDER_FAILURE:
       return {
         ...initialState,
-        error: action.payload,
+        errors: action.payload.emailError,
       };
     default:
       return state;

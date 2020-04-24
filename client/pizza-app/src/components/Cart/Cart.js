@@ -45,7 +45,8 @@ const Cart = ({
   order,
   previousMenu,
   pizzas,
-//  setPizzaQty
+  errors,
+  //  setPizzaQty
   step
 }) => {
   const [guestData, setGuestData] = useState({
@@ -116,6 +117,8 @@ const Cart = ({
   };
 
 
+  console.log(errors);
+
   // Guest view: displays a form for inputting information
   const renderGuestInput = () => {
     return (
@@ -179,16 +182,20 @@ const Cart = ({
               value={guestData.email}
               onChange={handleGuestDataChange}
               onChange={handleGuestDataChange}
-              isInvalid={touched.email && !isEmail(guestData.email)}
-              isValid={isEmail(guestData.email)}
+              isInvalid={touched.email && (!isEmail(guestData.email) || errors !== null)}
+              isValid={isEmail(guestData.email) && errors === null}
+
               onBlur={() => {
                 setTouched({ email: true });
               }}
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please enter a valid email address.
-            </Form.Control.Feedback>
+            {errors ? <Form.Control.Feedback type="invalid">
+              {errors}
+            </Form.Control.Feedback> :
+              <Form.Control.Feedback type="invalid">
+                Please enter a valid email address.
+            </Form.Control.Feedback>}
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Col>
         </Form.Group>
@@ -263,6 +270,13 @@ const Cart = ({
     setMenu(7, step);
   };
 
+  const handleAddAPizza = (e) => {
+    e.preventDefault();
+    clearPizza();
+    setMenu(3)
+  };
+
+
   return (
     <div>
       <StyledTitle text="Cart" className="CartTitle" />
@@ -287,12 +301,18 @@ const Cart = ({
 
 
             <OrderSummary />
-            <StyledButton
+            {pizzas === 0 ? <StyledButton
               onClick={handleAddAnotherPizza}
               variant="basicButton"
               text="Add another pizza"
-              type="button"
-            />
+            /> :
+              <div><p>Pizza cart is currently empty.</p>
+                <StyledButton
+                  onClick={handleAddAPizza}
+                  variant="basicButton"
+                  text="Add a pizza"
+                /></div>}
+
           </Col>
         </Row>
       </Container>
@@ -306,7 +326,7 @@ const Cart = ({
             (!isEmail(guestData.email) ||
               !isAlpha(guestData.last_name) ||
               !isAlpha(guestData.first_name) ||
-              !isValidPhoneNumber(guestData.phone))
+              !isValidPhoneNumber(guestData.phone) || pizzas.length === 0)
           }
           text="Submit"
         />
@@ -318,12 +338,14 @@ const Cart = ({
 
 const mapStateToProps = (state) => {
   return {
+    step: state.menu.step,
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
     guest: state.guest,
     order: state.order,
     pizzas: state.pizzas,
-    step: state.menu.step
+    step: state.menu.step,
+    errors: state.order.errors
   };
 };
 
