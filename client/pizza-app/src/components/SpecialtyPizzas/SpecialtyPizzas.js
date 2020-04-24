@@ -28,25 +28,27 @@ const SpecialtyPizzas = (props) => {
   console.log(data)
   //adds pizza to pizzas store
   const handleSubmit = (pizza) => {
-    const currentPizza = { ...this.props.pizza };
+    const currentPizza = { ...props.pizza };
+    const toppings = { cheeses: [...pizza.cheeses], veggies: [...pizza.veggies], meats: [...pizza.meats]};
+    console.log(toppings)
     props.setPizza({
       ...currentPizza,
-      name: pizza.name,
-      toppings: pizza.toppings,
+      name: pizza.pizza_name,
+      toppings: toppings,
       crust: pizza.crust,
       sauce: pizza.sauce,
-      basePrice: pizza.basePrice.toFixed(2),
-      totalPrice: pizza.basePrice.toFixed(2),
+      basePrice: pizza.price.toFixed(2),
+      totalPrice: pizza.price.toFixed(2),
       quantity: 1,
     });
     props.setMenu(8);
   };
 
   //Change to custom order
-  const handleCustomOrder = (e) => {
-    props.clearPizza();
-    props.setMenu(3);
-  };
+  // const handleCustomOrder = (e) => {
+  //   props.clearPizza();
+  //   props.setMenu(3);
+  // };
 
   //Renders cards of all possible specialty pizza, when one is selected, the sizing prompt is render
   return (
@@ -54,14 +56,15 @@ const SpecialtyPizzas = (props) => {
       {props.popCart ? <PopCart /> : null}
 
       <CardGroup>
-        {data.getAllSpecialtyPizzaInfo.map((item) => {
+        {data.getAllSpecialtyPizzaInfo.map((item, id) => {
+          console.log(item.pizza_name)
           return (
-            <Card key={item.name} className='specialtyPizzaCard'>
+            <Card key={item.pizza_name} className='specialtyPizzaCard'>
               <Card.Body className="specialtyPizzaCardBody">
                 <Card.Title>{item.pizza_name}</Card.Title>
                 <Card.Text>Crust: {item.crust.crust_type}</Card.Text>
                 <Card.Text>Sauce: {item.sauce.sauce_type}</Card.Text>
-                <Card.Text>
+                <Card.Text key={`${item.cheeses.cheese}_cheeses${id}`}>
                   Cheese(s):
                   {item.cheeses.map((cheese, i) => {
                   console.log(cheese)
@@ -69,13 +72,13 @@ const SpecialtyPizzas = (props) => {
                 }
                 )}
                 </Card.Text>
-                <Card.Text>
+                <Card.Text key={`${item.pizza_name}_veggies${id}`}>
                   Veggie(s):
                   {item.veggies.map((veggie, i) =>
                   i === 0 ? ` ${veggie.veggie_type}` : `, ${veggie.veggie_type}`
                 )}
                 </Card.Text>
-                <Card.Text>
+                <Card.Text key={`${item.pizza_name}_meats${id}`}>
                   Meat(s):
                   {item.meats.map((meat, i) =>
 
@@ -83,17 +86,18 @@ const SpecialtyPizzas = (props) => {
                 )}
                 </Card.Text>
                 <Card.Text>
-                  {/* Price of Toppings: ${item.basePrice.toFixed(2)} */}
+                  Price of Toppings: ${item.price.toFixed(2)}
                 </Card.Text>
 
 
               </Card.Body>
-              <div className="addToCartButton">      <StyledButton
-                type="button"
-                onClick={(e) => handleSubmit(item)}
-                text="Add to Cart"
-                variant="orderChoiceButton"
-              />
+              <div className="addToCartButton">
+                <StyledButton
+                  type="button"
+                  onClick={(e) => handleSubmit(item)}
+                  text="Add to Cart"
+                  variant="orderChoiceButton"
+                />
               </div>
             </Card>
           );
