@@ -9,9 +9,9 @@
 
 .col-email-message p{
     color: rgb(52, 110, 29);
-    text-shadow: 2px 2px 3px rgb(20, 156, 20);
     font-family: 'Cutive Mono', monospace;
     font-size: 2rem;
+    margin-bottom: 2em;
 
 }
 .col-email-message p:first-of-type{
