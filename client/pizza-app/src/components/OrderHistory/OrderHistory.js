@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Container } from 'react-bootstrap';
-import OrderDisplay from './OrderDisplay';
+import { Container, Col, Row } from 'react-bootstrap';
+// import OrderDisplay from './OrderDisplay';
 
 // Custom Styling
 import StyledTitle from '../common/Title/StyledTitle';
+import OrderDisplay from './OrderDisplay';
 
 // OrderHistory: displayed for logged in user
 // - Title component
@@ -14,35 +15,57 @@ import StyledTitle from '../common/Title/StyledTitle';
 // - Query all order ids associated with customer_id on mount
 // - Query info for pagination, when the pagination button is clicked; see react-bootstrap pagination for details
 
+/**
+ * Original code written by Abigail
+ * @param {} props 
+ */
+// const OrderHistory = (props) => {
+//   const ordersRev = props.orders.reverse();
+
+//   {
+//     if (props.user !== null) {
+//       return (
+//         <div className="centerDiv">
+//           <StyledTitle text="Order History" className="basicTitle" />
+//           {/* <h3>OrderHistory</h3> */}
+
+//           <Container>
+//             {props.orders !== null ? (
+//               ordersRev.map((order) => {
+//                 return (
+//                   <OrderDisplay
+//                     orderId={order}
+//                     key={'key_' + order}
+//                   ></OrderDisplay>
+//                 );
+//               })
+//             ) : (
+//               <p>You have no previous orders</p>
+//             )}
+//           </Container>
+//         </div>
+//       );
+//     }
+//   }
+// };
+
 const OrderHistory = (props) => {
-  const ordersRev = props.orders.reverse();
+  const ordersReversed = props.orders.reverse();
 
-  {
-    if (props.user !== null) {
-      return (
-        <div className="centerDiv">
-          <StyledTitle text="Order History" className="basicTitle" />
-          {/* <h3>OrderHistory</h3> */}
+  return (
+    <Container className="centerDiv">
+      <StyledTitle text="Order History" className="basicTitle" />
+      <Row>
+        {ordersReversed.map((order, index) => (
+          <Col xs="4">
+            <OrderDisplay order_id={order} key={index} />
+          </Col>
+        ))}
+      </Row>
 
-          <Container>
-            {props.orders !== null ? (
-              ordersRev.map((order) => {
-                return (
-                  <OrderDisplay
-                    orderId={order}
-                    key={'key_' + order}
-                  ></OrderDisplay>
-                );
-              })
-            ) : (
-              <p>You have no previous orders</p>
-            )}
-          </Container>
-        </div>
-      );
-    }
-  }
-};
+    </Container>
+  )
+}
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
