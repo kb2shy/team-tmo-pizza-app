@@ -57,8 +57,8 @@ const OrderHistory = (props) => {
       <StyledTitle text="Order History" className="basicTitle" />
       <Row>
         {ordersReversed.map((order, index) => (
-          <Col xs="4">
-            <OrderDisplay order_id={order} key={index} />
+          <Col md="4" key={index}>
+            <OrderDisplay order_id={order}/>
           </Col>
         ))}
       </Row>
