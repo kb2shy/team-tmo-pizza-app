@@ -5,6 +5,7 @@ import { setBase, setPizza, clearPizza } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { setMenu, setPopCart } from '../../actions/menu';
 
+import './SpecialtyPizzas.css'
 import PopCart from '../Cart/PopCart';
 
 import StyledButton from '../common/Button/StyledButton';
@@ -131,8 +132,8 @@ class SpecialtyPizzas extends React.Component {
         <CardGroup>
           {this.state.data.map((item) => {
             return (
-              <Card key={item.name} style={{ width: '300px' }}>
-                <Card.Body>
+              <Card key={item.name} className='specialtyPizzaCard'>
+                <Card.Body className="specialtyPizzaCardBody">
                   <Card.Title>{item.name}</Card.Title>
                   <Card.Text>Crust: {item.crust.type}</Card.Text>
                   <Card.Text>Sauce: {item.sauce.type}</Card.Text>
@@ -154,14 +155,16 @@ class SpecialtyPizzas extends React.Component {
                   <Card.Text>
                     Price of Toppings: ${item.basePrice.toFixed(2)}
                   </Card.Text>
-
-                  <StyledButton
+                    
+            
+                    </Card.Body>
+                    <div className="addToCartButton">      <StyledButton
                     type="button"
                     onClick={(e) => this.handleSubmit(item)}
                     text="Add to Cart"
                     variant="orderChoiceButton"
                   />
-                </Card.Body>
+                        </div>
               </Card>
             );
           })}
