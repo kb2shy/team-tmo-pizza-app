@@ -63,38 +63,37 @@ const OrderDisplay = ({ order_id }) => {
     // add toppings into array to build into toppingString
     const toppingsArray = [];
     for (let c of cheeses) {
-        toppingsArray.push(c.cheese_type);
+      toppingsArray.push(c.cheese_type);
     }
     for (let v of veggies) {
-        toppingsArray.push(v.veggie_type)
+      toppingsArray.push(v.veggie_type)
     }
     for (let m of meats) {
-        toppingsArray.push(m.meat_type);
+      toppingsArray.push(m.meat_type);
     }
 
     let toppingString = "";
     for (let i = 0; i < toppingsArray.length; i++) {
-        if (i === toppingsArray.length - 1) {
-            toppingString += `and ${toppingsArray[i]}`;
-        } else {
-            toppingString += `${toppingsArray[i]}, `;
-        } 
+      if (i === toppingsArray.length - 1) {
+        toppingString += `and ${toppingsArray[i]}`;
+      } else {
+        toppingString += `${toppingsArray[i]}, `;
+      }
     }
-    
+
     return toppingString.length !== 0 ? toppingString : `No Toppings`;
-}
+  }
 
   const getPizzaDetails = (pizza, key) => {
-    const pizzaBaseDetails = `${pizza.size.size_type} ${pizza.crust.crust_type} with ${pizza.sauce.sauce_type}`;
-    const pizzaToppingsString = pizzaToppings(pizza.cheeses, pizza.veggies, pizza.meats);
-
     return <OrderDetails key={key} pizza={pizza}></OrderDetails>
   }
 
   return (
     <Card style={{ marginBottom: 5 }}>
+    {console.log(data.getAllOrderInfoByOrderId)}
       <Card.Header>
-        {`Confirmation #${order_id}\n`}
+        {`Confirmation #${order_id}`}
+        <br />
         {`Ordered on ${dateParser()}`}
       </Card.Header>
       <Card.Body>
