@@ -69,7 +69,7 @@ const BackButton = ({
         variant="backButton"
         disabled={step === 1 || prevSteps.length === 0}
         onClick={handleClick}
-        text={pizza.editPizzaFlag ? 'Cancel' : 'Back'}
+        text={pizza.editPizzaFlag  && step === 3 ? 'Cancel' : 'Back'}
       />
       {/* {renderModal} */}
       <WarningModal
