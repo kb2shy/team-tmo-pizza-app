@@ -9,18 +9,17 @@ import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
 
 const MenuChoice = (props) => {
-    console.log('props: ', props)
     
     // Change to custom order
     const handleCustomOrder = (e) => {
         e.preventDefault();
-        return props.setMenu(3, props.step);
+        return props.setMenu(3);
     };
 
     // Change to specialty order
     const handleSpecialtyOrder = (e) => {
         e.preventDefault();
-        return props.setMenu(7, props.step);
+        return props.setMenu(7);
     }
 
   return (
@@ -51,10 +50,6 @@ const MenuChoice = (props) => {
 };
 
 
-const mapStateToProps = (state) => ({
-    step: state.menu.step,
-  });
-
-export default connect(mapStateToProps, {
+export default connect(undefined, {
     setMenu
   })(MenuChoice);

@@ -73,7 +73,6 @@ const Register = ({
     const value = evt.target.value;
     setUser((u) => ({ ...u, [name]: value }));
   };
-  console.log(errors)
   return (
     <div>
       <StyledTitle

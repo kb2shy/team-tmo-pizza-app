@@ -43,11 +43,8 @@ const Cart = ({
   createGuestOrder,
   createMemberOrder,
   order,
-  previousMenu,
   pizzas,
-  errors,
-  //  setPizzaQty
-  step
+  errors
 }) => {
   const [guestData, setGuestData] = useState({
     first_name: '',
@@ -115,9 +112,6 @@ const Cart = ({
     const value = e.target.value;
     setGuestData((d) => ({ ...d, [name]: value }));
   };
-
-
-  console.log(errors);
 
   // Guest view: displays a form for inputting information
   const renderGuestInput = () => {
@@ -267,13 +261,13 @@ const Cart = ({
   const handleAddAnotherPizza = (e) => {
     e.preventDefault();
     clearPizza();
-    setMenu(7, step);
+    setMenu(9);
   };
 
   const handleAddAPizza = (e) => {
     e.preventDefault();
     clearPizza();
-    setMenu(3)
+    setMenu(9)
   };
 
 
@@ -338,13 +332,11 @@ const Cart = ({
 
 const mapStateToProps = (state) => {
   return {
-    step: state.menu.step,
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
     guest: state.guest,
     order: state.order,
     pizzas: state.pizzas,
-    step: state.menu.step,
     errors: state.order.errors
   };
 };
