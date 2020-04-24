@@ -79,6 +79,7 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
 
     dispatch({
       type: ORDER_FAILURE,
+      errors: {emailError: 'Email is already in use.' }
     });
   }
 };

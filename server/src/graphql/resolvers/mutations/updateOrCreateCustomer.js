@@ -1,4 +1,9 @@
 const bcrypt = require('bcrypt');
+const {
+  ApolloServer,
+  UserInputError,
+  gql,
+} = require('apollo-server');
 
 // In addition to creating customers, this is used for updating an
 // already-created, non-registered customer. Updating already-created customers
@@ -25,12 +30,7 @@ async function updateOrCreateCustomer(
 
   // query a customer by the given email
   let existingCustomer = null;
-  try {
     existingCustomer = await Customer.findOne({ where: { email } });
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
 
   // In case an attempt is made to register/order pizza as guest
   //   using an email of an existing, registered account.
