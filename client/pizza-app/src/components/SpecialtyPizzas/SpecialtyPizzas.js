@@ -8,7 +8,6 @@ import { setMenu, setPopCart } from '../../actions/menu';
 import { GET_ALL_SPECIALTY_PIZZA_INFO } from '../../config/gqlDefines'
 import './SpecialtyPizzas.css'
 import PopCart from '../Cart/PopCart';
-
 import StyledButton from '../common/Button/StyledButton';
 
 const SpecialtyPizzas = (props) => {
