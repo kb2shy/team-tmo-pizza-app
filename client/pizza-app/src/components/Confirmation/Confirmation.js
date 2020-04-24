@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 // importing PDF features and components
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import Receipt from './Receipt/Receipt';
+import Barcode from './Receipt/Barcode';
 
 // Custom Styling
 import StyledButton from '../common/Button/StyledButton';
@@ -114,6 +115,7 @@ const Confirmation = ({ order, setMenu, clearOrder }) => {
       data-test="component-Confirmation"
       style={{ textAlign: 'center', flexWrap:'wrap' }}
     >
+      <Barcode />
       <Row className="col-header">
         <Col>
           <StyledTitle text="Confirmation" className="basicTitle" />
