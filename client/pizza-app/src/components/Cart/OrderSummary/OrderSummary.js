@@ -42,6 +42,7 @@ class OrderSummary extends React.Component {
               <Card className="orderSummaryContainer">
                 <Card.Body className="orderSummaryCardBody">
                   <PizzaCard
+                    name={pz.name}
                     size={pz.size}
                     crust={pz.crust}
                     sauce={pz.sauce}

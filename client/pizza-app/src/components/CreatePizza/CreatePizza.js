@@ -127,7 +127,7 @@ class CreatePizza extends React.Component {
 
           <StyledButton
             variant="basicButton"
-            text="Add to Cart"
+            text="Continue"
             type="button"
             onClick={this.handleSubmit}
             disabled={

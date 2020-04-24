@@ -105,7 +105,7 @@ class SpecialtyPizzas extends React.Component {
     // this.setState({
     //   data: results
     // })
-    console.log(results)
+  //console.log(results)
   };
 
   //adds pizza to pizzas store
@@ -168,7 +168,7 @@ class SpecialtyPizzas extends React.Component {
                 <div className="addToCartButton">      <StyledButton
                   type="button"
                   onClick={(e) => this.handleSubmit(item)}
-                  text="Add to Cart"
+                  text="Select Pizza"
                   variant="orderChoiceButton"
                 />
                 </div>

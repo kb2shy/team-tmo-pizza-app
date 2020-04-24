@@ -20,6 +20,10 @@ const PizzaCard = (props) => {
     <>
       <table>
         <tbody>
+          <tr id="Name">
+            <td>Name</td>
+            <td>{props.name}</td>
+          </tr>
           <tr id="Size">
             <td>Size</td>
             <td>{props.size.type}</td>
