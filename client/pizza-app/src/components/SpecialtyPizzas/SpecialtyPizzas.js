@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { setBase, setPizza, clearPizza } from '../../actions/pizza';
 import { addPizza } from '../../actions/pizzas';
 import { setMenu, setPopCart } from '../../actions/menu';
-
+import { GET_ALL_SPECIALTY_PIZZA_INFO } from '../../config/gqlDefines'
 import './SpecialtyPizzas.css'
 import PopCart from '../Cart/PopCart';
 
@@ -16,6 +16,7 @@ class SpecialtyPizzas extends React.Component {
     this.state = {
       showSizeQuantityPrompt: false,
       currentPizza: null,
+     // data: null
       data: [
         //sample data
         {
@@ -97,8 +98,14 @@ class SpecialtyPizzas extends React.Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     this.props.setPopCart(false);
+    const { client } = this.props;
+    //const results = await client.query({ query: GET_ALL_SPECIALTY_PIZZA_INFO})
+    // this.setState({
+    //   data: results
+    // })
+    console.log(results)
   };
 
   //adds pizza to pizzas store
@@ -155,16 +162,16 @@ class SpecialtyPizzas extends React.Component {
                   <Card.Text>
                     Price of Toppings: ${item.basePrice.toFixed(2)}
                   </Card.Text>
-                    
-            
-                    </Card.Body>
-                    <div className="addToCartButton">      <StyledButton
-                    type="button"
-                    onClick={(e) => this.handleSubmit(item)}
-                    text="Add to Cart"
-                    variant="orderChoiceButton"
-                  />
-                        </div>
+
+
+                </Card.Body>
+                <div className="addToCartButton">      <StyledButton
+                  type="button"
+                  onClick={(e) => this.handleSubmit(item)}
+                  text="Add to Cart"
+                  variant="orderChoiceButton"
+                />
+                </div>
               </Card>
             );
           })}

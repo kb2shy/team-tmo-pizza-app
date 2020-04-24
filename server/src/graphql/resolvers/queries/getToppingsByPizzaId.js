@@ -11,6 +11,7 @@ async function getToppingsByPizzaId(
 ) {
 
     return await Pizza.findOne({
+        attributes:[],
         where:{
             pizza_id: pizza_id
         },

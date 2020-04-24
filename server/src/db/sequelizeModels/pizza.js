@@ -33,6 +33,14 @@ Pizza.init({
     price: {
         type: DataTypes.FLOAT,
         allowNull: true
+    },
+    pizza_name: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    specialty: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true
     }
 }, {sequelize, modelName: 'pizza', timestamps: true, underscored: true})
 
