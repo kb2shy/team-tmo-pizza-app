@@ -16,7 +16,7 @@ const initialState = {
   user: null,
   isAuthenticated: false,
   loading: true,
-  errors: null
+  errors: null,
 };
 
 export default function (state = initialState, action) {
@@ -33,21 +33,26 @@ export default function (state = initialState, action) {
         user: payload, // name, email, ...
         isAuthenticated: true,
         loading: false,
+        errors: null,
       };
     case LOGIN_SUCCESS:
       localStorage.setItem(AUTH_LOC_STORAGE_KEY, payload.token);
       return {
         ...state,
-        ...payload,
+        token: payload.token,
         isAuthenticated: true,
         loading: false,
+        errors: null,
       };
     case REGISTER_FAILURE:
       return {
         ...state,
+        token: null,
+        user: null,
+        isAuthenticated: false,
         loading: false,
-        errors: payload.emailError
-      }
+        errors: payload.emailError,
+      };
     case LOGIN_FAILURE:
     case AUTH_ERROR:
     case LOGOUT:
@@ -58,6 +63,7 @@ export default function (state = initialState, action) {
         user: null,
         isAuthenticated: false,
         loading: false,
+        errors: null,
       };
     case REGISTER_SUCCESS:
     default:

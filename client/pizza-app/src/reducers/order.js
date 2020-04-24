@@ -2,6 +2,7 @@ import {
   ORDER_PROCESS,
   ORDER_SUCCESS,
   ORDER_FAILURE,
+  CLEAR_ORDER,
 } from '../config/actionTypes';
 
 const initialState = {
@@ -31,12 +32,10 @@ const orderReducer = (state = initialState, action) => {
     case ORDER_FAILURE:
       return {
         ...initialState,
-<<<<<<< HEAD
-        errors: action.payload,
-=======
         errors: action.payload.emailError,
->>>>>>> 6d9cea2b8eafcc8b2a5b71c5e7642695d9f0b5c2
       };
+    case CLEAR_ORDER:
+      return initialState;
     default:
       return state;
   }

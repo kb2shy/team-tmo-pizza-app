@@ -2,6 +2,7 @@ import {
   ORDER_PROCESS,
   ORDER_SUCCESS,
   ORDER_FAILURE,
+  CLEAR_ORDER,
 } from '../config/actionTypes';
 
 import { CREATE_GUEST_ORDER, CREATE_MEMBER_ORDER } from '../config/gqlDefines';
@@ -42,7 +43,7 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
-      quantity
+      quantity,
     });
   }
 
@@ -59,8 +60,6 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
     });
 
     const order = result.data.createGuestOrder;
-    console.log('RESULT: ' + order);
-
     if (!order) {
       throw new Error('Failed to create a guest order.');
     }
@@ -79,11 +78,9 @@ export const createGuestOrder = (guest, onSuccessEvent) => async (
 
     dispatch({
       type: ORDER_FAILURE,
-<<<<<<< HEAD
-      errors: {emailError: 'Email is already in use.' }
-=======
-      payload: {emailError: `There's already a registered account that is associated with this email`},
->>>>>>> 6d9cea2b8eafcc8b2a5b71c5e7642695d9f0b5c2
+      payload: {
+        emailError: `There's already a registered account that is associated with this email`,
+      },
     });
   }
 };
@@ -132,7 +129,7 @@ export const createMemberOrder = (onSuccessEvent) => async (
       crust: crustId,
       sauce: sauceId,
       toppings: toppingsId,
-      quantity
+      quantity,
     });
   }
 
@@ -155,7 +152,6 @@ export const createMemberOrder = (onSuccessEvent) => async (
     });
 
     const order = result.data.createMemberOrder;
-
     if (!order) {
       throw new Error('Failed to create a member order.');
     }
@@ -174,7 +170,13 @@ export const createMemberOrder = (onSuccessEvent) => async (
 
     dispatch({
       type: ORDER_FAILURE,
-      error: err.message,
+      payload: err.message,
     });
   }
+};
+
+export const clearOrder = () => async (dispatch, getState) => {
+  dispatch({
+    type: CLEAR_ORDER,
+  });
 };
