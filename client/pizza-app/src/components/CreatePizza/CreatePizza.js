@@ -19,7 +19,6 @@ import { setMenu, setPopCart } from '../../actions/menu';
 // Custom Styling
 import StyledButton from '../common/Button/StyledButton';
 import StyledTitle from '../common/Title/StyledTitle';
-
 import './CreatePizza.css';
 
 class CreatePizza extends React.Component {
@@ -78,10 +77,10 @@ class CreatePizza extends React.Component {
 //Adds verification message to users when forgetting to choose crust type/pizza sauce
   userValidationMsg = () => {
       if(this.props.pizza.crust.type === null ){
-          this.setState({message: 'Please select crust type!'});
+          this.setState({message: 'Please select a crust type from above!'});
           return false;
       } else if (this.props.pizza.sauce.type === null){
-          this.setState({message: 'Please select sauce type!'});
+          this.setState({message: 'Please select a sauce from above!'});
           return false;
       }
 
