@@ -57,7 +57,7 @@ const pizzaToppings = (cheeses, veggies, meats) => {
             toppingString += `${toppingsArray[i]}, `;
         } 
     }
-    return toppingString;
+    return toppingString.length !== 0 ? toppingString : `No Toppings`;
 }
 
 const pizzaCard = (pizzas) => {
