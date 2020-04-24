@@ -13,10 +13,6 @@ import StyledButton from '../common/Button/StyledButton';
 
 const SpecialtyPizzas = (props) => {
 
-  const [showSizeQuantityPrompt, setSizePrompt] = useState(false)
-  const [currentPizza, setCurrentPizza] = useState()
-  //const [data, setData] = useState()
-
   useEffect(() => {
     props.setPopCart(false);
   })
@@ -25,18 +21,38 @@ const SpecialtyPizzas = (props) => {
   if (error) return <p>{error.message}</p>
   if (loading) return <p>Loading...</p>
 
-  console.log(data)
   //adds pizza to pizzas store
   const handleSubmit = (pizza) => {
+
     const currentPizza = { ...props.pizza };
-    const toppings = { cheeses: [...pizza.cheeses], veggies: [...pizza.veggies], meats: [...pizza.meats]};
-    console.log(toppings)
+    const cheeses =
+      pizza.cheeses.map(cheese => {
+        return { type: cheese.cheese_type, id: cheese.cheese_id, price: cheese.cheese_price }
+      })
+    const meats =
+      pizza.meats.map(meat => {
+        return { type: meat.meat_type, id: meat.meat_id, price: meat.meat_price }
+      })
+
+    const veggies =
+      pizza.veggies.map(veggie => {
+        return { type: veggie.veggie_type, id: veggie.veggie_id, price: veggie.veggie_price }
+      })
+
+    const toppings = {
+      cheeses: cheeses,
+      veggies: veggies,
+      meats: meats
+    };
+    const crust = { type: pizza.crust.crust_type, id: pizza.crust.crust_id }
+    const sauce = { type: pizza.sauce.sauce_type, id: pizza.sauce.sauce_id }
+
     props.setPizza({
       ...currentPizza,
       name: pizza.pizza_name,
       toppings: toppings,
-      crust: pizza.crust,
-      sauce: pizza.sauce,
+      crust: crust,
+      sauce: sauce,
       basePrice: pizza.price.toFixed(2),
       totalPrice: pizza.price.toFixed(2),
       quantity: 1,
@@ -68,7 +84,7 @@ const SpecialtyPizzas = (props) => {
                   Cheese(s):
                   {item.cheeses.map((cheese, i) => {
                   console.log(cheese)
-                  return i === 0 ? ` ${cheese.cheese_type}` : `, ${cheese.cheeese_type}`
+                  return i === 0 ? ` ${cheese.cheese_type}` : `, ${cheese.cheese_type}`
                 }
                 )}
                 </Card.Text>
@@ -124,7 +140,7 @@ export default connect(mapStateToProps, {
 })(SpecialtyPizzas);
 
 
-
+//same as above in class component instead and with hard coded values
 // class SpecialtyPizzas extends React.Component {
 //   constructor(props) {
 //     super(props);
