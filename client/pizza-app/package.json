@@ -23,7 +23,7 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "validator": "^13.0.0"
+    "validator": "^13.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
